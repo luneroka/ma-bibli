@@ -7,7 +7,7 @@ import { IoSearchOutline } from 'react-icons/io5';
 
 const Navbar = () => {
   return (
-    <header className='max-w-screen-2x1'>
+    <header className='max-w-screen-2x1 sticky top-0 z-50'>
       <nav className='flex justify-between items-center bg-main-blue  px-[128px] py-[32px]'>
         {/* left side */}
         <div className='flex items-center md:gap-4'>
