@@ -39,10 +39,10 @@ const Navbar = () => {
 
         {/* right side */}
         <div className='flex items-center gap-4 sm:gap-6'>
-          <Link to='/'>
+          <Link to='/liste-de-lecture'>
             <FaListAlt className='w-8 h-8 text-white-bg' />
           </Link>
-          <Link to='/'>
+          <Link to='/bibliothèque'>
             <FaBookOpen className='w-8 h-8 text-white-bg' />
           </Link>
           <div className='relative flex items-center'>

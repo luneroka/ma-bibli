@@ -9,6 +9,8 @@ createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<App />}>
+          <Route path='/liste-de-lecture' element=<h1>Liste de lecture</h1> />
+          <Route path='/bibliothèque' element=<h1>Bibliothèque</h1> />
           <Route path='/dashboard' element=<h1>Dashboard</h1> />
           <Route path='/mon-compte' element=<h1>Mon Compte</h1> />
           <Route path='/logout' element=<h1>Se déconnecter</h1> />
