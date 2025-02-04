@@ -6,6 +6,12 @@ import { FaUser } from 'react-icons/fa';
 import { IoSearchOutline } from 'react-icons/io5';
 import avatarImg from '../assets/avatar.png';
 
+const navigation = [
+  { name: 'Dashboard', href: '/dashboard' },
+  { name: 'Mon compte', href: '/compte' },
+  { name: 'Se déconnecter', href: '/deconnexion' },
+];
+
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   console.log(isDropdownOpen);
