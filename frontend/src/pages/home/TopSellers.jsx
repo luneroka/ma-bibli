@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 
 const TopSellers = () => {
-  return (
-    <div>Meilleures ventes</div>
-  )
-}
+  const [books, setBooks] = useState([]);
 
-export default TopSellers
+  useEffect(() => {
+    fetch('books.json')
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  }, []);
+
+  return <div>Meilleures ventes</div>;
+};
+
+export default TopSellers;
