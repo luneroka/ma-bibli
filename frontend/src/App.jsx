@@ -2,10 +2,11 @@ import { Outlet } from 'react-router';
 import './App.css';
 
 function App() {
-
   return (
     <>
-      <Outlet/>
+      <nav>Navbar</nav>
+      <Outlet />
+      <footer>Footer</footer>
     </>
   );
 }
