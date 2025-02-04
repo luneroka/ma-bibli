@@ -2,14 +2,16 @@ import React, { useEffect, useState } from 'react';
 
 const categories = [
   'Filtrer par genre',
-  'Business',
+  'Classique',
   'Fiction',
-  'Horreur',
-  'Aventure',
+  'Drame',
+  'Poésie',
+  'Théâtre',
 ];
 
 const TopSellers = () => {
   const [books, setBooks] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('Filtrer par genre');
 
   useEffect(() => {
     fetch('books.json')
@@ -17,7 +19,16 @@ const TopSellers = () => {
       .then((data) => setBooks(data));
   }, []);
 
-  console.log(books);
+  const filteredBooks =
+    selectedCategory === 'Filtrer par genre'
+      ? books
+      : books.filter(
+          (book) =>
+            book.volumeInfo.categories?.[0]?.toLowerCase() ===
+            selectedCategory.toLowerCase()
+        );
+
+  console.log(filteredBooks);
 
   return (
     <>
@@ -26,6 +37,7 @@ const TopSellers = () => {
         {/* Category filter */}
         <div>
           <select
+            onChange={(e) => setSelectedCategory(e.target.value)}
             name='category'
             id='category'
             className='bg-secondary-btn px-2 py-1 rounded-lg text-white-bg'
@@ -37,6 +49,12 @@ const TopSellers = () => {
             ))}
           </select>
         </div>
+      </div>
+
+      <div>
+        {filteredBooks.map((book, index) => (
+          <div>{book.volumeInfo.title}</div>
+        ))}
       </div>
     </>
   );
