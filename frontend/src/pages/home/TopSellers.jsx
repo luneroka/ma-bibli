@@ -42,7 +42,7 @@ const TopSellers = () => {
             className='bg-secondary-btn px-2 py-1 rounded-lg text-white-bg'
           >
             {categories.map((category, index) => (
-              <option key={index} value={category}>
+              <option key={index} value={category} className='text-center'>
                 {category}
               </option>
             ))}
@@ -52,7 +52,7 @@ const TopSellers = () => {
 
       <div className='flex gap-[145px] mt-[32px]'>
         {filteredBooks.map((book, index) => (
-          <BookCard key={index} book={book}/>
+          <BookCard key={index} book={book} />
         ))}
       </div>
     </>

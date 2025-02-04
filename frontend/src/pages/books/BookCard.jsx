@@ -1,17 +1,20 @@
 import React from 'react';
 import { FaRegBookmark } from 'react-icons/fa';
 import { IoIosAddCircleOutline } from 'react-icons/io';
+import { Link } from 'react-router-dom';
 
 const BookCard = ({ book }) => {
   return (
     <>
       <div className='flex gap-[24px]'>
         <div className='flex flex-col w-[114px] gap-[16px]'>
-          <img
-            src={book.volumeInfo.imageLinks.thumbnail}
-            alt='Book Cover'
-            className='h-[160px]'
-          />
+          <Link to={`/livres/${book._id}`}>
+            <img
+              src={book.volumeInfo.imageLinks.thumbnail}
+              alt='Book Cover'
+              className='h-[160px] cursor-pointer hover:scale-105 transition-all duration-200 rounded-sm'
+            />
+          </Link>
           <a
             href='/liste-de-lecture/ajouter'
             className='bg-primary-btn text-black-75 text-xs rounded-lg px-1 py-1.5'
@@ -26,9 +29,11 @@ const BookCard = ({ book }) => {
         </div>
 
         <div className='flex flex-col w-[153px]'>
-          <p className='text-small font-bold h-[28px] mb-[4px] overflow-hidden'>
-            {book.volumeInfo.title}
-          </p>
+          <Link to={`/livres/${book._id}`}>
+            <p className='text-small font-bold h-[28px] mb-[4px] overflow-hidden'>
+              {book.volumeInfo.title}
+            </p>
+          </Link>
           <p className='text-small h-[128px] overflow-hidden mb-[16px]'>
             {book.volumeInfo.description}
           </p>
