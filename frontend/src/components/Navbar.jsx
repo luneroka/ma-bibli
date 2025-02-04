@@ -32,7 +32,7 @@ const Navbar = () => {
             />
           </div>
           {/* Search Button */}
-          <button className='hidden sm:block font-merriweather text-white-bg bg-primary-btn px-6 h-10 rounded-lg text-h6'>
+          <button className='cursor-pointer hidden sm:block font-merriweather text-white-bg bg-primary-btn px-6 h-10 rounded-lg text-h6'>
             Search
           </button>
         </div>
@@ -45,10 +45,13 @@ const Navbar = () => {
           <Link to='/'>
             <FaBookOpen className='w-8 h-8 text-white-bg' />
           </Link>
-          <div className='flex items-center'>
+          <div className='relative flex items-center'>
             {currentUser ? (
               <>
-                <button onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+                <button
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  className='cursor-pointer'
+                >
                   <img
                     src={avatarImg}
                     alt=''
@@ -59,7 +62,7 @@ const Navbar = () => {
                 </button>
                 {/* Show dropdowns */}
                 {isDropdownOpen && (
-                  <div className='absolute right-1 mt-50 w-40 bg-white-bg shadow-lg rounded-md z-50'>
+                  <div className='absolute right-0 mt-50 w-40 bg-white-bg shadow-lg rounded-md z-50'>
                     <ul className='py-2'>
                       {navigation.map((item) => (
                         <li key={item.name}>
