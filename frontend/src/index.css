@@ -35,3 +35,14 @@ body {
   font-size: 18px;
   background-color: #f9f9f9;
 }
+
+div.swiper-button-next {
+  color: #5b8fa1;
+  border-radius: 100%;
+}
+
+div.swiper-button-prev {
+  color: #5b8fa1;
+  border-radius: 100%;
+  margin-right: 32px;
+}
