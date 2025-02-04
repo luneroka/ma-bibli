@@ -19,7 +19,7 @@ const Navbar = () => {
 
   return (
     <header className='w-full sticky top-0 z-50 bg-main-blue'>
-      <nav className='flex justify-between items-center  px-6 md:px-[128px] py-[24px]'>
+      <nav className='flex justify-between items-center  px-6 md:px-[64px] py-[24px]'>
         {/* left side */}
         <div className='flex items-center gap-4'>
           {/* Search Input */}
@@ -28,11 +28,11 @@ const Navbar = () => {
             <input
               type='text'
               placeholder='Rechercher un livre ou un auteur...'
-              className='bg-white-bg w-full h-10 pl-10 pr-4 rounded-lg focus:outline-none'
+              className='bg-white-bg w-full h-10 pl-10 pr-4 rounded-lg focus:outline-none text-small md:text-body'
             />
           </div>
           {/* Search Button */}
-          <button className='cursor-pointer hidden sm:block font-merriweather text-white-bg bg-primary-btn px-6 h-10 rounded-lg text-h6'>
+          <button className='cursor-pointer hidden sm:block font-merriweather text-white-bg bg-primary-btn px-6 h-10 rounded-lg text-body md:text-h6'>
             Search
           </button>
         </div>
