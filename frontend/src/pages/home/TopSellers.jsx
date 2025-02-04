@@ -6,8 +6,10 @@ const TopSellers = () => {
   useEffect(() => {
     fetch('books.json')
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => setBooks(data));
   }, []);
+
+  console.log(books);
 
   return <div>Meilleures ventes</div>;
 };
