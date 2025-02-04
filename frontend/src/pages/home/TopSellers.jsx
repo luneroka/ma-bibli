@@ -3,7 +3,8 @@ import BookCard from '../books/BookCard';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { Pagination } from 'swiper/modules';
+import 'swiper/css/navigation';
+import { Pagination, Navigation } from 'swiper/modules';
 
 const categories = [
   'Filtrer par genre',
@@ -35,7 +36,7 @@ const TopSellers = () => {
 
   return (
     <>
-      <div className='flex items-center gap-8'>
+      <div className='flex items-center gap-8 mb-[32px]'>
         <h2 className='text-h2 font-merriweather'>Top ventes</h2>
         {/* Category filter */}
         <div>
@@ -56,35 +57,38 @@ const TopSellers = () => {
 
       <Swiper
         slidesPerView={1}
-        spaceBetween={10}
-        pagination={{
-          clickable: true,
-        }}
+        spaceBetween={30}
+        navigation={true}
         breakpoints={{
           640: {
-            slidesPerView: 2,
+            slidesPerView: 1,
             spaceBetween: 20,
           },
           768: {
-            slidesPerView: 4,
+            slidesPerView: 2,
             spaceBetween: 40,
           },
           1024: {
-            slidesPerView: 5,
+            slidesPerView: 2,
+            spaceBetween: 50,
+          },
+          1180: {
+            slidesPerView: 3,
             spaceBetween: 50,
           },
         }}
-        modules={[Pagination]}
+        modules={[Pagination, Navigation]}
         className='mySwiper'
       >
-        <SwiperSlide>Slide 1</SwiperSlide>
+        <div className='flex gap-[145px] mt-[32px]'>
+          {filteredBooks.length > 0 &&
+            filteredBooks.map((book, index) => (
+              <SwiperSlide>
+                <BookCard key={index} book={book} />
+              </SwiperSlide>
+            ))}
+        </div>
       </Swiper>
-
-      <div className='flex gap-[145px] mt-[32px]'>
-        {filteredBooks.map((book, index) => (
-          <BookCard key={index} book={book} />
-        ))}
-      </div>
     </>
   );
 };
