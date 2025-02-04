@@ -59,13 +59,13 @@ const Navbar = () => {
                 </button>
                 {/* Show dropdowns */}
                 {isDropdownOpen && (
-                  <div className='absolute right-2 mt-55 w-40 bg-white-bg shadow-lg rounded-md z-50'>
+                  <div className='absolute right-1 mt-50 w-40 bg-white-bg shadow-lg rounded-md z-50'>
                     <ul className='py-2'>
                       {navigation.map((item) => (
                         <li key={item.name}>
                           <Link
                             to={item.href}
-                            className='block px-4 py-4 text-sm hover:bg-gray-100'
+                            className='block px-4 py-3 text-sm hover:bg-gray-100'
                           >
                             {item.name}
                           </Link>
