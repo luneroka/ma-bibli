@@ -1,5 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import BookCard from '../books/BookCard';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import { Pagination } from 'swiper/modules';
 
 const categories = [
   'Filtrer par genre',
@@ -49,6 +53,32 @@ const TopSellers = () => {
           </select>
         </div>
       </div>
+
+      <Swiper
+        slidesPerView={1}
+        spaceBetween={10}
+        pagination={{
+          clickable: true,
+        }}
+        breakpoints={{
+          640: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+          768: {
+            slidesPerView: 4,
+            spaceBetween: 40,
+          },
+          1024: {
+            slidesPerView: 5,
+            spaceBetween: 50,
+          },
+        }}
+        modules={[Pagination]}
+        className='mySwiper'
+      >
+        <SwiperSlide>Slide 1</SwiperSlide>
+      </Swiper>
 
       <div className='flex gap-[145px] mt-[32px]'>
         {filteredBooks.map((book, index) => (
