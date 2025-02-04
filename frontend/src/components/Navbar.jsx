@@ -14,13 +14,13 @@ const Navbar = () => {
         {/* right side */}
         <div>
           <Link to='/'>
-            <FaListAlt />
+            <FaListAlt className='w-[32px] h-[32px] text-primary-btn' />
           </Link>
           <Link to='/'>
-            <FaBookOpen />
+            <FaBookOpen className='w-[32px] h-[32px] text-primary-btn' />
           </Link>
           <Link to='/'>
-            <FaUser />
+            <FaUser className='w-[32px] h-[32px] text-primary-btn' />
           </Link>
         </div>
       </nav>
