@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaListAlt } from 'react-icons/fa';
+import { FaBookOpen } from 'react-icons/fa';
 
 const Navbar = () => {
   return (
@@ -14,7 +15,9 @@ const Navbar = () => {
           <Link to='/'>
             <FaListAlt />
           </Link>
-          <Link to='/'>B</Link>
+          <Link to='/'>
+            <FaBookOpen />
+          </Link>
           <Link to='/'>A</Link>
         </div>
       </nav>
