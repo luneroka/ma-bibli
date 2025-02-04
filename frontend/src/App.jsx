@@ -5,7 +5,7 @@ function App() {
   return (
     <>
       <nav>Navbar</nav>
-      <main className='min-h-screen'>
+      <main className='bg-mint-500'>
         <Outlet />
       </main>
       <footer>Footer</footer>

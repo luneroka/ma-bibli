@@ -1,1 +1,13 @@
 @import 'tailwindcss';
+@theme {
+  --color-main-blue: #3e4c74;
+  --color-primary-btn: #f76c5e;
+  --color-secondary-btn: #5b8fa1;
+  --color-white-bg: #f9f9f9;
+  --color-black-100: rgba(38, 31, 34, 1);
+  --color-black-75: rgba(38, 31, 34, 0.75);
+  --color-black-50: rgba(38, 31, 34, 0.5);
+  --color-black-25: rgba(38, 31, 34, 0.25);
+  --color-black-10: rgba(38, 31, 34, 0.1);
+  --color-black-5: rgba(38, 31, 34, 0.05);
+}
