@@ -4,8 +4,11 @@ import { FaListAlt } from 'react-icons/fa';
 import { FaBookOpen } from 'react-icons/fa';
 import { FaUser } from 'react-icons/fa';
 import { IoSearchOutline } from 'react-icons/io5';
+import avatarImg from '../assets/avatar.png';
 
 const Navbar = () => {
+  const currentUser = true;
+
   return (
     <header className='max-w-screen-2x1 sticky top-0 z-50 bg-main-blue overflow-hidden'>
       <nav className='flex justify-between items-center  px-6 md:px-[128px] py-[24px]'>
@@ -29,14 +32,28 @@ const Navbar = () => {
         {/* right side */}
         <div className='flex items-center gap-4 sm:gap-6'>
           <Link to='/'>
-            <FaListAlt className='w-6 h-6 text-white-bg' />
+            <FaListAlt className='w-8 h-8 text-white-bg' />
           </Link>
           <Link to='/'>
-            <FaBookOpen className='w-6 h-6 text-white-bg' />
+            <FaBookOpen className='w-8 h-8 text-white-bg' />
           </Link>
-          <Link to='/'>
-            <FaUser className='w-8 h-8 text-primary-btn' />
-          </Link>
+          <div className='flex items-center'>
+            {currentUser ? (
+              <button>
+                <img
+                  src={avatarImg}
+                  alt=''
+                  className={`size-10 rounded-full ${
+                    currentUser ? 'ring-2 ring-primary-btn' : ''
+                  }`}
+                />
+              </button>
+            ) : (
+              <Link to='/login'>
+                <FaUser className='w-8 h-8 text-primary-btn' />
+              </Link>
+            )}
+          </div>
         </div>
       </nav>
     </header>
