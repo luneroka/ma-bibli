@@ -31,11 +31,15 @@ const BookCard = ({ book }) => {
         <div className='flex flex-col w-[153px]'>
           <Link to={`/livres/${book._id}`}>
             <p className='text-small font-bold h-[28px] mb-[4px] overflow-hidden'>
-              {book.volumeInfo.title}
+              {book.volumeInfo.title.length > 22
+                ? `${book.volumeInfo.title.slice(0, 22)}...`
+                : book.volumeInfo.title}
             </p>
           </Link>
           <p className='text-small h-[128px] overflow-hidden mb-[16px]'>
-            {book.volumeInfo.description}
+            {book.volumeInfo.description.length > 115
+              ? `${book.volumeInfo.description.slice(0, 115)}...`
+              : book.volumeInfo.description}
           </p>
           <a
             href='/bibliothèque/ajouter'

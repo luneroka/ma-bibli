@@ -5,11 +5,11 @@
     "etag": "xyz123",
     "selfLink": "https://www.googleapis.com/books/v1/volumes/1a2b3c",
     "volumeInfo": {
-      "title": "Le Petit Prince",
+      "title": "Le Petit Prince qui s'en allait au bois",
       "authors": ["Antoine de Saint-Exupéry"],
       "publisher": "Éditions Gallimard",
       "publishedDate": "1943",
-      "description": "Une œuvre intemporelle racontant l’histoire d’un petit garçon explorant des planètes.",
+      "description": "Une œuvre intemporelle racontant l’histoire d’un petit garçon explorant des planètes.Une œuvre intemporelle racontant l’histoire d’un petit garçon explorant des planètes.",
       "pageCount": 96,
       "categories": ["Classique", "Fiction"],
       "averageRating": 4.9,
