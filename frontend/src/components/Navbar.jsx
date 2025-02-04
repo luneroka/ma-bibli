@@ -3,13 +3,24 @@ import { Link } from 'react-router-dom';
 import { FaListAlt } from 'react-icons/fa';
 import { FaBookOpen } from 'react-icons/fa';
 import { FaUser } from 'react-icons/fa';
+import { IoSearchOutline } from 'react-icons/io5';
 
 const Navbar = () => {
   return (
     <header className='max-w-screen-2x1 mx-auto px-4 py-6'>
       <nav className='flex justify-between items-center'>
         {/* left side */}
-        <div></div>
+        <div>
+          {/* Search Input */}
+          <div>
+            <IoSearchOutline />
+            <input
+              type='text'
+              placeholder='Rechercher un livre ou un auteur...'
+              className='bg-white-bg'
+            />
+          </div>
+        </div>
 
         {/* right side */}
         <div>
