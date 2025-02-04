@@ -23,3 +23,9 @@
   --text-metrics-type: 1.333rem;
   --text-chart-title: 1.111rem;
 }
+
+html,
+body {
+  font-family: Lato, serif;
+  font-size: 18px;
+}

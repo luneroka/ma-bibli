@@ -8,8 +8,8 @@ import avatarImg from '../assets/avatar.png';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard' },
-  { name: 'Mon compte', href: '/compte' },
-  { name: 'Se déconnecter', href: '/deconnexion' },
+  { name: 'Mon compte', href: '/mon-compte' },
+  { name: 'Se déconnecter', href: '/logout' },
 ];
 
 const Navbar = () => {
@@ -18,7 +18,7 @@ const Navbar = () => {
   const currentUser = true;
 
   return (
-    <header className='max-w-screen-2x1 sticky top-0 z-50 bg-main-blue overflow-hidden'>
+    <header className='w-full sticky top-0 z-50 bg-main-blue'>
       <nav className='flex justify-between items-center  px-6 md:px-[128px] py-[24px]'>
         {/* left side */}
         <div className='flex items-center gap-4'>
@@ -59,11 +59,16 @@ const Navbar = () => {
                 </button>
                 {/* Show dropdowns */}
                 {isDropdownOpen && (
-                  <div>
-                    <ul>
+                  <div className='absolute right-2 mt-55 w-40 bg-white-bg shadow-lg rounded-md z-50'>
+                    <ul className='py-2'>
                       {navigation.map((item) => (
                         <li key={item.name}>
-                          <Link to={item.href}>{item.name}</Link>
+                          <Link
+                            to={item.href}
+                            className='block px-4 py-4 text-sm hover:bg-gray-100'
+                          >
+                            {item.name}
+                          </Link>
                         </li>
                       ))}
                     </ul>
