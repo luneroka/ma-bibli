@@ -65,7 +65,10 @@ const Navbar = () => {
                   <div className='absolute right-0 mt-50 w-40 bg-white-bg shadow-lg rounded-md z-50'>
                     <ul className='py-2'>
                       {navigation.map((item) => (
-                        <li key={item.name}>
+                        <li
+                          key={item.name}
+                          onClick={() => setIsDropdownOpen(false)}
+                        >
                           <Link
                             to={item.href}
                             className='block px-4 py-3 text-sm hover:bg-gray-100'
