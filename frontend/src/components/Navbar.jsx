@@ -7,7 +7,7 @@ import { IoSearchOutline } from 'react-icons/io5';
 
 const Navbar = () => {
   return (
-    <header className='max-w-screen-2x1 mx-auto px-4 py-6'>
+    <header className='max-w-screen-2x1 mx-[128px] px-4 py-6'>
       <nav className='flex justify-between items-center'>
         {/* left side */}
         <div>
@@ -17,7 +17,7 @@ const Navbar = () => {
             <input
               type='text'
               placeholder='Rechercher un livre ou un auteur...'
-              className='bg-white-bg'
+              className='bg-white-bg w-full py-1 md:px-8 px-6 round-md focus:outline-none'
             />
           </div>
         </div>
