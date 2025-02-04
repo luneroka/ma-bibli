@@ -14,7 +14,6 @@ const navigation = [
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  console.log(isDropdownOpen);
 
   const currentUser = true;
 
@@ -48,15 +47,29 @@ const Navbar = () => {
           </Link>
           <div className='flex items-center'>
             {currentUser ? (
-              <button onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-                <img
-                  src={avatarImg}
-                  alt=''
-                  className={`size-10 rounded-full ${
-                    currentUser ? 'ring-2 ring-primary-btn' : ''
-                  }`}
-                />
-              </button>
+              <>
+                <button onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+                  <img
+                    src={avatarImg}
+                    alt=''
+                    className={`size-10 rounded-full ${
+                      currentUser ? 'ring-2 ring-primary-btn' : ''
+                    }`}
+                  />
+                </button>
+                {/* Show dropdowns */}
+                {isDropdownOpen && (
+                  <div>
+                    <ul>
+                      {navigation.map((item) => (
+                        <li key={item.name}>
+                          <Link to={item.href}>{item.name}</Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </>
             ) : (
               <Link to='/login'>
                 <FaUser className='w-8 h-8 text-primary-btn' />
