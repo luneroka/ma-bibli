@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaListAlt } from 'react-icons/fa';
 import { FaBookOpen } from 'react-icons/fa';
@@ -7,6 +7,9 @@ import { IoSearchOutline } from 'react-icons/io5';
 import avatarImg from '../assets/avatar.png';
 
 const Navbar = () => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  console.log(isDropdownOpen);
+
   const currentUser = true;
 
   return (
@@ -39,7 +42,7 @@ const Navbar = () => {
           </Link>
           <div className='flex items-center'>
             {currentUser ? (
-              <button>
+              <button onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
                 <img
                   src={avatarImg}
                   alt=''
