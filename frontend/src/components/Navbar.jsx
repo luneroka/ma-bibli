@@ -7,13 +7,13 @@ import { IoSearchOutline } from 'react-icons/io5';
 
 const Navbar = () => {
   return (
-    <header className='max-w-screen-2x1 sticky top-0 z-50'>
-      <nav className='flex justify-between items-center bg-main-blue  px-[128px] py-[32px]'>
+    <header className='max-w-screen-2x1 sticky top-0 z-50 bg-main-blue'>
+      <nav className='flex justify-between items-center  px-6 md:px-[128px] py-[24px]'>
         {/* left side */}
-        <div className='flex items-center md:gap-4'>
+        <div className='flex items-center gap-4'>
           {/* Search Input */}
-          <div className='relative w-full min-w-[480px] max-w-[480px]'>
-            <IoSearchOutline className='absolute inline-block left-3 inset-y-0 my-auto' />
+          <div className='relative w-[100%] md:w-[480px]'>
+            <IoSearchOutline className='absolute left-3 inset-y-0 my-auto' />
             <input
               type='text'
               placeholder='Rechercher un livre ou un auteur...'
@@ -21,21 +21,21 @@ const Navbar = () => {
             />
           </div>
           {/* Search Button */}
-          <button className='font-merriweather text-white-bg bg-primary-btn px-6 h-10 rounded-lg text-h6'>
+          <button className='hidden sm:block font-merriweather text-white-bg bg-primary-btn px-6 h-10 rounded-lg text-h6'>
             Search
           </button>
         </div>
 
         {/* right side */}
-        <div className='flex justify-between items-center gap-[24px]'>
+        <div className='flex items-center gap-4 sm:gap-6'>
           <Link to='/'>
-            <FaListAlt className='w-[24px] h-[24px] text-white-bg' />
+            <FaListAlt className='w-6 h-6 text-white-bg' />
           </Link>
           <Link to='/'>
-            <FaBookOpen className='w-[24px] h-[24px] text-white-bg' />
+            <FaBookOpen className='w-6 h-6 text-white-bg' />
           </Link>
           <Link to='/'>
-            <FaUser className='w-[32px] h-[32px] text-primary-btn' />
+            <FaUser className='w-8 h-8 text-primary-btn' />
           </Link>
         </div>
       </nav>
