@@ -5,8 +5,12 @@ import TopSellers from './TopSellers';
 const Home = () => {
   return (
     <>
-      <NewReleases />
-      <TopSellers />
+      <div className='px-[128px]'>
+        <div className='mt-[96px] mb-[64px]'>
+          <NewReleases />
+        </div>
+        <TopSellers />
+      </div>
     </>
   );
 };

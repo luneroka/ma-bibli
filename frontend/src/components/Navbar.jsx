@@ -19,7 +19,7 @@ const Navbar = () => {
 
   return (
     <header className='w-full sticky top-0 z-50 bg-main-blue'>
-      <nav className='flex justify-between items-center  px-6 md:px-[64px] py-[24px]'>
+      <nav className='flex justify-between items-center  px-[64px] md:px-[128px] py-[24px]'>
         {/* left side */}
         <div className='flex items-center gap-4'>
           {/* Search Input */}
