@@ -24,7 +24,7 @@ function NavbarLibrary() {
       <nav className='flex justify-between items-center  px-[64px] md:px-[128px] py-[17px]'>
         {/* left side */}
         <div className='flex items-center gap-4'>
-          {/* Search Input */}
+          {/* Home Icon */}
           <Link to='/'>
             <IoHome className='cursor-pointer w-6 h-6 text-white-bg hover:text-primary-btn' />
           </Link>
