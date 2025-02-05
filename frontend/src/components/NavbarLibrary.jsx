@@ -20,23 +20,23 @@ function NavbarLibrary() {
   const currentUser = true;
 
   return (
-    <header className='w-full sticky top-0 z-50 bg-main-blue h-[96px]'>
-      <nav className='flex justify-between items-center  px-[64px] md:px-[128px] py-[24px]'>
+    <header className='w-full sticky top-0 z-50 bg-main-blue h-[70px]'>
+      <nav className='flex justify-between items-center  px-[64px] md:px-[128px] py-[17px]'>
         {/* left side */}
         <div className='flex items-center gap-4'>
           {/* Search Input */}
           <Link to='/'>
-            <IoHome className='cursor-pointer w-8 h-8 text-white-bg hover:text-primary-btn' />
+            <IoHome className='cursor-pointer w-6 h-6 text-white-bg hover:text-primary-btn' />
           </Link>
         </div>
 
         {/* right side */}
         <div className='flex items-center gap-4 sm:gap-6'>
           <Link to='/liste-de-lecture'>
-            <FaListAlt className='w-8 h-8 text-white-bg hover:text-primary-btn' />
+            <FaListAlt className='w-6 h-6 text-white-bg hover:text-primary-btn' />
           </Link>
           <Link to='/bibliothèque'>
-            <FaBookOpen className='w-8 h-8 text-white-bg hover:text-primary-btn' />
+            <FaBookOpen className='w-6 h-6 text-white-bg hover:text-primary-btn' />
           </Link>
           <div className='relative flex items-center'>
             {currentUser ? (
@@ -48,7 +48,7 @@ function NavbarLibrary() {
                   <img
                     src={avatarImg}
                     alt=''
-                    className={`size-10 rounded-full ${
+                    className={`size-8 rounded-full ${
                       currentUser
                         ? 'ring-2 ring-white-bg hover:ring-primary-btn'
                         : ''
@@ -78,7 +78,7 @@ function NavbarLibrary() {
               </>
             ) : (
               <Link to='/login'>
-                <FaUser className='w-8 h-8 text-white-bg hover:text-primary-btn' />
+                <FaUser className='w-6 h-6 text-white-bg hover:text-primary-btn' />
               </Link>
             )}
           </div>
