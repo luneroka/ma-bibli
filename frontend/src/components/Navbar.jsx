@@ -28,11 +28,11 @@ const Navbar = () => {
             <input
               type='text'
               placeholder='Rechercher un livre ou un auteur...'
-              className='bg-white-bg w-full h-10 pl-10 pr-4 rounded-lg focus:outline-none text-small md:text-body'
+              className='bg-white-bg w-full h-10 pl-10 pr-4 rounded-lg text-small md:text-body focus:outline-none focus:ring-2 focus:ring-primary-btn'
             />
           </div>
           {/* Search Button */}
-          <button className='cursor-pointer hidden sm:block font-merriweather text-white-bg bg-primary-btn px-6 h-10 rounded-lg text-body md:text-h6'>
+          <button className='cursor-pointer hidden sm:block font-merriweather text-white-bg bg-primary-btn px-6 h-10 rounded-lg text-body md:text-h6 hover:bg-secondary-btn active:bg-black-75'>
             Search
           </button>
         </div>
@@ -40,10 +40,10 @@ const Navbar = () => {
         {/* right side */}
         <div className='flex items-center gap-4 sm:gap-6'>
           <Link to='/liste-de-lecture'>
-            <FaListAlt className='w-8 h-8 text-white-bg' />
+            <FaListAlt className='w-8 h-8 text-white-bg hover:text-primary-btn' />
           </Link>
           <Link to='/bibliothèque'>
-            <FaBookOpen className='w-8 h-8 text-white-bg' />
+            <FaBookOpen className='w-8 h-8 text-white-bg hover:text-primary-btn' />
           </Link>
           <div className='relative flex items-center'>
             {currentUser ? (

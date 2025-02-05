@@ -15,9 +15,9 @@ const BookCard = ({ book }) => {
               className='h-[160px] cursor-pointer hover:scale-105 transition-all duration-200 rounded-sm'
             />
           </Link>
-          <a
-            href='/liste-de-lecture/ajouter'
-            className='bg-primary-btn text-black-75 text-xs rounded-lg px-1 py-1.5'
+          <Link
+            to='/'
+            className='bg-primary-btn text-black-75 text-xs rounded-lg px-1 py-1.5 hover:bg-secondary-btn'
           >
             <div className='flex gap-1 items-center justify-center'>
               <div className='text-body'>
@@ -25,7 +25,7 @@ const BookCard = ({ book }) => {
               </div>
               Liste de lecture
             </div>
-          </a>
+          </Link>
         </div>
 
         <div className='flex flex-col w-[153px]'>
@@ -41,9 +41,9 @@ const BookCard = ({ book }) => {
               ? `${book.volumeInfo.description.slice(0, 115)}...`
               : book.volumeInfo.description}
           </p>
-          <a
-            href='/bibliothèque/ajouter'
-            className='bg-primary-btn text-black-75 text-xs rounded-lg px-1 py-1.5'
+          <Link
+            to='/'
+            className='bg-primary-btn text-black-75 text-xs rounded-lg px-1 py-1.5 hover:bg-secondary-btn'
           >
             <div className='flex gap-1 items-center justify-center'>
               <div className='text-body'>
@@ -51,7 +51,7 @@ const BookCard = ({ book }) => {
               </div>
               Ajouter à ma bibli
             </div>
-          </a>
+          </Link>
         </div>
       </div>
     </>
