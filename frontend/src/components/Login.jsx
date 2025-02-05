@@ -13,6 +13,7 @@ function Login() {
   } = useForm();
 
   const onSubmit = (data) => console.log(data);
+  const handleGoogleSignIn = () => {};
 
   return (
     <div className='flex flex-col flex-1 min-h-0 min-w-[600px] max-w-full mx-auto font-lato'>
@@ -72,7 +73,10 @@ function Login() {
 
           {/* Google Signin */}
           <div className='mt-6'>
-            <button className='cursor-pointer font-merriweather w-full flex gap-2 items-center justify-center text-white-bg bg-main-blue px-6 h-10 rounded-lg text-body hover:bg-secondary-btn active:bg-black-75'>
+            <button
+              onClick={handleGoogleSignIn}
+              className='cursor-pointer font-merriweather w-full flex gap-2 items-center justify-center text-white-bg bg-main-blue px-6 h-10 rounded-lg text-body hover:bg-secondary-btn active:bg-black-75'
+            >
               <FaGoogle />
               Se connecter avec Google
             </button>
