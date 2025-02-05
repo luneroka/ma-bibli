@@ -47,9 +47,9 @@ const Recommended = () => {
         className='mySwiper'
       >
         <div className='flex gap-[145px]'>
-          {books.map((book, index) => (
-            <SwiperSlide>
-              <BookCard key={index} book={book} />
+          {books.map((book) => (
+            <SwiperSlide key={book.id}>
+              <BookCard book={book} />
             </SwiperSlide>
           ))}
         </div>

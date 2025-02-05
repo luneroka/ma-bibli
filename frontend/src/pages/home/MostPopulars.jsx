@@ -82,9 +82,9 @@ const MostPopulars = () => {
       >
         <div className='flex gap-[145px] mt-[32px]'>
           {filteredBooks.length > 0 &&
-            filteredBooks.map((book, index) => (
-              <SwiperSlide>
-                <BookCard key={index} book={book} />
+            filteredBooks.map((book) => (
+              <SwiperSlide key={book.id}>
+                <BookCard book={book} />
               </SwiperSlide>
             ))}
         </div>

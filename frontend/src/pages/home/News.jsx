@@ -41,8 +41,8 @@ const News = () => {
       >
         <div className='flex gap-[145px]'>
           {news.map((article) => (
-            <SwiperSlide>
-              <NewsCard key={article.id} article={article} />
+            <SwiperSlide key={article.id}>
+              <NewsCard article={article} />
             </SwiperSlide>
           ))}
         </div>
