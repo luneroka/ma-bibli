@@ -2,6 +2,7 @@ import React from 'react';
 import NewReleases from './NewReleases';
 import Recommended from './Recommended';
 import MostPopulars from './MostPopulars';
+import News from './News';
 
 const Home = () => {
   return (
@@ -13,8 +14,11 @@ const Home = () => {
         <div className='mb-[96px]'>
           <MostPopulars />
         </div>
-        <div>
+        <div className='mb-[64px]'>
           <Recommended />
+        </div>
+        <div>
+          <News />
         </div>
       </div>
     </>
