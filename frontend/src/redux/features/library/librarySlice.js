@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-
+import Swal from 'sweetalert2';
 const initialState = {
   libraryBooks: [],
 };
@@ -14,9 +14,21 @@ const librarySlice = createSlice({
       );
       if (!existingBook) {
         state.libraryBooks.push(action.payload);
-        alert('Book successfully added to your library!');
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Ajouté à votre bibliothèque !',
+          showConfirmButton: false,
+          timer: 1500,
+        });
       } else {
-        alert('This book is already in your library.');
+        Swal.fire({
+          position: 'center',
+          icon: 'info',
+          title: 'Déjà dans votre bibliothèque.',
+          showConfirmButton: false,
+          timer: 1500,
+        });
       }
     },
   },
