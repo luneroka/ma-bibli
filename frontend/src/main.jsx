@@ -9,7 +9,7 @@ import RegisterPage from './pages/register/RegisterPage.jsx';
 import { Provider } from 'react-redux';
 import { store } from './redux/store.js';
 import 'sweetalert2/dist/sweetalert2.js';
-import LibraryPage from './pages/books/LibraryPage.jsx';
+import LibraryPage from './pages/library/LibraryPage.jsx';
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
@@ -26,7 +26,9 @@ createRoot(document.getElementById('root')).render(
   </Provider>
 );
 
-{/* <Route path='/liste-de-lecture' element=<h1>Liste de lecture</h1> />
+{
+  /* <Route path='/liste-de-lecture' element=<h1>Liste de lecture</h1> />
 <Route path='/dashboard' element=<h1>Dashboard</h1> />
 <Route path='/mon-compte' element=<h1>Mon Compte</h1> />
-<Route path='/logout' element=<h1>Se déconnecter</h1> /> */}
+<Route path='/logout' element=<h1>Se déconnecter</h1> /> */
+}
