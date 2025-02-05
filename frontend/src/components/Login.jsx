@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { FaGoogle } from 'react-icons/fa';
 
 function Login() {
+  const [message, setMessage] = useState('');
+
   return (
     <div className='flex flex-col flex-1 min-h-0 min-w-[600px] max-w-full mx-auto font-lato'>
       <div className='flex-grow flex items-center justify-center mt-[96px]'>
@@ -37,6 +40,11 @@ function Login() {
                  rounded-lg w-full py-2 px-3 mb-6'
               />
             </div>
+
+            {message && (
+              <p className='text-red-500 text-xs italic mb-3'>{message}</p>
+            )}
+
             <div>
               <button className='cursor-pointer font-merriweather text-white-bg bg-primary-btn px-6 h-10 rounded-lg w-full text-body md:text-h6 hover:bg-secondary-btn active:bg-black-75'>
                 Se connecter
@@ -50,6 +58,15 @@ function Login() {
               <Link to='/register'>Inscrivez-vous ici.</Link>
             </span>
           </p>
+
+          {/* Google Signin */}
+          <div className='mt-6'>
+            <button className='cursor-pointer font-merriweather w-full flex gap-2 items-center justify-center text-white-bg bg-main-blue px-6 h-10 rounded-lg text-body hover:bg-secondary-btn active:bg-black-75'>
+              <FaGoogle />
+              Se connecter avec Google
+            </button>
+          </div>
+          <p className='text-xs text-center mt-6 text-black-50'>&copy;2025 Ma Bibli. Tous droits réservés.</p>
         </div>
       </div>
     </div>
