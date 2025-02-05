@@ -6,9 +6,11 @@ import App from './App.jsx';
 import Home from './pages/home/Home.jsx';
 import LoginPage from './pages/login/LoginPage.jsx';
 import RegisterPage from './pages/register/RegisterPage.jsx';
+import { Provider } from 'react-redux';
+import { store } from './redux/store.js';
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  <Provider store={store}>
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<App />}>
@@ -23,5 +25,5 @@ createRoot(document.getElementById('root')).render(
         <Route path='/register' element={<RegisterPage />} />
       </Routes>
     </BrowserRouter>
-  </StrictMode>
+  </Provider>
 );
