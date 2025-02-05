@@ -1,12 +1,56 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Login() {
   return (
-    <div className='flex flex-col flex-1 min-h-0 max-w-full mx-auto font-lato'>
+    <div className='flex flex-col flex-1 min-h-0 min-w-[600px] max-w-full mx-auto font-lato'>
       <div className='flex-grow flex items-center justify-center mt-[96px]'>
-        <form className='bg-white p-8 rounded-lg shadow-md w-full max-w-md'>
-          <h2 className='text-h5 text-black'>Mon espace lecture</h2>
-        </form>
+        <div className='bg-white p-8 rounded-lg shadow-md w-full max-w-md'>
+          <h2 className='text-h5 text-black mb-8'>Mon espace lecture</h2>
+          <form>
+            <div>
+              <label
+                htmlFor='email'
+                className='block text-small text-black-75 mb-1'
+              >
+                Email
+              </label>
+              <input
+                type='email'
+                name='email'
+                id='email'
+                placeholder='Email'
+                className='text-black-75 shadow border border-black-25 focus:outline-secondary-btn rounded-lg w-full py-2 px-3 mb-4'
+              />
+              <label
+                htmlFor='passord'
+                className='block text-small text-black-75 mb-1'
+              >
+                Mot de Passe
+              </label>
+              <input
+                type='password'
+                name='password'
+                id='password'
+                placeholder='Mot de Passe'
+                className='text-black-75 shadow border border-black-25 focus:outline-secondary-btn
+                 rounded-lg w-full py-2 px-3 mb-6'
+              />
+            </div>
+            <div>
+              <button className='cursor-pointer font-merriweather text-white-bg bg-primary-btn px-6 h-10 rounded-lg w-full text-body md:text-h6 hover:bg-secondary-btn active:bg-black-75'>
+                Se connecter
+              </button>
+            </div>
+          </form>
+          <hr className='text-black-10 mt-6 mb-6' />
+          <p className='text-black text-small'>
+            Pas encore inscrit ?{' '}
+            <span className='text-secondary-btn underline hover:text-primary-btn active:text-black-75'>
+              <Link to='/register'>Inscrivez-vous ici.</Link>
+            </span>
+          </p>
+        </div>
       </div>
     </div>
   );
