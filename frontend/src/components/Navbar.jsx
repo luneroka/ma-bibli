@@ -15,7 +15,7 @@ const navigation = [
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const currentUser = true;
+  const currentUser = false;
 
   return (
     <header className='w-full sticky top-0 z-50 bg-main-blue'>
@@ -56,7 +56,9 @@ const Navbar = () => {
                     src={avatarImg}
                     alt=''
                     className={`size-10 rounded-full ${
-                      currentUser ? 'ring-2 ring-white-bg hover:ring-primary-btn' : ''
+                      currentUser
+                        ? 'ring-2 ring-white-bg hover:ring-primary-btn'
+                        : ''
                     }`}
                   />
                 </button>
