@@ -44,7 +44,7 @@ const MostPopulars = () => {
             onChange={(e) => setSelectedCategory(e.target.value)}
             name='category'
             id='category'
-            className='bg-secondary-btn px-2 py-1 rounded-lg text-white-bg text-small focus:outline-none'
+            className='bg-secondary-btn px-2 py-1 rounded-lg text-white-bg text-small focus:outline-none cursor-pointer'
           >
             {categories.map((category, index) => (
               <option key={index} value={category} className='text-center'>

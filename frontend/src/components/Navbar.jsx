@@ -56,7 +56,7 @@ const Navbar = () => {
                     src={avatarImg}
                     alt=''
                     className={`size-10 rounded-full ${
-                      currentUser ? 'ring-2 ring-primary-btn' : ''
+                      currentUser ? 'ring-2 ring-white-bg hover:ring-primary-btn' : ''
                     }`}
                   />
                 </button>
