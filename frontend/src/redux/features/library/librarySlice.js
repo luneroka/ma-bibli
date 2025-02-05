@@ -31,8 +31,13 @@ const librarySlice = createSlice({
         });
       }
     },
+    removeFromLibrary: (state, action) => {
+      state.libraryBooks = state.libraryBooks.filter(
+        (book) => book.id !== action.payload.id
+      );
+    },
   },
 });
 
-export const { addToLibrary } = librarySlice.actions;
+export const { addToLibrary, removeFromLibrary } = librarySlice.actions;
 export default librarySlice.reducer;
