@@ -30,16 +30,16 @@ const NewReleases = () => {
             slidesPerView: 1,
             spaceBetween: 20,
           },
-          768: {
+          880: {
             slidesPerView: 2,
             spaceBetween: 40,
           },
-          1024: {
-            slidesPerView: 2,
+          1250: {
+            slidesPerView: 3,
             spaceBetween: 50,
           },
-          1180: {
-            slidesPerView: 3,
+          1570: {
+            slidesPerView: 4,
             spaceBetween: 50,
           },
         }}
