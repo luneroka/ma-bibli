@@ -8,6 +8,7 @@ import LoginPage from './pages/login/LoginPage.jsx';
 import RegisterPage from './pages/register/RegisterPage.jsx';
 import { Provider } from 'react-redux';
 import { store } from './redux/store.js';
+import 'sweetalert2/dist/sweetalert2.js';
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
