@@ -6,7 +6,7 @@ function NewsCard({ article }) {
     <>
       <div className='flex gap-[24px]'>
         <div className='flex flex-col w-[114px] gap-[16px]'>
-          <Link to={`/livres/${article.id}`}>
+          <Link to='/'>
             <img
               src={article.image}
               alt='Book Cover'
