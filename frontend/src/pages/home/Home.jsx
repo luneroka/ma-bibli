@@ -8,13 +8,13 @@ const Home = () => {
   return (
     <>
       <div className='px-[128px]'>
-        <div className='mt-[96px] mb-[64px]'>
+        <div className='mt-[96px] mb-[96px]'>
           <NewReleases />
         </div>
         <div className='mb-[96px]'>
           <MostPopulars />
         </div>
-        <div className='mb-[64px]'>
+        <div className='mb-[96px]'>
           <Recommended />
         </div>
         <div>
