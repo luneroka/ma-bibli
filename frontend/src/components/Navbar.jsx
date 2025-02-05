@@ -85,7 +85,7 @@ const Navbar = () => {
               </>
             ) : (
               <Link to='/login'>
-                <FaUser className='w-8 h-8 text-primary-btn' />
+                <FaUser className='w-8 h-8 text-white-bg hover:text-primary-btn' />
               </Link>
             )}
           </div>
