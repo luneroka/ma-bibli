@@ -18,7 +18,7 @@ const NewReleases = () => {
   return (
     <>
       <div className='flex items-center gap-8 mb-[32px]'>
-        <h2 className='text-h2 font-merriweather'>Sorties récentes</h2>
+        <h2 className='text-h2 text-black font-merriweather'>Sorties récentes</h2>
       </div>
 
       <Swiper
