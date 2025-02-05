@@ -18,7 +18,7 @@ const Navbar = () => {
   const currentUser = false;
 
   return (
-    <header className='w-full sticky top-0 z-50 bg-main-blue'>
+    <header className='w-full sticky top-0 z-50 bg-main-blue h-[96px]'>
       <nav className='flex justify-between items-center  px-[64px] md:px-[128px] py-[24px]'>
         {/* left side */}
         <div className='flex items-center gap-4'>

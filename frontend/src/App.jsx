@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <main className='min-h-screen max-w-screen-2x1 mx-auto font-lato'>
+      <main className='flex-1 min-h-0 max-w-full mx-auto font-lato'>
         <Outlet />
       </main>
       <Footer />

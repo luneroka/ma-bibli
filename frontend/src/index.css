@@ -34,6 +34,11 @@ body {
   font-family: Lato, serif;
   font-size: 18px;
   background-color: #f9f9f9;
+  margin: 0;
+}
+
+html {
+  overflow-x: hidden;
 }
 
 .swiper-button-next,
