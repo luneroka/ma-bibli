@@ -21,3 +21,6 @@ const librarySlice = createSlice({
     },
   },
 });
+
+export const { addToCart } = librarySlice.actions;
+export default librarySlice.reducer;
