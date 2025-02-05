@@ -73,7 +73,7 @@ const MostPopulars = () => {
             spaceBetween: 50,
           },
           1570: {
-            slidesPerView: 4,
+            slidesPerView: 3,
             spaceBetween: 50,
           },
         }}

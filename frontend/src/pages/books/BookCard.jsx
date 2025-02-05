@@ -7,12 +7,12 @@ const BookCard = ({ book }) => {
   return (
     <>
       <div className='flex gap-[24px]'>
-        <div className='flex flex-col w-[114px] gap-[16px]'>
+        <div className='flex flex-col w-[121px] gap-[16px]'>
           <Link to={`/livres/${book._id}`}>
             <img
               src={book.volumeInfo.imageLinks.thumbnail}
               alt='Book Cover'
-              className='h-[160px] cursor-pointer hover:scale-105 transition-all duration-200 rounded-sm'
+              className='h-[170px] cursor-pointer hover:scale-105 transition-all duration-200 rounded-sm'
             />
           </Link>
           <Link
@@ -28,17 +28,17 @@ const BookCard = ({ book }) => {
           </Link>
         </div>
 
-        <div className='flex flex-col w-[153px]'>
+        <div className='flex flex-col w-[220px]'>
           <Link to={`/livres/${book._id}`}>
-            <p className='text-small font-bold h-[28px] mb-[4px] overflow-hidden'>
-              {book.volumeInfo.title.length > 22
-                ? `${book.volumeInfo.title.slice(0, 22)}...`
+            <p className='text-small font-bold h-[28px] mb-[14px] title-wrap leading-4.5'>
+              {book.volumeInfo.title.length > 40
+                ? `${book.volumeInfo.title.slice(0, 40)}...`
                 : book.volumeInfo.title}
             </p>
           </Link>
           <p className='text-small h-[128px] overflow-hidden mb-[16px]'>
-            {book.volumeInfo.description.length > 115
-              ? `${book.volumeInfo.description.slice(0, 115)}...`
+            {book.volumeInfo.description.length > 200
+              ? `${book.volumeInfo.description.slice(0, 200)}...`
               : book.volumeInfo.description}
           </p>
           <Link
