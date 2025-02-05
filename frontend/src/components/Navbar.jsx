@@ -15,11 +15,11 @@ const navigation = [
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const currentUser = false;
+  const currentUser = true;
 
   return (
-    <header className='w-full sticky top-0 z-50 bg-main-blue h-[96px]'>
-      <nav className='flex justify-between items-center  px-[64px] md:px-[128px] py-[24px]'>
+    <header className='w-full sticky top-0 z-50 bg-main-blue h-[70px] items-center'>
+      <nav className='flex justify-between items-center px-[64px] md:px-[128px] py-[17px]'>
         {/* left side */}
         <div className='flex items-center gap-4'>
           {/* Search Input */}
@@ -28,11 +28,11 @@ const Navbar = () => {
             <input
               type='text'
               placeholder='Rechercher un livre ou un auteur...'
-              className='bg-white-bg w-full h-10 pl-10 pr-4 rounded-lg text-small md:text-body focus:outline-none focus:ring-2 focus:ring-primary-btn'
+              className='bg-white-bg w-full h-8 pl-10 pr-4 rounded-lg text-small md:text-body focus:outline-none focus:ring-2 focus:ring-primary-btn'
             />
           </div>
           {/* Search Button */}
-          <button className='cursor-pointer hidden sm:block font-merriweather text-white-bg bg-primary-btn px-6 h-10 rounded-lg text-body md:text-h6 hover:bg-secondary-btn active:bg-black-75'>
+          <button className='cursor-pointer hidden sm:block font-merriweather text-white-bg bg-primary-btn px-6 h-8 rounded-lg text-body md:text-h6 hover:bg-secondary-btn active:bg-black-75'>
             Search
           </button>
         </div>
@@ -40,10 +40,10 @@ const Navbar = () => {
         {/* right side */}
         <div className='flex items-center gap-4 sm:gap-6'>
           <Link to='/liste-de-lecture'>
-            <FaListAlt className='w-8 h-8 text-white-bg hover:text-primary-btn' />
+            <FaListAlt className='w-6 h-6 text-white-bg hover:text-primary-btn' />
           </Link>
           <Link to='/bibliothèque'>
-            <FaBookOpen className='w-8 h-8 text-white-bg hover:text-primary-btn' />
+            <FaBookOpen className='w-6 h-6 text-white-bg hover:text-primary-btn' />
           </Link>
           <div className='relative flex items-center'>
             {currentUser ? (
@@ -55,7 +55,7 @@ const Navbar = () => {
                   <img
                     src={avatarImg}
                     alt=''
-                    className={`size-10 rounded-full ${
+                    className={`size-8 rounded-full ${
                       currentUser
                         ? 'ring-2 ring-white-bg hover:ring-primary-btn'
                         : ''
@@ -85,7 +85,7 @@ const Navbar = () => {
               </>
             ) : (
               <Link to='/login'>
-                <FaUser className='w-8 h-8 text-white-bg hover:text-primary-btn' />
+                <FaUser className='w-6 h-6 text-white-bg hover:text-primary-btn' />
               </Link>
             )}
           </div>
