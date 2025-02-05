@@ -15,7 +15,7 @@ function NewsCard({ article }) {
           </Link>
         </div>
 
-        <div className='flex flex-col w-[330px]'>
+        <div className='flex flex-col w-[400px]'>
           <Link to='/'>
             <p className='text-small font-bold h-[28px] mb-[16px] text-wrap'>
               {article.title}
