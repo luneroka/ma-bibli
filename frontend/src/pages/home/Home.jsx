@@ -1,6 +1,7 @@
 import React from 'react';
 import NewReleases from './NewReleases';
 import TopSellers from './TopSellers';
+import Recommendations from './Recommendations'
 
 const Home = () => {
   return (
@@ -9,7 +10,12 @@ const Home = () => {
         <div className='mt-[96px] mb-[64px]'>
           <NewReleases />
         </div>
-        <TopSellers />
+        <div className='mb-[64px]'>
+          <TopSellers />
+        </div>
+        <div>
+          <Recommendations />
+        </div>
       </div>
     </>
   );
