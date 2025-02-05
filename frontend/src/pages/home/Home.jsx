@@ -17,7 +17,7 @@ const Home = () => {
         <div className='mb-[96px]'>
           <Recommended />
         </div>
-        <div>
+        <div className='mb-[128px]'>
           <News />
         </div>
       </div>
