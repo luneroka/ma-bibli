@@ -15,7 +15,7 @@ const categories = [
   'Théâtre',
 ];
 
-const TopSellers = () => {
+const MostPopulars = () => {
   const [books, setBooks] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('Filtrer par genre');
 
@@ -37,7 +37,7 @@ const TopSellers = () => {
   return (
     <>
       <div className='flex items-center gap-8 mb-[32px]'>
-        <h2 className='text-h2 font-merriweather'>Top ventes</h2>
+        <h2 className='text-h2 font-merriweather'>Les plus populaires</h2>
         {/* Category filter */}
         <div>
           <select
@@ -93,4 +93,5 @@ const TopSellers = () => {
   );
 };
 
-export default TopSellers;
+export default MostPopulars
+;
