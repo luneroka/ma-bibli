@@ -36,15 +36,15 @@ const MostPopulars = () => {
 
   return (
     <>
-      <div className='flex items-center gap-8 mb-[32px]'>
+      <div className='items-center gap-8 mb-[32px]'>
         <h2 className='text-h2 font-merriweather'>Les plus populaires</h2>
         {/* Category filter */}
-        <div>
+        <div className='mt-[16px]'>
           <select
             onChange={(e) => setSelectedCategory(e.target.value)}
             name='category'
             id='category'
-            className='bg-secondary-btn px-2 py-1 rounded-lg text-white-bg'
+            className='bg-secondary-btn px-2 py-1 rounded-lg text-white-bg text-small'
           >
             {categories.map((category, index) => (
               <option key={index} value={category} className='text-center'>
@@ -93,5 +93,4 @@ const MostPopulars = () => {
   );
 };
 
-export default MostPopulars
-;
+export default MostPopulars;
