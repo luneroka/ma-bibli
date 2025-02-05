@@ -4,9 +4,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css';
 import App from './App.jsx';
 import Home from './pages/home/Home.jsx';
-import Login from './components/Login.jsx';
-import LoginPage from './pages/home/LoginPage.jsx';
-import Register from './components/Register.jsx';
+import LoginPage from './pages/login/LoginPage.jsx';
+import RegisterPage from './pages/register/RegisterPage.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -21,7 +20,7 @@ createRoot(document.getElementById('root')).render(
           <Route path='/logout' element=<h1>Se déconnecter</h1> />
         </Route>
         <Route path='/login' element={<LoginPage />} />
-        <Route path='/register' element={<Register />} />
+        <Route path='/register' element={<RegisterPage />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>
