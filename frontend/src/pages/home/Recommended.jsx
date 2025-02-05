@@ -18,7 +18,7 @@ const Recommended = () => {
   return (
     <>
       <div className='flex items-center gap-8 mb-[32px]'>
-        <h2 className='text-h2 font-merriweather'>Recommandés pour vous</h2>
+        <h3 className='text-h3 font-merriweather'>Recommandés pour vous</h3>
       </div>
 
       <Swiper

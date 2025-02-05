@@ -37,7 +37,7 @@ const MostPopulars = () => {
   return (
     <>
       <div className='items-center gap-8 mb-[32px]'>
-        <h2 className='text-h2 font-merriweather'>Les plus populaires</h2>
+        <h3 className='text-h3 font-merriweather'>Les plus populaires</h3>
         {/* Category filter */}
         <div className='mt-[16px]'>
           <select
