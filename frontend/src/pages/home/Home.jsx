@@ -1,6 +1,6 @@
 import React from 'react';
 import NewReleases from './NewReleases';
-import Recommendations from './Recommendations';
+import Recommended from './Recommended';
 import MostPopulars from './MostPopulars';
 
 const Home = () => {
@@ -14,7 +14,7 @@ const Home = () => {
           <MostPopulars />
         </div>
         <div>
-          <Recommendations />
+          <Recommended />
         </div>
       </div>
     </>
