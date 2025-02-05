@@ -1,9 +1,16 @@
 import React from 'react';
 import { FaRegBookmark } from 'react-icons/fa';
 import { IoIosAddCircleOutline } from 'react-icons/io';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const BookCard = ({ book }) => {
+  const dispatch = useDispatch();
+
+  const handleAddToLibrary = (book) => {
+    dispatch(addToCart(book));
+  };
+
   return (
     <>
       <div>
