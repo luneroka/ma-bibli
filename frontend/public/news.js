@@ -8,7 +8,7 @@ const news = [
     id: 1,
     title: 'Global Climate Summit Calls for Urgent Action',
     description:
-      'World leaders gather at the Global Climate Summit to discuss urgent strategies to combat climate change, focusing on reducing carbon emissions and fostering renewable energy solutions.',
+      'World leaders gather at the Global Climate Summit to discuss urgent strategies to combat climate change, focusing on reducing carbon emissions and fostering renewable energy solutions. World leaders gather at the Global Climate Summit to discuss urgent strategies to combat climate change, focusing on reducing carbon emissions and fostering renewable energy solutions.',
     image: news1,
   },
   {
