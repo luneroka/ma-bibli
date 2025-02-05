@@ -1,16 +1,25 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaGoogle } from 'react-icons/fa';
+import { useForm } from 'react-hook-form';
 
 function Login() {
   const [message, setMessage] = useState('');
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => console.log(data);
 
   return (
     <div className='flex flex-col flex-1 min-h-0 min-w-[600px] max-w-full mx-auto font-lato'>
       <div className='flex-grow flex items-center justify-center mt-[96px]'>
         <div className='bg-white p-8 rounded-lg shadow-md w-full max-w-md'>
           <h2 className='text-h5 text-black mb-8'>Mon espace lecture</h2>
-          <form>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div>
               <label
                 htmlFor='email'
@@ -19,6 +28,7 @@ function Login() {
                 Email
               </label>
               <input
+                {...register('email', { required: true })}
                 type='email'
                 name='email'
                 id='email'
@@ -32,6 +42,7 @@ function Login() {
                 Mot de Passe
               </label>
               <input
+                {...register('password', { required: true })}
                 type='password'
                 name='password'
                 id='password'
@@ -66,7 +77,9 @@ function Login() {
               Se connecter avec Google
             </button>
           </div>
-          <p className='text-xs text-center mt-6 text-black-50'>&copy;2025 Ma Bibli. Tous droits réservés.</p>
+          <p className='text-xs text-center mt-6 text-black-50'>
+            &copy;2025 Ma Bibli. Tous droits réservés.
+          </p>
         </div>
       </div>
     </div>
