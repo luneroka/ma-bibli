@@ -7,7 +7,7 @@ const bookSchema = new mongoose.Schema(
       required: true,
     },
     authors: {
-      type: [String], // Better to be explicit with the type
+      type: [String],
       required: true,
     },
     publisher: {
@@ -23,11 +23,11 @@ const bookSchema = new mongoose.Schema(
       required: true,
     },
     pageCount: {
-      type: Number, // Using Number is better for numeric values
+      type: Number,
       required: true,
     },
     categories: {
-      type: [String], // Explicit array type
+      type: [String],
       required: true,
     },
     thumbnail: {
