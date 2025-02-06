@@ -5,8 +5,8 @@ const bookSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  author: {
-    type: String,
+  authors: {
+    type: Array,
     required: true,
   },
   publisher: {
@@ -25,8 +25,8 @@ const bookSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  category: {
-    type: String,
+  categories: {
+    type: Array,
     required: true,
   },
   thumbnail: {
