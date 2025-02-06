@@ -1,13 +1,11 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
-
 const mongoose = require('mongoose');
 
 async function main() {
-  await mongoose.connect(
-    `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER}/?retryWrites=true&w=majority&appName=${process.env.MONGO_DB}`
-  );
+  await mongoose.connect(process.env.DB_URL);
   app.use('/', (req, res) => {
     res.send('Hello World! This is my server.');
   });
