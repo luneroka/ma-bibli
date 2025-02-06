@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { TiDelete } from 'react-icons/ti';
 import { removeFromReadingList } from '../../redux/features/reading-list/readingListSlice';
 import { IoIosAddCircleOutline } from 'react-icons/io';
-import { addToLibrary } from '../../redux/features/library/librarySlice';
+import { addToLibraryAsync } from '../../utils/libraryAsyncActions';
 
 function BookInReadingList({ book }) {
   const dispatch = useDispatch();

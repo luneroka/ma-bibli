@@ -5,10 +5,8 @@ import { IoIosAddCircleOutline } from 'react-icons/io';
 import { FaCheckCircle } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {
-  addToLibraryAsync,
-  removeFromLibrary,
-} from '../../redux/features/library/librarySlice';
+import { removeFromLibrary } from '../../redux/features/library/librarySlice';
+import { addToLibraryAsync } from '../../utils/libraryAsyncActions';
 import {
   addToReadingList,
   removeFromReadingList,

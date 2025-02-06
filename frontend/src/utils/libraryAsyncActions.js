@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
 // Async action to add a book to the library (both Redux state and database)
 export const addToLibraryAsync = createAsyncThunk(
