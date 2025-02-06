@@ -12,7 +12,12 @@ function ReadingList({ readingListBooks = [] }) {
       <div className='flex flex-wrap gap-4 mt-[32px]'>
         {readingListBooks.length > 0 &&
           readingListBooks.map((book) => {
-            return <BookInReadingList key={book.id} book={book} />;
+            return (
+              <BookInReadingList
+                key={book.id}
+                book={book}
+              />
+            );
           })}
       </div>
     </>
