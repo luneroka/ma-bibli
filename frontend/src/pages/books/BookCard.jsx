@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaRegBookmark } from 'react-icons/fa';
+import { FaBookmark } from 'react-icons/fa';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 import { FaCheckCircle } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
@@ -69,14 +70,32 @@ const BookCard = ({ book }) => {
         </div>
       </div>
       <div className='flex gap-[16px]'>
-        <button className='bg-primary-btn text-black-75 text-xs rounded-lg px-1 py-1.5 hover:bg-secondary-btn w-[121px]'>
-          <div className='flex gap-1 items-center justify-center'>
-            <div className='text-body'>
-              <FaRegBookmark />
+        {isInReadingList ? (
+          <button
+            onClick={() => handleRemoveFromReadingList(book)}
+            className='cursor-pointer bg-secondary-btn text-black-75 text-xs rounded-lg px-1 py-1.5 hover:bg-secondary-btn w-[121px]'
+          >
+            <div className='flex gap-1 items-center justify-center'>
+              <div className='text-body'>
+                <FaBookmark />
+              </div>
+              Dans la liste !
             </div>
-            Liste de lecture
-          </div>
-        </button>
+          </button>
+        ) : (
+          <button
+            onClick={() => handleAddToReadingList(book)}
+            className='cursor-pointer bg-primary-btn text-black-75 text-xs rounded-lg px-1 py-1.5 hover:bg-secondary-btn active:bg-black-75 active:text-white-bg w-[121px]'
+          >
+            <div className='flex gap-1 items-center justify-center'>
+              <div className='text-body'>
+                <FaRegBookmark />
+              </div>
+              Liste de lecture
+            </div>
+          </button>
+        )}
+
         {isInLibrary ? (
           <button
             onClick={() => handleRemoveFromLibrary(book)}
@@ -86,13 +105,13 @@ const BookCard = ({ book }) => {
               <div className='text-body'>
                 <FaCheckCircle />
               </div>
-              Ajouté!
+              Dans la bibli !
             </div>
           </button>
         ) : (
           <button
             onClick={() => handleAddToLibrary(book)}
-            className='cursor-pointer bg-primary-btn text-black-75 text-xs rounded-lg px-1 py-1.5 hover:bg-secondary-btn w-[125px]'
+            className='cursor-pointer bg-primary-btn text-black-75 text-xs rounded-lg px-1 py-1.5 hover:bg-secondary-btn w-[125px] active:bg-black-75 active:text-white-bg'
           >
             <div className='flex gap-1 items-center justify-center'>
               <div className='text-body'>
