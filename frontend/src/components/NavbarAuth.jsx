@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { IoHome } from 'react-icons/io5';
 
-function NavbarEmpty() {
+function NavbarAuth() {
   return (
     <header className='w-full sticky top-0 z-50 bg-main-blue h-[70px]'>
       <nav className='flex justify-between items-center  px-[64px] md:px-[128px] py-[17px]'>
@@ -18,4 +18,4 @@ function NavbarEmpty() {
   );
 }
 
-export default NavbarEmpty;
+export default NavbarAuth;

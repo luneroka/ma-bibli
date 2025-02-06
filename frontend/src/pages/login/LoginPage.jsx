@@ -1,12 +1,12 @@
 import React from 'react';
-import NavbarEmpty from '../../components/NavbarEmpty';
-import Login from '../../components/Login';
+import NavbarAuth from '../../components/NavbarAuth';
+import Login from './Login';
 import Footer from '../../components/Footer';
 
 function LoginPage() {
   return (
     <>
-      <NavbarEmpty />
+      <NavbarAuth />
       <main className='flex-1 min-h-0 max-w-full mx-auto font-lato'>
         <Login />
       </main>
