@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FaRegBookmark } from 'react-icons/fa';
 import { FaBookmark } from 'react-icons/fa';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 import { FaCheckCircle } from 'react-icons/fa';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
   addToLibrary,
@@ -45,7 +45,7 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = []}) => {
       <div>
         <div className='flex gap-[24px]'>
           <div className='flex flex-col w-[121px] gap-[16px]'>
-            <Link to={`/livres/${book._id}`}>
+            <Link to={`/livres/${book.id}`}>
               <img
                 src={book.volumeInfo.imageLinks.thumbnail}
                 alt='Book Cover'
@@ -55,7 +55,7 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = []}) => {
           </div>
 
           <div className='flex flex-col w-[200px]'>
-            <Link to={`/livres/${book._id}`}>
+            <Link to={`/livres/${book.id}`}>
               <p className='text-small text-black-75 hover:text-black font-bold h-[28px] mb-[14px] text-pretty leading-4.5'>
                 {book.volumeInfo.title.length > 40
                   ? `${book.volumeInfo.title.slice(0, 40)}...`
