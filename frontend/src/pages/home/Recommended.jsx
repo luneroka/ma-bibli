@@ -7,19 +7,7 @@ import 'swiper/css/navigation';
 import { Pagination, Navigation } from 'swiper/modules';
 import { useSelector } from 'react-redux';
 
-const Recommended = () => {
-  const [books, setBooks] = useState([]);
-  const libraryBooks = useSelector((state) => state.library.libraryBooks);
-  const readingListBooks = useSelector(
-    (state) => state.readingList.readingListBooks
-  );
-
-  useEffect(() => {
-    fetch('books.json')
-      .then((res) => res.json())
-      .then((data) => setBooks(data));
-  }, []);
-
+const Recommended = ({ books, libraryBooks = [], readingListBooks = [] }) => {
   return (
     <>
       <div className='flex items-center gap-8 mb-[32px]'>

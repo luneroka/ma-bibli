@@ -1,9 +1,18 @@
+import React, { useEffect } from 'react';
 import { Outlet } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { fetchBooks } from './redux/features/books/booksSlice';
 import './App.css';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchBooks());
+  }, [dispatch]);
+
   return (
     <>
       <Navbar />

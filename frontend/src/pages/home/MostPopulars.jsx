@@ -16,19 +16,8 @@ const categories = [
   'Théâtre',
 ];
 
-const MostPopulars = () => {
-  const [books, setBooks] = useState([]);
+const MostPopulars = ({ books, libraryBooks = [], readingListBooks = [] }) => {
   const [selectedCategory, setSelectedCategory] = useState('Filtrer par genre');
-  const libraryBooks = useSelector((state) => state.library.libraryBooks);
-  const readingListBooks = useSelector(
-    (state) => state.readingList.readingListBooks
-  );
-
-  useEffect(() => {
-    fetch('books.json')
-      .then((res) => res.json())
-      .then((data) => setBooks(data));
-  }, []);
 
   const filteredBooks =
     selectedCategory === 'Filtrer par genre'

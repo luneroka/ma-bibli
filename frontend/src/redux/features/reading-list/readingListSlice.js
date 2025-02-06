@@ -15,21 +15,6 @@ const readingListSlice = createSlice({
       );
       if (!existingBook) {
         state.readingListBooks.push(action.payload);
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Ajouté à votre liste de lecture !',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      } else {
-        Swal.fire({
-          position: 'center',
-          icon: 'info',
-          title: 'Déjà dans votre liste de lecture.',
-          showConfirmButton: false,
-          timer: 1500,
-        });
       }
     },
     removeFromReadingList: (state, action) => {

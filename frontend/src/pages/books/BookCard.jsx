@@ -14,15 +14,8 @@ import {
   removeFromReadingList,
 } from '../../redux/features/reading-list/readingListSlice';
 
-const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
+const BookCard = ({ book, libraryBooks = [], readingListBooks = []}) => {
   const dispatch = useDispatch();
-
-  const isInLibrary = libraryBooks.some(
-    (libraryBook) => libraryBook.id === book.id
-  );
-  const isInReadingList = readingListBooks.some(
-    (readingListBook) => readingListBook.id === book.id
-  );
 
   const handleAddToLibrary = (book) => {
     dispatch(addToLibrary(book));
@@ -39,6 +32,13 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
   const handleRemoveFromReadingList = (book) => {
     dispatch(removeFromReadingList(book));
   };
+
+  const isInLibrary = libraryBooks.some(
+    (libraryBook) => libraryBook.id === book.id
+  );
+  const isInReadingList = readingListBooks.some(
+    (readingListBook) => readingListBook.id === book.id
+  );
 
   return (
     <>

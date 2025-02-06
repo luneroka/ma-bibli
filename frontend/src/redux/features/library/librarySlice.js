@@ -14,21 +14,6 @@ const librarySlice = createSlice({
       );
       if (!existingBook) {
         state.libraryBooks.push(action.payload);
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Ajouté à votre bibliothèque !',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      } else {
-        Swal.fire({
-          position: 'center',
-          icon: 'info',
-          title: 'Déjà dans votre bibliothèque.',
-          showConfirmButton: false,
-          timer: 1500,
-        });
       }
     },
     removeFromLibrary: (state, action) => {
