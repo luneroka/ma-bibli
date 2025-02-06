@@ -4,7 +4,10 @@ import { IoIosAddCircleOutline } from 'react-icons/io';
 import { FaCheckCircle } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addToLibrary } from '../../redux/features/library/librarySlice';
+import {
+  addToLibrary,
+  removeFromLibrary,
+} from '../../redux/features/library/librarySlice';
 
 const BookCard = ({ book }) => {
   const [isInLibrary, setIsInLibrary] = useState(false);
@@ -13,6 +16,11 @@ const BookCard = ({ book }) => {
   const handleAddToLibrary = (book) => {
     dispatch(addToLibrary(book));
     setIsInLibrary(true);
+  };
+
+  const handleRemoveFromLibrary = (book) => {
+    dispatch(removeFromLibrary(book));
+    setIsInLibrary(false);
   };
 
   return (
@@ -56,7 +64,7 @@ const BookCard = ({ book }) => {
         </button>
         {isInLibrary ? (
           <button
-            onClick={() => handleAddToLibrary(book)}
+            onClick={() => handleRemoveFromLibrary(book)}
             className='cursor-pointer bg-secondary-btn text-black-75 text-xs rounded-lg px-1 py-1.5 hover:bg-secondary-btn w-[125px]'
           >
             <div className='flex gap-1 items-center justify-center'>
