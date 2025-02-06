@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import BookCover from '../books/BookCover';
+import React from 'react';
+import BookInLibrary from '../books/BookInLibrary';
 
 function LibraryList({ libraryBooks = [] }) {
   return (
@@ -10,7 +10,7 @@ function LibraryList({ libraryBooks = [] }) {
       <div className='flex flex-wrap gap-4 mt-[32px]'>
         {libraryBooks.length > 0 &&
           libraryBooks.map((book) => {
-            return <BookCover key={book.id} book={book} />;
+            return <BookInLibrary key={book.id} book={book} />;
           })}
       </div>
     </>

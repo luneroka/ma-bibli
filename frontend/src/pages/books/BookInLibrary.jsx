@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { TiDelete } from 'react-icons/ti';
 import { removeFromLibrary } from '../../redux/features/library/librarySlice';
 
-function BookCover({ book, libraryBooks = [] }) {
+function BookInLibrary({ book }) {
   const dispatch = useDispatch();
 
   const handleRemoveFromLibrary = (book) => {
@@ -32,4 +32,4 @@ function BookCover({ book, libraryBooks = [] }) {
   );
 }
 
-export default BookCover;
+export default BookInLibrary;

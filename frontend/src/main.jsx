@@ -1,4 +1,3 @@
-import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css';
@@ -22,7 +21,7 @@ createRoot(document.getElementById('root')).render(
         <Route path='/login' element={<LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/liste-de-lecture' element={<ReadingListPage />} />
-        <Route path='/bibliothèque' element={<LibraryPage />} />
+        <Route path='/bibli' element={<LibraryPage />} />
       </Routes>
     </BrowserRouter>
   </Provider>

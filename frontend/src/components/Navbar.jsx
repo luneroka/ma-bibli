@@ -42,7 +42,7 @@ const Navbar = () => {
           <Link to='/liste-de-lecture'>
             <FaListAlt className='w-6 h-6 text-white-bg hover:text-primary-btn' />
           </Link>
-          <Link to='/bibliothèque'>
+          <Link to='/bibli'>
             <FaBookOpen className='w-6 h-6 text-white-bg hover:text-primary-btn' />
           </Link>
           <div className='relative flex items-center'>

@@ -3,7 +3,6 @@ import Footer from '../../components/Footer';
 import LibraryList from './LibraryList';
 import NavbarLibrary from '../../components/NavbarLibrary';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 function LibraryPage() {
   const libraryBooks = useSelector((state) => state.library.libraryBooks);
