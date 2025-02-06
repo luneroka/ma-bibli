@@ -1,22 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addToLibraryAsync } from '../../../utils/libraryAsyncActions';
+import {
+  addToLibraryAsync,
+  removeFromLibraryAsync,
+} from '../../../utils/libraryAsyncActions';
 
 const initialState = {
   libraryBooks: [],
-  status: 'idle', // track status for loading, success, or failure
-  error: null, // track errors
+  status: 'idle',
+  error: null,
 };
 
 const librarySlice = createSlice({
   name: 'library',
   initialState,
-  reducers: {
-    removeFromLibrary: (state, action) => {
-      state.libraryBooks = state.libraryBooks.filter(
-        (book) => book.id !== action.payload.id
-      );
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(addToLibraryAsync.pending, (state) => {
@@ -29,9 +26,21 @@ const librarySlice = createSlice({
       .addCase(addToLibraryAsync.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload;
+      })
+      .addCase(removeFromLibraryAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(removeFromLibraryAsync.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.libraryBooks = state.libraryBooks.filter(
+          (book) => book.googleId !== action.payload
+        );
+      })
+      .addCase(removeFromLibraryAsync.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
       });
   },
 });
 
-export const { removeFromLibrary } = librarySlice.actions;
 export default librarySlice.reducer;

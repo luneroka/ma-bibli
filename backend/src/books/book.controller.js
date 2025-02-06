@@ -56,6 +56,26 @@ const addBook = async (req, res) => {
   }
 };
 
+const deleteBook = async (req, res) => {
+  try {
+    const { bookId } = req.params;
+
+    const deletedBook = await Book.findOneAndDelete({ googleId: bookId });
+
+    if (!deletedBook) {
+      return res.status(404).send({ message: 'Book not found' });
+    }
+
+    res
+      .status(200)
+      .send({ message: 'Book removed successfully', book: deletedBook });
+  } catch (error) {
+    console.error('Failed to remove book.', error);
+    res.status(500).send({ message: 'Failed to remove book' });
+  }
+};
+
 module.exports = {
   addBook,
+  deleteBook,
 };

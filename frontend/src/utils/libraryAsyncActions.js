@@ -19,9 +19,31 @@ export const addToLibraryAsync = createAsyncThunk(
       }
 
       const data = await response.json();
-      return data.book; // Return the added book from the API response
+      return data.book;
     } catch (error) {
-      return rejectWithValue(error.message); // Return error message
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const removeFromLibraryAsync = createAsyncThunk(
+  'library/removeFromLibrary',
+  async (bookId, { rejectWithValue }) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/books/delete-book/${bookId}`,
+        {
+          method: 'DELETE',
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to remove book from library');
+      }
+
+      return bookId;
+    } catch (error) {
+      return rejectWithValue(error.message);
     }
   }
 );

@@ -2,13 +2,13 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { TiDelete } from 'react-icons/ti';
-import { removeFromLibrary } from '../../redux/features/library/librarySlice';
+import { removeFromLibraryAsync } from '../../utils/libraryAsyncActions';
 
 function BookInLibrary({ book }) {
   const dispatch = useDispatch();
 
-  const handleRemoveFromLibrary = (book) => {
-    dispatch(removeFromLibrary(book));
+  const handleRemoveFromLibrary = (bookId) => {
+    dispatch(removeFromLibraryAsync(bookId));
   };
 
   return (
@@ -22,7 +22,7 @@ function BookInLibrary({ book }) {
           />
         </Link>
         <button
-          onClick={() => handleRemoveFromLibrary(book)}
+          onClick={() => handleRemoveFromLibrary(book.googleId)}
           className='absolute top-1 right-1 rounded-full shadow-md hover:text-primary-btn text-black-75 bg-white-bg  cursor-pointer hover:scale-150 transition-all duration-200'
         >
           <TiDelete />

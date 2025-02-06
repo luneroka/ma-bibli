@@ -5,8 +5,10 @@ import { IoIosAddCircleOutline } from 'react-icons/io';
 import { FaCheckCircle } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { removeFromLibrary } from '../../redux/features/library/librarySlice';
-import { addToLibraryAsync } from '../../utils/libraryAsyncActions';
+import {
+  addToLibraryAsync,
+  removeFromLibraryAsync,
+} from '../../utils/libraryAsyncActions';
 import {
   addToReadingList,
   removeFromReadingList,
@@ -19,8 +21,8 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
     dispatch(addToLibraryAsync(book));
   };
 
-  const handleRemoveFromLibrary = (book) => {
-    dispatch(removeFromLibrary(book));
+  const handleRemoveFromLibrary = (bookId) => {
+    dispatch(removeFromLibraryAsync(bookId));
   };
 
   const handleAddToReadingList = (book) => {
@@ -97,7 +99,7 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
 
         {isInLibrary ? (
           <button
-            onClick={() => handleRemoveFromLibrary(book)}
+            onClick={() => handleRemoveFromLibrary(book.googleId)}
             className='cursor-pointer bg-secondary-btn text-black-75 text-xs rounded-lg px-1 py-1.5 hover:bg-secondary-btn w-[125px]'
           >
             <div className='flex gap-1 items-center justify-center'>

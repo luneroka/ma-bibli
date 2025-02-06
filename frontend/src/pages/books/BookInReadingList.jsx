@@ -14,7 +14,7 @@ function BookInReadingList({ book }) {
   };
 
   const handleMoveToLibrary = (book) => {
-    dispatch(addToLibrary(book));
+    dispatch(addToLibraryAsync(book));
     dispatch(removeFromReadingList(book));
   };
 
