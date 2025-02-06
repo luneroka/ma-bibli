@@ -23,7 +23,7 @@ const MostPopulars = ({ books, libraryBooks = [], readingListBooks = [] }) => {
       ? books
       : books.filter(
           (book) =>
-            book.volumeInfo.categories?.[0]?.toLowerCase() ===
+            book.categories?.[0]?.toLowerCase() ===
             selectedCategory.toLowerCase()
         );
 

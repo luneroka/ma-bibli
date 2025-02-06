@@ -1,170 +1,174 @@
-[
-  {
-    "kind": "books#volume",
-    "id": "1a2b3c",
-    "etag": "xyz123",
-    "selfLink": "https://www.googleapis.com/books/v1/volumes/1a2b3c",
-    "volumeInfo": {
-      "title": "Le Petit Prince qui s'en allait au bois",
-      "authors": ["Antoine de Saint-Exupéry"],
-      "publisher": "Éditions Gallimard",
-      "publishedDate": "1943",
-      "description": "Une œuvre intemporelle racontant l’histoire d’un petit garçon explorant des planètes.Une œuvre intemporelle racontant l’histoire d’un petit garçon explorant des planètes.",
-      "pageCount": 96,
-      "categories": ["Classique", "Fiction"],
-      "averageRating": 4.9,
-      "ratingsCount": 2500,
-      "language": "fr",
-      "imageLinks": {
-        "smallThumbnail": "http://example.com/le-petit-prince-small.jpg",
-        "thumbnail": "/book-1.png"
-      },
-      "previewLink": "http://books.google.com/books?id=1a2b3c",
-      "infoLink": "http://books.google.com/books/about/Le_Petit_Prince.html?id=1a2b3c"
+{
+  "kind": "books#volumes",
+  "totalItems": 20,
+  "items": [
+    {
+      "kind": "books#volume",
+      "id": "1a2b3c",
+      "etag": "xyz123",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/1a2b3c",
+      "volumeInfo": {
+        "title": "Le Petit Prince qui s'en allait au bois",
+        "authors": ["Antoine de Saint-Exupéry"],
+        "publisher": "Éditions Gallimard",
+        "publishedDate": "1943",
+        "description": "Une œuvre intemporelle racontant l’histoire d’un petit garçon explorant des planètes.Une œuvre intemporelle racontant l’histoire d’un petit garçon explorant des planètes.",
+        "pageCount": 96,
+        "categories": ["Classique", "Fiction"],
+        "averageRating": 4.9,
+        "ratingsCount": 2500,
+        "language": "fr",
+        "imageLinks": {
+          "smallThumbnail": "http://example.com/le-petit-prince-small.jpg",
+          "thumbnail": "/book-1.png"
+        },
+        "previewLink": "http://books.google.com/books?id=1a2b3c",
+        "infoLink": "http://books.google.com/books/about/Le_Petit_Prince.html?id=1a2b3c"
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "4d5e6f",
+      "etag": "def456",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/4d5e6f",
+      "volumeInfo": {
+        "title": "L'Étranger",
+        "authors": ["Albert Camus"],
+        "publisher": "Éditions Gallimard",
+        "publishedDate": "1942",
+        "description": "Un roman existentialiste relatant l'aliénation de Meursault.",
+        "pageCount": 123,
+        "categories": ["Philosophie", "Fiction"],
+        "averageRating": 4.7,
+        "ratingsCount": 3400,
+        "language": "fr",
+        "imageLinks": {
+          "smallThumbnail": "http://example.com/l-etranger-small.jpg",
+          "thumbnail": "/book-1.png"
+        },
+        "previewLink": "http://books.google.com/books?id=4d5e6f",
+        "infoLink": "http://books.google.com/books/about/L_Etranger.html?id=4d5e6f"
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "7g8h9i",
+      "etag": "ghi789",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/7g8h9i",
+      "volumeInfo": {
+        "title": "Les Misérables",
+        "authors": ["Victor Hugo"],
+        "publisher": "Librairie Hachette",
+        "publishedDate": "1862",
+        "description": "Une fresque historique suivant la vie de Jean Valjean.",
+        "pageCount": 1456,
+        "categories": ["Drame", "Classique"],
+        "averageRating": 4.8,
+        "ratingsCount": 1900,
+        "language": "fr",
+        "imageLinks": {
+          "smallThumbnail": "http://example.com/les-miserables-small.jpg",
+          "thumbnail": "/book-1.png"
+        },
+        "previewLink": "http://books.google.com/books?id=7g8h9i",
+        "infoLink": "http://books.google.com/books/about/Les_Miserables.html?id=7g8h9i"
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "2k3l4m",
+      "etag": "jkl456",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/2k3l4m",
+      "volumeInfo": {
+        "title": "Madame Bovary",
+        "authors": ["Gustave Flaubert"],
+        "publisher": "Flammarion",
+        "publishedDate": "1857",
+        "description": "Un chef-d'œuvre du réalisme explorant la vie insatisfaite d'Emma Bovary.",
+        "pageCount": 432,
+        "categories": ["Fiction", "Classique"],
+        "averageRating": 4.6,
+        "ratingsCount": 1800,
+        "language": "fr",
+        "imageLinks": {
+          "smallThumbnail": "http://example.com/madame-bovary-small.jpg",
+          "thumbnail": "/book-1.png"
+        },
+        "previewLink": "http://books.google.com/books?id=2k3l4m",
+        "infoLink": "http://books.google.com/books/about/Madame_Bovary.html?id=2k3l4m"
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "9n0p1q",
+      "etag": "mno123",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/9n0p1q",
+      "volumeInfo": {
+        "title": "La Peste",
+        "authors": ["Albert Camus"],
+        "publisher": "Éditions Gallimard",
+        "publishedDate": "1947",
+        "description": "Un roman philosophique explorant une épidémie dans une ville algérienne.",
+        "pageCount": 320,
+        "categories": ["Fiction", "Philosophie"],
+        "averageRating": 4.7,
+        "ratingsCount": 2900,
+        "language": "fr",
+        "imageLinks": {
+          "smallThumbnail": "http://example.com/la-peste-small.jpg",
+          "thumbnail": "/book-1.png"
+        },
+        "previewLink": "http://books.google.com/books?id=9n0p1q",
+        "infoLink": "http://books.google.com/books/about/La_Peste.html?id=9n0p1q"
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "5u6v7w",
+      "etag": "pqr456",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/5u6v7w",
+      "volumeInfo": {
+        "title": "Cyrano de Bergerac",
+        "authors": ["Edmond Rostand"],
+        "publisher": "Librairie Charpentier",
+        "publishedDate": "1897",
+        "description": "Une comédie dramatique centrée sur l'amour et l'esprit brillant de Cyrano.",
+        "pageCount": 210,
+        "categories": ["Théâtre", "Classique"],
+        "averageRating": 4.9,
+        "ratingsCount": 1700,
+        "language": "fr",
+        "imageLinks": {
+          "smallThumbnail": "http://example.com/cyrano-small.jpg",
+          "thumbnail": "/book-1.png"
+        },
+        "previewLink": "http://books.google.com/books?id=5u6v7w",
+        "infoLink": "http://books.google.com/books/about/Cyrano_de_Bergerac.html?id=5u6v7w"
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "1z2x3c",
+      "etag": "stu123",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/1z2x3c",
+      "volumeInfo": {
+        "title": "Les Fleurs du mal",
+        "authors": ["Charles Baudelaire"],
+        "publisher": "Librairie de France",
+        "publishedDate": "1857",
+        "description": "Un recueil de poèmes explorant la beauté, le mal et la mélancolie.",
+        "pageCount": 200,
+        "categories": ["Poésie", "Classique"],
+        "averageRating": 4.8,
+        "ratingsCount": 1200,
+        "language": "fr",
+        "imageLinks": {
+          "smallThumbnail": "http://example.com/fleurs-du-mal-small.jpg",
+          "thumbnail": "/book-1.png"
+        },
+        "previewLink": "http://books.google.com/books?id=1z2x3c",
+        "infoLink": "http://books.google.com/books/about/Les_Fleurs_du_mal.html?id=1z2x3c"
+      }
     }
-  },
-  {
-    "kind": "books#volume",
-    "id": "4d5e6f",
-    "etag": "def456",
-    "selfLink": "https://www.googleapis.com/books/v1/volumes/4d5e6f",
-    "volumeInfo": {
-      "title": "L'Étranger",
-      "authors": ["Albert Camus"],
-      "publisher": "Éditions Gallimard",
-      "publishedDate": "1942",
-      "description": "Un roman existentialiste relatant l'aliénation de Meursault.",
-      "pageCount": 123,
-      "categories": ["Philosophie", "Fiction"],
-      "averageRating": 4.7,
-      "ratingsCount": 3400,
-      "language": "fr",
-      "imageLinks": {
-        "smallThumbnail": "http://example.com/l-etranger-small.jpg",
-        "thumbnail": "/book-1.png"
-      },
-      "previewLink": "http://books.google.com/books?id=4d5e6f",
-      "infoLink": "http://books.google.com/books/about/L_Etranger.html?id=4d5e6f"
-    }
-  },
-  {
-    "kind": "books#volume",
-    "id": "7g8h9i",
-    "etag": "ghi789",
-    "selfLink": "https://www.googleapis.com/books/v1/volumes/7g8h9i",
-    "volumeInfo": {
-      "title": "Les Misérables",
-      "authors": ["Victor Hugo"],
-      "publisher": "Librairie Hachette",
-      "publishedDate": "1862",
-      "description": "Une fresque historique suivant la vie de Jean Valjean.",
-      "pageCount": 1456,
-      "categories": ["Drame", "Classique"],
-      "averageRating": 4.8,
-      "ratingsCount": 1900,
-      "language": "fr",
-      "imageLinks": {
-        "smallThumbnail": "http://example.com/les-miserables-small.jpg",
-        "thumbnail": "/book-1.png"
-      },
-      "previewLink": "http://books.google.com/books?id=7g8h9i",
-      "infoLink": "http://books.google.com/books/about/Les_Miserables.html?id=7g8h9i"
-    }
-  },
-  {
-    "kind": "books#volume",
-    "id": "2k3l4m",
-    "etag": "jkl456",
-    "selfLink": "https://www.googleapis.com/books/v1/volumes/2k3l4m",
-    "volumeInfo": {
-      "title": "Madame Bovary",
-      "authors": ["Gustave Flaubert"],
-      "publisher": "Flammarion",
-      "publishedDate": "1857",
-      "description": "Un chef-d'œuvre du réalisme explorant la vie insatisfaite d'Emma Bovary.",
-      "pageCount": 432,
-      "categories": ["Fiction", "Classique"],
-      "averageRating": 4.6,
-      "ratingsCount": 1800,
-      "language": "fr",
-      "imageLinks": {
-        "smallThumbnail": "http://example.com/madame-bovary-small.jpg",
-        "thumbnail": "/book-1.png"
-      },
-      "previewLink": "http://books.google.com/books?id=2k3l4m",
-      "infoLink": "http://books.google.com/books/about/Madame_Bovary.html?id=2k3l4m"
-    }
-  },
-  {
-    "kind": "books#volume",
-    "id": "9n0p1q",
-    "etag": "mno123",
-    "selfLink": "https://www.googleapis.com/books/v1/volumes/9n0p1q",
-    "volumeInfo": {
-      "title": "La Peste",
-      "authors": ["Albert Camus"],
-      "publisher": "Éditions Gallimard",
-      "publishedDate": "1947",
-      "description": "Un roman philosophique explorant une épidémie dans une ville algérienne.",
-      "pageCount": 320,
-      "categories": ["Fiction", "Philosophie"],
-      "averageRating": 4.7,
-      "ratingsCount": 2900,
-      "language": "fr",
-      "imageLinks": {
-        "smallThumbnail": "http://example.com/la-peste-small.jpg",
-        "thumbnail": "/book-1.png"
-      },
-      "previewLink": "http://books.google.com/books?id=9n0p1q",
-      "infoLink": "http://books.google.com/books/about/La_Peste.html?id=9n0p1q"
-    }
-  },
-  {
-    "kind": "books#volume",
-    "id": "5u6v7w",
-    "etag": "pqr456",
-    "selfLink": "https://www.googleapis.com/books/v1/volumes/5u6v7w",
-    "volumeInfo": {
-      "title": "Cyrano de Bergerac",
-      "authors": ["Edmond Rostand"],
-      "publisher": "Librairie Charpentier",
-      "publishedDate": "1897",
-      "description": "Une comédie dramatique centrée sur l'amour et l'esprit brillant de Cyrano.",
-      "pageCount": 210,
-      "categories": ["Théâtre", "Classique"],
-      "averageRating": 4.9,
-      "ratingsCount": 1700,
-      "language": "fr",
-      "imageLinks": {
-        "smallThumbnail": "http://example.com/cyrano-small.jpg",
-        "thumbnail": "/book-1.png"
-      },
-      "previewLink": "http://books.google.com/books?id=5u6v7w",
-      "infoLink": "http://books.google.com/books/about/Cyrano_de_Bergerac.html?id=5u6v7w"
-    }
-  },
-  {
-    "kind": "books#volume",
-    "id": "1z2x3c",
-    "etag": "stu123",
-    "selfLink": "https://www.googleapis.com/books/v1/volumes/1z2x3c",
-    "volumeInfo": {
-      "title": "Les Fleurs du mal",
-      "authors": ["Charles Baudelaire"],
-      "publisher": "Librairie de France",
-      "publishedDate": "1857",
-      "description": "Un recueil de poèmes explorant la beauté, le mal et la mélancolie.",
-      "pageCount": 200,
-      "categories": ["Poésie", "Classique"],
-      "averageRating": 4.8,
-      "ratingsCount": 1200,
-      "language": "fr",
-      "imageLinks": {
-        "smallThumbnail": "http://example.com/fleurs-du-mal-small.jpg",
-        "thumbnail": "/book-1.png"
-      },
-      "previewLink": "http://books.google.com/books?id=1z2x3c",
-      "infoLink": "http://books.google.com/books/about/Les_Fleurs_du_mal.html?id=1z2x3c"
-    }
-  }
-]
+  ]
+}

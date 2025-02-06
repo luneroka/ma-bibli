@@ -7,7 +7,10 @@ export const fetchBooks = createAsyncThunk('books/fetchBooks', async () => {
     throw new Error('Failed to fetch books');
   }
   const data = await response.json();
-  return data.items.map(mapBookData);
+  const mappedData = data.items.map(mapBookData);
+  console.log('Mapped Book Data:', mappedData); // Log the mapped data
+
+  return mappedData;
 });
 
 const booksSlice = createSlice({

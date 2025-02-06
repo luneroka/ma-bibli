@@ -47,7 +47,7 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
           <div className='flex flex-col w-[121px] gap-[16px]'>
             <Link to={`/livres/${book._id}`}>
               <img
-                src={book.volumeInfo.imageLinks.thumbnail}
+                src={book.thumbnail}
                 alt='Book Cover'
                 className='h-[170px] cursor-pointer hover:scale-105 transition-all duration-200 rounded-sm'
               />
@@ -57,15 +57,15 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
           <div className='flex flex-col w-[200px]'>
             <Link to={`/livres/${book._id}`}>
               <p className='text-small text-black-75 hover:text-black font-bold h-[28px] mb-[14px] text-pretty leading-4.5'>
-                {book.volumeInfo.title.length > 40
-                  ? `${book.volumeInfo.title.slice(0, 40)}...`
-                  : book.volumeInfo.title}
+                {book.title.length > 40
+                  ? `${book.title.slice(0, 40)}...`
+                  : book.title}
               </p>
             </Link>
             <p className='text-small text-black h-[128px] overflow-hidden mb-[16px]'>
-              {book.volumeInfo.description.length > 145
-                ? `${book.volumeInfo.description.slice(0, 145)}...`
-                : book.volumeInfo.description}
+              {book.description.length > 145
+                ? `${book.description.slice(0, 145)}...`
+                : book.description}
             </p>
           </div>
         </div>
