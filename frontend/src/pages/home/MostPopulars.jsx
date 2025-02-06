@@ -78,7 +78,7 @@ const MostPopulars = ({ books, libraryBooks = [], readingListBooks = [] }) => {
         <div className='flex gap-[145px] mt-[32px]'>
           {filteredBooks.length > 0 &&
             filteredBooks.map((book) => (
-              <SwiperSlide key={book.id}>
+              <SwiperSlide key={book.googleId}>
                 <BookCard
                   book={book}
                   libraryBooks={libraryBooks}
