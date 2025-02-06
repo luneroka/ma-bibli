@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import BookCover from '../books/BookCover';
 
-function LibraryList({ libraryBooks }) {
+function LibraryList({ libraryBooks = [] }) {
   return (
     <>
       <div className='items-center gap-8 mt-[64px] mb-[32px]'>

@@ -5,6 +5,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Pagination, Navigation } from 'swiper/modules';
+import { useSelector } from 'react-redux';
 
 const categories = [
   'Filtrer par genre',
@@ -18,6 +19,10 @@ const categories = [
 const MostPopulars = () => {
   const [books, setBooks] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('Filtrer par genre');
+  const libraryBooks = useSelector((state) => state.library.libraryBooks);
+  const readingListBooks = useSelector(
+    (state) => state.readingList.readingListBooks
+  );
 
   useEffect(() => {
     fetch('books.json')
@@ -37,7 +42,9 @@ const MostPopulars = () => {
   return (
     <>
       <div className='items-center gap-8 mb-[32px]'>
-        <h3 className='text-h3 text-black font-merriweather'>Les plus populaires</h3>
+        <h3 className='text-h3 text-black font-merriweather'>
+          Les plus populaires
+        </h3>
         {/* Category filter */}
         <div className='mt-[16px]'>
           <select
@@ -84,7 +91,11 @@ const MostPopulars = () => {
           {filteredBooks.length > 0 &&
             filteredBooks.map((book) => (
               <SwiperSlide key={book.id}>
-                <BookCard book={book} />
+                <BookCard
+                  book={book}
+                  libraryBooks={libraryBooks}
+                  readingListBooks={readingListBooks}
+                />
               </SwiperSlide>
             ))}
         </div>

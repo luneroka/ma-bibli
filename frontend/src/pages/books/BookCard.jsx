@@ -3,7 +3,7 @@ import { FaRegBookmark } from 'react-icons/fa';
 import { FaBookmark } from 'react-icons/fa';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 import { FaCheckCircle } from 'react-icons/fa';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
   addToLibrary,
@@ -14,29 +14,30 @@ import {
   removeFromReadingList,
 } from '../../redux/features/reading-list/readingListSlice';
 
-const BookCard = ({ book }) => {
-  const [isInLibrary, setIsInLibrary] = useState(false);
-  const [isInReadingList, setIsInReadingList] = useState(false);
+const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
   const dispatch = useDispatch();
+
+  const isInLibrary = libraryBooks.some(
+    (libraryBook) => libraryBook.id === book.id
+  );
+  const isInReadingList = readingListBooks.some(
+    (readingListBook) => readingListBook.id === book.id
+  );
 
   const handleAddToLibrary = (book) => {
     dispatch(addToLibrary(book));
-    setIsInLibrary(true);
   };
 
   const handleRemoveFromLibrary = (book) => {
     dispatch(removeFromLibrary(book));
-    setIsInLibrary(false);
   };
 
   const handleAddToReadingList = (book) => {
     dispatch(addToReadingList(book));
-    setIsInReadingList(true);
   };
 
   const handleRemoveFromReadingList = (book) => {
     dispatch(removeFromReadingList(book));
-    setIsInReadingList(false);
   };
 
   return (
