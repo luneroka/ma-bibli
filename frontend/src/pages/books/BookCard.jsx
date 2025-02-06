@@ -14,7 +14,7 @@ import {
   removeFromReadingList,
 } from '../../redux/features/reading-list/readingListSlice';
 
-const BookCard = ({ book, libraryBooks = [], readingListBooks = []}) => {
+const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
   const dispatch = useDispatch();
 
   const handleAddToLibrary = (book) => {
@@ -45,7 +45,7 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = []}) => {
       <div>
         <div className='flex gap-[24px]'>
           <div className='flex flex-col w-[121px] gap-[16px]'>
-            <Link to={`/livres/${book.id}`}>
+            <Link to={`/livres/${book._id}`}>
               <img
                 src={book.volumeInfo.imageLinks.thumbnail}
                 alt='Book Cover'
@@ -55,7 +55,7 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = []}) => {
           </div>
 
           <div className='flex flex-col w-[200px]'>
-            <Link to={`/livres/${book.id}`}>
+            <Link to={`/livres/${book._id}`}>
               <p className='text-small text-black-75 hover:text-black font-bold h-[28px] mb-[14px] text-pretty leading-4.5'>
                 {book.volumeInfo.title.length > 40
                   ? `${book.volumeInfo.title.slice(0, 40)}...`
