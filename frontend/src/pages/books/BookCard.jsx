@@ -8,6 +8,10 @@ import {
   addToLibrary,
   removeFromLibrary,
 } from '../../redux/features/library/librarySlice';
+import {
+  addToReadingList,
+  removeFromReadingList,
+} from '../../redux/features/reading-list/readingListSlice';
 
 const BookCard = ({ book }) => {
   const [isInLibrary, setIsInLibrary] = useState(false);
