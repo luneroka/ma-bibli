@@ -15,6 +15,7 @@ import {
 
 const BookCard = ({ book }) => {
   const [isInLibrary, setIsInLibrary] = useState(false);
+  const [isInReadingList, setIsInReadingList] = useState(false);
   const dispatch = useDispatch();
 
   const handleAddToLibrary = (book) => {
@@ -25,6 +26,16 @@ const BookCard = ({ book }) => {
   const handleRemoveFromLibrary = (book) => {
     dispatch(removeFromLibrary(book));
     setIsInLibrary(false);
+  };
+
+  const handleAddToReadingList = (book) => {
+    dispatch(addToReadingList(book));
+    setIsInReadingList(true);
+  };
+
+  const handleRemoveFromReadingList = (book) => {
+    dispatch(removeFromReadingList(book));
+    setIsInReadingList(false);
   };
 
   return (
