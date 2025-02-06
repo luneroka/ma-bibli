@@ -1,4 +1,5 @@
 export const mapBookData = (book) => ({
+  googleId: book.id || 'N/A',
   title: book.volumeInfo.title || 'N/A',
   authors: book.volumeInfo.authors || ['Unknown'],
   publisher: book.volumeInfo.publisher || 'Unknown',
