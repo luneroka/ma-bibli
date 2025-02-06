@@ -8,7 +8,6 @@ export const fetchBooks = createAsyncThunk('books/fetchBooks', async () => {
   }
   const data = await response.json();
   const mappedData = data.items.map(mapBookData);
-  console.log('Mapped Book Data:', mappedData); // Log the mapped data
 
   return mappedData;
 });

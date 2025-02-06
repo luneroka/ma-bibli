@@ -6,7 +6,7 @@ import { FaCheckCircle } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
-  addToLibrary,
+  addToLibraryAsync,
   removeFromLibrary,
 } from '../../redux/features/library/librarySlice';
 import {
@@ -18,7 +18,7 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
   const dispatch = useDispatch();
 
   const handleAddToLibrary = (book) => {
-    dispatch(addToLibrary(book));
+    dispatch(addToLibraryAsync(book));
   };
 
   const handleRemoveFromLibrary = (book) => {
@@ -34,10 +34,10 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
   };
 
   const isInLibrary = libraryBooks.some(
-    (libraryBook) => libraryBook.id === book.id
+    (libraryBook) => libraryBook.googleId === book.googleId
   );
   const isInReadingList = readingListBooks.some(
-    (readingListBook) => readingListBook.id === book.id
+    (readingListBook) => readingListBook.googleId === book.googleId
   );
 
   return (

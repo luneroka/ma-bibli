@@ -14,7 +14,7 @@ function BookInLibrary({ book }) {
   return (
     <>
       <div className='relative'>
-        <Link to={`/livres/${book.id}`}>
+        <Link to={`/livres/${book.googleId}`}>
           <img
             src={book.thumbnail}
             alt='Book Cover'

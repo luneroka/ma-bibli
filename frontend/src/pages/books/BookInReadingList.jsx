@@ -22,7 +22,7 @@ function BookInReadingList({ book }) {
     <>
       <div className='flex flex-col gap-1'>
         <div className='relative gap-1'>
-          <Link to={`/livres/${book.id}`}>
+          <Link to={`/livres/${book.googleId}`}>
             <img
               src={book.thumbnail}
               alt='Book Cover'
