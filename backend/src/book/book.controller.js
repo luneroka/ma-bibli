@@ -1,6 +1,4 @@
-const Book = require('./book.model');
-
-const addBook = async (req, res) => {
+const addBook = async (Model, req, res) => {
   try {
     const {
       googleId,
@@ -30,7 +28,7 @@ const addBook = async (req, res) => {
     }
 
     // Create the new book instance and save it to the database
-    const newBook = new Book({
+    const newBook = new Model({
       googleId,
       title,
       authors,
@@ -56,11 +54,11 @@ const addBook = async (req, res) => {
   }
 };
 
-const deleteBook = async (req, res) => {
+const deleteBook = async (Model, req, res) => {
   try {
     const { bookId } = req.params;
 
-    const deletedBook = await Book.findOneAndDelete({ googleId: bookId });
+    const deletedBook = await Model.findOneAndDelete({ googleId: bookId });
 
     if (!deletedBook) {
       return res.status(404).send({ message: 'Book not found' });

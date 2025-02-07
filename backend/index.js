@@ -14,9 +14,13 @@ app.use(
   })
 );
 
-// Routes
-const bookRoutes = require('./src/books/book.route');
-app.use('/api/books', bookRoutes);
+// Library routes
+const libraryRoutes = require('./src/library/library.route');
+app.use('/api/library', libraryRoutes);
+
+// Reading List routes
+const readingListRoutes = require('./src/reading-list/readingList.route');
+app.use('/api/reading-list', readingListRoutes);
 
 async function main() {
   await mongoose.connect(process.env.DB_URL);

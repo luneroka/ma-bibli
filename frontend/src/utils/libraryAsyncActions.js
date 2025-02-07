@@ -6,7 +6,7 @@ export const addToLibraryAsync = createAsyncThunk(
   async (book, { rejectWithValue }) => {
     try {
       // Send a POST request to the backend to add the book to the database
-      const response = await fetch('/api/books/add-book', {
+      const response = await fetch('/api/library/add-book', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -31,7 +31,7 @@ export const removeFromLibraryAsync = createAsyncThunk(
   async (bookId, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/books/delete-book/${bookId}`,
+        `http://localhost:3000/api/library/delete-book/${bookId}`,
         {
           method: 'DELETE',
         }
