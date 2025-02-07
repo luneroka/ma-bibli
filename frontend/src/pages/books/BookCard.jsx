@@ -10,9 +10,9 @@ import {
   removeFromLibraryAsync,
 } from '../../utils/libraryAsyncActions';
 import {
-  addToReadingList,
-  removeFromReadingList,
-} from '../../redux/features/reading-list/readingListSlice';
+  addToReadingListAsync,
+  removeFromReadingListAsync,
+} from '../../utils/readingListAsyncActions';
 
 const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
   const dispatch = useDispatch();
@@ -26,11 +26,11 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
   };
 
   const handleAddToReadingList = (book) => {
-    dispatch(addToReadingList(book));
+    dispatch(addToReadingListAsync(book));
   };
 
-  const handleRemoveFromReadingList = (book) => {
-    dispatch(removeFromReadingList(book));
+  const handleRemoveFromReadingList = (bookId) => {
+    dispatch(removeFromReadingListAsync(bookId));
   };
 
   const isInLibrary = libraryBooks.some(
@@ -73,7 +73,7 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
       <div className='flex gap-[16px]'>
         {isInReadingList ? (
           <button
-            onClick={() => handleRemoveFromReadingList(book)}
+            onClick={() => handleRemoveFromReadingList(book.googleId)}
             className='cursor-pointer bg-secondary-btn text-black-75 text-xs rounded-lg px-1 py-1.5 hover:bg-secondary-btn w-[121px]'
           >
             <div className='flex gap-1 items-center justify-center'>

@@ -1,29 +1,46 @@
 import { createSlice } from '@reduxjs/toolkit';
+import {
+  addToReadingListAsync,
+  removeFromReadingListAsync,
+} from '../../../utils/readingListAsyncActions';
 
 const initialState = {
   readingListBooks: [],
+  status: 'idle',
+  error: null,
 };
 
 const readingListSlice = createSlice({
   name: 'reading-list',
   initialState,
-  reducers: {
-    addToReadingList: (state, action) => {
-      const existingBook = state.readingListBooks.find(
-        (book) => book.id === action.payload.id
-      );
-      if (!existingBook) {
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(addToReadingListAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(addToReadingListAsync.fulfilled, (state, action) => {
+        state.status = 'succeeded';
         state.readingListBooks.push(action.payload);
-      }
-    },
-    removeFromReadingList: (state, action) => {
-      state.readingListBooks = state.readingListBooks.filter(
-        (book) => book.id !== action.payload.id
-      );
-    },
+      })
+      .addCase(addToReadingListAsync.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
+      })
+      .addCase(removeFromReadingListAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(removeFromReadingListAsync.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.readingListBooks = state.readingListBooks.filter(
+          (book) => book.googleId !== action.payload
+        );
+      })
+      .addCase(removeFromReadingListAsync.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
+      });
   },
 });
 
-export const { addToReadingList, removeFromReadingList } =
-  readingListSlice.actions;
 export default readingListSlice.reducer;

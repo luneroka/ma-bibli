@@ -2,20 +2,20 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { TiDelete } from 'react-icons/ti';
-import { removeFromReadingList } from '../../redux/features/reading-list/readingListSlice';
+import { removeFromReadingListAsync } from '../../utils/readingListAsyncActions';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 import { addToLibraryAsync } from '../../utils/libraryAsyncActions';
 
 function BookInReadingList({ book }) {
   const dispatch = useDispatch();
 
-  const handleRemoveFromReadingList = (book) => {
-    dispatch(removeFromReadingList(book));
+  const handleRemoveFromReadingList = (bookId) => {
+    dispatch(removeFromReadingListAsync(bookId));
   };
 
   const handleMoveToLibrary = (book) => {
     dispatch(addToLibraryAsync(book));
-    dispatch(removeFromReadingList(book));
+    dispatch(removeFromReadingListAsync(book.googleId));
   };
 
   return (
@@ -30,7 +30,7 @@ function BookInReadingList({ book }) {
             />
           </Link>
           <button
-            onClick={() => handleRemoveFromReadingList(book)}
+            onClick={() => handleRemoveFromReadingList(book.googleId)}
             className='absolute top-1 right-1 rounded-full shadow-md hover:text-primary-btn text-black-75 bg-white-bg  cursor-pointer hover:scale-150 transition-all duration-200'
           >
             <TiDelete />
