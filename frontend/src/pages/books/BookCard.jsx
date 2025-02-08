@@ -13,6 +13,7 @@ import {
   addToReadingListAsync,
   removeFromReadingListAsync,
 } from '../../utils/readingListAsyncActions';
+import { formatNumber } from '../../utils/helpers';
 
 const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
   const dispatch = useDispatch();
@@ -45,36 +46,45 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
       <div>
         <div className='flex gap-[24px]'>
           <div className='flex flex-col w-[121px] gap-[16px]'>
-            <Link to={`/livres/${book._id}`}>
+            <Link to={`/livres/${book.googleId}`}>
               <img
                 src={book.thumbnail}
                 alt='Book Cover'
-                className='h-[170px] cursor-pointer hover:scale-105 transition-all duration-200 rounded-sm'
+                className='h-[170px] cursor-pointer hover:scale-105 transition-all duration-200'
               />
             </Link>
           </div>
 
-          <div className='flex flex-col w-[200px]'>
-            <Link to={`/livres/${book._id}`}>
-              <p className='text-small text-black-75 hover:text-black font-bold h-[28px] mb-[14px] text-pretty leading-4.5'>
+          <div className='flex flex-col place-content-between w-[200px] h-[170px] py-2'>
+            <Link to={`/livres/${book.googleId}`}>
+              <p className='text-small-body text-black-75 hover:text-black font-bold text-pretty leading-4.5 min-h-[41px] mb-2 content-center'>
                 {book.title.length > 40
                   ? `${book.title.slice(0, 40)}...`
                   : book.title}
               </p>
             </Link>
-            <p className='text-small text-black h-[128px] overflow-hidden mb-[16px]'>
-              {book.description.length > 145
-                ? `${book.description.slice(0, 145)}...`
-                : book.description}
+            <div className='w-12 h-[2px] bg-secondary-btn opacity-75 mb-2'></div>
+            <p className='text-small text-black-75 overflow-hidden'>
+              {book.authors}
+            </p>
+            <p className='text-small text-black-75 overflow-hidden'>
+              {book.publisher}
+            </p>
+            <p className='text-small text-black-75 overflow-hidden'>
+              Publication : {book.publishedDate}
+            </p>
+            <p className='text-small text-black-75 overflow-hidden'>
+              Pages : {formatNumber(book.pageCount)}
             </p>
           </div>
         </div>
       </div>
-      <div className='flex gap-[16px]'>
+
+      <div className='flex gap-[16px] mt-2'>
         {isInReadingList ? (
           <button
             onClick={() => handleRemoveFromReadingList(book.googleId)}
-            className='cursor-pointer bg-secondary-btn text-black-75 text-xs rounded-lg px-1 py-1.5 hover:bg-secondary-btn w-[121px]'
+            className='cursor-pointer bg-secondary-btn text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn w-[121px]'
           >
             <div className='flex gap-1 items-center justify-center'>
               <div className='text-body'>
@@ -86,7 +96,7 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
         ) : (
           <button
             onClick={() => handleAddToReadingList(book)}
-            className='cursor-pointer bg-primary-btn text-black-75 text-xs rounded-lg px-1 py-1.5 hover:bg-secondary-btn active:bg-black-75 active:text-white-bg w-[121px]'
+            className='cursor-pointer bg-primary-btn text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn active:bg-black-75 active:text-white-bg w-[121px]'
           >
             <div className='flex gap-1 items-center justify-center'>
               <div className='text-body'>
@@ -100,7 +110,7 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
         {isInLibrary ? (
           <button
             onClick={() => handleRemoveFromLibrary(book.googleId)}
-            className='cursor-pointer bg-secondary-btn text-black-75 text-xs rounded-lg px-1 py-1.5 hover:bg-secondary-btn w-[125px]'
+            className='cursor-pointer bg-secondary-btn text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn w-[125px]'
           >
             <div className='flex gap-1 items-center justify-center'>
               <div className='text-body'>
@@ -112,7 +122,7 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
         ) : (
           <button
             onClick={() => handleAddToLibrary(book)}
-            className='cursor-pointer bg-primary-btn text-black-75 text-xs rounded-lg px-1 py-1.5 hover:bg-secondary-btn w-[125px] active:bg-black-75 active:text-white-bg'
+            className='cursor-pointer bg-primary-btn text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn w-[125px] active:bg-black-75 active:text-white-bg'
           >
             <div className='flex gap-1 items-center justify-center'>
               <div className='text-body'>

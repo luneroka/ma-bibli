@@ -21,7 +21,7 @@ function NewsCard({ article }) {
               {article.title}
             </p>
           </Link>
-          <div className='w-12 h-[3px] bg-secondary-btn mb-4'></div>
+          <div className='w-12 h-[2px] bg-secondary-btn opacity-75 mb-4'></div>
           <p className='text-small text-black h-[112px] overflow-hidden'>
             {article.description.length > 300
               ? `${article.description.slice(0, 300)}...`

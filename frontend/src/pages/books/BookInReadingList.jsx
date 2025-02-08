@@ -26,7 +26,7 @@ function BookInReadingList({ book }) {
             <img
               src={book.thumbnail}
               alt='Book Cover'
-              className='w-[125px] h-[175px] cursor-pointer hover:scale-105 transition-all duration-200 rounded-sm'
+              className='w-[125px] h-[175px] cursor-pointer hover:scale-105 transition-all duration-200'
             />
           </Link>
           <button
@@ -38,7 +38,7 @@ function BookInReadingList({ book }) {
         </div>
         <button
           onClick={() => handleMoveToLibrary(book)}
-          className='cursor-pointer bg-primary-btn text-black-75 text-xs rounded-lg px-1 py-1.5 hover:bg-secondary-btn w-[125px] active:bg-black-75 active:text-white-bg'
+          className='cursor-pointer bg-primary-btn text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn w-[125px] active:bg-black-75 active:text-white-bg'
         >
           <div className='flex gap-1 items-center justify-center'>
             <div className='text-body'>

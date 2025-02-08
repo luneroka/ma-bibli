@@ -18,7 +18,7 @@ function BookInLibrary({ book }) {
           <img
             src={book.thumbnail}
             alt='Book Cover'
-            className='w-[125px] h-[175px] cursor-pointer hover:scale-105 transition-all duration-200 rounded-sm'
+            className='w-[125px] h-[175px] cursor-pointer hover:scale-105 transition-all duration-200'
           />
         </Link>
         <button
