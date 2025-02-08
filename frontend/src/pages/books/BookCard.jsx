@@ -67,13 +67,13 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
             <p className='text-small text-black-75 overflow-hidden'>
               {book.authors}
             </p>
-            <p className='text-small text-black-75 overflow-hidden'>
+            <p className='text-small text-black-50 overflow-hidden'>
               {book.publisher}
             </p>
-            <p className='text-small text-black-75 overflow-hidden'>
+            <p className='text-small text-black-50 overflow-hidden'>
               Publication : {book.publishedDate}
             </p>
-            <p className='text-small text-black-75 overflow-hidden'>
+            <p className='text-small text-black-50 overflow-hidden'>
               Pages : {formatNumber(book.pageCount)}
             </p>
           </div>
