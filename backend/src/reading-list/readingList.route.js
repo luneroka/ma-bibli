@@ -1,6 +1,6 @@
 const express = require('express');
 const ReadingListBook = require('./readingList.model');
-const { addBook, deleteBook } = require('../book/book.controller');
+const { getAllBooks, addBook, deleteBook } = require('../book/book.controller');
 const router = express.Router();
 
 router.get('/', (req, res) => getAllBooks(ReadingListBook, req, res));

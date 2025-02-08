@@ -15,8 +15,8 @@ app.use(
 );
 
 // Book routes
-const bookRoutes = require('./src/book/book.route');
-app.use('/api/book', bookRoutes);
+const singleBookRoutes = require('./src/single-book/singleBook.route');
+app.use('/api/books', singleBookRoutes);
 
 // Library routes
 const libraryRoutes = require('./src/library/library.route');

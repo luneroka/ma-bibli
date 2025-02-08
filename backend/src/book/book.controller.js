@@ -1,3 +1,6 @@
+const fs = require('fs');
+const path = require('path');
+
 const getAllBooks = async (Model, req, res) => {
   try {
     const books = await Model.find();
@@ -5,6 +8,28 @@ const getAllBooks = async (Model, req, res) => {
   } catch (error) {
     console.error('Failed to load books.');
     res.status(500).send({ message: 'Failed to load books' });
+  }
+};
+
+const getSingleBook = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const filePath = path.join(
+      __dirname,
+      '../../../frontend/public/books.json'
+    );
+    const booksData = fs.readFileSync(filePath, 'utf8');
+    const books = JSON.parse(booksData).items;
+
+    const book = books.find((book) => book.id === id);
+    if (!book) {
+      return res.status(404).send({ message: 'Book not found' });
+    }
+
+    res.status(200).send(book);
+  } catch (error) {
+    console.error('Could not find the requested book', error);
+    res.status(500).send({ message: 'Could not find the requested book' });
   }
 };
 
@@ -85,6 +110,7 @@ const deleteBook = async (Model, req, res) => {
 
 module.exports = {
   getAllBooks,
+  getSingleBook,
   addBook,
   deleteBook,
 };
