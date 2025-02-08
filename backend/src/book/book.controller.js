@@ -1,3 +1,13 @@
+const getAllBooks = async (Model, req, res) => {
+  try {
+    const books = await Model.find();
+    res.status(200).send(books);
+  } catch (error) {
+    console.error('Failed to load books.');
+    res.status(500).send({ message: 'Failed to load books' });
+  }
+};
+
 const addBook = async (Model, req, res) => {
   try {
     const {
@@ -74,6 +84,7 @@ const deleteBook = async (Model, req, res) => {
 };
 
 module.exports = {
+  getAllBooks,
   addBook,
   deleteBook,
 };
