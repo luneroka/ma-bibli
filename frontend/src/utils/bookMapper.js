@@ -1,4 +1,7 @@
+import { generateRandomId } from './helpers';
+
 export const mapBookData = (book) => ({
+  _id: generateRandomId() || null,
   googleId: book.id || 'N/A',
   title: book.volumeInfo.title || 'N/A',
   authors: book.volumeInfo.authors || ['Unknown'],

@@ -1,5 +1,29 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
+export const createGetAllBooksAsync = (type, apiEndpoint) =>
+  createAsyncThunk(
+    `${type}/getAllBooksAsync`,
+    async (_, { rejectWithValue }) => {
+      try {
+        const response = await fetch(apiEndpoint, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed to load ${type} books`);
+        }
+
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        return rejectWithValue(error.message);
+      }
+    }
+  );
+
 // Async action to add a book to the library (both Redux state and database)
 export const createAddBookAsync = (type, apiEndpoint) =>
   createAsyncThunk(
@@ -16,7 +40,7 @@ export const createAddBookAsync = (type, apiEndpoint) =>
         });
 
         if (!response.ok) {
-          throw new Error('Failed to add book to the library');
+          throw new Error(`Failed to add book to the ${type}`);
         }
 
         const data = await response.json();
@@ -37,7 +61,7 @@ export const createRemoveBookAsync = (type, apiEndpoint) =>
         });
 
         if (!response.ok) {
-          throw new Error('Failed to remove book from library');
+          throw new Error(`Failed to remove book from ${type}`);
         }
 
         return bookId;

@@ -34,5 +34,5 @@ main()
   .catch((err) => console.log(err));
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Ma Bibli listening on port ${port}`);
 });

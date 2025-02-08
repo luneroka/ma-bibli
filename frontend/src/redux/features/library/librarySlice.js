@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
+  getLibraryBooksAsync,
   addToLibraryAsync,
   removeFromLibraryAsync,
 } from '../../../utils/libraryAsyncActions';
@@ -16,6 +17,17 @@ const librarySlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(getLibraryBooksAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(getLibraryBooksAsync.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.libraryBooks = action.payload;
+      })
+      .addCase(getLibraryBooksAsync.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
       .addCase(addToLibraryAsync.pending, (state) => {
         state.status = 'loading';
       })
@@ -25,7 +37,7 @@ const librarySlice = createSlice({
       })
       .addCase(addToLibraryAsync.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.payload;
+        state.error = action.error.message;
       })
       .addCase(removeFromLibraryAsync.pending, (state) => {
         state.status = 'loading';
@@ -38,7 +50,7 @@ const librarySlice = createSlice({
       })
       .addCase(removeFromLibraryAsync.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.payload;
+        state.error = action.error.message;
       });
   },
 });

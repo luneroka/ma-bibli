@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Footer from '../../components/Footer';
 import LibraryList from './LibraryList';
 import NavbarLibrary from '../../components/NavbarLibrary';
-import { useSelector } from 'react-redux';
+import { getLibraryBooksAsync } from '../../utils/libraryAsyncActions';
+import { useDispatch, useSelector } from 'react-redux';
 
 function LibraryPage() {
-  const libraryBooks = useSelector((state) => state.library.libraryBooks);
+  const dispatch = useDispatch();
+  const { libraryBooks, status, error } = useSelector((state) => state.library);
+
+  useEffect(() => {
+    dispatch(getLibraryBooksAsync());
+  }, [dispatch]);
 
   return (
     <>
