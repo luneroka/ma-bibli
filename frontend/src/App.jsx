@@ -3,6 +3,7 @@ import { Outlet } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { fetchBooks } from './redux/features/books/booksSlice';
 import { getLibraryBooksAsync } from './utils/libraryAsyncActions';
+import { getReadingListBooksAsync } from './utils/readingListAsyncActions';
 import './App.css';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -13,6 +14,7 @@ function App() {
   useEffect(() => {
     dispatch(fetchBooks());
     dispatch(getLibraryBooksAsync());
+    dispatch(getReadingListBooksAsync());
   }, [dispatch]);
 
   return (
