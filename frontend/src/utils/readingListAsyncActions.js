@@ -1,4 +1,13 @@
-import { createAddBookAsync, createRemoveBookAsync } from './asyncActions';
+import {
+  createGetAllBooksAsync,
+  createAddBookAsync,
+  createRemoveBookAsync,
+} from './asyncActions';
+
+export const getReadingListBooksAsync = createGetAllBooksAsync(
+  'reading-list',
+  'api/reading-list'
+);
 
 export const addToReadingListAsync = createAddBookAsync(
   'reading-list',
