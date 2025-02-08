@@ -14,6 +14,10 @@ app.use(
   })
 );
 
+// Book routes
+const bookRoutes = require('./src/book/book.route');
+app.use('/api/book', bookRoutes);
+
 // Library routes
 const libraryRoutes = require('./src/library/library.route');
 app.use('/api/library', libraryRoutes);
