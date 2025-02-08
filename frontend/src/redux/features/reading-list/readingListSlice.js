@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
+  getReadingListBooksAsync,
   addToReadingListAsync,
   removeFromReadingListAsync,
 } from '../../../utils/readingListAsyncActions';
@@ -16,6 +17,17 @@ const readingListSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(getReadingListBooksAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(getReadingListBooksAsync.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.libraryBooks = action.payload;
+      })
+      .addCase(getReadingListBooksAsync.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
       .addCase(addToReadingListAsync.pending, (state) => {
         state.status = 'loading';
       })
