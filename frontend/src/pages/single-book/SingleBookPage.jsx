@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import SingleBook from '../books/SingleBook';
+import SingleBook from '../../components/Book/SingleBook';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSingleBookAsync } from '../../utils/singleBookAsyncActions';
 import NavbarLibrary from '../../components/NavbarLibrary';

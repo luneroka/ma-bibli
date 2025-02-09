@@ -1,5 +1,5 @@
 import React from 'react';
-import BookInLibrary from '../books/BookInLibrary';
+import BookInLibrary from '../../components/Book/BookInLibrary';
 
 function LibraryList({ libraryBooks = [] }) {
   return (
