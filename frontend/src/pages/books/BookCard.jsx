@@ -45,12 +45,13 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
     <>
       <div>
         <div className='flex gap-[24px]'>
-          <div className='flex flex-col w-[121px] gap-[16px] items-center'>
+          <div className='flex flex-col w-[121px] h-[170px] gap-[16px] flex-shrink-0 items-center'>
             <Link to={`/livres/${book.id}`}>
               <img
                 src={book.volumeInfo.imageLinks.small}
                 alt='Book Cover'
-                className='h-[170px] cursor-pointer hover:scale-105 transition-all duration-200'
+                className='w-full h-full cursor-pointer hover:scale-105 transition-all duration-200'
+                style={{ width: '121px', height: '170px' }}
               />
             </Link>
           </div>

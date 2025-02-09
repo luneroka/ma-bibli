@@ -44,15 +44,17 @@ function SingleBook({ book, libraryBooks = [], readingListBooks = [] }) {
     <>
       <div>
         <div className='flex gap-[24px]'>
-          <img
-            src={
-              book.volumeInfo.imageLinks.small
-                ? book.volumeInfo.imageLinks.small
-                : '../../../public/product-not-found.png'
-            }
-            alt={`${book.volumeInfo.title}'s book cover`}
-            className='w-[235px] h-[330px]'
-          />
+          <div className='w-[220px] h-[330px] flex-shrink-0'>
+            <img
+              src={
+                book.volumeInfo.imageLinks.small
+                  ? book.volumeInfo.imageLinks.small
+                  : '../../../public/product-not-found.png'
+              }
+              alt={`${book.volumeInfo.title}'s book cover`}
+              className='w-full h-full object-contains'
+            />
+          </div>
           <div className='flex flex-col place-content-between w-full py-2'>
             <p className='text-h5 text-black'>{book.volumeInfo.title}</p>
             <p className='italic'>{book.volumeInfo.authors}</p>
@@ -81,7 +83,7 @@ function SingleBook({ book, libraryBooks = [], readingListBooks = [] }) {
         {isInReadingList ? (
           <button
             onClick={() => handleRemoveFromReadingList(book.id)}
-            className='cursor-pointer bg-secondary-btn text-black-75 text-small px-1 py-3 hover:bg-secondary-btn w-[235px]'
+            className='cursor-pointer bg-secondary-btn text-black-75 text-small px-1 py-2.5 hover:bg-secondary-btn w-[220px]'
           >
             <div className='flex gap-1 items-center justify-center'>
               <div className='text-body'>
@@ -93,7 +95,7 @@ function SingleBook({ book, libraryBooks = [], readingListBooks = [] }) {
         ) : (
           <button
             onClick={() => handleAddToReadingList(book)}
-            className='cursor-pointer bg-primary-btn text-black-75 text-small px-1 py-3 hover:bg-secondary-btn active:bg-black-75 active:text-white-bg w-[235px]'
+            className='cursor-pointer bg-primary-btn text-black-75 text-small px-1 py-2.5 hover:bg-secondary-btn active:bg-black-75 active:text-white-bg w-[220px]'
           >
             <div className='flex gap-1 items-center justify-center'>
               <div className='text-body'>
@@ -107,7 +109,7 @@ function SingleBook({ book, libraryBooks = [], readingListBooks = [] }) {
         {isInLibrary ? (
           <button
             onClick={() => handleRemoveFromLibrary(book.id)}
-            className='cursor-pointer bg-secondary-btn text-black-75 text-small px-1 py-3 hover:bg-secondary-btn w-[235px]'
+            className='cursor-pointer bg-secondary-btn text-black-75 text-small px-1 py-2.5 hover:bg-secondary-btn w-[220px]'
           >
             <div className='flex gap-1 items-center justify-center'>
               <div className='text-body'>
@@ -119,7 +121,7 @@ function SingleBook({ book, libraryBooks = [], readingListBooks = [] }) {
         ) : (
           <button
             onClick={() => handleAddToLibrary(book)}
-            className='cursor-pointer bg-primary-btn text-black-75 text-small px-1 py-3 hover:bg-secondary-btn w-[235px] active:bg-black-75 active:text-white-bg'
+            className='cursor-pointer bg-primary-btn text-black-75 text-small px-1 py-2.5 hover:bg-secondary-btn w-[220px] active:bg-black-75 active:text-white-bg'
           >
             <div className='flex gap-1 items-center justify-center'>
               <div className='text-body'>

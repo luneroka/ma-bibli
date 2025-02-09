@@ -25,7 +25,7 @@ function BookInReadingList({ book, libraryBooks = [] }) {
 
   return (
     <>
-      <div className='flex flex-col gap-1'>
+      <div className='flex flex-col gap-2'>
         <div className='relative gap-1'>
           <Link to={`/livres/${book.id}`}>
             <img
