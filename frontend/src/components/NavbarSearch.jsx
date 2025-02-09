@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaListAlt } from 'react-icons/fa';
 import { FaBookOpen } from 'react-icons/fa';
 import { FaUser } from 'react-icons/fa';
@@ -19,10 +19,12 @@ const NavbarSearch = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dispatch = useDispatch();
-  const { searchResults } = useSelector((state) => state.search.searchResults);
+  const navigate = useNavigate();
+  const searchResults = useSelector((state) => state.search.searchResults);
 
-  const handleSearch = () => {
-    dispatch(createSearchBooksAsync('search', '/api/search')(searchTerm));
+  const handleSearch = async () => {
+    await dispatch(createSearchBooksAsync('search', '/api/search')(searchTerm));
+    navigate('/recherche', { state: { searchTerm } });
   };
 
   const currentUser = false;

@@ -4,7 +4,7 @@ import { createSearchBooksAsync } from '../../../utils/asyncActions';
 const searchSlice = createSlice({
   name: 'search',
   initialState: {
-    searchResults: [],
+    searchResults: { items: [] },
     loading: false,
     error: null,
   },
@@ -12,20 +12,21 @@ const searchSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(
-        createSearchBooksAsync('books', '/api/search').pending,
+        createSearchBooksAsync('search', '/api/search').pending,
         (state) => {
           state.loading = true;
         }
       )
       .addCase(
-        createSearchBooksAsync('books', '/api/search').fulfilled,
+        createSearchBooksAsync('search', '/api/search').fulfilled,
         (state, action) => {
           state.loading = false;
           state.searchResults = action.payload;
+          console.log('Search results:', action.payload); // Add this line
         }
       )
       .addCase(
-        createSearchBooksAsync('books', '/api/search').rejected,
+        createSearchBooksAsync('search', '/api/search').rejected,
         (state, action) => {
           state.loading = false;
           state.error = action.payload;
