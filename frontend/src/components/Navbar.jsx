@@ -28,11 +28,11 @@ const Navbar = () => {
             <input
               type='text'
               placeholder='Rechercher un livre ou un auteur...'
-              className='bg-white-bg w-full h-8 pl-10 pr-4 rounded-lg text-small md:text-body focus:outline-none focus:ring-2 focus:ring-primary-btn placeholder:text-small'
+              className='bg-white-bg w-full h-8 pl-10 pr-4 text-small md:text-body focus:outline-none focus:ring-2 focus:ring-primary-btn placeholder:text-small'
             />
           </div>
           {/* Search Button */}
-          <button className='cursor-pointer hidden sm:block font-merriweather text-white-bg bg-primary-btn px-6 h-8 rounded-lg text-small hover:bg-secondary-btn active:bg-black-75'>
+          <button className='cursor-pointer hidden sm:block font-merriweather text-white-bg bg-primary-btn px-6 h-8 text-small hover:bg-secondary-btn active:bg-black-75'>
             Rechercher
           </button>
         </div>
