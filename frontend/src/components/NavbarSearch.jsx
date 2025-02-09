@@ -4,6 +4,7 @@ import { FaListAlt } from 'react-icons/fa';
 import { FaBookOpen } from 'react-icons/fa';
 import { FaUser } from 'react-icons/fa';
 import { IoSearchOutline } from 'react-icons/io5';
+import { IoHome } from 'react-icons/io5';
 import avatarImg from '../assets/avatar.png';
 
 const navigation = [
@@ -12,7 +13,7 @@ const navigation = [
   { name: 'Se déconnecter', href: '/logout' },
 ];
 
-const Navbar = () => {
+const NavbarSearch = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const currentUser = false;
@@ -21,6 +22,9 @@ const Navbar = () => {
     <header className='w-full sticky top-0 z-50 bg-main-blue h-[70px] items-center'>
       <nav className='flex justify-between items-center px-[64px] md:px-[128px] py-[17px]'>
         {/* left side */}
+        <Link to='/'>
+          <IoHome className='cursor-pointer w-6 h-6 text-white-bg hover:text-primary-btn' />
+        </Link>
         <form action='' className='flex items-center gap-4'>
           {/* Search Input */}
           <div className='relative w-[100%] md:w-[480px]'>
@@ -97,4 +101,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavbarSearch;
