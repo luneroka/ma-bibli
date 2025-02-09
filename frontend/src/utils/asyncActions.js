@@ -70,3 +70,27 @@ export const createRemoveBookAsync = (type, apiEndpoint) =>
       }
     }
   );
+
+export const createSearchBooksAsync = (type, apiEndpoint) =>
+  createAsyncThunk(
+    `${type}/searchBooksAsync`,
+    async (searchTerm, { rejectWithValue }) => {
+      try {
+        const response = await fetch(`${apiEndpoint}/${searchTerm}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed to search books in ${type}`);
+        }
+
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        return rejectWithValue(error.message);
+      }
+    }
+  );
