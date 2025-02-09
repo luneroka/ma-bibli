@@ -40,6 +40,11 @@ function SingleBook({ book, libraryBooks = [], readingListBooks = [] }) {
     (readingListBook) => readingListBook.id === book.id
   );
 
+  // Convert HTML to plain text
+  const plainTextDescription = book.volumeInfo.description
+    ? book.volumeInfo.description.replace(/<\/?[^>]+(>|$)/g, '')
+    : 'Pas de description...';
+
   return (
     <>
       <div>
@@ -69,12 +74,9 @@ function SingleBook({ book, libraryBooks = [], readingListBooks = [] }) {
               </span>
             </p>
             <p className='h-[180px] max-w-[600px] text-small-body text-black-85 text-justify'>
-              <span className='text-black'>Description : </span>
-              {book.volumeInfo.description
-                ? book.volumeInfo.description.length > 655
-                  ? `${book.volumeInfo.description.slice(0, 655)}...`
-                  : `${book.volumeInfo.description}`
-                : 'Pas de description...'}
+              {plainTextDescription.length > 655
+                ? `${plainTextDescription.slice(0, 655)}...`
+                : plainTextDescription}
             </p>
           </div>
         </div>
