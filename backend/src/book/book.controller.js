@@ -1,4 +1,7 @@
-const { fetchBookFromGoogleBooks } = require('../utils/googleBooksApi');
+const {
+  fetchBookFromGoogleBooks,
+  searchBooksFromGoogle,
+} = require('../utils/googleBooksApi');
 
 const getAllBooks = async (Model, req, res) => {
   try {
@@ -105,9 +108,24 @@ const deleteBook = async (Model, req, res) => {
   }
 };
 
+const searchBooks = async (req, res) => {
+  try {
+    const { searchTerm } = req.params;
+    const searchResults = await searchBooksFromGoogle(searchTerm);
+    if (!searchResults) {
+      return res.status(404).send({ message: 'Books not found' });
+    }
+    res.status(200).send(searchResults);
+  } catch (error) {
+    console.error('Books not found in Google Books API', error);
+    res.status(500).send({ message: 'Books not found in Google Books API' });
+  }
+};
+
 module.exports = {
   getAllBooks,
   getSingleBook,
   addBook,
   deleteBook,
+  searchBooks,
 };

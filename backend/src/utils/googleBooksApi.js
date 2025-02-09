@@ -2,8 +2,8 @@ const fetch = require('node-fetch');
 require('dotenv').config();
 const apiKey = process.env.GOOGLE_BOOKS_API_KEY;
 
-const searchBooks = async (searchTerm) => {
-  const url = `https://www.googleapis.com/books/v1/volumes?q=${searchTerm}`;
+const searchBooksFromGoogle = async (searchTerm) => {
+  const url = `https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&key=${apiKey}`;
 
   const response = await fetch(url);
 
@@ -13,7 +13,15 @@ const searchBooks = async (searchTerm) => {
     );
     throw new Error('Failed to search books from Google API');
   }
-  const searchResults = await response.json();
+
+  let searchResults;
+  try {
+    searchResults = await response.json();
+  } catch (error) {
+    console.error('Failed to parse search results from Google API', error);
+    throw new Error('Failed to parse search results from Google API');
+  }
+
   return searchResults;
 };
 
@@ -35,4 +43,4 @@ const fetchBookFromGoogleBooks = async (bookId) => {
   return book;
 };
 
-module.exports = { fetchBookFromGoogleBooks, searchBooks };
+module.exports = { fetchBookFromGoogleBooks, searchBooksFromGoogle };
