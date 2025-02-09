@@ -20,7 +20,7 @@ const searchBooks = async (searchTerm) => {
 const fetchBookFromGoogleBooks = async (bookId) => {
   const url = `https://www.googleapis.com/books/v1/volumes/${bookId}?key=${apiKey}`;
 
-  // console.log(`Fetching book from Google API: ${url}`);
+  console.log(`Fetching book from Google API: ${url}`);
 
   const response = await fetch(url);
   // console.log(`Response status: ${response.status}`);

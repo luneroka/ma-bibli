@@ -10,6 +10,7 @@ import { store } from './redux/store.js';
 import LibraryPage from './pages/library/LibraryPage.jsx';
 import ReadingListPage from './pages/reading-list/ReadingListPage.jsx';
 import SingleBookPage from './pages/single-book/SingleBookPage.jsx';
+import SearchPage from './pages/search/SearchPage.jsx';
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
@@ -20,6 +21,7 @@ createRoot(document.getElementById('root')).render(
         </Route>
         <Route path='/login' element={<LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />
+        <Route path='/recherche' element={<SearchPage />} />
         <Route path='/liste-de-lecture' element={<ReadingListPage />} />
         <Route path='/bibli' element={<LibraryPage />} />
         <Route path='/livres/:id' element={<SingleBookPage />} />
