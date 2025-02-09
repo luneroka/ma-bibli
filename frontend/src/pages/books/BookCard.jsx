@@ -13,7 +13,7 @@ import {
   addToReadingListAsync,
   removeFromReadingListAsync,
 } from '../../utils/readingListAsyncActions';
-import { formatNumber } from '../../utils/helpers';
+import { formatNumber, extractYear } from '../../utils/helpers';
 
 const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
   const dispatch = useDispatch();

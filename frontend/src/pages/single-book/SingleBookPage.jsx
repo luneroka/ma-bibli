@@ -26,7 +26,7 @@ function SingleBookPage() {
   return (
     <>
       <NavbarLibrary />
-      <main className='flex-1 min-h-0 max-w-full mx-[128px] font-lato'>
+      <main className='flex-1 min-h-0 max-w-full mx-[128px] mt-[96px] font-lato'>
         {book && <SingleBook book={book} />}
       </main>
       <Footer />
