@@ -29,36 +29,39 @@ const getSingleBook = async (req, res) => {
 
 const addBook = async (Model, req, res) => {
   try {
-    const {
-      googleId,
-      title,
-      authors,
-      publisher,
-      publishedDate,
-      description,
-      pageCount,
-      categories,
-      thumbnail,
-    } = req.body;
+    const { id } = req.body;
 
     // Validate the incoming data
-    if (
-      !googleId ||
-      !title ||
-      !authors ||
-      !publisher ||
-      !publishedDate ||
-      !description ||
-      !pageCount ||
-      !categories ||
-      !thumbnail
-    ) {
-      return res.status(400).send({ message: 'Tous les champs sont requis.' });
+    if (!id) {
+      return res.status(400).send({ message: 'Book id not found.' });
     }
+
+    // Fetch book data
+    const bookData = await fetchBookFromGoogleBooks(id);
+
+    if (!bookData) {
+      return res
+        .status(404)
+        .send({ message: 'Book not found in Google Books API' });
+    }
+
+    // Extract necessary fields from the fetched book data
+    const {
+      volumeInfo: {
+        title,
+        authors,
+        publisher,
+        publishedDate,
+        description,
+        pageCount,
+        categories,
+        imageLinks: { small },
+      },
+    } = bookData;
 
     // Create the new book instance and save it to the database
     const newBook = new Model({
-      googleId,
+      id,
       title,
       authors,
       publisher,
@@ -66,7 +69,7 @@ const addBook = async (Model, req, res) => {
       description,
       pageCount,
       categories,
-      thumbnail,
+      small,
     });
 
     await newBook.save();

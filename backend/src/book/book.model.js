@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const bookSchema = new mongoose.Schema(
   {
-    googleId: {
+    id: {
       type: String,
       required: true,
     },
@@ -34,7 +34,7 @@ const bookSchema = new mongoose.Schema(
       type: [String],
       required: true,
     },
-    thumbnail: {
+    small: {
       type: String,
       required: true,
     },
