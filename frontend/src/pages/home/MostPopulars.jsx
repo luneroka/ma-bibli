@@ -16,16 +16,16 @@ const categories = [
 ];
 
 const MostPopulars = ({ books, libraryBooks = [], readingListBooks = [] }) => {
-  const [selectedCategory, setSelectedCategory] = useState('Filtrer par genre');
+  // const [selectedCategory, setSelectedCategory] = useState('Filtrer par genre');
 
-  const filteredBooks =
+/*   const filteredBooks =
     selectedCategory === 'Filtrer par genre'
       ? books
       : books.filter(
           (book) =>
             book.categories?.[0]?.toLowerCase() ===
             selectedCategory.toLowerCase()
-        );
+        ); */
 
   return (
     <>
@@ -34,7 +34,7 @@ const MostPopulars = ({ books, libraryBooks = [], readingListBooks = [] }) => {
           Les plus populaires
         </h3>
         {/* Category filter */}
-        <div className='mt-[16px]'>
+        {/* <div className='mt-[16px]'>
           <select
             onChange={(e) => setSelectedCategory(e.target.value)}
             name='category'
@@ -47,7 +47,7 @@ const MostPopulars = ({ books, libraryBooks = [], readingListBooks = [] }) => {
               </option>
             ))}
           </select>
-        </div>
+        </div> */}
       </div>
 
       <Swiper
@@ -76,9 +76,9 @@ const MostPopulars = ({ books, libraryBooks = [], readingListBooks = [] }) => {
         className='mySwiper'
       >
         <div className='flex gap-[145px] mt-[32px]'>
-          {filteredBooks.length > 0 &&
-            filteredBooks.map((book) => (
-              <SwiperSlide key={book.googleId}>
+          {books.length > 0 &&
+            books.map((book) => (
+              <SwiperSlide key={book.id}>
                 <BookCard
                   book={book}
                   libraryBooks={libraryBooks}

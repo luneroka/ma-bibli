@@ -14,15 +14,15 @@ function BookInLibrary({ book }) {
   return (
     <>
       <div className='relative'>
-        <Link to={`/livres/${book.googleId}`}>
+        <Link to={`/livres/${book.id}`}>
           <img
-            src={book.thumbnail}
+            src={book.volumeInfo.imageLinks.small}
             alt='Book Cover'
             className='w-[125px] h-[175px] cursor-pointer hover:scale-105 transition-all duration-200'
           />
         </Link>
         <button
-          onClick={() => handleRemoveFromLibrary(book.googleId)}
+          onClick={() => handleRemoveFromLibrary(book.id)}
           className='absolute top-1 right-1 rounded-full shadow-md hover:text-primary-btn text-black-75 bg-white-bg  cursor-pointer hover:scale-150 transition-all duration-200'
         >
           <TiDelete />

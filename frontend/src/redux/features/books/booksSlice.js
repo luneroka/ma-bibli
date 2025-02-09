@@ -1,15 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { mapBookData } from '../../../utils/bookMapper';
 
 export const fetchBooks = createAsyncThunk('books/fetchBooks', async () => {
-  const response = await fetch('/books.json');
+  const response = await fetch('/mockBooks.json');
   if (!response.ok) {
     throw new Error('Failed to fetch books');
   }
   const data = await response.json();
-  const mappedData = data.items.map(mapBookData);
 
-  return mappedData;
+  return data;
 });
 
 const booksSlice = createSlice({

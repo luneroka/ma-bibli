@@ -45,7 +45,7 @@ const librarySlice = createSlice({
       .addCase(removeFromLibraryAsync.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.libraryBooks = state.libraryBooks.filter(
-          (book) => book.googleId !== action.payload
+          (book) => book.id !== action.payload
         );
       })
       .addCase(removeFromLibraryAsync.rejected, (state, action) => {

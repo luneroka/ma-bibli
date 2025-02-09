@@ -15,22 +15,22 @@ function BookInReadingList({ book }) {
 
   const handleMoveToLibrary = (book) => {
     dispatch(addToLibraryAsync(book));
-    dispatch(removeFromReadingListAsync(book.googleId));
+    dispatch(removeFromReadingListAsync(book.id));
   };
 
   return (
     <>
       <div className='flex flex-col gap-1'>
         <div className='relative gap-1'>
-          <Link to={`/livres/${book.googleId}`}>
+          <Link to={`/livres/${book.id}`}>
             <img
-              src={book.thumbnail}
+              src={book.volumeInfo.imageLinks.small}
               alt='Book Cover'
               className='w-[125px] h-[175px] cursor-pointer hover:scale-105 transition-all duration-200'
             />
           </Link>
           <button
-            onClick={() => handleRemoveFromReadingList(book.googleId)}
+            onClick={() => handleRemoveFromReadingList(book.id)}
             className='absolute top-1 right-1 rounded-full shadow-md hover:text-primary-btn text-black-75 bg-white-bg  cursor-pointer hover:scale-150 transition-all duration-200'
           >
             <TiDelete />

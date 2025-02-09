@@ -35,20 +35,20 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
   };
 
   const isInLibrary = libraryBooks.some(
-    (libraryBook) => libraryBook.googleId === book.googleId
+    (libraryBook) => libraryBook.id === book.id
   );
   const isInReadingList = readingListBooks.some(
-    (readingListBook) => readingListBook.googleId === book.googleId
+    (readingListBook) => readingListBook.id === book.id
   );
 
   return (
     <>
       <div>
         <div className='flex gap-[24px]'>
-          <div className='flex flex-col w-[121px] gap-[16px]'>
-            <Link to={`/livres/${book.googleId}`}>
+          <div className='flex flex-col w-[121px] gap-[16px] items-center'>
+            <Link to={`/livres/${book.id}`}>
               <img
-                src={book.thumbnail}
+                src={book.volumeInfo.imageLinks.small}
                 alt='Book Cover'
                 className='h-[170px] cursor-pointer hover:scale-105 transition-all duration-200'
               />
@@ -56,25 +56,25 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
           </div>
 
           <div className='flex flex-col place-content-between w-[200px] h-[170px] py-2'>
-            <Link to={`/livres/${book.googleId}`}>
+            <Link to={`/livres/${book.id}`}>
               <p className='text-small-body text-black-75 hover:text-black font-bold text-pretty leading-4.5 min-h-[41px] mb-2 content-center'>
-                {book.title.length > 40
-                  ? `${book.title.slice(0, 40)}...`
-                  : book.title}
+                {book.volumeInfo.title.length > 40
+                  ? `${book.volumeInfo.title.slice(0, 40)}...`
+                  : book.volumeInfo.title}
               </p>
             </Link>
             <div className='w-12 h-[2px] bg-secondary-btn opacity-75 mb-2'></div>
             <p className='text-small text-black-75 overflow-hidden'>
-              {book.authors}
+              {book.volumeInfo.authors}
             </p>
             <p className='text-small text-black-50 overflow-hidden'>
-              {book.publisher}
+              {book.volumeInfo.publisher}
             </p>
             <p className='text-small text-black-50 overflow-hidden'>
-              Publication : {book.publishedDate}
+              Publication : {extractYear(book.volumeInfo.publishedDate)}
             </p>
             <p className='text-small text-black-50 overflow-hidden'>
-              Pages : {formatNumber(book.pageCount)}
+              Pages : {formatNumber(book.volumeInfo.pageCount)}
             </p>
           </div>
         </div>
@@ -83,7 +83,7 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
       <div className='flex gap-[16px] mt-2'>
         {isInReadingList ? (
           <button
-            onClick={() => handleRemoveFromReadingList(book.googleId)}
+            onClick={() => handleRemoveFromReadingList(book.id)}
             className='cursor-pointer bg-secondary-btn text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn w-[121px]'
           >
             <div className='flex gap-1 items-center justify-center'>
@@ -109,7 +109,7 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
 
         {isInLibrary ? (
           <button
-            onClick={() => handleRemoveFromLibrary(book.googleId)}
+            onClick={() => handleRemoveFromLibrary(book.id)}
             className='cursor-pointer bg-secondary-btn text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn w-[125px]'
           >
             <div className='flex gap-1 items-center justify-center'>
