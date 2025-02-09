@@ -15,18 +15,12 @@ const getAllBooks = async (Model, req, res) => {
 const getSingleBook = async (req, res) => {
   try {
     const { id } = req.params;
-    const filePath = path.join(
-      __dirname,
-      '../../../frontend/public/books.json'
-    );
-    const booksData = fs.readFileSync(filePath, 'utf8');
-    const books = JSON.parse(booksData).items;
+    const data = await fetchBookFromGoogleBooks(id);
+    const book = JSON.parse(data).items;
 
-    const book = books.find((book) => book.id === id);
     if (!book) {
       return res.status(404).send({ message: 'Book not found' });
     }
-
     res.status(200).send(book);
   } catch (error) {
     console.error('Could not find the requested book', error);
