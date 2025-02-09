@@ -90,7 +90,7 @@ const deleteBook = async (Model, req, res) => {
   try {
     const { bookId } = req.params;
 
-    const deletedBook = await Model.findOneAndDelete({ googleId: bookId });
+    const deletedBook = await Model.findOneAndDelete({ id: bookId });
 
     if (!deletedBook) {
       return res.status(404).send({ message: 'Book not found' });
