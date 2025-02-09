@@ -1,5 +1,3 @@
-const fs = require('fs');
-const path = require('path');
 const { fetchBookFromGoogleBooks } = require('../utils/googleBooksApi');
 
 const getAllBooks = async (Model, req, res) => {
@@ -15,8 +13,9 @@ const getAllBooks = async (Model, req, res) => {
 const getSingleBook = async (req, res) => {
   try {
     const { id } = req.params;
-    const data = await fetchBookFromGoogleBooks(id);
-    const book = JSON.parse(data).items;
+    // console.log(`Fetching book with ID: ${id}`);
+    const book = await fetchBookFromGoogleBooks(id);
+    // console.log(`Fetched book data: ${JSON.stringify(book)}`);
 
     if (!book) {
       return res.status(404).send({ message: 'Book not found' });
