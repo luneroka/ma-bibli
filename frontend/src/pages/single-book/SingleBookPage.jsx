@@ -10,6 +10,10 @@ function SingleBookPage() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { book, status, error } = useSelector((state) => state.singleBook);
+  const libraryBooks = useSelector((state) => state.library.libraryBooks);
+  const readingListBooks = useSelector(
+    (state) => state.readingList.readingListBooks
+  );
 
   useEffect(() => {
     dispatch(getSingleBookAsync(id));
@@ -27,7 +31,13 @@ function SingleBookPage() {
     <>
       <NavbarLibrary />
       <main className='flex-1 min-h-0 max-w-full mx-[128px] mt-[96px] font-lato'>
-        {book && <SingleBook book={book} />}
+        {book && (
+          <SingleBook
+            book={book}
+            libraryBooks={libraryBooks}
+            readingListBooks={readingListBooks}
+          />
+        )}
       </main>
       <Footer />
     </>

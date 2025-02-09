@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 import { TiDelete } from 'react-icons/ti';
 import { removeFromReadingListAsync } from '../../utils/readingListAsyncActions';
 import { IoIosAddCircleOutline } from 'react-icons/io';
+import { FaCheckCircle } from 'react-icons/fa';
 import { addToLibraryAsync } from '../../utils/libraryAsyncActions';
 
-function BookInReadingList({ book }) {
+function BookInReadingList({ book, libraryBooks = [] }) {
   const dispatch = useDispatch();
 
   const handleRemoveFromReadingList = (bookId) => {
@@ -17,6 +18,10 @@ function BookInReadingList({ book }) {
     dispatch(addToLibraryAsync(book));
     dispatch(removeFromReadingListAsync(book.id));
   };
+
+  const isInLibrary = libraryBooks.some(
+    (libraryBook) => libraryBook.id === book.id
+  );
 
   return (
     <>
@@ -36,17 +41,28 @@ function BookInReadingList({ book }) {
             <TiDelete />
           </button>
         </div>
-        <button
-          onClick={() => handleMoveToLibrary(book)}
-          className='cursor-pointer bg-primary-btn text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn w-[125px] active:bg-black-75 active:text-white-bg'
-        >
-          <div className='flex gap-1 items-center justify-center'>
-            <div className='text-body'>
-              <IoIosAddCircleOutline />
+        {isInLibrary ? (
+          <button className='bg-secondary-btn text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn w-[125px]'>
+            <div className='flex gap-1 items-center justify-center'>
+              <div className='text-body'>
+                <FaCheckCircle />
+              </div>
+              Dans la bibli !
             </div>
-            Ajouter à ma bibli
-          </div>
-        </button>
+          </button>
+        ) : (
+          <button
+            onClick={() => handleMoveToLibrary(book)}
+            className='cursor-pointer bg-primary-btn text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn w-[125px] active:bg-black-75 active:text-white-bg'
+          >
+            <div className='flex gap-1 items-center justify-center'>
+              <div className='text-body'>
+                <IoIosAddCircleOutline />
+              </div>
+              Ajouter à ma bibli
+            </div>
+          </button>
+        )}
       </div>
     </>
   );

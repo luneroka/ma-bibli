@@ -7,8 +7,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 function ReadingListPage() {
   const dispatch = useDispatch();
-  const { readingListBooks, status, error } = useSelector(
-    (state) => state.readingList
+  const libraryBooks = useSelector((state) => state.library.libraryBooks);
+  const readingListBooks = useSelector(
+    (state) => state.readingList.readingListBooks
   );
 
   useEffect(() => {
@@ -19,7 +20,7 @@ function ReadingListPage() {
     <>
       <NavbarLibrary />
       <main className='flex-1 min-h-0 max-w-full mx-[128px] font-lato'>
-        <ReadingList readingListBooks={readingListBooks} />
+        <ReadingList libraryBooks={libraryBooks} readingListBooks={readingListBooks} />
       </main>
       <Footer />
     </>

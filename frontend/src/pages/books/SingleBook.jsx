@@ -1,9 +1,45 @@
 import React from 'react';
 import { extractYear } from '../../utils/helpers';
 import { FaRegBookmark } from 'react-icons/fa';
+import { FaBookmark } from 'react-icons/fa';
 import { IoIosAddCircleOutline } from 'react-icons/io';
+import { FaCheckCircle } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
+import {
+  addToLibraryAsync,
+  removeFromLibraryAsync,
+} from '../../utils/libraryAsyncActions';
+import {
+  addToReadingListAsync,
+  removeFromReadingListAsync,
+} from '../../utils/readingListAsyncActions';
 
-function SingleBook({ book }) {
+function SingleBook({ book, libraryBooks = [], readingListBooks = [] }) {
+  const dispatch = useDispatch();
+
+  const handleAddToLibrary = (book) => {
+    dispatch(addToLibraryAsync(book));
+  };
+
+  const handleRemoveFromLibrary = (bookId) => {
+    dispatch(removeFromLibraryAsync(bookId));
+  };
+
+  const handleAddToReadingList = (book) => {
+    dispatch(addToReadingListAsync(book));
+  };
+
+  const handleRemoveFromReadingList = (bookId) => {
+    dispatch(removeFromReadingListAsync(bookId));
+  };
+
+  const isInLibrary = libraryBooks.some(
+    (libraryBook) => libraryBook.id === book.id
+  );
+  const isInReadingList = readingListBooks.some(
+    (readingListBook) => readingListBook.id === book.id
+  );
+
   return (
     <>
       <div>
@@ -42,22 +78,57 @@ function SingleBook({ book }) {
         </div>
       </div>
       <div className='flex gap-[24px] mt-6'>
-        <button className='cursor-pointer bg-primary-btn text-black-75 text-small px-1 py-3 hover:bg-secondary-btn active:bg-black-75 active:text-white-bg w-[235px]'>
-          <div className='flex gap-1 items-center justify-center'>
-            <div className='text-body'>
-              <FaRegBookmark />
+        {isInReadingList ? (
+          <button
+            onClick={() => handleRemoveFromReadingList(book.id)}
+            className='cursor-pointer bg-secondary-btn text-black-75 text-small px-1 py-3 hover:bg-secondary-btn w-[235px]'
+          >
+            <div className='flex gap-1 items-center justify-center'>
+              <div className='text-body'>
+                <FaBookmark />
+              </div>
+              Dans la liste !
             </div>
-            Liste de lecture
-          </div>
-        </button>
-        <button className='cursor-pointer bg-primary-btn text-black-75 text-small px-1 py-3 hover:bg-secondary-btn w-[235px] active:bg-black-75 active:text-white-bg'>
-          <div className='flex gap-1 items-center justify-center'>
-            <div className='text-body'>
-              <IoIosAddCircleOutline />
+          </button>
+        ) : (
+          <button
+            onClick={() => handleAddToReadingList(book)}
+            className='cursor-pointer bg-primary-btn text-black-75 text-small px-1 py-3 hover:bg-secondary-btn active:bg-black-75 active:text-white-bg w-[235px]'
+          >
+            <div className='flex gap-1 items-center justify-center'>
+              <div className='text-body'>
+                <FaRegBookmark />
+              </div>
+              Liste de lecture
             </div>
-            Ajouter à ma bibli
-          </div>
-        </button>
+          </button>
+        )}
+
+        {isInLibrary ? (
+          <button
+            onClick={() => handleRemoveFromLibrary(book.id)}
+            className='cursor-pointer bg-secondary-btn text-black-75 text-small px-1 py-3 hover:bg-secondary-btn w-[235px]'
+          >
+            <div className='flex gap-1 items-center justify-center'>
+              <div className='text-body'>
+                <FaCheckCircle />
+              </div>
+              Dans la bibli !
+            </div>
+          </button>
+        ) : (
+          <button
+            onClick={() => handleAddToLibrary(book)}
+            className='cursor-pointer bg-primary-btn text-black-75 text-small px-1 py-3 hover:bg-secondary-btn w-[235px] active:bg-black-75 active:text-white-bg'
+          >
+            <div className='flex gap-1 items-center justify-center'>
+              <div className='text-body'>
+                <IoIosAddCircleOutline />
+              </div>
+              Ajouter à ma bibli
+            </div>
+          </button>
+        )}
       </div>
     </>
   );
