@@ -17,12 +17,12 @@ createRoot(document.getElementById('root')).render(
       <Routes>
         <Route path='/' element={<App />}>
           <Route path='/' element={<Home />} />
-          <Route path='/livres/:id' element={<SingleBookPage />} />
         </Route>
         <Route path='/login' element={<LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/liste-de-lecture' element={<ReadingListPage />} />
         <Route path='/bibli' element={<LibraryPage />} />
+        <Route path='/livres/:id' element={<SingleBookPage />} />
       </Routes>
     </BrowserRouter>
   </Provider>
