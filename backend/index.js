@@ -18,6 +18,10 @@ app.use(
 const singleBookRoutes = require('./src/single-book/singleBook.route');
 app.use('/api/books', singleBookRoutes);
 
+// Search routes
+const searchRoutes = require('./src/search/search.route');
+app.use('/api/search', searchRoutes);
+
 // Library routes
 const libraryRoutes = require('./src/library/library.route');
 app.use('/api/library', libraryRoutes);
