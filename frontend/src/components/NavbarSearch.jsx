@@ -6,6 +6,8 @@ import { FaUser } from 'react-icons/fa';
 import { IoSearchOutline } from 'react-icons/io5';
 import { IoHome } from 'react-icons/io5';
 import avatarImg from '../assets/avatar.png';
+import { useDispatch, useSelector } from 'react-redux';
+import { createSearchBooksAsync } from '../utils/asyncActions';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard' },
@@ -14,7 +16,14 @@ const navigation = [
 ];
 
 const NavbarSearch = () => {
+  const [searchTerm, setSearchTerm] = useState('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dispatch = useDispatch();
+  const { searchResults } = useSelector((state) => state.search.searchResults);
+
+  const handleSearch = () => {
+    dispatch(createSearchBooksAsync('search', '/api/search')(searchTerm));
+  };
 
   const currentUser = false;
 
@@ -25,23 +34,26 @@ const NavbarSearch = () => {
         <Link to='/'>
           <IoHome className='cursor-pointer w-6 h-6 text-white-bg hover:text-primary-btn' />
         </Link>
-        <form action='' className='flex items-center gap-4'>
+        <div action='' className='flex items-center gap-4'>
           {/* Search Input */}
           <div className='relative w-[100%] md:w-[480px]'>
             <IoSearchOutline className='absolute left-3 inset-y-0 my-auto' />
             <input
               type='text'
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
               placeholder='Rechercher un livre ou un auteur...'
               className='bg-white-bg w-full h-8 pl-10 pr-4 text-small md:text-body focus:outline-none focus:ring-2 focus:ring-primary-btn placeholder:text-small'
             />
           </div>
           {/* Search Button */}
-          <Link to='/recherche'>
-            <button className='cursor-pointer hidden sm:block font-merriweather text-white-bg bg-primary-btn px-6 h-8 text-small hover:bg-secondary-btn active:bg-black-75'>
-              Rechercher
-            </button>
-          </Link>
-        </form>
+          <button
+            onClick={handleSearch}
+            className='cursor-pointer hidden sm:block font-merriweather text-white-bg bg-primary-btn px-6 h-8 text-small hover:bg-secondary-btn active:bg-black-75'
+          >
+            Rechercher
+          </button>
+        </div>
 
         {/* right side */}
         <div className='flex items-center gap-4 sm:gap-6'>
