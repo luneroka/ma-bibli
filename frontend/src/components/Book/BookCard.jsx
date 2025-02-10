@@ -13,7 +13,7 @@ import {
   addToReadingListAsync,
   removeFromReadingListAsync,
 } from '../../utils/readingListAsyncActions';
-import { formatNumber, extractFullDate } from '../../utils/helpers';
+import { formatNumber, extractYear } from '../../utils/helpers';
 
 const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
   const dispatch = useDispatch();
@@ -96,7 +96,7 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
 
             {/* Book Published Date */}
             <p className='text-small text-black-50 overflow-hidden'>
-              Publication : {extractFullDate(book.volumeInfo.publishedDate)}
+              Publication : {extractYear(book.volumeInfo.publishedDate)}
             </p>
 
             {/* Book Page Count */}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { extractYear } from '../../utils/helpers';
+import { extractFullDate } from '../../utils/helpers';
 import { FaRegBookmark } from 'react-icons/fa';
 import { FaBookmark } from 'react-icons/fa';
 import { IoIosAddCircleOutline } from 'react-icons/io';
@@ -81,7 +81,7 @@ function SingleBook({ book, libraryBooks = [], readingListBooks = [] }) {
             <p className='text-small-body text-black'>
               Publication :{' '}
               <span className='text-black-85'>
-                {extractYear(book.volumeInfo.publishedDate)}
+                {extractFullDate(book.volumeInfo.publishedDate)}
               </span>
             </p>
 
