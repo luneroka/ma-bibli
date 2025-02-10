@@ -34,16 +34,22 @@ app.use('/api/library', libraryRoutes);
 const readingListRoutes = require('./src/reading-list/readingList.route');
 app.use('/api/reading-list', readingListRoutes);
 
+// Root route
+app.get('/', (req, res) => {
+  res.send('Ma Bibli server.');
+});
+
 async function main() {
-  await mongoose.connect(process.env.DB_URL);
-  app.use('/', (req, res) => {
-    res.send('Ma Bibli server.');
-  });
+  try {
+    await mongoose.connect(process.env.DB_URL);
+    console.log('MongoDB connected successfully!');
+  } catch (err) {
+    console.error('Failed to connect to MongoDB', err);
+    process.exit(1);
+  }
 }
 
-main()
-  .then(() => console.log('MongoDB connected successfully!'))
-  .catch((err) => console.log(err));
+main();
 
 app.listen(port, () => {
   console.log(`Ma Bibli listening on port ${port}`);

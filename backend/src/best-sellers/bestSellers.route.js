@@ -1,8 +1,8 @@
 const express = require('express');
-const { fetchBestSellers } = require('./bestSeller.controller');
+const { fetchBestSellers } = require('./bestSellers.controller');
 
 const router = express.Router();
 
-router.get('/', fetchBestSellers());
+router.get('/', fetchBestSellers);
 
 module.exports = router;

@@ -25,4 +25,4 @@ const fetchBestSellersFromNYT = async () => {
   return searchResults;
 };
 
-module.exports = fetchBestSellersFromNYT;
+module.exports = { fetchBestSellersFromNYT };
