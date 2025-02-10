@@ -148,3 +148,29 @@ export const createSearchNewestAsync = (type, apiEndpoint) =>
       }
     }
   );
+
+// FETCH BEST SELLERS
+export const createFetchBestSellers = (type, apiEndpoint) =>
+  createAsyncThunk(
+    `${type}/searchBestSellers`,
+    async (_, { rejectWithValue }) => {
+      try {
+        const response = await fetch(apiEndpoint, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch best sellers from ${type}`);
+        }
+
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error('Error fetching best sellers:', error);
+        return rejectWithValue(error.message);
+      }
+    }
+  );
