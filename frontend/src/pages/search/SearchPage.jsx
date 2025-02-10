@@ -8,6 +8,7 @@ import {
   createSearchBooksAsync,
   createSearchAuthorAsync,
 } from '../../utils/asyncActions';
+import { clearSearchResults } from '../../redux/features/search/searchSlice';
 
 function SearchPage() {
   const location = useLocation();
@@ -31,7 +32,11 @@ function SearchPage() {
         );
       }
     }
-  }, [dispatch, searchTerm]);
+
+    return () => {
+      dispatch(clearSearchResults());
+    };
+  }, [dispatch, searchTerm, searchType]);
 
   return (
     <>
