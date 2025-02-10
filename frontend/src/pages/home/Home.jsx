@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 
 const Home = () => {
   const books = useSelector((state) => state.books.books);
-  const searchResults = useSelector((state) => state.search.searchResults)
+  const newest = useSelector((state) => state.newest.newest);
   const libraryBooks = useSelector((state) => state.library.libraryBooks);
   const readingListBooks = useSelector(
     (state) => state.readingList.readingListBooks
@@ -26,7 +26,7 @@ const Home = () => {
 
         <div className='mb-[96px]'>
           <MostPopulars
-            books={books}
+            newest={newest}
             libraryBooks={libraryBooks}
             readingListBooks={readingListBooks}
           />

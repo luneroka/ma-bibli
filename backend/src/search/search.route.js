@@ -8,6 +8,6 @@ const router = express.Router();
 
 router.get('/books/:searchTerm', (req, res) => searchBooks(req, res));
 router.get('/author/:searchTerm', (req, res) => searchAuthor(req, res));
-router.get('/newest', (req, res) => searchNewest());
+router.get('/newest', (req, res) => searchNewest(req, res));
 
 module.exports = router;

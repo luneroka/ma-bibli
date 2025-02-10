@@ -42,14 +42,18 @@ const searchAuthor = async (req, res) => {
 const searchNewest = async (req, res) => {
   try {
     const searchResults = await searchNewestFromGoogle();
-    if (!searchResults) {
-      return res.status(404).send({ message: 'Books not found' });
+    if (
+      !searchResults ||
+      !Array.isArray(searchResults.items) ||
+      searchResults.items.length === 0
+    ) {
+      return res.status(404).send({ message: 'No new books found' });
     }
     res.status(200).send(searchResults);
   } catch (error) {
-    console.error('Books not found in Google Books API', error);
+    console.error('Error fetching newest books from Google Books API', error);
     res.status(500).send({
-      message: 'Books not found in Google Books API',
+      message: 'Error fetching newest books from Google Books API',
     });
   }
 };
