@@ -64,7 +64,7 @@ function SingleBook({ book, libraryBooks = [], readingListBooks = [] }) {
           </div>
 
           {/* Book Details */}
-          <div className='flex flex-col place-content-between w-full py-2'>
+          <div className='flex flex-col place-content-between w-full overflow'>
             {/* Book Title */}
             <p className='text-h5 text-black'>{book.volumeInfo.title}</p>
 
@@ -87,8 +87,8 @@ function SingleBook({ book, libraryBooks = [], readingListBooks = [] }) {
 
             {/* Book Description */}
             <p className='h-[180px] max-w-[600px] text-small-body text-black-85 text-justify'>
-              {plainTextDescription.length > 655
-                ? `${plainTextDescription.slice(0, 655)}...`
+              {plainTextDescription.length > 580
+                ? `${plainTextDescription.slice(0, 580)}...`
                 : plainTextDescription}
             </p>
           </div>
