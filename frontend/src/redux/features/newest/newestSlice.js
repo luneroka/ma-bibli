@@ -15,13 +15,13 @@ const newestSlice = createSlice({
     builder
       // SEARCH NEWEST
       .addCase(
-        createSearchNewestAsync('searchNewest', 'api/search/newest').pending,
+        createSearchNewestAsync('newest', 'api/search/newest').pending,
         (state) => {
           state.loading = true;
         }
       )
       .addCase(
-        createSearchNewestAsync('searchNewest', 'api/search/newest').fulfilled,
+        createSearchNewestAsync('newest', 'api/search/newest').fulfilled,
         (state, action) => {
           state.loading = false;
           state.searchResults = action.payload;
@@ -29,7 +29,7 @@ const newestSlice = createSlice({
         }
       )
       .addCase(
-        createSearchNewestAsync('searchNewest', 'api/search/newest').rejected,
+        createSearchNewestAsync('newest', 'api/search/newest').rejected,
         (state, action) => {
           state.loading = false;
           state.error = action.payload;
