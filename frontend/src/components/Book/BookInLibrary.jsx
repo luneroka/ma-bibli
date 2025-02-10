@@ -16,7 +16,7 @@ function BookInLibrary({ book }) {
       <div className='relative'>
         <Link to={`/livres/${book.id}`}>
           <img
-            src={book.small}
+            src={book.cover}
             alt='Book Cover'
             className='w-[125px] h-[175px] object-contains cursor-pointer hover:scale-105 transition-all duration-200'
           />

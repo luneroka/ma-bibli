@@ -34,7 +34,7 @@ const bookSchema = new mongoose.Schema(
       type: [String],
       required: true,
     },
-    small: {
+    cover: {
       type: String,
       required: true,
     },

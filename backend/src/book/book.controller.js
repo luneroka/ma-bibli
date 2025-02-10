@@ -1,6 +1,4 @@
-const {
-  fetchBookFromGoogleBooks,
-} = require('../utils/googleBooksApi');
+const { fetchBookFromGoogleBooks } = require('../utils/googleBooksApi');
 
 const getAllBooks = async (Model, req, res) => {
   try {
@@ -57,9 +55,15 @@ const addBook = async (Model, req, res) => {
         description,
         pageCount,
         categories,
-        imageLinks: { small },
+        imageLinks,
       },
     } = bookData;
+
+    const cover =
+      imageLinks?.thumbnail ||
+      imageLinks?.smallThumbnail ||
+      Object.values(imageLinks || {})[0] ||
+      '../../../../frontend/public/product-not-found.png';
 
     // Create the new book instance and save it to the database
     const newBook = new Model({
@@ -71,7 +75,7 @@ const addBook = async (Model, req, res) => {
       description,
       pageCount,
       categories,
-      small,
+      cover,
     });
 
     await newBook.save();
