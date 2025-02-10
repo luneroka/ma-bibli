@@ -50,11 +50,10 @@ const BookSearch = ({ book, libraryBooks = [], readingListBooks = [] }) => {
               <img
                 src={
                   book.volumeInfo.imageLinks
-                    ? book.volumeInfo.imageLinks.thumbnail
-                    : ''
+                    ? Object.entries(book.volumeInfo.imageLinks)[0]?.[1]
+                    : '../../../public/product-not-found.png'
                 }
-                alt={book.volumeInfo.title}
-                alt='Book Cover'
+                alt={`Couverture non disponible`}
                 className='w-full h-full cursor-pointer hover:scale-105 transition-all duration-200'
                 style={{ width: '121px', height: '170px' }}
               />
