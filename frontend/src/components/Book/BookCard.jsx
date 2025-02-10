@@ -4,7 +4,7 @@ import { FaBookmark } from 'react-icons/fa';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 import { FaCheckCircle } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   addToLibraryAsync,
   removeFromLibraryAsync,
@@ -17,6 +17,7 @@ import { formatNumber, extractYear } from '../../utils/helpers';
 
 const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleAddToLibrary = (book) => {
     dispatch(addToLibraryAsync(book));
@@ -41,11 +42,16 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
     (readingListBook) => readingListBook.id === book.id
   );
 
+  const handleAuthorClick = (author) => {
+    navigate('/recherche', { state: { searchTerm: author } });
+  };
+
   return (
     <>
-      <div className='flex flex-col justify-between'>
-        {/* Book details */}
+      <div id='book-card' className='flex flex-col justify-between'>
+        {/* Book Info */}
         <div className='flex gap-[24px]'>
+          {/* Book Cover */}
           <div className='flex w-[121px] h-[170px] gap-[16px] flex-shrink-0 items-center'>
             <Link to={`/livres/${book.id}`}>
               <img
@@ -61,7 +67,9 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
             </Link>
           </div>
 
+          {/* Book Details */}
           <div className='flex flex-col justify-between w-[220px] h-[170px]'>
+            {/* Book Title */}
             <Link to={`/livres/${book.id}`}>
               <p className='text-small-body text-black-75 hover:text-black font-bold text-pretty leading-4.5 h-[41px] content-center overflow-hidden'>
                 {book.volumeInfo.title.length > 55
@@ -69,16 +77,27 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
                   : book.volumeInfo.title}
               </p>
             </Link>
-            <div className='w-12 h-[2px] bg-secondary-btn opacity-75'></div>
-            <p className='text-small text-black-75 overflow-hidden'>
-              {book.volumeInfo.authors}
-            </p>
-            <p className='text-small text-black-50 overflow-hidden'>
-              {book.volumeInfo.publisher}
-            </p>
+
+            {/* Book Author */}
+            <div>
+              {book.volumeInfo.authors &&
+                book.volumeInfo.authors.slice(0, 3).map((author) => (
+                  <p
+                    key={author}
+                    className='text-small text-black-75 overflow-hidden cursor-pointer hover:text-secondary-btn hover:underline'
+                    onClick={() => handleAuthorClick(author)}
+                  >
+                    {author.length > 30 ? `${author.slice(0, 30)}...` : author}
+                  </p>
+                ))}
+            </div>
+
+            {/* Book Published Date */}
             <p className='text-small text-black-50 overflow-hidden'>
               Publication : {extractYear(book.volumeInfo.publishedDate)}
             </p>
+
+            {/* Book Page Count */}
             <p className='text-small text-black-50 overflow-hidden'>
               Pages : {formatNumber(book.volumeInfo.pageCount)}
             </p>
@@ -87,6 +106,7 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
 
         {/* Button section */}
         <div className='flex gap-[16px] mt-2 justify-start'>
+          {/* Reading List Button */}
           {isInReadingList ? (
             <button
               onClick={() => handleRemoveFromReadingList(book.id)}
@@ -113,6 +133,7 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
             </button>
           )}
 
+          {/* Library Button */}
           {isInLibrary ? (
             <button
               onClick={() => handleRemoveFromLibrary(book.id)}
