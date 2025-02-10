@@ -122,3 +122,24 @@ export const createSearchAuthorAsync = (type, apiEndpoint) =>
       }
     }
   );
+
+// SEARCH NEWEST
+export const createSearchNewestAsync = (type, apiEndpoint) =>
+  createAsyncThunk(`${type}/searchNewestAsync`, async ({ rejectWithValue }) => {
+    try {
+      const response = await fetch(`${apiEndpoint}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (!response.ok) {
+        throw new Error(`Failed to search authors in ${type}`);
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  });
