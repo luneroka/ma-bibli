@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import {
   createSearchBooksAsync,
   createSearchAuthorAsync,
+  createSearchNewestAsync,
 } from '../../../utils/asyncActions';
 
 const initialState = {
@@ -62,6 +63,29 @@ const searchSlice = createSlice({
       )
       .addCase(
         createSearchAuthorAsync('searchAuthor', '/api/search/author').rejected,
+        (state, action) => {
+          state.loading = false;
+          state.error = action.payload;
+        }
+      )
+
+      // SEARCH NEWEST
+      .addCase(
+        createSearchAuthorAsync('searchNewest', 'api/search/newest').pending,
+        (state) => {
+          state.loading = true;
+        }
+      )
+      .addCase(
+        createSearchAuthorAsync('searchNewest', 'api/search/newest').fulfilled,
+        (state, action) => {
+          state.loading = false;
+          state.searchResults = action.payload;
+          console.log('Search results:', action.payload);
+        }
+      )
+      .addCase(
+        createSearchAuthorAsync('searchNewest', 'api/search/newest').rejected,
         (state, action) => {
           state.loading = false;
           state.error = action.payload;
