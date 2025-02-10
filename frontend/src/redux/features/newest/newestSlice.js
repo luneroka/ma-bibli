@@ -7,7 +7,7 @@ const initialState = {
   error: null,
 };
 
-const searchSlice = createSlice({
+const newestSlice = createSlice({
   name: 'newest',
   initialState,
   reducers: {},
