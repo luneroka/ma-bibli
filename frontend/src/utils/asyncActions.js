@@ -150,7 +150,7 @@ export const createSearchNewestAsync = (type, apiEndpoint) =>
   );
 
 // FETCH BEST SELLERS
-export const createFetchBestSellers = (type, apiEndpoint) =>
+export const createFetchBestSellersAsync = (type, apiEndpoint) =>
   createAsyncThunk(
     `${type}/searchBestSellers`,
     async (_, { rejectWithValue }) => {
