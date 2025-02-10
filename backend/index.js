@@ -14,13 +14,17 @@ app.use(
   })
 );
 
-// Book routes
+// Single Book routes
 const singleBookRoutes = require('./src/single-book/singleBook.route');
 app.use('/api/books', singleBookRoutes);
 
 // Search routes
 const searchRoutes = require('./src/search/search.route');
 app.use('/api/search', searchRoutes);
+
+// Best Sellers Routes
+const bestSellersRoutes = require('./src/best-sellers/bestSellers.route');
+app.use('/api/best-sellers', bestSellersRoutes);
 
 // Library routes
 const libraryRoutes = require('./src/library/library.route');
