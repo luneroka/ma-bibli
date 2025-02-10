@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 
 const Home = () => {
   const books = useSelector((state) => state.books.books);
-  const { libraryBooks, status, error } = useSelector((state) => state.library);
+  const libraryBooks = useSelector((state) => state.library.libraryBooks);
   const readingListBooks = useSelector(
     (state) => state.readingList.readingListBooks
   );

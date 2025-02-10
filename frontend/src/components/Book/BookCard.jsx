@@ -48,8 +48,12 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
           <div className='flex flex-col w-[121px] h-[170px] gap-[16px] flex-shrink-0 items-center'>
             <Link to={`/livres/${book.id}`}>
               <img
-                src={book.volumeInfo.imageLinks.small}
-                alt='Book Cover'
+                src={
+                  book.volumeInfo.imageLinks
+                    ? Object.entries(book.volumeInfo.imageLinks)[0]?.[1]
+                    : '../../../public/product-not-found.png'
+                }
+                alt='Couverture non disponible'
                 className='w-full h-full cursor-pointer hover:scale-105 transition-all duration-200'
                 style={{ width: '121px', height: '170px' }}
               />
