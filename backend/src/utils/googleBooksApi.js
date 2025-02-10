@@ -60,7 +60,7 @@ const searchAuthorsFromGoogle = async (searchTerm) => {
 };
 
 const searchNewestFromGoogle = async () => {
-  const maxResults = 20;
+  const maxResults = 10;
   const langRestrict = 'fr';
   const url = `https://www.googleapis.com/books/v1/volumes?q=subject:fiction&orderBy=newest&maxResults=${maxResults}&langRestrict=${langRestrict}&key=${apiKey}`;
   const response = await fetch(url);
