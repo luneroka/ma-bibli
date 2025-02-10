@@ -43,9 +43,10 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
 
   return (
     <>
-      <div>
+      <div className='flex flex-col justify-between'>
+        {/* Book details */}
         <div className='flex gap-[24px]'>
-          <div className='flex flex-col w-[121px] h-[170px] gap-[16px] flex-shrink-0 items-center'>
+          <div className='flex w-[121px] h-[170px] gap-[16px] flex-shrink-0 items-center'>
             <Link to={`/livres/${book.id}`}>
               <img
                 src={
@@ -60,7 +61,7 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
             </Link>
           </div>
 
-          <div className='flex flex-col place-content-between w-[220px] h-[170px]'>
+          <div className='flex flex-col justify-between w-[220px] h-[170px]'>
             <Link to={`/livres/${book.id}`}>
               <p className='text-small-body text-black-75 hover:text-black font-bold text-pretty leading-4.5 h-[41px] content-center overflow-hidden'>
                 {book.volumeInfo.title.length > 55
@@ -83,60 +84,61 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
             </p>
           </div>
         </div>
-      </div>
 
-      <div className='flex gap-[16px] mt-2'>
-        {isInReadingList ? (
-          <button
-            onClick={() => handleRemoveFromReadingList(book.id)}
-            className='cursor-pointer bg-secondary-btn text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn w-[121px]'
-          >
-            <div className='flex gap-1 items-center justify-center'>
-              <div className='text-body'>
-                <FaBookmark />
+        {/* Button section */}
+        <div className='flex gap-[16px] mt-2 justify-start'>
+          {isInReadingList ? (
+            <button
+              onClick={() => handleRemoveFromReadingList(book.id)}
+              className='cursor-pointer bg-secondary-btn text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn w-[121px]'
+            >
+              <div className='flex gap-1 items-center justify-center'>
+                <div className='text-body'>
+                  <FaBookmark />
+                </div>
+                Dans la liste !
               </div>
-              Dans la liste !
-            </div>
-          </button>
-        ) : (
-          <button
-            onClick={() => handleAddToReadingList(book)}
-            className='cursor-pointer bg-primary-btn text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn active:bg-black-75 active:text-white-bg w-[121px]'
-          >
-            <div className='flex gap-1 items-center justify-center'>
-              <div className='text-body'>
-                <FaRegBookmark />
+            </button>
+          ) : (
+            <button
+              onClick={() => handleAddToReadingList(book)}
+              className='cursor-pointer bg-primary-btn text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn active:bg-black-75 active:text-white-bg w-[121px]'
+            >
+              <div className='flex gap-1 items-center justify-center'>
+                <div className='text-body'>
+                  <FaRegBookmark />
+                </div>
+                Liste de lecture
               </div>
-              Liste de lecture
-            </div>
-          </button>
-        )}
+            </button>
+          )}
 
-        {isInLibrary ? (
-          <button
-            onClick={() => handleRemoveFromLibrary(book.id)}
-            className='cursor-pointer bg-secondary-btn text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn w-[125px]'
-          >
-            <div className='flex gap-1 items-center justify-center'>
-              <div className='text-body'>
-                <FaCheckCircle />
+          {isInLibrary ? (
+            <button
+              onClick={() => handleRemoveFromLibrary(book.id)}
+              className='cursor-pointer bg-secondary-btn text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn w-[125px]'
+            >
+              <div className='flex gap-1 items-center justify-center'>
+                <div className='text-body'>
+                  <FaCheckCircle />
+                </div>
+                Dans la bibli !
               </div>
-              Dans la bibli !
-            </div>
-          </button>
-        ) : (
-          <button
-            onClick={() => handleAddToLibrary(book)}
-            className='cursor-pointer bg-primary-btn text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn w-[125px] active:bg-black-75 active:text-white-bg'
-          >
-            <div className='flex gap-1 items-center justify-center'>
-              <div className='text-body'>
-                <IoIosAddCircleOutline />
+            </button>
+          ) : (
+            <button
+              onClick={() => handleAddToLibrary(book)}
+              className='cursor-pointer bg-primary-btn text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn w-[125px] active:bg-black-75 active:text-white-bg'
+            >
+              <div className='flex gap-1 items-center justify-center'>
+                <div className='text-body'>
+                  <IoIosAddCircleOutline />
+                </div>
+                Ajouter à ma bibli
               </div>
-              Ajouter à ma bibli
-            </div>
-          </button>
-        )}
+            </button>
+          )}
+        </div>
       </div>
     </>
   );
