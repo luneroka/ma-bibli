@@ -13,7 +13,13 @@ const initialState = {
 const searchSlice = createSlice({
   name: 'search',
   initialState,
-  reducers: {},
+  reducers: {
+    clearSearchResults: (state) => {
+      state.searchResults = { items: [] };
+      state.loading = false;
+      state.error = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       // SEARCH BOOKS
@@ -64,4 +70,5 @@ const searchSlice = createSlice({
   },
 });
 
+export const { clearSearchResults } = searchSlice.actions;
 export default searchSlice.reducer;
