@@ -1,6 +1,5 @@
 const {
   fetchBookFromGoogleBooks,
-  searchBooksFromGoogle,
 } = require('../utils/googleBooksApi');
 
 const getAllBooks = async (Model, req, res) => {

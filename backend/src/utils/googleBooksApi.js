@@ -59,6 +59,8 @@ const searchAuthorsFromGoogle = async (searchTerm) => {
   return searchResults;
 };
 
+const searchNewestFromGoogle = async () => {};
+
 const fetchBookFromGoogleBooks = async (bookId) => {
   const url = `https://www.googleapis.com/books/v1/volumes/${bookId}?key=${apiKey}`;
 
@@ -81,4 +83,5 @@ module.exports = {
   fetchBookFromGoogleBooks,
   searchBooksFromGoogle,
   searchAuthorsFromGoogle,
+  searchNewestFromGoogle,
 };
