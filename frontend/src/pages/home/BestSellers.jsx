@@ -6,7 +6,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Pagination, Navigation } from 'swiper/modules';
 
-const MostPopulars = ({ books, libraryBooks = [], readingListBooks = [] }) => {
+const BestSellers = ({ books, libraryBooks = [], readingListBooks = [] }) => {
   return (
     <>
       <div className='items-center gap-8 mb-[32px]'>
@@ -57,4 +57,4 @@ const MostPopulars = ({ books, libraryBooks = [], readingListBooks = [] }) => {
   );
 };
 
-export default MostPopulars;
+export default BestSellers;

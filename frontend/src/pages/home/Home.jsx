@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import NewReleases from './NewReleases';
 import Recommended from './Recommended';
-import MostPopulars from './MostPopulars';
+import BestSellers from './BestSellers';
 import News from './News';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSearchNewestAsync } from '../../utils/asyncActions';
@@ -31,7 +31,7 @@ const Home = () => {
         </div>
 
         <div className='mb-[96px]'>
-          <MostPopulars
+          <BestSellers
             books={books}
             libraryBooks={libraryBooks}
             readingListBooks={readingListBooks}
