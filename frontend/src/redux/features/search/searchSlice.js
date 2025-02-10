@@ -71,13 +71,13 @@ const searchSlice = createSlice({
 
       // SEARCH NEWEST
       .addCase(
-        createSearchAuthorAsync('searchNewest', 'api/search/newest').pending,
+        createSearchNewestAsync('searchNewest', 'api/search/newest').pending,
         (state) => {
           state.loading = true;
         }
       )
       .addCase(
-        createSearchAuthorAsync('searchNewest', 'api/search/newest').fulfilled,
+        createSearchNewestAsync('searchNewest', 'api/search/newest').fulfilled,
         (state, action) => {
           state.loading = false;
           state.searchResults = action.payload;
@@ -85,7 +85,7 @@ const searchSlice = createSlice({
         }
       )
       .addCase(
-        createSearchAuthorAsync('searchNewest', 'api/search/newest').rejected,
+        createSearchNewestAsync('searchNewest', 'api/search/newest').rejected,
         (state, action) => {
           state.loading = false;
           state.error = action.payload;
