@@ -37,7 +37,7 @@ const addBook = async (Model, req, res) => {
     }
 
     // Fetch book data
-    const bookData = await fetchBookFromGoogleBooks(id);
+    const bookData = await fetchBookFromGoogle(id);
 
     if (!bookData) {
       return res
