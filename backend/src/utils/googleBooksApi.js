@@ -31,7 +31,7 @@ const searchBooksFromGoogle = async (searchTerm) => {
   return searchResults;
 };
 
-const searchAuthorsFromGoogle = async (searchTerm) => {
+const searchAuthorFromGoogle = async (searchTerm) => {
   const maxResults = 40;
   const url = `https://www.googleapis.com/books/v1/volumes?q=inauthor:${searchTerm}&maxResults=${maxResults}&key=${apiKey}`;
   const response = await fetch(url);
@@ -88,7 +88,7 @@ const searchNewestFromGoogle = async () => {
   return searchResults;
 };
 
-const fetchBookFromGoogleBooks = async (bookId) => {
+const fetchBookFromGoogle = async (bookId) => {
   const url = `https://www.googleapis.com/books/v1/volumes/${bookId}?key=${apiKey}`;
 
   // console.log(`Fetching book from Google API: ${url}`);
@@ -107,8 +107,8 @@ const fetchBookFromGoogleBooks = async (bookId) => {
 };
 
 module.exports = {
-  fetchBookFromGoogleBooks,
+  fetchBookFromGoogle,
   searchBooksFromGoogle,
-  searchAuthorsFromGoogle,
+  searchAuthorFromGoogle,
   searchNewestFromGoogle,
 };

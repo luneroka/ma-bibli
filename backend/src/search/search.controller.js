@@ -1,6 +1,6 @@
 const {
   searchBooksFromGoogle,
-  searchAuthorsFromGoogle,
+  searchAuthorFromGoogle,
   searchNewestFromGoogle,
 } = require('../utils/googleBooksApi');
 
@@ -21,7 +21,7 @@ const searchBooks = async (req, res) => {
 const searchAuthor = async (req, res) => {
   try {
     const { searchTerm } = req.params;
-    const searchResults = await searchAuthorsFromGoogle(searchTerm);
+    const searchResults = await searchAuthorFromGoogle(searchTerm);
     if (!searchResults) {
       return res
         .status(404)
