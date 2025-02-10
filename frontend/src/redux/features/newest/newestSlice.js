@@ -38,4 +38,4 @@ const newestSlice = createSlice({
   },
 });
 
-export default searchSlice.reducer;
+export default newestSlice.reducer;
