@@ -6,7 +6,7 @@ import { FaUser } from 'react-icons/fa';
 import { IoSearchOutline } from 'react-icons/io5';
 import { IoHome } from 'react-icons/io5';
 import avatarImg from '../assets/avatar.png';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { createSearchBooksAsync } from '../utils/asyncActions';
 
 const navigation = [
@@ -20,7 +20,6 @@ const NavbarSearch = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const searchResults = useSelector((state) => state.search.searchResults);
 
   const handleSearch = async () => {
     await dispatch(createSearchBooksAsync('search', '/api/search')(searchTerm));
