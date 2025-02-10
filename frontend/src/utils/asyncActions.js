@@ -97,3 +97,28 @@ export const createSearchBooksAsync = (type, apiEndpoint) =>
       }
     }
   );
+
+// SEARCH AUTHORS
+export const createSearchAuthorAsync = (type, apiEndpoint) =>
+  createAsyncThunk(
+    `${type}/searchAuthorAsync`,
+    async (searchTerm, { rejectWithValue }) => {
+      try {
+        const response = await fetch(`${apiEndpoint}/${searchTerm}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed to search authors in ${type}`);
+        }
+
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        return rejectWithValue(error.message);
+      }
+    }
+  );

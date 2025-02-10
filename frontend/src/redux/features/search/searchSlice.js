@@ -1,5 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createSearchBooksAsync } from '../../../utils/asyncActions';
+import {
+  createSearchBooksAsync,
+  createSearchAuthorAsync,
+} from '../../../utils/asyncActions';
 
 const initialState = {
   searchResults: { items: [] },
@@ -13,22 +16,46 @@ const searchSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      // SEARCH BOOKS
       .addCase(
-        createSearchBooksAsync('search', '/api/search').pending,
+        createSearchBooksAsync('searchBooks', '/api/search/books').pending,
         (state) => {
           state.loading = true;
         }
       )
       .addCase(
-        createSearchBooksAsync('search', '/api/search').fulfilled,
+        createSearchBooksAsync('searchBooks', '/api/search/books').fulfilled,
         (state, action) => {
           state.loading = false;
           state.searchResults = action.payload;
-          console.log('Search results:', action.payload); // Add this line
+          console.log('Search results:', action.payload);
         }
       )
       .addCase(
-        createSearchBooksAsync('search', '/api/search').rejected,
+        createSearchBooksAsync('searchBooks', '/api/search/books').rejected,
+        (state, action) => {
+          state.loading = false;
+          state.error = action.payload;
+        }
+      )
+
+      // SEARCH AUTHOR
+      .addCase(
+        createSearchAuthorAsync('searchAuthor', '/api/search/author').pending,
+        (state) => {
+          state.loading = true;
+        }
+      )
+      .addCase(
+        createSearchAuthorAsync('searchAuthor', '/api/search/author').fulfilled,
+        (state, action) => {
+          state.loading = false;
+          state.searchResults = action.payload;
+          console.log('Search results:', action.payload);
+        }
+      )
+      .addCase(
+        createSearchAuthorAsync('searchAuthor', '/api/search/author').rejected,
         (state, action) => {
           state.loading = false;
           state.error = action.payload;

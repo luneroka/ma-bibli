@@ -4,17 +4,32 @@ import { useLocation } from 'react-router-dom';
 import SearchResults from './SearchResults';
 import Footer from '../../components/Footer';
 import NavbarSearch from '../../components/NavbarSearch';
-import { createSearchBooksAsync } from '../../utils/asyncActions';
+import {
+  createSearchBooksAsync,
+  createSearchAuthorAsync,
+} from '../../utils/asyncActions';
 
 function SearchPage() {
   const location = useLocation();
   const dispatch = useDispatch();
   const searchResults = useSelector((state) => state.search.searchResults);
   const searchTerm = location.state?.searchTerm || '';
+  const searchType = location.state?.searchType || '';
 
   useEffect(() => {
     if (searchTerm) {
-      dispatch(createSearchBooksAsync('search', '/api/search')(searchTerm));
+      if (searchType === 'author') {
+        dispatch(
+          createSearchAuthorAsync(
+            'searchAuthor',
+            '/api/search/author'
+          )(searchTerm)
+        );
+      } else {
+        dispatch(
+          createSearchBooksAsync('searchBooks', '/api/search/books')(searchTerm)
+        );
+      }
     }
   }, [dispatch, searchTerm]);
 

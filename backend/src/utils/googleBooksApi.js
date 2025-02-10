@@ -31,6 +31,34 @@ const searchBooksFromGoogle = async (searchTerm) => {
   return searchResults;
 };
 
+const searchAuthorsFromGoogle = async (searchTerm) => {
+  const maxResults = 40;
+  const url = `https://www.googleapis.com/books/v1/volumes?q=inauthor:${searchTerm}&maxResults=${maxResults}&key=${apiKey}`;
+  const response = await fetch(url);
+
+  if (!response) {
+    console.error(
+      `Failed to search books from Google API: ${response.statusText}`
+    );
+    throw new Error('Failed to search books from Google API');
+  }
+
+  let searchResults;
+  try {
+    searchResults = await response.json();
+  } catch (error) {
+    console.error('Failed to parse search results from Google API', error);
+    throw new Error('Failed to parse search results from Google API');
+  }
+
+  searchResults.items =
+    searchResults.items?.filter(
+      (book) => book.volumeInfo?.imageLinks && book.volumeInfo?.pageCount > 0
+    ) || [];
+
+  return searchResults;
+};
+
 const fetchBookFromGoogleBooks = async (bookId) => {
   const url = `https://www.googleapis.com/books/v1/volumes/${bookId}?key=${apiKey}`;
 
@@ -49,4 +77,8 @@ const fetchBookFromGoogleBooks = async (bookId) => {
   return book;
 };
 
-module.exports = { fetchBookFromGoogleBooks, searchBooksFromGoogle };
+module.exports = {
+  fetchBookFromGoogleBooks,
+  searchBooksFromGoogle,
+  searchAuthorsFromGoogle,
+};

@@ -43,7 +43,9 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
   );
 
   const handleAuthorClick = (author) => {
-    navigate('/recherche', { state: { searchTerm: author } });
+    navigate('/recherche', {
+      state: { searchTerm: author, searchType: 'author' },
+    });
   };
 
   return (
