@@ -33,7 +33,7 @@ app.use('/api/reading-list', readingListRoutes);
 async function main() {
   await mongoose.connect(process.env.DB_URL);
   app.use('/', (req, res) => {
-    res.send('Hello World! This is my server.');
+    res.send('Ma Bibli server.');
   });
 }
 

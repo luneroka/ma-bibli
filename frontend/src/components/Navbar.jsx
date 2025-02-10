@@ -24,8 +24,12 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const handleSearch = async () => {
-    await dispatch(createSearchBooksAsync('search', '/api/search')(searchTerm));
-    navigate('/recherche', { state: { searchTerm } });
+    if (searchTerm) {
+      await dispatch(
+        createSearchBooksAsync('search', '/api/search')(searchTerm)
+      );
+      navigate('/recherche', { state: { searchTerm } });
+    }
   };
 
   const handleKeyDown = (e) => {
@@ -37,7 +41,7 @@ const Navbar = () => {
   return (
     <header className='w-full sticky top-0 z-50 bg-main-blue h-[70px] items-center'>
       <nav className='flex justify-between items-center px-[64px] md:px-[128px] py-[17px]'>
-        {/* left side */}
+        {/* Left side */}
         <div action='' className='flex items-center gap-4'>
           {/* Search Input */}
           <div className='relative w-[100%] md:w-[480px]'>
@@ -51,6 +55,7 @@ const Navbar = () => {
               className='bg-white-bg w-full h-8 pl-10 pr-4 text-small md:text-body focus:outline-none focus:ring-2 focus:ring-primary-btn placeholder:text-small'
             />
           </div>
+
           {/* Search Button */}
           <button
             onClick={handleSearch}
@@ -60,14 +65,19 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* right side */}
+        {/* Right side */}
         <div className='flex items-center gap-4 sm:gap-6'>
+          {/* Reading List Icon */}
           <Link to='/liste-de-lecture'>
             <FaListAlt className='w-6 h-6 text-white-bg hover:text-primary-btn' />
           </Link>
+
+          {/* Library Icon */}
           <Link to='/bibli'>
             <FaBookOpen className='w-6 h-6 text-white-bg hover:text-primary-btn' />
           </Link>
+
+          {/* User Icon */}
           <div className='relative flex items-center'>
             {currentUser ? (
               <>

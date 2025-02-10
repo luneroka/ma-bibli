@@ -48,7 +48,9 @@ function SingleBook({ book, libraryBooks = [], readingListBooks = [] }) {
   return (
     <>
       <div>
+        {/* Book Info */}
         <div className='flex gap-[24px]'>
+          {/* Book Cover */}
           <div className='w-[220px] h-[330px] flex-shrink-0'>
             <img
               src={
@@ -60,19 +62,30 @@ function SingleBook({ book, libraryBooks = [], readingListBooks = [] }) {
               className='w-full h-full'
             />
           </div>
+
+          {/* Book Details */}
           <div className='flex flex-col place-content-between w-full py-2'>
+            {/* Book Title */}
             <p className='text-h5 text-black'>{book.volumeInfo.title}</p>
+
+            {/* Book Authors */}
             <p className='italic'>{book.volumeInfo.authors}</p>
+
+            {/* Book Publisher */}
             <p className='text-small-body text-black'>
               Éditeur :{' '}
               <span className='text-black-85'>{book.volumeInfo.publisher}</span>
             </p>
+
+            {/* Book Published Date */}
             <p className='text-small-body text-black'>
               Publication :{' '}
               <span className='text-black-85'>
                 {extractYear(book.volumeInfo.publishedDate)}
               </span>
             </p>
+
+            {/* Book Description */}
             <p className='h-[180px] max-w-[600px] text-small-body text-black-85 text-justify'>
               {plainTextDescription.length > 655
                 ? `${plainTextDescription.slice(0, 655)}...`
@@ -81,7 +94,10 @@ function SingleBook({ book, libraryBooks = [], readingListBooks = [] }) {
           </div>
         </div>
       </div>
+
+      {/* Buttons */}
       <div className='flex gap-[24px] mt-6'>
+        {/* Reading List Button */}
         {isInReadingList ? (
           <button
             onClick={() => handleRemoveFromReadingList(book.id)}
@@ -108,6 +124,7 @@ function SingleBook({ book, libraryBooks = [], readingListBooks = [] }) {
           </button>
         )}
 
+        {/* Library Button */}
         {isInLibrary ? (
           <button
             onClick={() => handleRemoveFromLibrary(book.id)}

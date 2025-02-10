@@ -10,13 +10,15 @@ export const fetchBooks = createAsyncThunk('books/fetchBooks', async () => {
   return data;
 });
 
+const initialState = {
+  books: [],
+  status: 'idle',
+  error: null,
+};
+
 const booksSlice = createSlice({
   name: 'books',
-  initialState: {
-    books: [],
-    status: 'idle',
-    error: null,
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder

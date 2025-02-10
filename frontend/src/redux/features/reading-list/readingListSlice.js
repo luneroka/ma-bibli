@@ -17,6 +17,7 @@ const readingListSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      // GET READING-LIST BOOKS
       .addCase(getReadingListBooksAsync.pending, (state) => {
         state.status = 'loading';
       })
@@ -28,6 +29,8 @@ const readingListSlice = createSlice({
         state.status = 'failed';
         state.error = action.error.message;
       })
+
+      // ADD TO READING-LIST
       .addCase(addToReadingListAsync.pending, (state) => {
         state.status = 'loading';
       })
@@ -39,6 +42,8 @@ const readingListSlice = createSlice({
         state.status = 'failed';
         state.error = action.payload;
       })
+
+      // REMOVE FROM READING-LIST
       .addCase(removeFromReadingListAsync.pending, (state) => {
         state.status = 'loading';
       })

@@ -21,7 +21,7 @@ function NavbarLibrary() {
   return (
     <header className='w-full sticky top-0 z-50 bg-main-blue h-[70px]'>
       <nav className='flex justify-between items-center  px-[64px] md:px-[128px] py-[17px]'>
-        {/* left side */}
+        {/* Left side */}
         <div className='flex items-center gap-4'>
           {/* Home Icon */}
           <Link to='/'>
@@ -29,14 +29,19 @@ function NavbarLibrary() {
           </Link>
         </div>
 
-        {/* right side */}
+        {/* Right side */}
         <div className='flex items-center gap-4 sm:gap-6'>
+          {/* Reading List icon */}
           <Link to='/liste-de-lecture'>
             <FaListAlt className='w-6 h-6 text-white-bg hover:text-primary-btn' />
           </Link>
+
+          {/* Library Icon */}
           <Link to='/bibli'>
             <FaBookOpen className='w-6 h-6 text-white-bg hover:text-primary-btn' />
           </Link>
+
+          {/* User Icon */}
           <div className='relative flex items-center'>
             {currentUser ? (
               <>

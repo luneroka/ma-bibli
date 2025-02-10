@@ -22,6 +22,7 @@ const Home = () => {
             readingListBooks={readingListBooks}
           />
         </div>
+
         <div className='mb-[96px]'>
           <MostPopulars
             books={books}
@@ -29,6 +30,7 @@ const Home = () => {
             readingListBooks={readingListBooks}
           />
         </div>
+
         <div className='mb-[96px]'>
           <Recommended
             books={books}
@@ -36,6 +38,7 @@ const Home = () => {
             readingListBooks={readingListBooks}
           />
         </div>
+
         <div className='mb-[128px]'>
           <News />
         </div>

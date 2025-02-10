@@ -1,13 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createSearchBooksAsync } from '../../../utils/asyncActions';
 
+const initialState = {
+  searchResults: { items: [] },
+  loading: false,
+  error: null,
+};
+
 const searchSlice = createSlice({
   name: 'search',
-  initialState: {
-    searchResults: { items: [] },
-    loading: false,
-    error: null,
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder

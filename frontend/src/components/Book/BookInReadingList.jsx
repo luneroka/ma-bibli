@@ -26,7 +26,9 @@ function BookInReadingList({ book, libraryBooks = [] }) {
   return (
     <>
       <div className='flex flex-col gap-2'>
+        {/* Book Info */}
         <div className='relative gap-1'>
+          {/* Book Cover */}
           <Link to={`/livres/${book.id}`}>
             <img
               src={book.small}
@@ -34,6 +36,8 @@ function BookInReadingList({ book, libraryBooks = [] }) {
               className='w-[125px] h-[175px] cursor-pointer hover:scale-105 transition-all duration-200'
             />
           </Link>
+
+          {/* Remove Button */}
           <button
             onClick={() => handleRemoveFromReadingList(book.id)}
             className='absolute top-1 right-1 rounded-full shadow-md hover:text-primary-btn text-black-75 bg-white-bg  cursor-pointer hover:scale-150 transition-all duration-200'
@@ -41,6 +45,8 @@ function BookInReadingList({ book, libraryBooks = [] }) {
             <TiDelete />
           </button>
         </div>
+
+        {/* Library Button */}
         {isInLibrary ? (
           <button className='bg-secondary-btn text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn w-[125px]'>
             <div className='flex gap-1 items-center justify-center'>

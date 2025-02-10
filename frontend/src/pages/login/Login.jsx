@@ -20,8 +20,10 @@ function Login() {
       <div className='flex-grow flex items-center justify-center mt-[96px]'>
         <div className='bg-white p-8 rounded-lg shadow-md w-full max-w-md'>
           <h2 className='text-h5 text-black mb-8'>Mon coin lecture</h2>
+
           <form onSubmit={handleSubmit(onSubmit)}>
             <div>
+              {/* Email Input */}
               <label
                 htmlFor='email'
                 className='block text-small text-black-75 mb-1'
@@ -36,6 +38,8 @@ function Login() {
                 placeholder='Email'
                 className='text-black-75 shadow border border-black-25 focus:outline-secondary-btn rounded-lg w-full py-2 px-3 mb-4'
               />
+
+              {/* Password Input */}
               <label
                 htmlFor='passord'
                 className='block text-small text-black-75 mb-1'
@@ -53,17 +57,22 @@ function Login() {
               />
             </div>
 
+            {/* Error Message */}
             {message && (
               <p className='text-red-500 text-xs italic mb-3'>{message}</p>
             )}
 
+            {/* Connect Button */}
             <div>
               <button className='cursor-pointer font-merriweather text-white-bg bg-primary-btn px-6 h-10 rounded-lg w-full text-body md:text-h6 hover:bg-secondary-btn active:bg-black-75'>
                 Se connecter
               </button>
             </div>
           </form>
+
           <hr className='text-black-10 mt-6 mb-6' />
+
+          {/* Redirect To Register */}
           <p className='text-black text-small'>
             Pas encore inscrit ?{' '}
             <span className='text-secondary-btn underline hover:text-primary-btn active:text-black-75'>
@@ -71,7 +80,7 @@ function Login() {
             </span>
           </p>
 
-          {/* Google Signin */}
+          {/* Google Signin Button */}
           <div className='mt-6'>
             <button
               onClick={handleGoogleSignIn}
@@ -81,6 +90,8 @@ function Login() {
               Se connecter avec Google
             </button>
           </div>
+
+          {/* Copyrights */}
           <p className='text-xs text-center mt-6 text-black-50'>
             &copy;2025 Ma Bibli. Tous droits réservés.
           </p>

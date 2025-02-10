@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 function LibraryPage() {
   const dispatch = useDispatch();
-  const { libraryBooks, status, error } = useSelector((state) => state.library);
+  const libraryBooks = useSelector((state) => state.library.libraryBooks);
 
   useEffect(() => {
     dispatch(getLibraryBooksAsync());

@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
+// GET ALL BOOKS
 export const createGetAllBooksAsync = (type, apiEndpoint) =>
   createAsyncThunk(
     `${type}/getAllBooksAsync`,
@@ -24,7 +25,7 @@ export const createGetAllBooksAsync = (type, apiEndpoint) =>
     }
   );
 
-// Async action to add a book to the library (both Redux state and database)
+// ADD BOOK
 export const createAddBookAsync = (type, apiEndpoint) =>
   createAsyncThunk(
     `${type}/addBookAsync`,
@@ -51,6 +52,7 @@ export const createAddBookAsync = (type, apiEndpoint) =>
     }
   );
 
+// REMOVE BOOK
 export const createRemoveBookAsync = (type, apiEndpoint) =>
   createAsyncThunk(
     `${type}/removeBookAsync`,
@@ -71,6 +73,7 @@ export const createRemoveBookAsync = (type, apiEndpoint) =>
     }
   );
 
+// SEARCH BOOKS
 export const createSearchBooksAsync = (type, apiEndpoint) =>
   createAsyncThunk(
     `${type}/searchBooksAsync`,
