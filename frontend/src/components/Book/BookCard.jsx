@@ -60,15 +60,15 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
             </Link>
           </div>
 
-          <div className='flex flex-col place-content-between w-[200px] h-[170px] py-2'>
+          <div className='flex flex-col place-content-between w-[220px] h-[170px]'>
             <Link to={`/livres/${book.id}`}>
-              <p className='text-small-body text-black-75 hover:text-black font-bold text-pretty leading-4.5 min-h-[41px] mb-2 content-center'>
-                {book.volumeInfo.title.length > 40
-                  ? `${book.volumeInfo.title.slice(0, 40)}...`
+              <p className='text-small-body text-black-75 hover:text-black font-bold text-pretty leading-4.5 h-[41px] content-center overflow-hidden'>
+                {book.volumeInfo.title.length > 55
+                  ? `${book.volumeInfo.title.slice(0, 55)}...`
                   : book.volumeInfo.title}
               </p>
             </Link>
-            <div className='w-12 h-[2px] bg-secondary-btn opacity-75 mb-2'></div>
+            <div className='w-12 h-[2px] bg-secondary-btn opacity-75'></div>
             <p className='text-small text-black-75 overflow-hidden'>
               {book.volumeInfo.authors}
             </p>
