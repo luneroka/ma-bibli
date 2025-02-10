@@ -52,12 +52,12 @@ function SingleBook({ book, libraryBooks = [], readingListBooks = [] }) {
           <div className='w-[220px] h-[330px] flex-shrink-0'>
             <img
               src={
-                book.volumeInfo.imageLinks.small
-                  ? book.volumeInfo.imageLinks.small
+                book.volumeInfo.imageLinks
+                  ? Object.entries(book.volumeInfo.imageLinks)[0]?.[1]
                   : '../../../public/product-not-found.png'
               }
-              alt={`${book.volumeInfo.title}'s book cover`}
-              className='w-full h-full object-contains'
+              alt={`Couverture non disponible`}
+              className='w-full h-full'
             />
           </div>
           <div className='flex flex-col place-content-between w-full py-2'>

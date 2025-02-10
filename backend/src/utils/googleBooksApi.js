@@ -3,7 +3,8 @@ require('dotenv').config();
 const apiKey = process.env.GOOGLE_BOOKS_API_KEY;
 
 const searchBooksFromGoogle = async (searchTerm) => {
-  const url = `https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&key=${apiKey}`;
+  const maxResults = 20;
+  const url = `https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&maxResults=${maxResults}&key=${apiKey}`;
 
   const response = await fetch(url);
 
@@ -21,6 +22,11 @@ const searchBooksFromGoogle = async (searchTerm) => {
     console.error('Failed to parse search results from Google API', error);
     throw new Error('Failed to parse search results from Google API');
   }
+
+  searchResults.items =
+    searchResults.items?.filter(
+      (book) => book.volumeInfo?.imageLinks && book.volumeInfo?.pageCount > 0
+    ) || [];
 
   return searchResults;
 };
