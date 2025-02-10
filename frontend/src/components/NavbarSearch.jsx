@@ -26,6 +26,12 @@ const NavbarSearch = () => {
     navigate('/recherche', { state: { searchTerm } });
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
   const currentUser = false;
 
   return (
@@ -43,6 +49,7 @@ const NavbarSearch = () => {
               type='text'
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyDown={handleKeyDown}
               placeholder='Rechercher un livre ou un auteur...'
               className='bg-white-bg w-full h-8 pl-10 pr-4 text-small md:text-body focus:outline-none focus:ring-2 focus:ring-primary-btn placeholder:text-small'
             />
