@@ -22,10 +22,6 @@ app.use('/api/books', singleBookRoutes);
 const searchRoutes = require('./src/search/search.route');
 app.use('/api/search', searchRoutes);
 
-// Best Sellers Routes
-const bestSellersRoutes = require('./src/best-sellers/bestSellers.route');
-app.use('/api/best-sellers', bestSellersRoutes);
-
 // Library routes
 const libraryRoutes = require('./src/library/library.route');
 app.use('/api/library', libraryRoutes);
