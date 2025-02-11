@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './index.css';
 import App from './App.jsx';
 import Home from './pages/home/Home.jsx';
@@ -24,6 +24,7 @@ createRoot(document.getElementById('root')).render(
         <Route path='/recherche' element={<SearchPage />} />
         <Route path='/liste-de-lecture' element={<ReadingListPage />} />
         <Route path='/bibli' element={<LibraryPage />} />
+        <Route path='/livres' element={<Navigate to='/' />} />
         <Route path='/livres/:id' element={<SingleBookPage />} />
       </Routes>
     </BrowserRouter>
