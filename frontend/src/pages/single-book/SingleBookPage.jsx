@@ -31,8 +31,6 @@ function SingleBookPage() {
     return <div>Error: {error}</div>;
   }
 
-  console.log('Rendering SingleBookPage with book:', book);
-
   return (
     <>
       <NavbarLibrary />
