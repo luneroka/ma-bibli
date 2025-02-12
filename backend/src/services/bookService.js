@@ -11,10 +11,15 @@ const transformGoogleBook = (googleBook) => {
     null;
 
   // Use a proper cover URL (or a fallback if desired)
-  const cover =
+  let coverUrl =
     volume.imageLinks?.thumbnail ||
     volume.imageLinks?.smallThumbnail ||
     '../../../../frontend/public/product-not-found.png';
+
+  // If it's from Google, use the proxy endpoint
+  if (coverUrl.includes('books.google.com')) {
+    coverUrl = `/api/proxy-image?url=${encodeURIComponent(coverUrl)}`;
+  }
 
   return {
     isbn,
@@ -25,7 +30,7 @@ const transformGoogleBook = (googleBook) => {
     description: volume.description || '',
     pageCount: volume.pageCount || 0,
     categories: volume.categories || [],
-    cover,
+    cover: coverUrl,
   };
 };
 

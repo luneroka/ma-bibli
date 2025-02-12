@@ -14,6 +14,10 @@ app.use(
   })
 );
 
+// Proxy server for cover images
+const proxyImageRouter = require('./src/proxy/proxyImage.route');
+app.use('/api/proxy-image', proxyImageRouter);
+
 // Single Book routes
 const singleBookRoutes = require('./src/single-book/singleBook.route');
 app.use('/api/books', singleBookRoutes);
