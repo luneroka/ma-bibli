@@ -2,9 +2,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const getSingleBookAsync = createAsyncThunk(
   'singleBook/getSingleBookAsync',
-  async (bookId, { rejectWithValue }) => {
+  async (isbn, { rejectWithValue }) => {
     try {
-      const response = await fetch(`/api/books/${bookId}`, {
+      const response = await fetch(`/api/books/${isbn}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
