@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
 import NewReleases from './NewReleases';
-import Recommended from './Recommended';
 import News from './News';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  createSearchNewestAsync,
-} from '../../utils/asyncActions';
+import { createSearchNewestAsync } from '../../utils/asyncActions';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -26,14 +23,6 @@ const Home = () => {
         <div className='mt-[96px] mb-[96px]'>
           <NewReleases
             newest={newest}
-            libraryBooks={libraryBooks}
-            readingListBooks={readingListBooks}
-          />
-        </div>
-
-        <div className='mb-[96px]'>
-          <Recommended
-            books={books}
             libraryBooks={libraryBooks}
             readingListBooks={readingListBooks}
           />
