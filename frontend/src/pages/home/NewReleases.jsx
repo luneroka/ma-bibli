@@ -30,8 +30,8 @@ const NewReleases = ({ newest, libraryBooks = [], readingListBooks = [] }) => {
             slidesPerView: 3,
             spaceBetween: 50,
           },
-          1570: {
-            slidesPerView: 3,
+          1450: {
+            slidesPerView: 4,
             spaceBetween: 50,
           },
         }}

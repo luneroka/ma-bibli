@@ -19,7 +19,7 @@ const Home = () => {
   return (
     <>
       <div className='px-[128px]'>
-        <div className='mt-[96px] mb-[96px]'>
+        <div className='my-[96px]'>
           <NewReleases
             newest={newest}
             libraryBooks={libraryBooks}
