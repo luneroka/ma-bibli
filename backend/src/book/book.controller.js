@@ -12,9 +12,9 @@ const getAllBooks = async (Model, req, res) => {
 
 const getSingleBook = async (req, res) => {
   try {
-    const { id } = req.params;
-    // console.log(`Fetching book with ID: ${id}`);
-    const book = await fetchBookFromGoogle(id);
+    const { isnb } = req.params;
+    // console.log(`Fetching book with ISBN: ${isbn}`);
+    const book = await fetchBookFromGoogle(isbn);
     // console.log(`Fetched book data: ${JSON.stringify(book)}`);
 
     if (!book) {
