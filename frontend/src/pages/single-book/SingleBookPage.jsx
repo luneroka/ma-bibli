@@ -7,7 +7,7 @@ import NavbarLibrary from '../../components/NavbarLibrary';
 import Footer from '../../components/Footer';
 
 function SingleBookPage() {
-  const { id } = useParams();
+  const { isbn } = useParams();
   const dispatch = useDispatch();
   const { book, status, error } = useSelector((state) => state.singleBook);
   const libraryBooks = useSelector((state) => state.library.libraryBooks);
@@ -16,8 +16,8 @@ function SingleBookPage() {
   );
 
   useEffect(() => {
-    dispatch(getSingleBookAsync(id));
-  }, [dispatch, id]);
+    dispatch(getSingleBookAsync(isbn));
+  }, [dispatch, isbn]);
 
   if (status === 'loading') {
     return <div>Loading...</div>;
