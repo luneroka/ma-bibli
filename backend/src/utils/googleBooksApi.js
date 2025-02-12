@@ -106,29 +106,9 @@ const fetchBookFromGoogle = async (bookId) => {
   return book;
 };
 
-const fetchIsbnFromGoogle = async (isbn) => {
-  const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${apiKey}`;
-  const response = await fetch(url);
-
-  if (!response.ok) {
-    console.error(
-      `Failed to fetch book details from Google API: ${response.statusText}`
-    );
-    throw new Error('Failed to fetch book details from Google API');
-  }
-
-  const data = await response.json();
-  if (data.items && data.items.length > 0) {
-    return data.items[0];
-  } else {
-    return null;
-  }
-};
-
 module.exports = {
   fetchBookFromGoogle,
   searchBooksFromGoogle,
-  fetchIsbnFromGoogle,
   searchAuthorFromGoogle,
   searchNewestFromGoogle,
 };
