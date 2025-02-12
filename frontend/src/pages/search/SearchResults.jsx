@@ -7,15 +7,20 @@ function SearchResults({ searchResults = { items: [] } }) {
   const readingListBooks = useSelector(
     (state) => state.readingList.readingListBooks
   );
+
+  const uniqueBooks = searchResults.items.filter(
+    (book, index, self) => index === self.findIndex((b) => b.isbn === book.isbn)
+  );
+
   return (
     <>
       <div className='items-center gap-8 mt-[64px] mb-[32px]'>
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-16 mt-[32px]'>
-          {searchResults.items
+          {uniqueBooks
             .filter((book) => book && (book.isbn || book.title))
-            .map((book, index) => (
+            .map((book) => (
               <BookCard
-                key={book.isbn ? book.isbn : index}
+                key={book.isbn}
                 book={book}
                 libraryBooks={libraryBooks}
                 readingListBooks={readingListBooks}
