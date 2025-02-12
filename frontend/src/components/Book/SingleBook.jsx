@@ -33,25 +33,16 @@ function SingleBook({ book, libraryBooks = [], readingListBooks = [] }) {
     dispatch(removeFromReadingListAsync(isbn));
   };
 
-  if (!book.volumeInfo || !book.volumeInfo.industryIdentifiers) {
-    console.error('Book volumeInfo or industryIdentifiers is undefined');
-    return <div>Error: Book data is incomplete</div>;
-  }
-
-  const isbn13 = book.volumeInfo.industryIdentifiers.find(
-    (id) => id.type === 'ISBN_13'
-  )?.identifier;
-
   const isInLibrary = libraryBooks.some(
-    (libraryBook) => libraryBook.isbn === isbn13
+    (libraryBook) => libraryBook.isbn === book.isbn
   );
   const isInReadingList = readingListBooks.some(
-    (readingListBook) => readingListBook.isbn === isbn13
+    (readingListBook) => readingListBook.isbn === book.isbn
   );
 
   // Convert HTML to plain text
-  const plainTextDescription = book.volumeInfo.description
-    ? book.volumeInfo.description.replace(/<\/?[^>]+(>|$)/g, '')
+  const plainTextDescription = book.description
+    ? book.description.replace(/<\/?[^>]+(>|$)/g, '')
     : 'Pas de description...';
 
   return (
@@ -62,11 +53,7 @@ function SingleBook({ book, libraryBooks = [], readingListBooks = [] }) {
           {/* Book Cover */}
           <div className='w-[220px] h-[330px] flex-shrink-0'>
             <img
-              src={
-                book.volumeInfo.imageLinks
-                  ? Object.entries(book.volumeInfo.imageLinks)[0]?.[1]
-                  : '../../../public/product-not-found.png'
-              }
+              src={book.cover || '../../../public/product-not-found.png'}
               alt={`Couverture non disponible`}
               className='w-full h-full'
             />
@@ -75,22 +62,25 @@ function SingleBook({ book, libraryBooks = [], readingListBooks = [] }) {
           {/* Book Details */}
           <div className='flex flex-col place-content-between w-full overflow'>
             {/* Book Title */}
-            <p className='text-h5 text-black'>{book.volumeInfo.title}</p>
+            <p className='text-h5 text-black'>{book.title}</p>
 
             {/* Book Authors */}
-            <p className='italic'>{book.volumeInfo.authors}</p>
+            <p className='italic'>
+              {Array.isArray(book.authors)
+                ? book.authors.join(', ')
+                : book.authors}
+            </p>
 
             {/* Book Publisher */}
             <p className='text-small-body text-black'>
-              Éditeur :{' '}
-              <span className='text-black-85'>{book.volumeInfo.publisher}</span>
+              Éditeur : <span className='text-black-85'>{book.publisher}</span>
             </p>
 
             {/* Book Published Date */}
             <p className='text-small-body text-black'>
               Publication :{' '}
               <span className='text-black-85'>
-                {extractFullDate(book.volumeInfo.publishedDate)}
+                {extractFullDate(book.publishedDate)}
               </span>
             </p>
 
@@ -109,7 +99,7 @@ function SingleBook({ book, libraryBooks = [], readingListBooks = [] }) {
         {/* Reading List Button */}
         {isInReadingList ? (
           <button
-            onClick={() => handleRemoveFromReadingList(isbn13)}
+            onClick={() => handleRemoveFromReadingList(book.isbn)}
             className='cursor-pointer bg-secondary-btn text-black-75 text-small px-1 py-2.5 hover:bg-secondary-btn w-[220px]'
           >
             <div className='flex gap-1 items-center justify-center'>
@@ -136,7 +126,7 @@ function SingleBook({ book, libraryBooks = [], readingListBooks = [] }) {
         {/* Library Button */}
         {isInLibrary ? (
           <button
-            onClick={() => handleRemoveFromLibrary(isbn13)}
+            onClick={() => handleRemoveFromLibrary(book.isbn)}
             className='cursor-pointer bg-secondary-btn text-black-75 text-small px-1 py-2.5 hover:bg-secondary-btn w-[220px]'
           >
             <div className='flex gap-1 items-center justify-center'>

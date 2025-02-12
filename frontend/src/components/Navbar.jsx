@@ -26,7 +26,7 @@ const Navbar = () => {
   const handleSearch = async () => {
     if (searchTerm) {
       await dispatch(
-        createSearchBooksAsync('search', '/api/search')(searchTerm)
+        createSearchBooksAsync('searchBooks', '/api/search/books')(searchTerm)
       );
       navigate('/recherche', { state: { searchTerm } });
     }

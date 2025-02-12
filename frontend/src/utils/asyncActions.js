@@ -25,34 +25,24 @@ export const createGetAllBooksAsync = (type, apiEndpoint) =>
     }
   );
 
-// ADD BOOK
+// ADD BOOK (now reading normalized data)
 export const createAddBookAsync = (type, apiEndpoint) =>
   createAsyncThunk(
     `${type}/addBookAsync`,
     async (book, { rejectWithValue }) => {
       try {
-        // Extract ISBN-13 from the book object
-        const isbn13 = book.volumeInfo.industryIdentifiers?.find(
-          (id) => id.type === 'ISBN_13'
-        )?.identifier;
-
-        if (!isbn13) {
-          throw new Error('ISBN-13 not found in book data');
+        const isbn = book.isbn;
+        if (!isbn) {
+          throw new Error('ISBN not found in book data');
         }
-
-        // Send a POST request to the backend to add the book to the database
         const response = await fetch(apiEndpoint, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ isbn: isbn13 }),
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ isbn }),
         });
-
         if (!response.ok) {
           throw new Error(`Failed to add book to the ${type}`);
         }
-
         const data = await response.json();
         return data.book;
       } catch (error) {
@@ -88,17 +78,16 @@ export const createSearchBooksAsync = (type, apiEndpoint) =>
     `${type}/searchBooksAsync`,
     async (searchTerm, { rejectWithValue }) => {
       try {
-        const response = await fetch(`${apiEndpoint}/${searchTerm}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-
+        const response = await fetch(
+          `${apiEndpoint}/${encodeURIComponent(searchTerm)}`,
+          {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+          }
+        );
         if (!response.ok) {
           throw new Error(`Failed to search books in ${type}`);
         }
-
         const data = await response.json();
         return data;
       } catch (error) {
@@ -113,17 +102,16 @@ export const createSearchAuthorAsync = (type, apiEndpoint) =>
     `${type}/searchAuthorAsync`,
     async (searchTerm, { rejectWithValue }) => {
       try {
-        const response = await fetch(`${apiEndpoint}/${searchTerm}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-
+        const response = await fetch(
+          `${apiEndpoint}/${encodeURIComponent(searchTerm)}`,
+          {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+          }
+        );
         if (!response.ok) {
           throw new Error(`Failed to search authors in ${type}`);
         }
-
         const data = await response.json();
         return data;
       } catch (error) {
@@ -140,15 +128,11 @@ export const createSearchNewestAsync = (type, apiEndpoint) =>
       try {
         const response = await fetch(apiEndpoint, {
           method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
         });
-
         if (!response.ok) {
           throw new Error(`Failed to fetch newest books from ${type}`);
         }
-
         const data = await response.json();
         return data;
       } catch (error) {

@@ -35,15 +35,11 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
     dispatch(removeFromReadingListAsync(isbn));
   };
 
-  const isbn13 = book.volumeInfo.industryIdentifiers?.find(
-    (id) => id.type === 'ISBN_13'
-  )?.identifier;
-
   const isInLibrary = libraryBooks.some(
-    (libraryBook) => libraryBook.isbn === isbn13
+    (libraryBook) => libraryBook.isbn === book.isbn
   );
   const isInReadingList = readingListBooks.some(
-    (readingListBook) => readingListBook.isbn === isbn13
+    (readingListBook) => readingListBook.isbn === book.isbn
   );
 
   const handleAuthorClick = (author) => {
@@ -59,11 +55,11 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
         <div className='flex gap-[24px]'>
           {/* Book Cover */}
           <div className='flex w-[121px] h-[170px] gap-[16px] flex-shrink-0 items-center'>
-            <Link to={`/livres/${isbn13}`}>
+            <Link to={`/livres/${book.isbn}`}>
               <img
                 src={
-                  book.volumeInfo.imageLinks
-                    ? Object.entries(book.volumeInfo.imageLinks)[0]?.[1]
+                  book.cover
+                    ? book.cover
                     : '../../../public/product-not-found.png'
                 }
                 alt='Couverture non disponible'
@@ -76,18 +72,18 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
           {/* Book Details */}
           <div className='flex flex-col justify-between w-[220px] h-[170px]'>
             {/* Book Title */}
-            <Link to={`/livres/${isbn13}`}>
+            <Link to={`/livres/${book.isbn}`}>
               <p className='text-small-body text-black-75 hover:text-black font-bold text-pretty leading-4.5 h-[41px] content-center overflow-hidden'>
-                {book.volumeInfo.title.length > 55
-                  ? `${book.volumeInfo.title.slice(0, 55)}...`
-                  : book.volumeInfo.title}
+                {book.title.length > 55
+                  ? `${book.title.slice(0, 55)}...`
+                  : book.title}
               </p>
             </Link>
 
             {/* Book Author */}
             <div>
-              {book.volumeInfo.authors &&
-                book.volumeInfo.authors.slice(0, 3).map((author) => (
+              {book.authors &&
+                book.authors.slice(0, 3).map((author) => (
                   <p
                     key={author}
                     className='text-small text-black-75 overflow-hidden cursor-pointer hover:text-secondary-btn hover:underline'
@@ -100,12 +96,12 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
 
             {/* Book Published Date */}
             <p className='text-small text-black-50 overflow-hidden'>
-              Publication : {extractYear(book.volumeInfo.publishedDate)}
+              Publication : {extractYear(book.publishedDate)}
             </p>
 
             {/* Book Page Count */}
             <p className='text-small text-black-50 overflow-hidden'>
-              Pages : {formatNumber(book.volumeInfo.pageCount)}
+              Pages : {formatNumber(book.pageCount)}
             </p>
           </div>
         </div>
@@ -115,7 +111,7 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
           {/* Reading List Button */}
           {isInReadingList ? (
             <button
-              onClick={() => handleRemoveFromReadingList(isbn13)}
+              onClick={() => handleRemoveFromReadingList(book.isbn)}
               className='cursor-pointer bg-secondary-btn text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn w-[121px]'
             >
               <div className='flex gap-1 items-center justify-center'>
@@ -142,7 +138,7 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
           {/* Library Button */}
           {isInLibrary ? (
             <button
-              onClick={() => handleRemoveFromLibrary(isbn13)}
+              onClick={() => handleRemoveFromLibrary(book.isbn)}
               className='cursor-pointer bg-secondary-btn text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn w-[125px]'
             >
               <div className='flex gap-1 items-center justify-center'>

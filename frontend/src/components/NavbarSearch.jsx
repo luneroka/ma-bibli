@@ -22,7 +22,9 @@ const NavbarSearch = () => {
   const navigate = useNavigate();
 
   const handleSearch = async () => {
-    await dispatch(createSearchBooksAsync('search', '/api/search')(searchTerm));
+    await dispatch(
+      createSearchBooksAsync('searchBooks', '/api/search/books')(searchTerm)
+    );
     navigate('/recherche', { state: { searchTerm } });
   };
 
