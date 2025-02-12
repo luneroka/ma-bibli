@@ -2,108 +2,71 @@ const fetch = require('node-fetch');
 require('dotenv').config();
 const apiKey = process.env.GOOGLE_BOOKS_API_KEY;
 
+// A small helper to fetch and parse JSON.
+const fetchJson = async (url) => {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Fetch error on ${url}: ${response.statusText}`);
+  }
+  return response.json();
+};
+
 const searchBooksFromGoogle = async (searchTerm) => {
   const maxResults = 20;
-  const url = `https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&maxResults=${maxResults}&key=${apiKey}`;
+  const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(
+    searchTerm
+  )}&maxResults=${maxResults}&key=${apiKey}`;
 
-  const response = await fetch(url);
+  const data = await fetchJson(url);
 
-  if (!response) {
-    console.error(
-      `Failed to search books from Google API: ${response.statusText}`
-    );
-    throw new Error('Failed to search books from Google API');
-  }
-
-  let searchResults;
-  try {
-    searchResults = await response.json();
-  } catch (error) {
-    console.error('Failed to parse search results from Google API', error);
-    throw new Error('Failed to parse search results from Google API');
-  }
-
-  searchResults.items =
-    searchResults.items?.filter(
+  // Filter out books with missing images or pageCount ≤ 0
+  if (data.items) {
+    data.items = data.items.filter(
       (book) => book.volumeInfo?.imageLinks && book.volumeInfo?.pageCount > 0
-    ) || [];
-
-  return searchResults;
+    );
+  } else {
+    data.items = [];
+  }
+  return data;
 };
 
 const searchAuthorFromGoogle = async (searchTerm) => {
   const maxResults = 40;
-  const url = `https://www.googleapis.com/books/v1/volumes?q=inauthor:${searchTerm}&maxResults=${maxResults}&key=${apiKey}`;
-  const response = await fetch(url);
+  const url = `https://www.googleapis.com/books/v1/volumes?q=inauthor:${encodeURIComponent(
+    searchTerm
+  )}&maxResults=${maxResults}&key=${apiKey}`;
 
-  if (!response) {
-    console.error(
-      `Failed to search books from Google API: ${response.statusText}`
-    );
-    throw new Error('Failed to search books from Google API');
-  }
-
-  let searchResults;
-  try {
-    searchResults = await response.json();
-  } catch (error) {
-    console.error('Failed to parse search results from Google API', error);
-    throw new Error('Failed to parse search results from Google API');
-  }
-
-  searchResults.items =
-    searchResults.items?.filter(
+  const data = await fetchJson(url);
+  if (data.items) {
+    data.items = data.items.filter(
       (book) => book.volumeInfo?.imageLinks && book.volumeInfo?.pageCount > 0
-    ) || [];
-
-  return searchResults;
+    );
+  } else {
+    data.items = [];
+  }
+  return data;
 };
 
 const searchNewestFromGoogle = async () => {
   const maxResults = 10;
   const langRestrict = 'fr';
   const url = `https://www.googleapis.com/books/v1/volumes?q=subject:fiction&orderBy=newest&maxResults=${maxResults}&langRestrict=${langRestrict}&key=${apiKey}`;
-  const response = await fetch(url);
 
-  if (!response) {
-    console.error(
-      `Failed to search books from Google API: ${response.statusText}`
-    );
-    throw new Error('Failed to search books from Google API');
-  }
-
-  let searchResults;
-  try {
-    searchResults = await response.json();
-  } catch (error) {
-    console.error('Failed to parse search results from Google API', error);
-    throw new Error('Failed to parse search results from Google API');
-  }
-
-  searchResults.items =
-    searchResults.items?.filter(
+  const data = await fetchJson(url);
+  if (data.items) {
+    data.items = data.items.filter(
       (book) => book.volumeInfo?.imageLinks && book.volumeInfo?.pageCount > 0
-    ) || [];
-
-  return searchResults;
+    );
+  } else {
+    data.items = [];
+  }
+  return data;
 };
 
 const fetchBookFromGoogle = async (isbn) => {
   const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${apiKey}`;
-
-  // console.log(`Fetching book from Google API: ${url}`);
-
-  const response = await fetch(url);
-  // console.log(`Response status: ${response.status}`);
-  if (!response.ok) {
-    console.error(
-      `Failed to fetch book from Google API: ${response.statusText}`
-    );
-    throw new Error('Failed to fetch book from Google API');
-  }
-  const book = await response.json();
-  // console.log(`Fetched book data: ${JSON.stringify(book)}`);
-  return book;
+  const data = await fetchJson(url);
+  return data;
 };
 
 module.exports = {

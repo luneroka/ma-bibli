@@ -6,8 +6,8 @@ const {
 } = require('./search.controller');
 const router = express.Router();
 
-router.get('/books/:searchTerm', (req, res) => searchBooks(req, res));
-router.get('/author/:searchTerm', (req, res) => searchAuthor(req, res));
-router.get('/newest', (req, res) => searchNewest(req, res));
+router.get('/books/:searchTerm', searchBooks);
+router.get('/author/:searchTerm', searchAuthor);
+router.get('/newest', searchNewest);
 
 module.exports = router;
