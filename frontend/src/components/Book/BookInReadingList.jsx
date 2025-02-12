@@ -10,17 +10,17 @@ import { addToLibraryAsync } from '../../utils/libraryAsyncActions';
 function BookInReadingList({ book, libraryBooks = [] }) {
   const dispatch = useDispatch();
 
-  const handleRemoveFromReadingList = (bookId) => {
-    dispatch(removeFromReadingListAsync(bookId));
+  const handleRemoveFromReadingList = (isbn) => {
+    dispatch(removeFromReadingListAsync(isbn));
   };
 
   const handleMoveToLibrary = (book) => {
     dispatch(addToLibraryAsync(book));
-    dispatch(removeFromReadingListAsync(book.id));
+    dispatch(removeFromReadingListAsync(book.isbn));
   };
 
   const isInLibrary = libraryBooks.some(
-    (libraryBook) => libraryBook.id === book.id
+    (libraryBook) => libraryBook.isbn === book.isbn
   );
 
   return (
@@ -29,7 +29,7 @@ function BookInReadingList({ book, libraryBooks = [] }) {
         {/* Book Info */}
         <div className='relative gap-1'>
           {/* Book Cover */}
-          <Link to={`/livres/${book.id}`}>
+          <Link to={`/livres/${book.isbn}`}>
             <img
               src={book.cover}
               alt='Book Cover'
@@ -39,7 +39,7 @@ function BookInReadingList({ book, libraryBooks = [] }) {
 
           {/* Remove Button */}
           <button
-            onClick={() => handleRemoveFromReadingList(book.id)}
+            onClick={() => handleRemoveFromReadingList(book.isbn)}
             className='absolute top-1 right-1 rounded-full shadow-md hover:text-primary-btn text-black-75 bg-white-bg  cursor-pointer hover:scale-150 transition-all duration-200'
           >
             <TiDelete />

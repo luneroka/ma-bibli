@@ -25,7 +25,7 @@ createRoot(document.getElementById('root')).render(
         <Route path='/liste-de-lecture' element={<ReadingListPage />} />
         <Route path='/bibli' element={<LibraryPage />} />
         <Route path='/livres' element={<Navigate to='/' />} />
-        <Route path='/livres/:id' element={<SingleBookPage />} />
+        <Route path='/livres/:isbn' element={<SingleBookPage />} />
       </Routes>
     </BrowserRouter>
   </Provider>

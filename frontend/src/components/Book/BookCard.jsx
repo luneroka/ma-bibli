@@ -23,23 +23,27 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
     dispatch(addToLibraryAsync(book));
   };
 
-  const handleRemoveFromLibrary = (bookId) => {
-    dispatch(removeFromLibraryAsync(bookId));
+  const handleRemoveFromLibrary = (isbn) => {
+    dispatch(removeFromLibraryAsync(isbn));
   };
 
   const handleAddToReadingList = (book) => {
     dispatch(addToReadingListAsync(book));
   };
 
-  const handleRemoveFromReadingList = (bookId) => {
-    dispatch(removeFromReadingListAsync(bookId));
+  const handleRemoveFromReadingList = (isbn) => {
+    dispatch(removeFromReadingListAsync(isbn));
   };
 
+  const isbn13 = book.volumeInfo.industryIdentifiers?.find(
+    (id) => id.type === 'ISBN_13'
+  )?.identifier;
+
   const isInLibrary = libraryBooks.some(
-    (libraryBook) => libraryBook.id === book.id
+    (libraryBook) => libraryBook.isbn === isbn13
   );
   const isInReadingList = readingListBooks.some(
-    (readingListBook) => readingListBook.id === book.id
+    (readingListBook) => readingListBook.isbn === isbn13
   );
 
   const handleAuthorClick = (author) => {
@@ -55,7 +59,7 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
         <div className='flex gap-[24px]'>
           {/* Book Cover */}
           <div className='flex w-[121px] h-[170px] gap-[16px] flex-shrink-0 items-center'>
-            <Link to={`/livres/${book.id}`}>
+            <Link to={`/livres/${isbn13}`}>
               <img
                 src={
                   book.volumeInfo.imageLinks
@@ -72,7 +76,7 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
           {/* Book Details */}
           <div className='flex flex-col justify-between w-[220px] h-[170px]'>
             {/* Book Title */}
-            <Link to={`/livres/${book.id}`}>
+            <Link to={`/livres/${isbn13}`}>
               <p className='text-small-body text-black-75 hover:text-black font-bold text-pretty leading-4.5 h-[41px] content-center overflow-hidden'>
                 {book.volumeInfo.title.length > 55
                   ? `${book.volumeInfo.title.slice(0, 55)}...`
@@ -111,7 +115,7 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
           {/* Reading List Button */}
           {isInReadingList ? (
             <button
-              onClick={() => handleRemoveFromReadingList(book.id)}
+              onClick={() => handleRemoveFromReadingList(isbn13)}
               className='cursor-pointer bg-secondary-btn text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn w-[121px]'
             >
               <div className='flex gap-1 items-center justify-center'>
@@ -138,7 +142,7 @@ const BookCard = ({ book, libraryBooks = [], readingListBooks = [] }) => {
           {/* Library Button */}
           {isInLibrary ? (
             <button
-              onClick={() => handleRemoveFromLibrary(book.id)}
+              onClick={() => handleRemoveFromLibrary(isbn13)}
               className='cursor-pointer bg-secondary-btn text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn w-[125px]'
             >
               <div className='flex gap-1 items-center justify-center'>

@@ -31,13 +31,22 @@ export const createAddBookAsync = (type, apiEndpoint) =>
     `${type}/addBookAsync`,
     async (book, { rejectWithValue }) => {
       try {
+        // Extract ISBN-13 from the book object
+        const isbn13 = book.volumeInfo.industryIdentifiers?.find(
+          (id) => id.type === 'ISBN_13'
+        )?.identifier;
+
+        if (!isbn13) {
+          throw new Error('ISBN-13 not found in book data');
+        }
+
         // Send a POST request to the backend to add the book to the database
         const response = await fetch(apiEndpoint, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(book),
+          body: JSON.stringify({ isbn: isbn13 }),
         });
 
         if (!response.ok) {

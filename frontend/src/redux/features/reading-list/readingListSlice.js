@@ -50,7 +50,7 @@ const readingListSlice = createSlice({
       .addCase(removeFromReadingListAsync.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.readingListBooks = state.readingListBooks.filter(
-          (book) => book.id !== action.payload
+          (book) => book.isbn !== action.payload
         );
       })
       .addCase(removeFromReadingListAsync.rejected, (state, action) => {

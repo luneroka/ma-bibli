@@ -21,23 +21,32 @@ function SingleBook({ book, libraryBooks = [], readingListBooks = [] }) {
     dispatch(addToLibraryAsync(book));
   };
 
-  const handleRemoveFromLibrary = (bookId) => {
-    dispatch(removeFromLibraryAsync(bookId));
+  const handleRemoveFromLibrary = (isbn) => {
+    dispatch(removeFromLibraryAsync(isbn));
   };
 
   const handleAddToReadingList = (book) => {
     dispatch(addToReadingListAsync(book));
   };
 
-  const handleRemoveFromReadingList = (bookId) => {
-    dispatch(removeFromReadingListAsync(bookId));
+  const handleRemoveFromReadingList = (isbn) => {
+    dispatch(removeFromReadingListAsync(isbn));
   };
 
+  if (!book.volumeInfo || !book.volumeInfo.industryIdentifiers) {
+    console.error('Book volumeInfo or industryIdentifiers is undefined');
+    return <div>Error: Book data is incomplete</div>;
+  }
+
+  const isbn13 = book.volumeInfo.industryIdentifiers.find(
+    (id) => id.type === 'ISBN_13'
+  )?.identifier;
+
   const isInLibrary = libraryBooks.some(
-    (libraryBook) => libraryBook.id === book.id
+    (libraryBook) => libraryBook.isbn === isbn13
   );
   const isInReadingList = readingListBooks.some(
-    (readingListBook) => readingListBook.id === book.id
+    (readingListBook) => readingListBook.isbn === isbn13
   );
 
   // Convert HTML to plain text
@@ -100,7 +109,7 @@ function SingleBook({ book, libraryBooks = [], readingListBooks = [] }) {
         {/* Reading List Button */}
         {isInReadingList ? (
           <button
-            onClick={() => handleRemoveFromReadingList(book.id)}
+            onClick={() => handleRemoveFromReadingList(isbn13)}
             className='cursor-pointer bg-secondary-btn text-black-75 text-small px-1 py-2.5 hover:bg-secondary-btn w-[220px]'
           >
             <div className='flex gap-1 items-center justify-center'>
@@ -127,7 +136,7 @@ function SingleBook({ book, libraryBooks = [], readingListBooks = [] }) {
         {/* Library Button */}
         {isInLibrary ? (
           <button
-            onClick={() => handleRemoveFromLibrary(book.id)}
+            onClick={() => handleRemoveFromLibrary(isbn13)}
             className='cursor-pointer bg-secondary-btn text-black-75 text-small px-1 py-2.5 hover:bg-secondary-btn w-[220px]'
           >
             <div className='flex gap-1 items-center justify-center'>

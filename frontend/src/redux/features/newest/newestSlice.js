@@ -25,7 +25,6 @@ const newestSlice = createSlice({
         (state, action) => {
           state.loading = false;
           state.newest = action.payload;
-          console.log('Search results:', action.payload);
         }
       )
       .addCase(

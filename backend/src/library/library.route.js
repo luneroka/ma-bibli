@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/', (req, res) => getAllBooks(LibraryBook, req, res));
 router.post('/add-book', (req, res) => addBook(LibraryBook, req, res));
-router.delete('/delete-book/:bookId', (req, res) =>
+router.delete('/delete-book/:isbn', (req, res) =>
   deleteBook(LibraryBook, req, res)
 );
 

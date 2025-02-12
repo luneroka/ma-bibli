@@ -12,14 +12,19 @@ const getAllBooks = async (Model, req, res) => {
 
 const getSingleBook = async (req, res) => {
   try {
-    const { isnb } = req.params;
-    // console.log(`Fetching book with ISBN: ${isbn}`);
-    const book = await fetchBookFromGoogle(isbn);
-    // console.log(`Fetched book data: ${JSON.stringify(book)}`);
+    const { isbn } = req.params;
+    const bookData = await fetchBookFromGoogle(isbn);
 
-    if (!book) {
+    if (
+      !bookData ||
+      bookData.totalItems === 0 ||
+      !bookData.items ||
+      bookData.items.length === 0
+    ) {
       return res.status(404).send({ message: 'Book not found' });
     }
+
+    const book = bookData.items[0];
     res.status(200).send(book);
   } catch (error) {
     console.error('Could not find the requested book', error);
@@ -29,17 +34,24 @@ const getSingleBook = async (req, res) => {
 
 const addBook = async (Model, req, res) => {
   try {
-    const { id } = req.body;
+    const { isbn } = req.body;
 
     // Validate the incoming data
-    if (!id) {
-      return res.status(400).send({ message: 'Book id not found.' });
+    if (!isbn) {
+      console.error('ISBN not provided.');
+      return res.status(400).send({ message: 'ISBN not provided.' });
     }
 
     // Fetch book data
-    const bookData = await fetchBookFromGoogle(id);
+    const bookData = await fetchBookFromGoogle(isbn);
 
-    if (!bookData) {
+    if (
+      !bookData ||
+      bookData.totalItems === 0 ||
+      !bookData.items ||
+      bookData.items.length === 0
+    ) {
+      console.error('Book not found in Google Books API.');
       return res
         .status(404)
         .send({ message: 'Book not found in Google Books API' });
@@ -48,6 +60,7 @@ const addBook = async (Model, req, res) => {
     // Extract necessary fields from the fetched book data
     const {
       volumeInfo: {
+        industryIdentifiers,
         title,
         authors,
         publisher,
@@ -57,7 +70,13 @@ const addBook = async (Model, req, res) => {
         categories,
         imageLinks,
       },
-    } = bookData;
+    } = bookData.items[0];
+
+    // Extract ISBN-13, fallback to ISBN-10 if unavailable
+    const isbn13 =
+      industryIdentifiers?.find((id) => id.type === 'ISBN_13')?.identifier ||
+      industryIdentifiers?.find((id) => id.type === 'ISBN_10')?.identifier ||
+      null;
 
     const cover =
       imageLinks?.thumbnail ||
@@ -67,7 +86,7 @@ const addBook = async (Model, req, res) => {
 
     // Create the new book instance and save it to the database
     const newBook = new Model({
-      id,
+      isbn: isbn13,
       title,
       authors,
       publisher,
@@ -80,13 +99,11 @@ const addBook = async (Model, req, res) => {
 
     await newBook.save();
 
-    res
-      .status(200)
-      .send({ message: 'Livre ajouté avec succès', book: newBook });
+    res.status(200).send({ message: 'Book added successfully', book: newBook });
   } catch (error) {
-    console.error("Le livre n'a pas pu être ajouté.", error);
+    console.error('Failed to add book.', error);
     res.status(500).send({
-      message: "Echec lors de l'ajout du livre",
+      message: 'Failed to add book',
       error: error.message,
     });
   }
@@ -94,9 +111,9 @@ const addBook = async (Model, req, res) => {
 
 const deleteBook = async (Model, req, res) => {
   try {
-    const { bookId } = req.params;
+    const { isbn } = req.params;
 
-    const deletedBook = await Model.findOneAndDelete({ id: bookId });
+    const deletedBook = await Model.findOneAndDelete({ isbn });
 
     if (!deletedBook) {
       return res.status(404).send({ message: 'Book not found' });

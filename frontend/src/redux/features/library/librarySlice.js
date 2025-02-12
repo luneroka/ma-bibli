@@ -50,7 +50,7 @@ const librarySlice = createSlice({
       .addCase(removeFromLibraryAsync.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.libraryBooks = state.libraryBooks.filter(
-          (book) => book.id !== action.payload
+          (book) => book.isbn !== action.payload
         );
       })
       .addCase(removeFromLibraryAsync.rejected, (state, action) => {

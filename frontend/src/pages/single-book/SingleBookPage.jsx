@@ -16,7 +16,11 @@ function SingleBookPage() {
   );
 
   useEffect(() => {
-    dispatch(getSingleBookAsync(isbn));
+    if (isbn) {
+      dispatch(getSingleBookAsync(isbn));
+    } else {
+      console.error('ISBN parameter is undefined');
+    }
   }, [dispatch, isbn]);
 
   if (status === 'loading') {
@@ -27,16 +31,20 @@ function SingleBookPage() {
     return <div>Error: {error}</div>;
   }
 
+  console.log('Rendering SingleBookPage with book:', book);
+
   return (
     <>
       <NavbarLibrary />
       <main className='flex-1 min-h-0 max-w-full mx-[128px] mt-[96px] font-lato'>
-        {book && (
+        {book && book.volumeInfo ? (
           <SingleBook
             book={book}
             libraryBooks={libraryBooks}
             readingListBooks={readingListBooks}
           />
+        ) : (
+          <div>No book data available</div>
         )}
       </main>
       <Footer />

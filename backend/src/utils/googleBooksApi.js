@@ -88,8 +88,8 @@ const searchNewestFromGoogle = async () => {
   return searchResults;
 };
 
-const fetchBookFromGoogle = async (bookId) => {
-  const url = `https://www.googleapis.com/books/v1/volumes/${bookId}?key=${apiKey}`;
+const fetchBookFromGoogle = async (isbn) => {
+  const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${apiKey}`;
 
   // console.log(`Fetching book from Google API: ${url}`);
 
