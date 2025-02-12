@@ -12,7 +12,9 @@ const transformGoogleBook = (googleBook) => {
 
   // Use a proper cover URL (or a fallback if desired)
   const cover =
-    volume.imageLinks?.thumbnail || volume.imageLinks?.smallThumbnail || '';
+    volume.imageLinks?.thumbnail ||
+    volume.imageLinks?.smallThumbnail ||
+    '../../../../frontend/public/product-not-found.png';
 
   return {
     isbn,
