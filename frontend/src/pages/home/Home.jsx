@@ -6,7 +6,6 @@ import { createSearchNewestAsync } from '../../utils/asyncActions';
 
 const Home = () => {
   const dispatch = useDispatch();
-  const books = useSelector((state) => state.books.books);
   const newest = useSelector((state) => state.newest.newest.items);
   const libraryBooks = useSelector((state) => state.library.libraryBooks);
   const readingListBooks = useSelector(
