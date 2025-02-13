@@ -16,7 +16,7 @@ const fetchNewsFromNewsApi = async () => {
 
   const data = await fetchJson(url);
 
-  return data;
+  return data.articles || [];
 };
 
 module.exports = { fetchNewsFromNewsApi };
