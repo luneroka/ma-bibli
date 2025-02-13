@@ -3,7 +3,7 @@ import NewReleases from './NewReleases';
 import News from './News';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSearchNewestAsync } from '../../utils/asyncActions';
-import { createGetNewsAsync } from '../../utils/newsAsyncActions';
+import { createGetNewsAsync } from '../../redux/features/news/newsAsyncActions';
 
 const HomePage = () => {
   const dispatch = useDispatch();

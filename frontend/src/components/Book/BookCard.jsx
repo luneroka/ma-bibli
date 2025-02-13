@@ -6,11 +6,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import {
   addToLibraryAsync,
   removeFromLibraryAsync,
-} from '../../utils/libraryAsyncActions';
+} from '../../redux/features/library/libraryAsyncActions';
 import {
   addToReadingListAsync,
   removeFromReadingListAsync,
-} from '../../utils/readingListAsyncActions';
+} from '../../redux/features/reading-list/readingListAsyncActions';
 import {
   formatNumber,
   extractYear,

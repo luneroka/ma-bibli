@@ -1,4 +1,4 @@
-import { createAsyncThunk, isRejectedWithValue } from '@reduxjs/toolkit';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const createGetNewsAsync = (type, apiEndpoint) =>
   createAsyncThunk(`${type}/getNewsAsync`, async (_, { rejectWithValue }) => {

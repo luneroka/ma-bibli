@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { Outlet } from 'react-router';
 import { useDispatch } from 'react-redux';
-import { getLibraryBooksAsync } from './utils/libraryAsyncActions';
-import { getReadingListBooksAsync } from './utils/readingListAsyncActions';
+import { getLibraryBooksAsync } from './redux/features/library/libraryAsyncActions';
+import { getReadingListBooksAsync } from './redux/features/reading-list/readingListAsyncActions';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer';

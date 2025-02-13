@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getSingleBookAsync } from '../../../utils/singleBookAsyncActions';
+import { getSingleBookAsync } from './singleBookAsyncActions';
 
 const initialState = {
   book: null,

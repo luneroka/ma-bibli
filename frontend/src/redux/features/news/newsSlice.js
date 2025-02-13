@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createGetNewsAsync } from '../../../utils/newsAsyncActions';
+import { createGetNewsAsync } from './newsAsyncActions';
 
 const initialState = {
   news: [],

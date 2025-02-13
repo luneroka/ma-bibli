@@ -2,10 +2,10 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { TiDelete } from 'react-icons/ti';
-import { removeFromReadingListAsync } from '../../utils/readingListAsyncActions';
+import { removeFromReadingListAsync } from '../../redux/features/reading-list/readingListAsyncActions';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 import { FaCheckCircle } from 'react-icons/fa';
-import { addToLibraryAsync } from '../../utils/libraryAsyncActions';
+import { addToLibraryAsync } from '../../redux/features/library/libraryAsyncActions';
 
 function BookInReadingList({ book, libraryBooks = [] }) {
   const dispatch = useDispatch();

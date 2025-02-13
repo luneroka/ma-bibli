@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Footer from '../../components/Footer';
 import LibraryList from './LibraryList';
 import NavbarLibrary from '../../components//Navbar/NavbarLibrary';
-import { getLibraryBooksAsync } from '../../utils/libraryAsyncActions';
+import { getLibraryBooksAsync } from '../../redux/features/library/libraryAsyncActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 function LibraryPage() {

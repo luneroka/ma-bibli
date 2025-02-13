@@ -3,7 +3,7 @@ import {
   getReadingListBooksAsync,
   addToReadingListAsync,
   removeFromReadingListAsync,
-} from '../../../utils/readingListAsyncActions';
+} from './readingListAsyncActions';
 
 const initialState = {
   readingListBooks: [],

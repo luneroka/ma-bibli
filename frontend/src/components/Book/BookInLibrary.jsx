@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { TiDelete } from 'react-icons/ti';
-import { removeFromLibraryAsync } from '../../utils/libraryAsyncActions';
+import { removeFromLibraryAsync } from '../../redux/features/library/libraryAsyncActions';
 
 function BookInLibrary({ book }) {
   const dispatch = useDispatch();

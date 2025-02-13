@@ -3,7 +3,7 @@ import {
   getLibraryBooksAsync,
   addToLibraryAsync,
   removeFromLibraryAsync,
-} from '../../../utils/libraryAsyncActions';
+} from './libraryAsyncActions';
 
 const initialState = {
   libraryBooks: [],
