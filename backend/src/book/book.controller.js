@@ -64,6 +64,18 @@ const addBook = async (Model, req, res) => {
   }
 };
 
+const getFavoriteBooks = async (Model, req, res) => {
+  try {
+    const favoriteBooks = await Model.find({ isFavorite: true }).lean();
+    res.status(200).json(favoriteBooks);
+  } catch (error) {
+    console.error('Failed to load favorite books.', error);
+    res
+      .status(500)
+      .json({ message: 'Failed to load favorite books', error: error.message });
+  }
+};
+
 const toggleIsFavorite = async (Model, req, res) => {
   try {
     const { isbn } = req.params;
@@ -105,6 +117,7 @@ module.exports = {
   getAllBooks,
   getSingleBook,
   addBook,
+  getFavoriteBooks,
   toggleIsFavorite,
   deleteBook,
 };
