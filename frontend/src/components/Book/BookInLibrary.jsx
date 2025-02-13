@@ -4,10 +4,7 @@ import { Link } from 'react-router-dom';
 import { IoIosRemoveCircle } from 'react-icons/io';
 import { FaHeart } from 'react-icons/fa';
 import { removeFromLibraryAsync } from '../../redux/features/library/libraryAsyncActions';
-import {
-  getFavoriteBooksAsync,
-  toggleFavoriteAsync,
-} from '../../redux/features/favorites/favoritesAsyncActions';
+import { toggleFavoriteAsync } from '../../redux/features/favorites/favoritesAsyncActions';
 
 function BookInLibrary({ book }) {
   const dispatch = useDispatch();

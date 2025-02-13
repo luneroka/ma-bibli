@@ -1,7 +1,12 @@
 import React from 'react';
-import { FaRegBookmark, FaBookmark, FaCheckCircle } from 'react-icons/fa';
+import {
+  FaRegBookmark,
+  FaBookmark,
+  FaCheckCircle,
+  FaHeart,
+} from 'react-icons/fa';
 import { IoIosAddCircleOutline } from 'react-icons/io';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   addToLibraryAsync,
@@ -12,6 +17,7 @@ import {
   removeFromReadingListAsync,
 } from '../../redux/features/reading-list/readingListAsyncActions';
 import { formatNumber, extractYear, extractFullDate } from '../../utils/helper';
+import { toggleFavoriteAsync } from '../../redux/features/favorites/favoritesAsyncActions';
 
 const BookCard = ({
   book,
@@ -21,6 +27,8 @@ const BookCard = ({
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const favorites = useSelector((state) => state.favorites.favorites) || [];
+  const isFavorite = favorites?.some((fav) => fav.isbn === book.isbn);
 
   const handleAddToLibrary = (book) => {
     dispatch(addToLibraryAsync(book));
@@ -42,6 +50,10 @@ const BookCard = ({
     navigate('/recherche', {
       state: { searchTerm: author, searchType: 'author' },
     });
+  };
+
+  const handleFavorite = (isbn) => {
+    dispatch(toggleFavoriteAsync(isbn));
   };
 
   const isInLibrary = libraryBooks.some(
@@ -175,6 +187,7 @@ const BookCard = ({
                 className='w-full h-full'
               />
             </div>
+
             {/* Book Details */}
             <div className='flex flex-col justify-between w-full'>
               {/* Title */}
@@ -246,15 +259,25 @@ const BookCard = ({
 
             {/* Library Button */}
             {isInLibrary ? (
-              <button
-                onClick={() => handleRemoveFromLibrary(book.isbn)}
-                className='cursor-pointer bg-secondary-btn text-black-75 text-small px-1 py-2.5 w-[220px]'
-              >
-                <div className='flex gap-1 items-center justify-center'>
-                  <FaCheckCircle className='text-body' />
-                  Dans la bibli !
-                </div>
-              </button>
+              <>
+                <button
+                  onClick={() => handleRemoveFromLibrary(book.isbn)}
+                  className='cursor-pointer bg-secondary-btn text-black-75 text-small px-1 py-2.5 w-[220px]'
+                >
+                  <div className='flex gap-1 items-center justify-center'>
+                    <FaCheckCircle className='text-body' />
+                    Dans la bibli !
+                  </div>
+                </button>
+                <button
+                  onClick={() => handleFavorite(book.isbn)}
+                  className={`text-h4 rounded-full cursor-pointer hover:scale-150 transition-all duration-200 ${
+                    isFavorite ? 'text-primary-btn' : 'text-black-75'
+                  }`}
+                >
+                  <FaHeart className={`p-0.5`} />
+                </button>
+              </>
             ) : (
               <button
                 onClick={() => handleAddToLibrary(book)}
