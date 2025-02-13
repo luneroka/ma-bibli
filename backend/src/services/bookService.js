@@ -17,7 +17,7 @@ const transformGoogleBook = (googleBook) => {
     '../../../../frontend/public/product-not-found.png';
 
   // If it's from Google, use the proxy endpoint
-  if (coverUrl.includes('books.google.com')) {
+  if (coverUrl) {
     coverUrl = `/api/proxy-image?url=${encodeURIComponent(coverUrl)}`;
   }
 

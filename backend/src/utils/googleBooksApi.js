@@ -1,15 +1,6 @@
-const fetch = require('node-fetch');
 require('dotenv').config();
 const apiKey = process.env.GOOGLE_BOOKS_API_KEY;
-
-// A small helper to fetch and parse JSON.
-const fetchJson = async (url) => {
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error(`Fetch error on ${url}: ${response.statusText}`);
-  }
-  return response.json();
-};
+const { fetchJson } = require('./helper');
 
 const searchBooksFromGoogle = async (searchTerm) => {
   const maxResults = 20;
