@@ -4,7 +4,7 @@ export const toggleFavoriteAsync = createAsyncThunk(
   'favorites/toggleFavoriteAsync',
   async (isbn, { rejectWithValue }) => {
     try {
-      const response = await fetch(`/api/library/favorite/${isbn}`, {
+      const response = await fetch(`/api/library/favorites/${isbn}`, {
         method: 'PUT',
       });
       if (!response.ok) {

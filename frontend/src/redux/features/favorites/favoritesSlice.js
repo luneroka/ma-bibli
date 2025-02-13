@@ -7,9 +7,7 @@ const favoritesSlice = createSlice({
     loading: false,
     error: null,
   },
-  reducers: {
-    // You can keep manual reducers if needed
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(toggleFavoriteAsync.pending, (state) => {
