@@ -64,6 +64,27 @@ const addBook = async (Model, req, res) => {
   }
 };
 
+const toggleIsFavorite = async (Model, req, res) => {
+  try {
+    const { isbn } = req.params;
+    const book = await Model.findOne({ isbn });
+    if (!book) {
+      return res.status(404).json({ message: 'Book not found' });
+    }
+    book.isFavorite = !book.isFavorite;
+    await book.save();
+    res
+      .status(200)
+      .json({ message: 'Favorite status toggled successfully', book });
+  } catch (error) {
+    console.error('Failed to toggle favorite status', error);
+    res.status(500).json({
+      message: 'Failed to toggle favorite status',
+      error: error.message,
+    });
+  }
+};
+
 const deleteBook = async (Model, req, res) => {
   try {
     const { isbn } = req.params;
@@ -80,4 +101,10 @@ const deleteBook = async (Model, req, res) => {
   }
 };
 
-module.exports = { getAllBooks, getSingleBook, addBook, deleteBook };
+module.exports = {
+  getAllBooks,
+  getSingleBook,
+  addBook,
+  toggleIsFavorite,
+  deleteBook,
+};
