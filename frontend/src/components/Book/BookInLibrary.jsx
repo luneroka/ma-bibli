@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { IoIosRemoveCircle } from 'react-icons/io';
 import { FaHeart } from 'react-icons/fa';
 import { removeFromLibraryAsync } from '../../redux/features/library/libraryAsyncActions';
-import { toggleFavoriteAsync } from '../../redux/features/favorites/favoritesAsyncActions';
+import {
+  getFavoriteBooksAsync,
+  toggleFavoriteAsync,
+} from '../../redux/features/favorites/favoritesAsyncActions';
 
 function BookInLibrary({ book }) {
   const dispatch = useDispatch();
