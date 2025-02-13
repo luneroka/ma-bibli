@@ -22,7 +22,7 @@ const Home = () => {
   return (
     <>
       <div className='px-[128px]'>
-        <div className='my-[96px]'>
+        <div className='my-[80px]'>
           <NewReleases
             newest={newest}
             libraryBooks={libraryBooks}
@@ -30,7 +30,7 @@ const Home = () => {
           />
         </div>
 
-        <div className='mb-[128px]'>
+        <div className=''>
           <News news={news} />
         </div>
       </div>

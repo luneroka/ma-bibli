@@ -13,7 +13,8 @@ const fetchJson = async (url) => {
 
 const fetchNewsFromNewsApi = async () => {
   const pageSize = 10;
-  const url = `https://newsapi.org/v2/everything?q=littérature&sources=le-monde,liberation,france24&sortBy=popularity&pageSize=${pageSize}&apiKey=${apiKey}`;
+  const sortBy = 'publishedAt';
+  const url = `https://newsapi.org/v2/everything?q=littérature&sources=le-monde,liberation,france24&sortBy=${sortBy}&pageSize=${pageSize}&apiKey=${apiKey}`;
 
   const data = await fetchJson(url);
 
