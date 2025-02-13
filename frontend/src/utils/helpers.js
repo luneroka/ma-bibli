@@ -23,3 +23,8 @@ export function extractFullDate(dateString) {
   const year = date.getFullYear();
   return `${day}/${month}/${year}`;
 }
+
+// Simple function to generate a random ID.
+export function generateRandomId(length = 8) {
+  return Math.random().toString(36).substr(2, length);
+}

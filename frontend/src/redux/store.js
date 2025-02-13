@@ -10,7 +10,7 @@ export const store = configureStore({
   reducer: {
     search: searchReducer,
     newest: newestReducer,
-    news: newestReducer,
+    news: newsReducer,
     singleBook: singleBookReducer,
     library: libraryReducer,
     readingList: readingListReducer,

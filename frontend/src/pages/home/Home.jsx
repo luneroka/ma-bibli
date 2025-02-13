@@ -3,10 +3,12 @@ import NewReleases from './NewReleases';
 import News from './News';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSearchNewestAsync } from '../../utils/asyncActions';
+import { createGetNewsAsync } from '../../utils/newsAsyncActions';
 
 const Home = () => {
   const dispatch = useDispatch();
   const newest = useSelector((state) => state.newest.newest.items);
+  const news = useSelector((state) => state.news.news);
   const libraryBooks = useSelector((state) => state.library.libraryBooks);
   const readingListBooks = useSelector(
     (state) => state.readingList.readingListBooks
@@ -14,6 +16,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(createSearchNewestAsync('newest', '/api/search/newest')());
+    dispatch(createGetNewsAsync('news', '/api/news')());
   }, [dispatch]);
 
   return (
@@ -28,7 +31,7 @@ const Home = () => {
         </div>
 
         <div className='mb-[128px]'>
-          <News />
+          <News news={news} />
         </div>
       </div>
     </>

@@ -1,17 +1,19 @@
 import React from 'react';
-import news from '../../../public/news.js';
 import NewsCard from '../news/NewsCard.jsx';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Pagination, Navigation } from 'swiper/modules';
+import { generateRandomId } from '../../utils/helpers.js';
 
-const News = () => {
+const News = ({ news }) => {
   return (
     <>
       <div className='flex items-center gap-8 mb-[32px]'>
-        <h3 className='text-h3 text-black font-merriweather'>Actualités littéraires</h3>
+        <h3 className='text-h3 text-black font-merriweather'>
+          Actualités littéraires
+        </h3>
       </div>
 
       <Swiper
@@ -41,7 +43,7 @@ const News = () => {
       >
         <div className='flex gap-[145px]'>
           {news.map((article) => (
-            <SwiperSlide key={article.id}>
+            <SwiperSlide key={generateRandomId()}>
               <NewsCard article={article} />
             </SwiperSlide>
           ))}

@@ -5,12 +5,12 @@ function NewsCard({ article }) {
   return (
     <>
       <div className='flex gap-[24px]'>
-        <div className='flex flex-col w-[127px] gap-[16px]'>
-          <Link to='/'>
+        <div className='flex flex-col w-[225px] gap-[16px]'>
+          <Link to={article.url}>
             <img
-              src={article.image}
-              alt='Book Cover'
-              className='h-[178px] cursor-pointer hover:scale-105 transition-all duration-200 rounded-sm'
+              src={article.urlToImage}
+              alt='News Cover'
+              className='h-[150px] cursor-pointer hover:scale-105 transition-all duration-200'
             />
           </Link>
         </div>
@@ -18,7 +18,9 @@ function NewsCard({ article }) {
         <div className='flex flex-col w-[400px]'>
           <Link to='/'>
             <p className='text-small text-black font-bold h-[28px] mb-[16px] text-wrap'>
-              {article.title}
+              {article.title.length > 100
+                ? `${article.title.slice(0, 100)}...`
+                : article.title}
             </p>
           </Link>
           <div className='w-12 h-[2px] bg-secondary-btn opacity-75 mb-4'></div>
