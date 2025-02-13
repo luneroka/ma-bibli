@@ -11,11 +11,7 @@ import {
   addToReadingListAsync,
   removeFromReadingListAsync,
 } from '../../redux/features/reading-list/readingListAsyncActions';
-import {
-  formatNumber,
-  extractYear,
-  extractFullDate,
-} from '../../utils/helpers';
+import { formatNumber, extractYear, extractFullDate } from '../../utils/helper';
 
 const BookCard = ({
   book,

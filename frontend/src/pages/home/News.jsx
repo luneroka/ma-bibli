@@ -5,7 +5,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Pagination, Navigation } from 'swiper/modules';
-import { generateRandomId } from '../../utils/helpers.js';
+import { generateRandomId } from '../../utils/helper.js';
 
 const News = ({ news }) => {
   return (
