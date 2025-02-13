@@ -5,6 +5,7 @@ import newsReducer from './features/news/newsSlice';
 import singleBookReducer from './features/single-book/singleBookSlice';
 import libraryReducer from './features/library/librarySlice';
 import readingListReducer from './features/reading-list/readingListSlice';
+import favoritesReducer from './features/favorites/favoritesSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export const store = configureStore({
     singleBook: singleBookReducer,
     library: libraryReducer,
     readingList: readingListReducer,
+    favorites: favoritesReducer,
   },
 });
