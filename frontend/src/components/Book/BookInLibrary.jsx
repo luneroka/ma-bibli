@@ -37,9 +37,7 @@ function BookInLibrary({ book }) {
         <button
           onClick={() => handleFavorite(book.isbn)}
           className={`absolute top-1 left-1 rounded-full shadow-md bg-white-bg  cursor-pointer hover:scale-150 transition-all duration-200 ${
-            isFavorite
-              ? 'text-primary-btn hover:text-black-75'
-              : 'text-black-75 hover:text-primary-btn'
+            isFavorite ? 'text-primary-btn' : 'text-black-75'
           }`}
         >
           <FaHeart className={`p-0.5`} />
