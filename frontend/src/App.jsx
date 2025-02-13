@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { getLibraryBooksAsync } from './utils/libraryAsyncActions';
 import { getReadingListBooksAsync } from './utils/readingListAsyncActions';
 import './App.css';
-import Navbar from './components/Navbar';
+import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer';
 
 function App() {

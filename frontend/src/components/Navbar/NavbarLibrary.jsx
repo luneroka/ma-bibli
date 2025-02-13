@@ -5,7 +5,7 @@ import { FaListAlt } from 'react-icons/fa';
 import { FaBookOpen } from 'react-icons/fa';
 import { FaUser } from 'react-icons/fa';
 import { useState } from 'react';
-import avatarImg from '../assets/avatar.png';
+import avatarImg from '../../assets/avatar.png';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard' },

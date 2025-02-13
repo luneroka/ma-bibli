@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { createSearchNewestAsync } from '../../utils/asyncActions';
 import { createGetNewsAsync } from '../../utils/newsAsyncActions';
 
-const Home = () => {
+const HomePage = () => {
   const dispatch = useDispatch();
   const newest = useSelector((state) => state.newest.newest.items);
   const news = useSelector((state) => state.news.news);
@@ -38,4 +38,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;

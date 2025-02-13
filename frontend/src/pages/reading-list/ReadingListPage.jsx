@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import NavbarLibrary from '../../components/NavbarLibrary';
+import NavbarLibrary from '../../components//Navbar/NavbarLibrary';
 import Footer from '../../components/Footer';
 import ReadingList from './ReadingList';
 import { getReadingListBooksAsync } from '../../utils/readingListAsyncActions';
@@ -20,7 +20,10 @@ function ReadingListPage() {
     <>
       <NavbarLibrary />
       <main className='flex-1 min-h-0 max-w-full mx-[128px] font-lato'>
-        <ReadingList libraryBooks={libraryBooks} readingListBooks={readingListBooks} />
+        <ReadingList
+          libraryBooks={libraryBooks}
+          readingListBooks={readingListBooks}
+        />
       </main>
       <Footer />
     </>

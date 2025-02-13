@@ -5,9 +5,9 @@ import { FaBookOpen } from 'react-icons/fa';
 import { FaUser } from 'react-icons/fa';
 import { IoSearchOutline } from 'react-icons/io5';
 import { IoHome } from 'react-icons/io5';
-import avatarImg from '../assets/avatar.png';
+import avatarImg from '../../assets/avatar.png';
 import { useDispatch } from 'react-redux';
-import { createSearchBooksAsync } from '../utils/asyncActions';
+import { createSearchBooksAsync } from '../../utils/asyncActions';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard' },

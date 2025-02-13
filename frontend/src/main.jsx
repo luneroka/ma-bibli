@@ -2,7 +2,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './index.css';
 import App from './App.jsx';
-import Home from './pages/home/Home.jsx';
+import HomePage from './pages/home/HomePage.jsx';
 import LoginPage from './pages/login/LoginPage.jsx';
 import RegisterPage from './pages/register/RegisterPage.jsx';
 import { Provider } from 'react-redux';
@@ -17,7 +17,7 @@ createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<App />}>
-          <Route path='/' element={<Home />} />
+          <Route path='/' element={<HomePage />} />
         </Route>
         <Route path='/login' element={<LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />

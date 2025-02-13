@@ -1,5 +1,5 @@
 import React from 'react';
-import NavbarAuth from '../../components/NavbarAuth';
+import NavbarAuth from '../../components//Navbar/NavbarAuth';
 import Login from './Login';
 import Footer from '../../components/Footer';
 

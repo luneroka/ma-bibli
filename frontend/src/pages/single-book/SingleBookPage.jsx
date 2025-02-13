@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSingleBookAsync } from '../../utils/singleBookAsyncActions';
-import NavbarLibrary from '../../components/NavbarLibrary';
+import NavbarLibrary from '../../components//Navbar/NavbarLibrary';
 import Footer from '../../components/Footer';
 import BookCard from '../../components/Book/BookCard';
 

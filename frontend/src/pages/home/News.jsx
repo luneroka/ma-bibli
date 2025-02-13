@@ -1,5 +1,5 @@
 import React from 'react';
-import NewsCard from '../news/NewsCard.jsx';
+import NewsCard from '../../components/NewsCard';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
