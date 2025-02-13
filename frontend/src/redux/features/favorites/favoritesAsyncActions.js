@@ -3,7 +3,7 @@ import { createGetAllBooksAsync } from '../../../utils/asyncActions';
 
 // GET FAVORITES
 export const getFavoriteBooksAsync = createGetAllBooksAsync(
-  'library',
+  'favorites',
   '/api/library/favorites'
 );
 
