@@ -18,6 +18,10 @@ app.use(
 const proxyImageRouter = require('./src/proxy/proxyImage.route');
 app.use('/api/proxy-image', proxyImageRouter);
 
+// News routes
+const newsRoutes = require('./src/news/news.route');
+app.use('/api/news', newsRoutes);
+
 // Single Book routes
 const singleBookRoutes = require('./src/single-book/singleBook.route');
 app.use('/api/books', singleBookRoutes);
