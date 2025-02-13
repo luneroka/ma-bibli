@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createSearchNewestAsync } from '../../../utils/asyncActions';
+import { createSearchNewestAsync } from './newestAsyncActions';
 
 const initialState = {
   newest: { items: [] },

@@ -7,7 +7,7 @@ import NavbarSearch from '../../components/Navbar/NavbarSearch';
 import {
   createSearchBooksAsync,
   createSearchAuthorAsync,
-} from '../../utils//asyncActions';
+} from '../../redux/features/search/searchAsyncActions';
 import { clearSearchResults } from '../../redux/features/search/searchSlice';
 
 function SearchPage() {

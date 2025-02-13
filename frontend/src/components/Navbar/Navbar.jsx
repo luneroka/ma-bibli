@@ -6,7 +6,7 @@ import { FaBookOpen } from 'react-icons/fa';
 import { FaUser } from 'react-icons/fa';
 import { IoSearchOutline } from 'react-icons/io5';
 import avatarImg from '../../assets/avatar.png';
-import { createSearchBooksAsync } from '../../utils/asyncActions';
+import { createSearchBooksAsync } from '../../redux/features/search/searchAsyncActions';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard' },

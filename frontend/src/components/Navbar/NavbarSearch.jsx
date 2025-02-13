@@ -7,7 +7,7 @@ import { IoSearchOutline } from 'react-icons/io5';
 import { IoHome } from 'react-icons/io5';
 import avatarImg from '../../assets/avatar.png';
 import { useDispatch } from 'react-redux';
-import { createSearchBooksAsync } from '../../utils/asyncActions';
+import { createSearchBooksAsync } from '../../redux/features/search/searchAsyncActions';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard' },

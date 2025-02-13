@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import NewReleases from './NewReleases';
 import News from './News';
 import { useSelector, useDispatch } from 'react-redux';
-import { createSearchNewestAsync } from '../../utils/asyncActions';
+import { createSearchNewestAsync } from '../../redux/features/newest/newestAsyncActions';
 import { createGetNewsAsync } from '../../redux/features/news/newsAsyncActions';
 
 const HomePage = () => {
