@@ -13,6 +13,7 @@ function Login() {
   } = useForm();
 
   const onSubmit = (data) => console.log(data);
+
   const handleGoogleSignIn = () => {};
 
   return (
@@ -53,21 +54,19 @@ function Login() {
                 id='password'
                 placeholder='Mot de Passe'
                 className='text-black-75 shadow border border-black-25 focus:outline-secondary-btn
-                 rounded-lg w-full py-2 px-3 mb-6'
+                 rounded-lg w-full py-2 px-3 mb-4'
               />
             </div>
 
             {/* Error Message */}
             {message && (
-              <p className='text-red-500 text-xs italic mb-3'>{message}</p>
+              <p className='text-red-500 text-xs italic mb-4'>{message}</p>
             )}
 
             {/* Connect Button */}
-            <div>
-              <button className='cursor-pointer font-merriweather text-white-bg bg-primary-btn px-6 h-10 rounded-lg w-full text-body md:text-h6 hover:bg-secondary-btn active:bg-black-75'>
-                Se connecter
-              </button>
-            </div>
+            <button className='cursor-pointer font-merriweather text-white-bg bg-primary-btn px-6 h-10 rounded-lg w-full text-body md:text-h6 hover:bg-secondary-btn active:bg-black-75'>
+              Se connecter
+            </button>
           </form>
 
           <hr className='text-black-10 mt-6 mb-6' />

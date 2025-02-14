@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaGoogle } from 'react-icons/fa';
 import { useForm } from 'react-hook-form';
+import { useAuth } from '../../context/AuthContext';
 
 function Register() {
   const [message, setMessage] = useState('');
+  const { registerUser } = useAuth();
   const {
     register,
     handleSubmit,
@@ -12,7 +14,16 @@ function Register() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  // Register User
+  const onSubmit = async (data) => {
+    console.log(data);
+    try {
+      await registerUser(data.email, data.password);
+      alert('Votre compte a été créé avec succès!');
+    } catch (error) {
+      setMessage('Veuillez fournir un email et un mot de passe valides.');
+    }
+  };
   const handleGoogleSignIn = () => {};
 
   return (
@@ -53,21 +64,19 @@ function Register() {
                 id='password'
                 placeholder='Mot de Passe'
                 className='text-black-75 shadow border border-black-25 focus:outline-secondary-btn
-                 rounded-lg w-full py-2 px-3 mb-6'
+                 rounded-lg w-full py-2 px-3 mb-4'
               />
             </div>
 
             {/* Error Message */}
             {message && (
-              <p className='text-red-500 text-xs italic mb-3'>{message}</p>
+              <p className='text-red-500 text-xs italic mb-4'>{message}</p>
             )}
 
             {/* Register Button */}
-            <div>
               <button className='cursor-pointer font-merriweather text-white-bg bg-primary-btn px-6 h-10 rounded-lg w-full text-body md:text-h6 hover:bg-secondary-btn active:bg-black-75'>
                 Créer mon compte
               </button>
-            </div>
           </form>
 
           <hr className='text-black-10 mt-6 mb-6' />
