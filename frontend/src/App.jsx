@@ -6,7 +6,6 @@ import { getReadingListBooksAsync } from './redux/features/reading-list/readingL
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer';
-import { AuthProvider } from './context/AuthContext';
 
 function App() {
   const dispatch = useDispatch();
@@ -18,13 +17,11 @@ function App() {
 
   return (
     <>
-      <AuthProvider>
-        <Navbar />
-        <main className='flex-1 min-h-0 max-w-full mx-auto font-lato'>
-          <Outlet />
-        </main>
-        <Footer />
-      </AuthProvider>
+      <Navbar />
+      <main className='flex-1 min-h-0 max-w-full mx-auto font-lato'>
+        <Outlet />
+      </main>
+      <Footer />
     </>
   );
 }
