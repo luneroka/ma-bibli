@@ -31,16 +31,22 @@ const librarySlice = createSlice({
       })
 
       // ADD TO LIBRARY
-      .addCase(addToLibraryAsync.pending, (state) => {
+      .addCase(addToLibraryAsync.pending, (state, action) => {
         state.status = 'loading';
+        state.libraryBooks.push(action.meta.arg.optimisticBook);
       })
       .addCase(addToLibraryAsync.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.libraryBooks.push(action.payload);
+        state.libraryBooks = state.libraryBooks.map((book) =>
+          book.isbn === action.payload.isbn ? action.payload : book
+        );
       })
       .addCase(addToLibraryAsync.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
+        state.libraryBooks = state.libraryBooks.filter(
+          (book) => book.isbn !== action.meta.arg.optimisticBook.isbn
+        );
       })
 
       // REMOVE FROM LIBRARY

@@ -31,7 +31,7 @@ const BookCard = ({
   const isFavorite = favorites?.some((fav) => fav.isbn === book.isbn);
 
   const handleAddToLibrary = (book) => {
-    dispatch(addToLibraryAsync(book));
+    dispatch(addToLibraryAsync({ optimisticBook: book }));
   };
 
   const handleRemoveFromLibrary = (isbn) => {

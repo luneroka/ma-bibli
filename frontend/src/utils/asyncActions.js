@@ -29,9 +29,9 @@ export const createGetAllBooksAsync = (type, apiEndpoint) =>
 export const createAddBookAsync = (type, apiEndpoint) =>
   createAsyncThunk(
     `${type}/addBookAsync`,
-    async (book, { rejectWithValue }) => {
+    async ({ optimisticBook }, { rejectWithValue }) => {
       try {
-        const isbn = book.isbn;
+        const isbn = optimisticBook.isbn;
         if (!isbn) {
           throw new Error('ISBN not found in book data');
         }
