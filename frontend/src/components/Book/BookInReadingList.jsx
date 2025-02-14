@@ -15,7 +15,7 @@ function BookInReadingList({ book, libraryBooks = [] }) {
   };
 
   const handleMoveToLibrary = (book) => {
-    dispatch(addToLibraryAsync(book));
+    dispatch(addToLibraryAsync({ optimisticBook: book }));
     dispatch(removeFromReadingListAsync(book.isbn));
   };
 

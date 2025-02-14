@@ -39,7 +39,7 @@ const BookCard = ({
   };
 
   const handleAddToReadingList = (book) => {
-    dispatch(addToReadingListAsync(book));
+    dispatch(addToReadingListAsync({ optimisticBook: book }));
   };
 
   const handleRemoveFromReadingList = (isbn) => {

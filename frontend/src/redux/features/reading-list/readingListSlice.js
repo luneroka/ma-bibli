@@ -31,16 +31,22 @@ const readingListSlice = createSlice({
       })
 
       // ADD TO READING-LIST
-      .addCase(addToReadingListAsync.pending, (state) => {
+      .addCase(addToReadingListAsync.pending, (state, action) => {
         state.status = 'loading';
+        state.readingListBooks.push(action.meta.arg.optimisticBook);
       })
       .addCase(addToReadingListAsync.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.readingListBooks.push(action.payload);
+        state.readingListBooks = state.readingListBooks.map((book) =>
+          book.isbn === action.payload.isbn ? action.payload : book
+        );
       })
       .addCase(addToReadingListAsync.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.payload;
+        state.error = action.error.message;
+        state.readingListBooks = state.readingListBooks.filter(
+          (book) => book.isbn !== action.meta.arg.optimisticBook.isbn
+        );
       })
 
       // REMOVE FROM READING-LIST
