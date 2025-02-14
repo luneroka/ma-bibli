@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaGoogle } from 'react-icons/fa';
 import { useForm } from 'react-hook-form';
+import { useAuth } from '../../context/AuthContext';
 
 function Login() {
   const [message, setMessage] = useState('');
+  const { loginUser } = useAuth();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -12,7 +15,15 @@ function Login() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      await loginUser(data.email, data.password);
+      alert('Connexion réussie!');
+      navigate('/');
+    } catch (error) {
+      setMessage('Veuillez fournir un email et un mot de passe valides.');
+    }
+  };
 
   const handleGoogleSignIn = () => {};
 
@@ -60,7 +71,7 @@ function Login() {
 
             {/* Error Message */}
             {message && (
-              <p className='text-red-500 text-xs italic mb-4'>{message}</p>
+              <p className='text-red-500 text-small italic mb-4'>{message}</p>
             )}
 
             {/* Connect Button */}
