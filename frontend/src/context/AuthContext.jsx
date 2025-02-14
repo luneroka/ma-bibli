@@ -1,6 +1,8 @@
 import {
   createUserWithEmailAndPassword,
+  GoogleAuthProvider,
   signInWithEmailAndPassword,
+  signInWithPopup,
 } from 'firebase/auth';
 import { createContext, useContext, useState } from 'react';
 import { auth } from '../firebase/firebase.config';
@@ -9,6 +11,8 @@ const AuthContext = createContext();
 export const useAuth = () => {
   return useContext(AuthContext);
 };
+
+const googleProvider = new GoogleAuthProvider();
 
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -24,7 +28,12 @@ export const AuthProvider = ({ children }) => {
     return await signInWithEmailAndPassword(auth, email, password);
   };
 
-  const value = { currentUser, registerUser, loginUser };
+  // SIGN IN WITH GOOGLE
+  const signInWithGoogle = async () => {
+    return await signInWithPopup(auth, googleProvider);
+  };
+
+  const value = { currentUser, registerUser, loginUser, signInWithGoogle };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

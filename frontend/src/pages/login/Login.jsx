@@ -6,7 +6,7 @@ import { useAuth } from '../../context/AuthContext';
 
 function Login() {
   const [message, setMessage] = useState('');
-  const { loginUser } = useAuth();
+  const { loginUser, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
   const {
     register,
@@ -25,7 +25,15 @@ function Login() {
     }
   };
 
-  const handleGoogleSignIn = () => {};
+  const handleGoogleSignIn = async () => {
+    try {
+      await signInWithGoogle();
+      alert('Connexion réussie!');
+      navigate('/');
+    } catch (error) {
+      alert('La connexion avec Google a échoué.');
+    }
+  };
 
   return (
     <div className='flex flex-col flex-1 min-h-0 min-w-[500px] max-w-full mx-auto font-lato'>

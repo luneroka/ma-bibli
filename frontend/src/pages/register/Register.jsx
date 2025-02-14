@@ -6,7 +6,7 @@ import { useAuth } from '../../context/AuthContext';
 
 function Register() {
   const [message, setMessage] = useState('');
-  const { registerUser } = useAuth();
+  const { registerUser, signInWithGoogle } = useAuth();
   const {
     register,
     handleSubmit,
@@ -14,7 +14,6 @@ function Register() {
     formState: { errors },
   } = useForm();
 
-  // Register User
   const onSubmit = async (data) => {
     console.log(data);
     try {
@@ -24,7 +23,15 @@ function Register() {
       setMessage('Veuillez fournir un email et un mot de passe valides.');
     }
   };
-  const handleGoogleSignIn = () => {};
+  const handleGoogleSignIn = async () => {
+    try {
+      await signInWithGoogle();
+      alert('Connexion réussie!');
+      navigate('/');
+    } catch (error) {
+      alert('La connexion avec Google a échoué.');
+    }
+  };
 
   return (
     <div className='flex flex-col flex-1 min-h-0 min-w-[500px] max-w-full mx-auto font-lato'>
@@ -74,9 +81,9 @@ function Register() {
             )}
 
             {/* Register Button */}
-              <button className='cursor-pointer font-merriweather text-white-bg bg-primary-btn px-6 h-10 rounded-lg w-full text-body md:text-h6 hover:bg-secondary-btn active:bg-black-75'>
-                Créer mon compte
-              </button>
+            <button className='cursor-pointer font-merriweather text-white-bg bg-primary-btn px-6 h-10 rounded-lg w-full text-body md:text-h6 hover:bg-secondary-btn active:bg-black-75'>
+              Créer mon compte
+            </button>
           </form>
 
           <hr className='text-black-10 mt-6 mb-6' />
