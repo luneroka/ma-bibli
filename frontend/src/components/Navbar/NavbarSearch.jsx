@@ -8,6 +8,7 @@ import { IoHome } from 'react-icons/io5';
 import avatarImg from '../../assets/avatar.png';
 import { useDispatch } from 'react-redux';
 import { createSearchBooksAsync } from '../../redux/features/search/searchAsyncActions';
+import { useAuth } from '../../context/AuthContext';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard' },
@@ -43,7 +44,11 @@ const NavbarSearch = () => {
     }
   };
 
-  const currentUser = false;
+  const { currentUser, logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+  };
 
   return (
     <header className='w-full sticky top-0 z-50 bg-main-blue h-[70px] items-center'>
@@ -114,14 +119,25 @@ const NavbarSearch = () => {
                       {navigation.map((item) => (
                         <li
                           key={item.name}
-                          onClick={() => setIsDropdownOpen(false)}
+                          onClick={() => {
+                            setIsDropdownOpen(false);
+                            if (item.name === 'Se déconnecter') {
+                              handleLogout();
+                            }
+                          }}
                         >
-                          <Link
-                            to={item.href}
-                            className='block px-4 py-3 text-sm hover:bg-gray-100'
-                          >
-                            {item.name}
-                          </Link>
+                          {item.name === 'Se déconnecter' ? (
+                            <span className='block px-4 py-3 text-sm hover:bg-gray-100 cursor-pointer'>
+                              {item.name}
+                            </span>
+                          ) : (
+                            <Link
+                              to={item.href}
+                              className='block px-4 py-3 text-sm hover:bg-gray-100'
+                            >
+                              {item.name}
+                            </Link>
+                          )}
                         </li>
                       ))}
                     </ul>

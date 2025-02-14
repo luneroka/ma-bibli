@@ -6,6 +6,7 @@ import { FaBookOpen } from 'react-icons/fa';
 import { FaUser } from 'react-icons/fa';
 import { useState } from 'react';
 import avatarImg from '../../assets/avatar.png';
+import { useAuth } from '../../context/AuthContext';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard' },
@@ -16,11 +17,15 @@ const navigation = [
 function NavbarLibrary() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const currentUser = true;
+  const { currentUser, logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+  };
 
   return (
-    <header className='w-full sticky top-0 z-50 bg-main-blue h-[70px]'>
-      <nav className='flex justify-between items-center  px-[64px] md:px-[128px] py-[17px]'>
+    <header className='w-full sticky top-0 z-50 bg-main-blue h-[70px] items-center'>
+      <nav className='flex justify-between items-center px-[64px] md:px-[128px] py-[17px] h-full'>
         {/* Left side */}
         <div className='flex items-center gap-4'>
           {/* Home Icon */}
@@ -66,14 +71,25 @@ function NavbarLibrary() {
                       {navigation.map((item) => (
                         <li
                           key={item.name}
-                          onClick={() => setIsDropdownOpen(false)}
+                          onClick={() => {
+                            setIsDropdownOpen(false);
+                            if (item.name === 'Se déconnecter') {
+                              handleLogout();
+                            }
+                          }}
                         >
-                          <Link
-                            to={item.href}
-                            className='block px-4 py-3 text-sm hover:bg-gray-100'
-                          >
-                            {item.name}
-                          </Link>
+                          {item.name === 'Se déconnecter' ? (
+                            <span className='block px-4 py-3 text-sm hover:bg-gray-100 cursor-pointer'>
+                              {item.name}
+                            </span>
+                          ) : (
+                            <Link
+                              to={item.href}
+                              className='block px-4 py-3 text-sm hover:bg-gray-100'
+                            >
+                              {item.name}
+                            </Link>
+                          )}
                         </li>
                       ))}
                     </ul>

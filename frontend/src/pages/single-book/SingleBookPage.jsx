@@ -5,6 +5,7 @@ import { getSingleBookAsync } from '../../redux/features/single-book/singleBookA
 import NavbarLibrary from '../../components//Navbar/NavbarLibrary';
 import Footer from '../../components/Footer';
 import BookCard from '../../components/Book/BookCard';
+import { AuthProvider } from '../../context/AuthContext';
 
 function SingleBookPage() {
   const { isbn } = useParams();
@@ -33,20 +34,22 @@ function SingleBookPage() {
 
   return (
     <>
-      <NavbarLibrary />
-      <main className='flex-1 min-h-0 max-w-full mx-[128px] mt-[96px] font-lato'>
-        {book ? (
-          <BookCard
-            variant='single'
-            book={book}
-            libraryBooks={libraryBooks}
-            readingListBooks={readingListBooks}
-          />
-        ) : (
-          <div>No book data available</div>
-        )}
-      </main>
-      <Footer />
+      <AuthProvider>
+        <NavbarLibrary />
+        <main className='flex-1 min-h-0 max-w-full mx-[128px] mt-[96px] font-lato'>
+          {book ? (
+            <BookCard
+              variant='single'
+              book={book}
+              libraryBooks={libraryBooks}
+              readingListBooks={readingListBooks}
+            />
+          ) : (
+            <div>No book data available</div>
+          )}
+        </main>
+        <Footer />
+      </AuthProvider>
     </>
   );
 }
