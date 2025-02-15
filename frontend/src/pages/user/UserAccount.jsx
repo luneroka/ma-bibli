@@ -14,14 +14,20 @@ function UserAccount() {
   );
   const [message, setMessage] = useState('');
 
-  // Store password visibility in a single object
+  // State for password field visibility
   const [passwordVisibility, setPasswordVisibility] = useState({
     current: false,
     new: false,
     confirm: false,
   });
 
-  // Single toggle function that updates the corresponding field
+  // State for password values
+  const [passwordValues, setPasswordValues] = useState({
+    current: '',
+    new: '',
+    confirm: '',
+  });
+
   const toggleVisibility = (field) => {
     setPasswordVisibility((prev) => ({
       ...prev,
@@ -50,18 +56,49 @@ function UserAccount() {
 
   const handleUpdatePassword = async (e) => {
     e.preventDefault();
-    // implement update password logic
+    if (passwordValues.new !== passwordValues.confirm) {
+      setMessage('Les nouveaux mots de passe ne correspondent pas.');
+      return;
+    }
+    try {
+      await updateUserPassword(passwordValues.current, passwordValues.new);
+      setMessage('Mot de passe mis à jour avec succès !');
+      // Clear the password fields
+      setPasswordValues({ current: '', new: '', confirm: '' });
+    } catch (error) {
+      setMessage(
+        'Erreur lors de la mise à jour du mot de passe: ' + error.message
+      );
+      console.error(error);
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    const confirmed = window.confirm(
+      'Êtes-vous sûr de vouloir supprimer votre compte ?'
+    );
+    if (confirmed) {
+      try {
+        await deleteUserAccount();
+      } catch (error) {
+        console.error(error);
+      }
+    }
   };
 
   return (
     <div className='flex flex-col flex-1 min-h-0 min-w-[500px] max-w-full mx-auto font-lato'>
       <div className='flex-grow flex items-center justify-center mt-[96px]'>
         <div className='bg-white p-8 shadow-md w-full max-w-md'>
+          {message && (
+            <p className='text-small text-black-75 italic mb-4'>{message}</p>
+          )}
+          {/* Update Profile Form */}
           <form onSubmit={handleUpdateProfile}>
-            <label className='text-small text-black-75 mb-1'>
+            <label className='text-small-body font-bold text-black-75 mb-1'>
               Nom d'utilisateur
             </label>
-            <div className='flex gap-2 mb-4'>
+            <div className='flex flex-col gap-2 mb-8'>
               <input
                 type='text'
                 required
@@ -69,25 +106,23 @@ function UserAccount() {
                 onChange={(e) => setDisplayName(e.target.value)}
                 className='font-merriweather text-black-75 shadow border border-black-25 focus:outline-secondary-btn w-full py-2 px-3'
               />
-              <button
-                type='submit'
-                className='cursor-pointer bg-primary-btn hover:bg-secondary-btn active:bg-black-75 text-white p-2'
-              >
-                Modifier
-              </button>
+              <div className='flex justify-end'>
+                <button
+                  type='submit'
+                  className='cursor-pointer bg-secondary-btn hover:bg-primary-btn active:bg-black-75 text-white p-2 w-40 text-small font-merriweather'
+                >
+                  Modifier
+                </button>
+              </div>
             </div>
           </form>
-          {message && (
-            <p className='text-small text-black-75 italic mb-4'>{message}</p>
-          )}
 
-          {/* Update Password */}
+          {/* Update Password Form */}
           <form onSubmit={handleUpdatePassword}>
-            <label className='text-small text-black-75 mb-1'>
+            <label className='text-small-body font-bold text-black-75 mb-1'>
               Mot de passe
             </label>
-            <div className='flex flex-col gap-2 mb-2'>
-              {/** Generic input group for each password field **/}
+            <div className='flex flex-col gap-2 mb-8'>
               {[
                 { key: 'current', placeholder: 'Mot de passe actuel' },
                 { key: 'new', placeholder: 'Nouveau mot de passe' },
@@ -101,6 +136,13 @@ function UserAccount() {
                     type={passwordVisibility[key] ? 'text' : 'password'}
                     required
                     placeholder={placeholder}
+                    value={passwordValues[key]}
+                    onChange={(e) =>
+                      setPasswordValues((prev) => ({
+                        ...prev,
+                        [key]: e.target.value,
+                      }))
+                    }
                     className='font-merriweather text-small text-black-75 shadow border border-black-25 focus:outline-secondary-btn w-full py-2 px-3'
                   />
                   <button
@@ -112,15 +154,35 @@ function UserAccount() {
                   </button>
                 </div>
               ))}
-              <button
-                type='submit'
-                className='cursor-pointer bg-primary-btn hover:bg-secondary-btn active:bg-black-75 text-white p-2 w-33'
-              >
-                Modifier
-              </button>
+              <div className='flex justify-end'>
+                <button
+                  type='submit'
+                  className='cursor-pointer bg-secondary-btn hover:bg-primary-btn active:bg-black-75 text-white p-2 w-40 text-small font-merriweather'
+                >
+                  Modifier
+                </button>
+              </div>
             </div>
           </form>
-          {/* Delete Account functionality can be added here */}
+
+          {/* Delete Account Button */}
+          <div>
+            <p className='text-small-body font-bold text-black-75 mb-2'>
+              Supprimer mon compte
+            </p>
+            <p className='text-small text-black-75'>
+              Vous perdrez l’accès à votre compte Ma Bibli une fois votre
+              demande de suppression soumise.
+            </p>
+            <div className='flex justify-end'>
+              <button
+                onClick={handleDeleteAccount}
+                className='cursor-pointer mt-4 w-40 bg-[#e51a1af7] hover:bg-red-500 text-white-bg p-2 text-small font-merriweather'
+              >
+                Supprimer le compte
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

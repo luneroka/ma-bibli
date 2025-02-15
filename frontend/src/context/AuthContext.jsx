@@ -10,6 +10,8 @@ import {
   sendPasswordResetEmail,
   updateProfile,
   deleteUser,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
 } from 'firebase/auth';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -46,12 +48,22 @@ export const AuthProvider = ({ children }) => {
   };
 
   // UPDATE PASSWORD
-  const updateUserPassword = async (newPassword) => {
-    if (auth.currentUser) {
-      return await updatePassword(auth.currentUser, newPassword);
-    }
-    throw new Error('No current user is logged in');
-  };
+const updateUserPassword = async (currentPassword, newPassword) => {
+  if (auth.currentUser) {
+    const user = auth.currentUser;
+    // Create credential with current password
+    const credential = EmailAuthProvider.credential(
+      user.email,
+      currentPassword
+    );
+    // Reauthenticate the user
+    await reauthenticateWithCredential(user, credential);
+    // Now update the password
+    await updatePassword(user, newPassword);
+    return user;
+  }
+  throw new Error('No current user is logged in');
+};
 
   // RESET PASSWORD
   const resetUserPassword = async (email) => {
