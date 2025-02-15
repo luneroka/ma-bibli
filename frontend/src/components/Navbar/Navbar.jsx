@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaListAlt } from 'react-icons/fa';
-import { FaBookOpen } from 'react-icons/fa';
-import { FaUser } from 'react-icons/fa';
+import { FaListAlt, FaBookOpen, FaUser } from 'react-icons/fa';
 import { IoSearchOutline } from 'react-icons/io5';
 import avatarImg from '../../assets/avatar.png';
 import { createSearchBooksAsync } from '../../redux/features/search/searchAsyncActions';
@@ -18,15 +16,15 @@ const navigation = [
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const dropdownRef = useRef(null);
 
   const { currentUser, logout } = useAuth();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
   };
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const handleSearch = async () => {
     if (searchTerm) {
@@ -43,11 +41,30 @@ const Navbar = () => {
     }
   };
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    if (isDropdownOpen) {
+      document.addEventListener('mousedown', handleOutsideClick);
+    } else {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [isDropdownOpen]);
+
   return (
     <header className='w-full sticky top-0 z-50 bg-main-blue h-[70px] items-center'>
       <nav className='flex justify-between items-center px-[64px] md:px-[128px] py-[17px]'>
         {/* Left side */}
-        <div action='' className='flex items-center gap-4'>
+        <div className='flex items-center gap-4'>
           {/* Search Input */}
           <div className='relative w-[100%] md:w-[480px]'>
             <IoSearchOutline className='absolute left-3 inset-y-0 my-auto' />
@@ -83,7 +100,7 @@ const Navbar = () => {
           </Link>
 
           {/* User Icon */}
-          <div className='relative flex items-center'>
+          <div className='relative flex items-center' ref={dropdownRef}>
             {currentUser ? (
               <>
                 <button
@@ -100,7 +117,7 @@ const Navbar = () => {
                     }`}
                   />
                 </button>
-                {/* Show dropdowns */}
+                {/* Show dropdown */}
                 {isDropdownOpen && (
                   <div className='absolute right-0 mt-50 w-40 bg-white-bg shadow-lg rounded-md z-50'>
                     <ul className='py-2'>

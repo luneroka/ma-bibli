@@ -1,10 +1,7 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { IoHome } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
-import { FaListAlt } from 'react-icons/fa';
-import { FaBookOpen } from 'react-icons/fa';
-import { FaUser } from 'react-icons/fa';
-import { useState } from 'react';
+import { FaListAlt, FaBookOpen, FaUser } from 'react-icons/fa';
 import avatarImg from '../../assets/avatar.png';
 import { useAuth } from '../../context/AuthContext';
 
@@ -16,12 +13,31 @@ const navigation = [
 
 function NavbarLibrary() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
+  const dropdownRef = useRef(null);
   const { currentUser, logout } = useAuth();
 
   const handleLogout = () => {
     logout();
   };
+
+  // Close dropdown if clicking outside of it
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    if (isDropdownOpen) {
+      document.addEventListener('mousedown', handleOutsideClick);
+    } else {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [isDropdownOpen]);
 
   return (
     <header className='w-full sticky top-0 z-50 bg-main-blue h-[70px] items-center'>
@@ -47,7 +63,7 @@ function NavbarLibrary() {
           </Link>
 
           {/* User Icon */}
-          <div className='relative flex items-center'>
+          <div className='relative flex items-center' ref={dropdownRef}>
             {currentUser ? (
               <>
                 <button
@@ -64,7 +80,6 @@ function NavbarLibrary() {
                     }`}
                   />
                 </button>
-                {/* Show dropdowns */}
                 {isDropdownOpen && (
                   <div className='absolute right-0 mt-50 w-40 bg-white-bg shadow-lg rounded-md z-50'>
                     <ul className='py-2'>
