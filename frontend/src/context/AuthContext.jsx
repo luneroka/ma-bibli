@@ -6,6 +6,8 @@ import {
   signInWithPopup,
   signOut,
   sendEmailVerification,
+  updatePassword,
+  sendPasswordResetEmail,
 } from 'firebase/auth';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -39,6 +41,22 @@ export const AuthProvider = ({ children }) => {
       return await sendEmailVerification(auth.currentUser);
     }
     throw new Error('No current user is logged in');
+  };
+
+  // UPDATE PASSWORD
+  const updateUserPassword = async (newPassword) => {
+    if (auth.currentUser) {
+      return await updatePassword(auth.currentUser, newPassword);
+    }
+    throw new Error('No current user is logged in');
+  };
+
+  // RESET PASSWORD
+  const resetUserPassword = async (email) => {
+    if (!email) {
+      throw new Error('Email must be provided to reset password.');
+    }
+    return await sendPasswordResetEmail(auth, email);
   };
 
   // LOGIN
@@ -82,6 +100,8 @@ export const AuthProvider = ({ children }) => {
     signInWithGoogle,
     logout,
     sendVerificationEmail,
+    updateUserPassword,
+    resetUserPassword,
   };
 
   return (
