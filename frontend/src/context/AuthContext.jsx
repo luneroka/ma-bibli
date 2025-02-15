@@ -9,6 +9,7 @@ import {
   updatePassword,
   sendPasswordResetEmail,
   updateProfile,
+  deleteUser,
 } from 'firebase/auth';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -87,6 +88,14 @@ export const AuthProvider = ({ children }) => {
     throw new Error('No current user is logged in.');
   };
 
+  // DELETE USER
+  const deleteUserAccount = async () => {
+    if (auth.currentUser) {
+      return await deleteUser(auth.currentUser);
+    }
+    throw new Error('No current user is logged in.');
+  };
+
   // MANAGE USER
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -114,6 +123,7 @@ export const AuthProvider = ({ children }) => {
     updateUserPassword,
     resetUserPassword,
     updateUserProfile,
+    deleteUserAccount,
   };
 
   return (
