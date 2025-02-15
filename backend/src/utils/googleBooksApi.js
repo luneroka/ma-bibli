@@ -13,7 +13,10 @@ const searchBooksFromGoogle = async (searchTerm) => {
   // Filter out books with missing images or pageCount ≤ 0
   if (data.items) {
     data.items = data.items.filter(
-      (book) => book.volumeInfo?.imageLinks && book.volumeInfo?.pageCount > 0
+      (book) =>
+        book.volumeInfo?.imageLinks &&
+        book.volumeInfo?.authors &&
+        book.volumeInfo?.pageCount > 0
     );
   } else {
     data.items = [];
@@ -30,7 +33,10 @@ const searchAuthorFromGoogle = async (searchTerm) => {
   const data = await fetchJson(url);
   if (data.items) {
     data.items = data.items.filter(
-      (book) => book.volumeInfo?.imageLinks && book.volumeInfo?.pageCount > 0
+      (book) =>
+        book.volumeInfo?.imageLinks &&
+        book.volumeInfo?.authors &&
+        book.volumeInfo?.pageCount > 0
     );
   } else {
     data.items = [];
@@ -46,7 +52,10 @@ const searchNewestFromGoogle = async () => {
   const data = await fetchJson(url);
   if (data.items) {
     data.items = data.items.filter(
-      (book) => book.volumeInfo?.imageLinks && book.volumeInfo?.pageCount > 0
+      (book) =>
+        book.volumeInfo?.imageLinks &&
+        book.volumeInfo?.authors &&
+        book.volumeInfo?.pageCount > 0
     );
   } else {
     data.items = [];
