@@ -55,11 +55,12 @@ function Register() {
                 id='email'
                 placeholder='Email'
                 className='text-black-75 shadow border border-black-25 focus:outline-secondary-btn rounded-lg w-full py-2 px-3 mb-4'
+                autoComplete='email'
               />
 
               {/* Password Input */}
               <label
-                htmlFor='passord'
+                htmlFor='password'
                 className='block text-small text-black-75 mb-1'
               >
                 Mot de Passe
@@ -72,6 +73,7 @@ function Register() {
                 placeholder='Mot de Passe'
                 className='text-black-75 shadow border border-black-25 focus:outline-secondary-btn
                  rounded-lg w-full py-2 px-3 mb-4'
+                autoComplete='new-password'
               />
             </div>
 
