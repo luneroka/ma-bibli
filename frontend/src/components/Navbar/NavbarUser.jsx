@@ -54,7 +54,7 @@ function NavbarUser() {
         <div className='flex items-center gap-4 sm:gap-6'>
           {/* Display Name */}
           {currentUser && currentUser.displayName ? (
-            <div className='text-white-bg'>{currentUser.displayName}</div>
+            <div className='text-white-bg font-merriweather'>{currentUser.displayName}</div>
           ) : (
             ''
           )}

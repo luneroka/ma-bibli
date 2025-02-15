@@ -83,8 +83,8 @@ export const AuthProvider = ({ children }) => {
     if (auth.currentUser) {
       await updateProfile(auth.currentUser, { displayName });
       await auth.currentUser.reload();
-      // create a new reference to trigger re-render
-      setCurrentUser({ ...auth.currentUser });
+      // Set currentUser without cloning to preserve Firebase methods
+      setCurrentUser(auth.currentUser);
       return auth.currentUser;
     }
     throw new Error('No current user is logged in.');
@@ -93,7 +93,10 @@ export const AuthProvider = ({ children }) => {
   // DELETE USER
   const deleteUserAccount = async () => {
     if (auth.currentUser) {
-      return await deleteUser(auth.currentUser);
+      await deleteUser(auth.currentUser);
+      dispatch({ type: 'auth/logout' });
+      navigate('/');
+      return;
     }
     throw new Error('No current user is logged in.');
   };

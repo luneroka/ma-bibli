@@ -25,7 +25,7 @@ function UserAccount() {
     }
     try {
       await updateUserProfile(displayName);
-      setMessage('Nom d’utilisateur mis à jour avec succès.');
+      setMessage('Nom d’utilisateur mis à jour avec succès !');
     } catch (error) {
       setMessage('Erreur lors de la mise à jour du nom d’utilisateur.');
       console.error(error);
@@ -37,22 +37,28 @@ function UserAccount() {
       <div className='flex-grow flex items-center justify-center mt-[96px]'>
         <div className='bg-white p-8 shadow-md w-full max-w-md'>
           <form onSubmit={handleUpdateProfile}>
-            <label>Nom d'utilisateur</label>
-            <input
-              type='text'
-              required
-              value={displayName}
-              onChange={(e) => setDisplayName(e.target.value)}
-              className='border rounded p-2 w-full'
-            />
-            <button
-              type='submit'
-              className='mt-4 bg-primary-btn text-white p-2 rounded'
-            >
-              Modifier
-            </button>
+            <label className='text-small text-black-75 mb-1'>
+              Nom d'utilisateur
+            </label>
+            <div className='flex gap-2 mb-2'>
+              <input
+                type='text'
+                required
+                value={displayName}
+                onChange={(e) => setDisplayName(e.target.value)}
+                className='font-merriweather text-black-75 shadow border border-black-25 focus:outline-secondary-btn w-full py-2 px-3'
+              />
+              <button
+                type='submit'
+                className='cursor-pointer bg-primary-btn hover:bg-secondary-btn active:bg-black-75 text-white p-2'
+              >
+                Modifier
+              </button>
+            </div>
           </form>
-          {message && <p className='mt-2 text-sm'>{message}</p>}
+          {message && (
+            <p className='text-small text-black-75 italic mb-4'>{message}</p>
+          )}
 
           {/* Update Password */}
 

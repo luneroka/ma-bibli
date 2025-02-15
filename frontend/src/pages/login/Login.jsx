@@ -22,7 +22,6 @@ function Login() {
   const onSubmit = async (data) => {
     try {
       await loginUser(data.email, data.password);
-      alert('Connexion réussie!');
       navigate(redirectTo);
     } catch (error) {
       setMessage('Veuillez fournir un email et un mot de passe valides.');
@@ -32,7 +31,6 @@ function Login() {
   const handleGoogleSignIn = async () => {
     try {
       await signInWithGoogle();
-      alert('Connexion réussie!');
       navigate(redirectTo);
     } catch (error) {
       alert('La connexion avec Google a échoué.');

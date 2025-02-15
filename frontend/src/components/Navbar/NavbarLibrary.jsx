@@ -64,7 +64,7 @@ function NavbarLibrary() {
 
           {/* Display Name */}
           {currentUser && currentUser.displayName ? (
-            <div className='text-white-bg'>{currentUser.displayName}</div>
+            <div className='text-white-bg font-merriweather'>{currentUser.displayName}</div>
           ) : (
             ''
           )}
