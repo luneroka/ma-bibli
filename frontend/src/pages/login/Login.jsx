@@ -51,7 +51,9 @@ function Login() {
     <div className='flex flex-col flex-1 min-h-0 min-w-[500px] max-w-full mx-auto font-lato'>
       <div className='flex-grow flex items-center justify-center mt-[96px]'>
         <div className='bg-white p-8 shadow-md w-full max-w-md'>
-          <h2 className='text-h5 text-black mb-8'>Mon coin lecture</h2>
+          <h2 className='text-h5 text-black mb-8 font-merriweather'>
+            Mon coin lecture
+          </h2>
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <div>
