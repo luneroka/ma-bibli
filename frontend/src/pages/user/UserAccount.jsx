@@ -13,11 +13,21 @@ function UserAccount() {
     currentUser?.displayName || ''
   );
   const [message, setMessage] = useState('');
-  const [isCurrentPasswordVisible, setIsCurrentPasswordVisible] =
-    useState(false);
-  const [isNewPasswordVisible, setIsNewPasswordVisible] = useState(false);
-  const [isConfirmationPasswordVisible, setisConfirmationPasswordVisible] =
-    useState(false);
+
+  // Store password visibility in a single object
+  const [passwordVisibility, setPasswordVisibility] = useState({
+    current: false,
+    new: false,
+    confirm: false,
+  });
+
+  // Single toggle function that updates the corresponding field
+  const toggleVisibility = (field) => {
+    setPasswordVisibility((prev) => ({
+      ...prev,
+      [field]: !prev[field],
+    }));
+  };
 
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
@@ -40,22 +50,7 @@ function UserAccount() {
 
   const handleUpdatePassword = async (e) => {
     e.preventDefault();
-  };
-
-  // Toggle current password view
-  const handleToggleCurrentPasswordView = (e) => {
-    e.preventDefault();
-    setIsCurrentPasswordVisible((prev) => !prev);
-  };
-  // Toggle new password view
-  const handleToggleNewCurrentPasswordView = (e) => {
-    e.preventDefault();
-    setIsNewPasswordVisible((prev) => !prev);
-  };
-  // Toggle confirmation password view
-  const handleToggleConfirmationCurrentPasswordView = (e) => {
-    e.preventDefault();
-    setisConfirmationPasswordVisible((prev) => !prev);
+    // implement update password logic
   };
 
   return (
@@ -92,82 +87,31 @@ function UserAccount() {
               Mot de passe
             </label>
             <div className='flex flex-col gap-2 mb-2'>
-              <div className='relative w-[100%] mb-4'>
-                <input
-                  type={isCurrentPasswordVisible ? 'text' : 'password'}
-                  required
-                  placeholder='Mot de passe actuel'
-                  className='font-merriweather text-small text-black-75 shadow border border-black-25 focus:outline-secondary-btn w-full py-2 px-3'
-                />
-
-                {isCurrentPasswordVisible ? (
+              {/** Generic input group for each password field **/}
+              {[
+                { key: 'current', placeholder: 'Mot de passe actuel' },
+                { key: 'new', placeholder: 'Nouveau mot de passe' },
+                {
+                  key: 'confirm',
+                  placeholder: 'Confirmer nouveau mot de passe',
+                },
+              ].map(({ key, placeholder }) => (
+                <div key={key} className='relative w-[100%] mb-4'>
+                  <input
+                    type={passwordVisibility[key] ? 'text' : 'password'}
+                    required
+                    placeholder={placeholder}
+                    className='font-merriweather text-small text-black-75 shadow border border-black-25 focus:outline-secondary-btn w-full py-2 px-3'
+                  />
                   <button
                     type='button'
-                    onClick={handleToggleCurrentPasswordView}
+                    onClick={() => toggleVisibility(key)}
                     className='cursor-pointer absolute right-3 inset-y-0 my-auto text-black-50'
                   >
-                    <FaEyeSlash />
+                    {passwordVisibility[key] ? <FaEyeSlash /> : <FaEye />}
                   </button>
-                ) : (
-                  <button
-                    type='button'
-                    onClick={handleToggleCurrentPasswordView}
-                    className='cursor-pointer absolute right-3 inset-y-0 my-auto text-black-50'
-                  >
-                    <FaEye />
-                  </button>
-                )}
-              </div>
-              <div className='relative w-[100%] mb-4'>
-                <input
-                  type={isNewPasswordVisible ? 'text' : 'password'}
-                  required
-                  placeholder='Nouveau mot de passe'
-                  className='font-merriweather text-small text-black-75 shadow border border-black-25 focus:outline-secondary-btn w-full py-2 px-3'
-                />
-                {isNewPasswordVisible ? (
-                  <button
-                    type='button'
-                    onClick={handleToggleNewCurrentPasswordView}
-                    className='cursor-pointer absolute right-3 inset-y-0 my-auto text-black-50'
-                  >
-                    <FaEyeSlash />
-                  </button>
-                ) : (
-                  <button
-                    type='button'
-                    onClick={handleToggleNewCurrentPasswordView}
-                    className='cursor-pointer absolute right-3 inset-y-0 my-auto text-black-50'
-                  >
-                    <FaEye />
-                  </button>
-                )}
-              </div>
-              <div className='relative w-[100%] mb-4'>
-                <input
-                  type={isConfirmationPasswordVisible ? 'text' : 'password'}
-                  required
-                  placeholder='Confirmer nouveau mot de passe'
-                  className='font-merriweather text-small text-black-75 shadow border border-black-25 focus:outline-secondary-btn w-full py-2 px-3'
-                />
-                {isConfirmationPasswordVisible ? (
-                  <button
-                    type='button'
-                    onClick={handleToggleConfirmationCurrentPasswordView}
-                    className='cursor-pointer absolute right-3 inset-y-0 my-auto text-black-50'
-                  >
-                    <FaEyeSlash />
-                  </button>
-                ) : (
-                  <button
-                    type='button'
-                    onClick={handleToggleConfirmationCurrentPasswordView}
-                    className='cursor-pointer absolute right-3 inset-y-0 my-auto text-black-50'
-                  >
-                    <FaEye />
-                  </button>
-                )}
-              </div>
+                </div>
+              ))}
               <button
                 type='submit'
                 className='cursor-pointer bg-primary-btn hover:bg-secondary-btn active:bg-black-75 text-white p-2 w-33'
@@ -176,7 +120,7 @@ function UserAccount() {
               </button>
             </div>
           </form>
-          {/* Delete Account */}
+          {/* Delete Account functionality can be added here */}
         </div>
       </div>
     </div>
