@@ -5,18 +5,32 @@ import { IoIosRemoveCircle } from 'react-icons/io';
 import { FaHeart } from 'react-icons/fa';
 import { removeFromLibraryAsync } from '../../redux/features/library/libraryAsyncActions';
 import { toggleFavoriteAsync } from '../../redux/features/favorites/favoritesAsyncActions';
+import { useAuth } from '../../context/AuthContext';
 
 function BookInLibrary({ book }) {
+  const { currentUser } = useAuth();
   const dispatch = useDispatch();
   const favorites = useSelector((state) => state.favorites.favorites) || [];
   const isFavorite = favorites?.some((fav) => fav.isbn === book.isbn);
 
-  const handleRemoveFromLibrary = (isbn) => {
-    dispatch(removeFromLibraryAsync(isbn));
+  const handleRemoveFromLibrary = async (isbn) => {
+    if (!currentUser) return;
+    try {
+      const token = await currentUser.getIdToken();
+      dispatch(removeFromLibraryAsync({ token, isbn }));
+    } catch (error) {
+      console.error('Error fetching token for library add:', error);
+    }
   };
 
-  const handleFavorite = (isbn) => {
-    dispatch(toggleFavoriteAsync(isbn));
+  const handleFavorite = async (isbn) => {
+    if (!currentUser) return;
+    try {
+      const token = await currentUser.getIdToken();
+      dispatch(toggleFavoriteAsync({ token, isbn }));
+    } catch (error) {
+      console.error('Error fetching token for favorite toggle:', error);
+    }
   };
 
   return (

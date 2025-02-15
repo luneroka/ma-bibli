@@ -4,19 +4,20 @@ import { createGetAllBooksAsync } from '../../../utils/asyncActions';
 // GET FAVORITES
 export const getFavoriteBooksAsync = createGetAllBooksAsync(
   'favorites',
-  '/api/library/favorites'
+  'http://localhost:3000/api/library/favorites'
 );
 
 // TOGGLE FAVORITE
 const createToggleFavoriteAsync = (type, apiEndpoint) =>
   createAsyncThunk(
     `${type}/toggleFavoriteAsync`,
-    async (isbn, { rejectWithValue }) => {
+    async ({ token, isbn }, { rejectWithValue }) => {
       try {
         const response = await fetch(`${apiEndpoint}/${isbn}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
           },
         });
         if (!response.ok) {
@@ -32,5 +33,5 @@ const createToggleFavoriteAsync = (type, apiEndpoint) =>
 
 export const toggleFavoriteAsync = createToggleFavoriteAsync(
   'favorites',
-  '/api/library/favorites'
+  'http://localhost:3000/api/library/favorites'
 );

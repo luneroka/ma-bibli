@@ -8,6 +8,8 @@ const {
   deleteBook,
 } = require('../book/book.controller');
 const router = express.Router();
+const firebaseAuthMiddleware = require('../users/firebaseAuthMiddleware');
+router.use(firebaseAuthMiddleware);
 
 router.get('/', (req, res) => getAllBooks(LibraryBook, req, res));
 router.post('/add-book', (req, res) => addBook(LibraryBook, req, res));

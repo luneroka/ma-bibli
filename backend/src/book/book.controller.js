@@ -4,7 +4,7 @@ const { transformGoogleBook } = require('../services/bookService');
 const getAllBooks = async (Model, req, res) => {
   try {
     // Use lean() to return plain JS objects
-    const books = await Model.find().lean();
+    const books = await Model.find({ userId: req.user.uid }).lean();
     res.status(200).json(books);
   } catch (error) {
     console.error('Failed to load books.', error);
@@ -42,12 +42,20 @@ const addBook = async (Model, req, res) => {
         .status(404)
         .json({ message: 'Book not found in Google Books API' });
     }
+
     const bookObj = transformGoogleBook(bookData.items[0]);
     if (!bookObj || !bookObj.isbn) {
       return res.status(400).json({ message: 'Invalid book data returned.' });
     }
+
+    // Assign current user to the book objecct
+    bookObj.userId = req.user.uid;
+
     // Optionally, check if the book already exists.
-    const existing = await Model.findOne({ isbn: bookObj.isbn });
+    const existing = await Model.findOne({
+      isbn: bookObj.isbn,
+      userId: req.user.uid,
+    });
     if (existing) {
       return res
         .status(200)
@@ -66,7 +74,10 @@ const addBook = async (Model, req, res) => {
 
 const getFavoriteBooks = async (Model, req, res) => {
   try {
-    const favoriteBooks = await Model.find({ isFavorite: true }).lean();
+    const favoriteBooks = await Model.find({
+      userId: req.user.uid,
+      isFavorite: true,
+    }).lean();
     res.status(200).json(favoriteBooks);
   } catch (error) {
     console.error('Failed to load favorite books.', error);
@@ -83,6 +94,13 @@ const toggleIsFavorite = async (Model, req, res) => {
     if (!book) {
       return res.status(404).json({ message: 'Book not found' });
     }
+
+    // Verify book ownership
+    if (book.userId !== req.user.uid) {
+      return res.status(403).json({ message: 'Forbidden' });
+    }
+
+    // Toggle isFavorite status
     book.isFavorite = !book.isFavorite;
     await book.save();
     res
@@ -100,13 +118,20 @@ const toggleIsFavorite = async (Model, req, res) => {
 const deleteBook = async (Model, req, res) => {
   try {
     const { isbn } = req.params;
-    const deletedBook = await Model.findOneAndDelete({ isbn });
-    if (!deletedBook) {
+    // First, fetch the book without deleting it so we can verify ownership.
+    const book = await Model.findOne({ isbn });
+    if (!book) {
       return res.status(404).json({ message: 'Book not found' });
     }
-    res
-      .status(200)
-      .json({ message: 'Book removed successfully', book: deletedBook });
+
+    // Verify book ownership using the token's uid.
+    if (book.userId !== req.user.uid) {
+      return res.status(403).json({ message: 'Forbidden' });
+    }
+
+    // Now delete the book.
+    await book.deleteOne();
+    res.status(200).json({ message: 'Book removed successfully', book });
   } catch (error) {
     console.error('Failed to remove book.', error);
     res.status(500).json({ message: 'Failed to remove book' });

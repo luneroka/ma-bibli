@@ -6,17 +6,31 @@ import { removeFromReadingListAsync } from '../../redux/features/reading-list/re
 import { IoIosAddCircleOutline } from 'react-icons/io';
 import { FaCheckCircle } from 'react-icons/fa';
 import { addToLibraryAsync } from '../../redux/features/library/libraryAsyncActions';
+import { useAuth } from '../../context/AuthContext';
 
 function BookInReadingList({ book, libraryBooks = [] }) {
+  const { currentUser } = useAuth();
   const dispatch = useDispatch();
 
-  const handleRemoveFromReadingList = (isbn) => {
-    dispatch(removeFromReadingListAsync(isbn));
+  const handleRemoveFromReadingList = async (isbn) => {
+    if (!currentUser) return;
+    try {
+      const token = await currentUser.getIdToken();
+      dispatch(removeFromReadingListAsync({ token, isbn }));
+    } catch (error) {
+      console.error('Error fetching token for reading list add:', error);
+    }
   };
 
-  const handleMoveToLibrary = (book) => {
-    dispatch(addToLibraryAsync({ optimisticBook: book }));
-    dispatch(removeFromReadingListAsync(book.isbn));
+  const handleMoveToLibrary = async (book) => {
+    if (!currentUser) return;
+    try {
+      const token = await currentUser.getIdToken();
+      dispatch(addToLibraryAsync({ token, optimisticBook: book }));
+      dispatch(removeFromReadingListAsync({ token, isbn: book.isbn }));
+    } catch (error) {
+      console.error('Error fetching token for moving to library:', error);
+    }
   };
 
   const isInLibrary = libraryBooks.some(

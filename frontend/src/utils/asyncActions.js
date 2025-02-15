@@ -4,12 +4,13 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 export const createGetAllBooksAsync = (type, apiEndpoint) =>
   createAsyncThunk(
     `${type}/getAllBooksAsync`,
-    async (_, { rejectWithValue }) => {
+    async ({ token }, { rejectWithValue }) => {
       try {
         const response = await fetch(apiEndpoint, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
           },
         });
 
@@ -29,7 +30,7 @@ export const createGetAllBooksAsync = (type, apiEndpoint) =>
 export const createAddBookAsync = (type, apiEndpoint) =>
   createAsyncThunk(
     `${type}/addBookAsync`,
-    async ({ optimisticBook }, { rejectWithValue }) => {
+    async ({ token, optimisticBook }, { rejectWithValue }) => {
       try {
         const isbn = optimisticBook.isbn;
         if (!isbn) {
@@ -37,7 +38,10 @@ export const createAddBookAsync = (type, apiEndpoint) =>
         }
         const response = await fetch(apiEndpoint, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
           body: JSON.stringify({ isbn }),
         });
         if (!response.ok) {
@@ -55,17 +59,21 @@ export const createAddBookAsync = (type, apiEndpoint) =>
 export const createRemoveBookAsync = (type, apiEndpoint) =>
   createAsyncThunk(
     `${type}/removeBookAsync`,
-    async (bookId, { rejectWithValue }) => {
+    async ({ token, isbn }, { rejectWithValue }) => {
       try {
-        const response = await fetch(`${apiEndpoint}/${bookId}`, {
+        const response = await fetch(`${apiEndpoint}/${isbn}`, {
           method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
         });
 
         if (!response.ok) {
           throw new Error(`Failed to remove book from ${type}`);
         }
 
-        return bookId;
+        return isbn;
       } catch (error) {
         return rejectWithValue(error.message);
       }

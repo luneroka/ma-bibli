@@ -18,6 +18,7 @@ import {
 } from '../../redux/features/reading-list/readingListAsyncActions';
 import { formatNumber, extractYear, extractFullDate } from '../../utils/helper';
 import { toggleFavoriteAsync } from '../../redux/features/favorites/favoritesAsyncActions';
+import { useAuth } from '../../context/AuthContext';
 
 const BookCard = ({
   book,
@@ -25,25 +26,51 @@ const BookCard = ({
   readingListBooks = [],
   variant = 'card',
 }) => {
+  const { currentUser } = useAuth();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const favorites = useSelector((state) => state.favorites.favorites) || [];
   const isFavorite = favorites?.some((fav) => fav.isbn === book.isbn);
 
-  const handleAddToLibrary = (book) => {
-    dispatch(addToLibraryAsync({ optimisticBook: book }));
+  const handleAddToLibrary = async (book) => {
+    if (!currentUser) return;
+    try {
+      const token = await currentUser.getIdToken();
+      dispatch(addToLibraryAsync({ token, optimisticBook: book }));
+    } catch (error) {
+      console.error('Error fetching token for library add:', error);
+    }
   };
 
-  const handleRemoveFromLibrary = (isbn) => {
-    dispatch(removeFromLibraryAsync(isbn));
+  const handleRemoveFromLibrary = async (isbn) => {
+    if (!currentUser) return;
+    try {
+      const token = await currentUser.getIdToken();
+      console.log('Remove Library Token:', token); 
+      dispatch(removeFromLibraryAsync({ token, isbn }));
+    } catch (error) {
+      console.error('Error fetching token for library delete:', error);
+    }
   };
 
-  const handleAddToReadingList = (book) => {
-    dispatch(addToReadingListAsync({ optimisticBook: book }));
+  const handleAddToReadingList = async (book) => {
+    if (!currentUser) return;
+    try {
+      const token = await currentUser.getIdToken();
+      dispatch(addToReadingListAsync({ token, optimisticBook: book }));
+    } catch (error) {
+      console.error('Error fetching token for reading list add:', error);
+    }
   };
 
-  const handleRemoveFromReadingList = (isbn) => {
-    dispatch(removeFromReadingListAsync(isbn));
+  const handleRemoveFromReadingList = async (isbn) => {
+    if (!currentUser) return;
+    try {
+      const token = await currentUser.getIdToken();
+      dispatch(removeFromReadingListAsync({ token, isbn }));
+    } catch (error) {
+      console.error('Error fetching token for reading list delete:', error);
+    }
   };
 
   const handleAuthorClick = (author) => {

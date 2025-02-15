@@ -4,6 +4,11 @@ const app = express();
 const port = process.env.PORT || 3000;
 const mongoose = require('mongoose');
 const cors = require('cors');
+const admin = require('firebase-admin');
+
+// Initialize Firebase Admin
+const serviceAccount = require('./serviceAccountKey.json');
+admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
 
 // Middleware
 app.use(express.json());

@@ -6,14 +6,14 @@ import {
 
 export const getReadingListBooksAsync = createGetAllBooksAsync(
   'reading-list',
-  'api/reading-list'
+  'http://localhost:3000/api/reading-list'
 );
 
 export const addToReadingListAsync = createAddBookAsync(
   'reading-list',
-  '/api/reading-list/add-book'
+  'http://localhost:3000/api/reading-list/add-book'
 );
 export const removeFromReadingListAsync = createRemoveBookAsync(
   'reading-list',
-  '/api/reading-list/delete-book'
+  'http://localhost:3000/api/reading-list/delete-book'
 );

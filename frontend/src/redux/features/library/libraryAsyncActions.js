@@ -6,14 +6,14 @@ import {
 
 export const getLibraryBooksAsync = createGetAllBooksAsync(
   'library',
-  '/api/library'
+  'http://localhost:3000/api/library'
 );
 
 export const addToLibraryAsync = createAddBookAsync(
   'library',
-  '/api/library/add-book'
+  'http://localhost:3000/api/library/add-book'
 );
 export const removeFromLibraryAsync = createRemoveBookAsync(
   'library',
-  '/api/library/delete-book'
+  'http://localhost:3000/api/library/delete-book'
 );

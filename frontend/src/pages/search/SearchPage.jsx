@@ -9,7 +9,6 @@ import {
   createSearchAuthorAsync,
 } from '../../redux/features/search/searchAsyncActions';
 import { clearSearchResults } from '../../redux/features/search/searchSlice';
-import { AuthProvider } from '../../context/AuthContext';
 
 function SearchPage() {
   const location = useLocation();
@@ -41,13 +40,11 @@ function SearchPage() {
 
   return (
     <>
-      <AuthProvider>
         <NavbarSearch />
         <main className='flex-1 min-h-0 max-w-full mx-[128px] font-lato'>
           <SearchResults searchResults={searchResults} />
         </main>
         <Footer />
-      </AuthProvider>
     </>
   );
 }
