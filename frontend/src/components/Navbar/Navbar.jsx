@@ -6,6 +6,7 @@ import { IoSearchOutline } from 'react-icons/io5';
 import avatarImg from '../../assets/avatar.png';
 import { createSearchBooksAsync } from '../../redux/features/search/searchAsyncActions';
 import { useAuth } from '../../context/AuthContext';
+import { setCurrentScreen } from 'firebase/analytics';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard' },
@@ -99,6 +100,13 @@ const Navbar = () => {
             <FaBookOpen className='w-6 h-6 text-white-bg hover:text-primary-btn' />
           </Link>
 
+          {/* Display Name */}
+          {currentUser && currentUser.displayName ? (
+            <div className='text-white-bg'>{currentUser.displayName}</div>
+          ) : (
+            ''
+          )}
+
           {/* User Icon */}
           <div className='relative flex items-center' ref={dropdownRef}>
             {currentUser ? (
@@ -108,7 +116,11 @@ const Navbar = () => {
                   className='cursor-pointer'
                 >
                   <img
-                    src={avatarImg}
+                    src={
+                      currentUser && currentUser.photoURL
+                        ? currentUser.photoURL
+                        : avatarImg
+                    }
                     alt=''
                     className={`size-8 rounded-full ${
                       currentUser
