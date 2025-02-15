@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  sendEmailVerification,
 } from 'firebase/auth';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -30,6 +31,14 @@ export const AuthProvider = ({ children }) => {
   // REGISTER
   const registerUser = async (email, password) => {
     return await createUserWithEmailAndPassword(auth, email, password);
+  };
+
+  // SEND VERIFICATION EMAIL
+  const sendVerificationEmail = async () => {
+    if (auth.currentUser) {
+      return await sendEmailVerification(auth.currentUser);
+    }
+    throw new Error('No current user is logged in');
   };
 
   // LOGIN
@@ -72,6 +81,7 @@ export const AuthProvider = ({ children }) => {
     loginUser,
     signInWithGoogle,
     logout,
+    sendVerificationEmail,
   };
 
   return (
