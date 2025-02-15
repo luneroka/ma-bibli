@@ -46,7 +46,6 @@ const BookCard = ({
     if (!currentUser) return;
     try {
       const token = await currentUser.getIdToken();
-      console.log('Remove Library Token:', token);
       dispatch(removeFromLibraryAsync({ token, isbn }));
     } catch (error) {
       console.error('Error fetching token for library delete:', error);
@@ -159,54 +158,56 @@ const BookCard = ({
             </div>
           </div>
 
-          {/* Action Buttons */}
-          <div className='flex gap-[16px] mt-2'>
-            {/* Reading List Button */}
-            {isInReadingList ? (
-              <button
-                onClick={() => handleRemoveFromReadingList(book.isbn)}
-                className='cursor-pointer bg-secondary-btn text-black-75 text-xs px-1 py-1.5 w-[121px]'
-              >
-                <div className='flex gap-1 items-center justify-center'>
-                  <FaBookmark className='text-body' />
-                  Dans la liste !
-                </div>
-              </button>
-            ) : (
-              <button
-                onClick={() => handleAddToReadingList(book)}
-                className='cursor-pointer bg-primary-btn text-black-75 text-xs px-1 py-1.5 w-[121px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
-              >
-                <div className='flex gap-1 items-center justify-center'>
-                  <FaRegBookmark className='text-body' />
-                  Liste de lecture
-                </div>
-              </button>
-            )}
+          {/* Action Buttons (only when user is logged in) */}
+          {currentUser && (
+            <div className='flex gap-[16px] mt-2'>
+              {/* Reading List Button */}
+              {isInReadingList ? (
+                <button
+                  onClick={() => handleRemoveFromReadingList(book.isbn)}
+                  className='cursor-pointer bg-secondary-btn text-black-75 text-xs px-1 py-1.5 w-[121px]'
+                >
+                  <div className='flex gap-1 items-center justify-center'>
+                    <FaBookmark className='text-body' />
+                    Dans la liste !
+                  </div>
+                </button>
+              ) : (
+                <button
+                  onClick={() => handleAddToReadingList(book)}
+                  className='cursor-pointer bg-primary-btn text-black-75 text-xs px-1 py-1.5 w-[121px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
+                >
+                  <div className='flex gap-1 items-center justify-center'>
+                    <FaRegBookmark className='text-body' />
+                    Liste de lecture
+                  </div>
+                </button>
+              )}
 
-            {/* Library Button */}
-            {isInLibrary ? (
-              <button
-                onClick={() => handleRemoveFromLibrary(book.isbn)}
-                className='cursor-pointer bg-secondary-btn text-black-75 text-xs px-1 py-1.5 w-[125px]'
-              >
-                <div className='flex gap-1 items-center justify-center'>
-                  <FaCheckCircle className='text-body' />
-                  Dans la bibli !
-                </div>
-              </button>
-            ) : (
-              <button
-                onClick={() => handleAddToLibrary(book)}
-                className='cursor-pointer bg-primary-btn text-black-75 text-xs px-1 py-1.5 w-[125px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
-              >
-                <div className='flex gap-1 items-center justify-center'>
-                  <IoIosAddCircleOutline className='text-body' />
-                  Ajouter à ma bibli
-                </div>
-              </button>
-            )}
-          </div>
+              {/* Library Button */}
+              {isInLibrary ? (
+                <button
+                  onClick={() => handleRemoveFromLibrary(book.isbn)}
+                  className='cursor-pointer bg-secondary-btn text-black-75 text-xs px-1 py-1.5 w-[125px]'
+                >
+                  <div className='flex gap-1 items-center justify-center'>
+                    <FaCheckCircle className='text-body' />
+                    Dans la bibli !
+                  </div>
+                </button>
+              ) : (
+                <button
+                  onClick={() => handleAddToLibrary(book)}
+                  className='cursor-pointer bg-primary-btn text-black-75 text-xs px-1 py-1.5 w-[125px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
+                >
+                  <div className='flex gap-1 items-center justify-center'>
+                    <IoIosAddCircleOutline className='text-body' />
+                    Ajouter à ma bibli
+                  </div>
+                </button>
+              )}
+            </div>
+          )}
         </>
       ) : (
         // SINGLE BOOK CARD
@@ -265,64 +266,66 @@ const BookCard = ({
             </div>
           </div>
 
-          {/* Action Buttons */}
-          <div className='flex gap-[24px] mt-6'>
-            {/* Reading List Button */}
-            {isInReadingList ? (
-              <button
-                onClick={() => handleRemoveFromReadingList(book.isbn)}
-                className='cursor-pointer bg-secondary-btn text-black-75 text-small px-1 py-2.5 w-[220px]'
-              >
-                <div className='flex gap-1 items-center justify-center'>
-                  <FaBookmark className='text-body' />
-                  Dans la liste !
-                </div>
-              </button>
-            ) : (
-              <button
-                onClick={() => handleAddToReadingList(book)}
-                className='cursor-pointer bg-primary-btn text-black-75 text-small px-1 py-2.5 w-[220px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
-              >
-                <div className='flex gap-1 items-center justify-center'>
-                  <FaRegBookmark className='text-body' />
-                  Liste de lecture
-                </div>
-              </button>
-            )}
-
-            {/* Library Button */}
-            {isInLibrary ? (
-              <>
+          {/* Action Buttons (only when user is logged in) */}
+          {currentUser && (
+            <div className='flex gap-[24px] mt-6'>
+              {/* Reading List Button */}
+              {isInReadingList ? (
                 <button
-                  onClick={() => handleRemoveFromLibrary(book.isbn)}
+                  onClick={() => handleRemoveFromReadingList(book.isbn)}
                   className='cursor-pointer bg-secondary-btn text-black-75 text-small px-1 py-2.5 w-[220px]'
                 >
                   <div className='flex gap-1 items-center justify-center'>
-                    <FaCheckCircle className='text-body' />
-                    Dans la bibli !
+                    <FaBookmark className='text-body' />
+                    Dans la liste !
                   </div>
                 </button>
+              ) : (
                 <button
-                  onClick={() => handleFavorite(book.isbn)}
-                  className={`text-h4 rounded-full cursor-pointer hover:scale-150 transition-all duration-200 ${
-                    isFavorite ? 'text-primary-btn' : 'text-black-75'
-                  }`}
+                  onClick={() => handleAddToReadingList(book)}
+                  className='cursor-pointer bg-primary-btn text-black-75 text-small px-1 py-2.5 w-[220px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
                 >
-                  <FaHeart className={`p-0.5`} />
+                  <div className='flex gap-1 items-center justify-center'>
+                    <FaRegBookmark className='text-body' />
+                    Liste de lecture
+                  </div>
                 </button>
-              </>
-            ) : (
-              <button
-                onClick={() => handleAddToLibrary(book)}
-                className='cursor-pointer bg-primary-btn text-black-75 text-small px-1 py-2.5 w-[220px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
-              >
-                <div className='flex gap-1 items-center justify-center'>
-                  <IoIosAddCircleOutline className='text-body' />
-                  Ajouter à ma bibli
-                </div>
-              </button>
-            )}
-          </div>
+              )}
+
+              {/* Library Button */}
+              {isInLibrary ? (
+                <>
+                  <button
+                    onClick={() => handleRemoveFromLibrary(book.isbn)}
+                    className='cursor-pointer bg-secondary-btn text-black-75 text-small px-1 py-2.5 w-[220px]'
+                  >
+                    <div className='flex gap-1 items-center justify-center'>
+                      <FaCheckCircle className='text-body' />
+                      Dans la bibli !
+                    </div>
+                  </button>
+                  <button
+                    onClick={() => handleFavorite(book.isbn)}
+                    className={`text-h4 rounded-full cursor-pointer hover:scale-150 transition-all duration-200 ${
+                      isFavorite ? 'text-primary-btn' : 'text-black-75'
+                    }`}
+                  >
+                    <FaHeart className='p-0.5' />
+                  </button>
+                </>
+              ) : (
+                <button
+                  onClick={() => handleAddToLibrary(book)}
+                  className='cursor-pointer bg-primary-btn text-black-75 text-small px-1 py-2.5 w-[220px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
+                >
+                  <div className='flex gap-1 items-center justify-center'>
+                    <IoIosAddCircleOutline className='text-body' />
+                    Ajouter à ma bibli
+                  </div>
+                </button>
+              )}
+            </div>
+          )}
         </>
       )}
     </div>
