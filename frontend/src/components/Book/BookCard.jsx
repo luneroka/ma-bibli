@@ -46,7 +46,7 @@ const BookCard = ({
     if (!currentUser) return;
     try {
       const token = await currentUser.getIdToken();
-      console.log('Remove Library Token:', token); 
+      console.log('Remove Library Token:', token);
       dispatch(removeFromLibraryAsync({ token, isbn }));
     } catch (error) {
       console.error('Error fetching token for library delete:', error);
@@ -79,8 +79,14 @@ const BookCard = ({
     });
   };
 
-  const handleFavorite = (isbn) => {
-    dispatch(toggleFavoriteAsync(isbn));
+  const handleFavorite = async (isbn) => {
+    if (!currentUser) return;
+    try {
+      const token = await currentUser.getIdToken();
+      dispatch(toggleFavoriteAsync({ token, isbn }));
+    } catch (error) {
+      console.error('Error fetching token for toggling favorite:', error);
+    }
   };
 
   const isInLibrary = libraryBooks.some(

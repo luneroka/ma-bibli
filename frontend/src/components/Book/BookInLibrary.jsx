@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { IoIosRemoveCircle } from 'react-icons/io';
 import { FaHeart } from 'react-icons/fa';
@@ -10,8 +10,7 @@ import { useAuth } from '../../context/AuthContext';
 function BookInLibrary({ book }) {
   const { currentUser } = useAuth();
   const dispatch = useDispatch();
-  const favorites = useSelector((state) => state.favorites.favorites) || [];
-  const isFavorite = favorites?.some((fav) => fav.isbn === book.isbn);
+  const isFavorite = book.isFavorite;
 
   const handleRemoveFromLibrary = async (isbn) => {
     if (!currentUser) return;

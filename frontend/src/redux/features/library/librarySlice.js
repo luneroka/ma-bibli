@@ -4,6 +4,7 @@ import {
   addToLibraryAsync,
   removeFromLibraryAsync,
 } from './libraryAsyncActions';
+import { toggleFavoriteAsync } from '../favorites/favoritesAsyncActions';
 
 const initialState = {
   libraryBooks: [],
@@ -62,6 +63,14 @@ const librarySlice = createSlice({
       .addCase(removeFromLibraryAsync.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
+      })
+
+      // Update libraryBooks when toggling favorite
+      .addCase(toggleFavoriteAsync.fulfilled, (state, action) => {
+        const updatedBook = action.payload;
+        state.libraryBooks = state.libraryBooks.map((book) =>
+          book.isbn === updatedBook.isbn ? updatedBook : book
+        );
       });
   },
 });
