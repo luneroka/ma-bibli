@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { FaGoogle } from 'react-icons/fa';
+import { FaEye } from 'react-icons/fa';
+import { FaEyeSlash } from 'react-icons/fa';
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../../context/AuthContext';
 
 function Login() {
   const [message, setMessage] = useState('');
+  const [isVisible, setIsVisible] = useState(false);
   const { loginUser, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -38,10 +41,16 @@ function Login() {
     }
   };
 
+  // Handle password view
+  const handleTogglePasswordView = (e) => {
+    e.preventDefault();
+    setIsVisible((prev) => !prev);
+  };
+
   return (
     <div className='flex flex-col flex-1 min-h-0 min-w-[500px] max-w-full mx-auto font-lato'>
       <div className='flex-grow flex items-center justify-center mt-[96px]'>
-        <div className='bg-white p-8 rounded-lg shadow-md w-full max-w-md'>
+        <div className='bg-white p-8 shadow-md w-full max-w-md'>
           <h2 className='text-h5 text-black mb-8'>Mon coin lecture</h2>
 
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -59,7 +68,7 @@ function Login() {
                 name='email'
                 id='email'
                 placeholder='Email'
-                className='text-black-75 shadow border border-black-25 focus:outline-secondary-btn rounded-lg w-full py-2 px-3 mb-4'
+                className='text-black-75 shadow border border-black-25 focus:outline-secondary-btn w-full py-2 px-3 mb-4'
                 autoComplete='email'
               />
 
@@ -70,16 +79,33 @@ function Login() {
               >
                 Mot de Passe
               </label>
-              <input
-                {...register('password', { required: true })}
-                type='password'
-                name='password'
-                id='password'
-                placeholder='Mot de Passe'
-                className='text-black-75 shadow border border-black-25 focus:outline-secondary-btn
-                 rounded-lg w-full py-2 px-3 mb-4'
-                autoComplete='current-password'
-              />
+              <div className='relative w-[100%] mb-4'>
+                <input
+                  {...register('password', { required: true })}
+                  type={isVisible ? 'text' : 'password'}
+                  name='password'
+                  id='password'
+                  placeholder='Mot de Passe'
+                  className='text-black-75 shadow border border-black-25 focus:outline-secondary-btn
+                 w-full py-2 px-3 '
+                  autoComplete='current-password'
+                />
+                {isVisible ? (
+                  <button
+                    onClick={handleTogglePasswordView}
+                    className='cursor-pointer absolute right-3 inset-y-0 my-auto text-black-50'
+                  >
+                    <FaEyeSlash />
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleTogglePasswordView}
+                    className='cursor-pointer absolute right-3 inset-y-0 my-auto text-black-50'
+                  >
+                    <FaEye />
+                  </button>
+                )}
+              </div>
             </div>
 
             {/* Error Message */}
@@ -88,7 +114,7 @@ function Login() {
             )}
 
             {/* Connect Button */}
-            <button className='cursor-pointer font-merriweather text-white-bg bg-primary-btn px-6 h-10 rounded-lg w-full text-body md:text-h6 hover:bg-secondary-btn active:bg-black-75'>
+            <button className='cursor-pointer font-merriweather text-white-bg bg-primary-btn px-6 h-10 w-full text-body md:text-h6 hover:bg-secondary-btn active:bg-black-75'>
               Se connecter
             </button>
           </form>
@@ -107,7 +133,7 @@ function Login() {
           <div className='mt-6'>
             <button
               onClick={handleGoogleSignIn}
-              className='cursor-pointer font-merriweather w-full flex gap-2 items-center justify-center text-white-bg bg-main-blue px-6 h-10 rounded-lg text-body hover:bg-secondary-btn active:bg-black-75'
+              className='cursor-pointer font-merriweather w-full flex gap-2 items-center justify-center text-white-bg bg-main-blue px-6 h-10 text-body hover:bg-secondary-btn active:bg-black-75'
             >
               <FaGoogle />
               Se connecter avec Google

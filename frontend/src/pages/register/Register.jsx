@@ -36,7 +36,7 @@ function Register() {
   return (
     <div className='flex flex-col flex-1 min-h-0 min-w-[500px] max-w-full mx-auto font-lato'>
       <div className='flex-grow flex items-center justify-center mt-[96px]'>
-        <div className='bg-white p-8 rounded-lg shadow-md w-full max-w-md'>
+        <div className='bg-white p-8 shadow-md w-full max-w-md'>
           <h2 className='text-h5 text-black mb-8'>Créer mon coin lecture</h2>
 
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -54,7 +54,7 @@ function Register() {
                 name='email'
                 id='email'
                 placeholder='Email'
-                className='text-black-75 shadow border border-black-25 focus:outline-secondary-btn rounded-lg w-full py-2 px-3 mb-4'
+                className='text-black-75 shadow border border-black-25 focus:outline-secondary-btn w-full py-2 px-3 mb-4'
                 autoComplete='email'
               />
 
@@ -72,7 +72,7 @@ function Register() {
                 id='password'
                 placeholder='Mot de Passe'
                 className='text-black-75 shadow border border-black-25 focus:outline-secondary-btn
-                 rounded-lg w-full py-2 px-3 mb-4'
+                 w-full py-2 px-3 mb-4'
                 autoComplete='new-password'
               />
             </div>
@@ -83,7 +83,7 @@ function Register() {
             )}
 
             {/* Register Button */}
-            <button className='cursor-pointer font-merriweather text-white-bg bg-primary-btn px-6 h-10 rounded-lg w-full text-body md:text-h6 hover:bg-secondary-btn active:bg-black-75'>
+            <button className='cursor-pointer font-merriweather text-white-bg bg-primary-btn px-6 h-10 w-full text-body md:text-h6 hover:bg-secondary-btn active:bg-black-75'>
               Créer mon compte
             </button>
           </form>
@@ -102,7 +102,7 @@ function Register() {
           <div className='mt-6'>
             <button
               onClick={handleGoogleSignIn}
-              className='cursor-pointer font-merriweather w-full flex gap-2 items-center justify-center text-white-bg bg-main-blue px-6 h-10 rounded-lg text-body hover:bg-secondary-btn active:bg-black-75'
+              className='cursor-pointer font-merriweather w-full flex gap-2 items-center justify-center text-white-bg bg-main-blue px-6 h-10 text-body hover:bg-secondary-btn active:bg-black-75'
             >
               <FaGoogle />
               Se connecter avec Google
