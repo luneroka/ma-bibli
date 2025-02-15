@@ -12,6 +12,7 @@ import { auth } from '../firebase/firebase.config';
 import { getLibraryBooksAsync } from '../redux/features/library/libraryAsyncActions';
 import { getReadingListBooksAsync } from '../redux/features/reading-list/readingListAsyncActions';
 import { getFavoriteBooksAsync } from '../redux/features/favorites/favoritesAsyncActions';
+import { useNavigate } from 'react-router';
 
 const AuthContext = createContext();
 export const useAuth = () => {
@@ -24,6 +25,7 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // REGISTER
   const registerUser = async (email, password) => {
@@ -44,6 +46,7 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     await signOut(auth); // Dispatch an action to reset the Redux store
     dispatch({ type: 'auth/logout' });
+    navigate('/');
   };
 
   // MANAGE USER

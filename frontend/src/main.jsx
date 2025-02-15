@@ -17,8 +17,8 @@ import PrivateRoute from './routes/PrivateRoute.jsx';
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
-    <AuthProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <AuthProvider>
         <Routes>
           <Route path='/' element={<App />}>
             <Route index element={<HomePage />} />
@@ -61,7 +61,7 @@ createRoot(document.getElementById('root')).render(
           <Route path='/livres' element={<Navigate to='/' />} />
           <Route path='/livres/:isbn' element={<SingleBookPage />} />
         </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+      </AuthProvider>
+    </BrowserRouter>
   </Provider>
 );
