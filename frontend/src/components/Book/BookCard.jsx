@@ -120,7 +120,7 @@ const BookCard = ({
             </div>
 
             {/* Book Details */}
-            <div className='flex flex-col justify-between w-[220px] h-[170px]'>
+            <div className='flex flex-col justify-center w-[220px] h-[170px]'>
               {/* Title */}
               <Link to={`/livres/${book.isbn}`}>
                 <p className='text-small-body text-black-75 hover:text-black font-bold leading-4.5 h-[41px] overflow-hidden'>
