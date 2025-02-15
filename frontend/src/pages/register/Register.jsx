@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaGoogle } from 'react-icons/fa';
+import { FaEye } from 'react-icons/fa';
+import { FaEyeSlash } from 'react-icons/fa';
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../../context/AuthContext';
 
 function Register() {
   const [message, setMessage] = useState('');
+  const [isVisible, setIsVisible] = useState(false);
   const { registerUser, signInWithGoogle } = useAuth();
   const {
     register,
@@ -23,6 +26,7 @@ function Register() {
       setMessage('Veuillez fournir un email et un mot de passe valides.');
     }
   };
+
   const handleGoogleSignIn = async () => {
     try {
       await signInWithGoogle();
@@ -31,6 +35,12 @@ function Register() {
     } catch (error) {
       alert('La connexion avec Google a échoué.');
     }
+  };
+
+  // Toggle password view
+  const handleTogglePasswordView = (e) => {
+    e.preventDefault();
+    setIsVisible((prev) => !prev);
   };
 
   return (
@@ -65,16 +75,33 @@ function Register() {
               >
                 Mot de Passe
               </label>
-              <input
-                {...register('password', { required: true })}
-                type='password'
-                name='password'
-                id='password'
-                placeholder='Mot de Passe'
-                className='text-black-75 shadow border border-black-25 focus:outline-secondary-btn
-                 w-full py-2 px-3 mb-4'
-                autoComplete='new-password'
-              />
+              <div className='relative w-[100%] mb-4'>
+                <input
+                  {...register('password', { required: true })}
+                  type={isVisible ? 'text' : 'password'}
+                  name='password'
+                  id='password'
+                  placeholder='Mot de Passe'
+                  className='text-black-75 shadow border border-black-25 focus:outline-secondary-btn
+                 w-full py-2 px-3'
+                  autoComplete='new-password'
+                />
+                {isVisible ? (
+                  <button
+                    onClick={handleTogglePasswordView}
+                    className='cursor-pointer absolute right-3 inset-y-0 my-auto text-black-50'
+                  >
+                    <FaEyeSlash />
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleTogglePasswordView}
+                    className='cursor-pointer absolute right-3 inset-y-0 my-auto text-black-50'
+                  >
+                    <FaEye />
+                  </button>
+                )}
+              </div>
             </div>
 
             {/* Error Message */}

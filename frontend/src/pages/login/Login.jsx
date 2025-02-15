@@ -41,7 +41,7 @@ function Login() {
     }
   };
 
-  // Handle password view
+  // Toggle password view
   const handleTogglePasswordView = (e) => {
     e.preventDefault();
     setIsVisible((prev) => !prev);
@@ -87,7 +87,7 @@ function Login() {
                   id='password'
                   placeholder='Mot de Passe'
                   className='text-black-75 shadow border border-black-25 focus:outline-secondary-btn
-                 w-full py-2 px-3 '
+                 w-full py-2 px-3'
                   autoComplete='current-password'
                 />
                 {isVisible ? (
