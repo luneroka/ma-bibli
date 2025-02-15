@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { FaGoogle } from 'react-icons/fa';
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../../context/AuthContext';
@@ -8,18 +8,21 @@ function Login() {
   const [message, setMessage] = useState('');
   const { loginUser, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
+
+  // Get the redirection target from location.state or default to '/'
+  const redirectTo = location.state?.from || '/';
 
   const onSubmit = async (data) => {
     try {
       await loginUser(data.email, data.password);
       alert('Connexion réussie!');
-      navigate('/');
+      navigate(redirectTo);
     } catch (error) {
       setMessage('Veuillez fournir un email et un mot de passe valides.');
     }
@@ -29,7 +32,7 @@ function Login() {
     try {
       await signInWithGoogle();
       alert('Connexion réussie!');
-      navigate('/');
+      navigate(redirectTo);
     } catch (error) {
       alert('La connexion avec Google a échoué.');
     }
