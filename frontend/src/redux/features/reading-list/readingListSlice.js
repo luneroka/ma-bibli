@@ -23,7 +23,7 @@ const readingListSlice = createSlice({
       })
       .addCase(getReadingListBooksAsync.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.libraryBooks = action.payload;
+        state.readingListBooks = action.payload;
       })
       .addCase(getReadingListBooksAsync.rejected, (state, action) => {
         state.status = 'failed';

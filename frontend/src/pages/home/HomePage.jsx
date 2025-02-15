@@ -4,8 +4,13 @@ import News from './News';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSearchNewestAsync } from '../../redux/features/newest/newestAsyncActions';
 import { createGetNewsAsync } from '../../redux/features/news/newsAsyncActions';
+import { useAuth } from '../../context/AuthContext';
+import { getReadingListBooksAsync } from '../../redux/features/reading-list/readingListAsyncActions';
+import { getLibraryBooksAsync } from '../../redux/features/library/libraryAsyncActions';
+import { getFavoriteBooksAsync } from '../../redux/features/favorites/favoritesAsyncActions';
 
 const HomePage = () => {
+  const { currentUser } = useAuth();
   const dispatch = useDispatch();
   const newest = useSelector((state) => state.newest.newest.items);
   const news = useSelector((state) => state.news.news);
@@ -17,11 +22,18 @@ const HomePage = () => {
   useEffect(() => {
     dispatch(createSearchNewestAsync('newest', '/api/search/newest')());
     dispatch(createGetNewsAsync('news', '/api/news')());
-  }, [dispatch]);
+    if (currentUser) {
+      currentUser.getIdToken().then((token) => {
+        dispatch(getLibraryBooksAsync({ token }));
+        dispatch(getReadingListBooksAsync({ token }));
+        dispatch(getFavoriteBooksAsync({ token }));
+      });
+    }
+  }, [currentUser, dispatch]);
 
   return (
     <>
-      <div className='px-[128px]'>
+      <div key={currentUser?.uid || 'no-user'} className='px-[128px]'>
         <div className='my-[80px]'>
           <NewReleases
             newest={newest}

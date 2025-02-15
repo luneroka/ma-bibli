@@ -9,6 +9,9 @@ import {
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { auth } from '../firebase/firebase.config';
+import { getLibraryBooksAsync } from '../redux/features/library/libraryAsyncActions';
+import { getReadingListBooksAsync } from '../redux/features/reading-list/readingListAsyncActions';
+import { getFavoriteBooksAsync } from '../redux/features/favorites/favoritesAsyncActions';
 
 const AuthContext = createContext();
 export const useAuth = () => {
@@ -45,21 +48,20 @@ export const AuthProvider = ({ children }) => {
 
   // MANAGE USER
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setCurrentUser(user);
       setLoading(false);
 
       if (user) {
-        const { email, displayName, photoURL } = user;
-        const userData = {
-          email,
-          username: displayName,
-          photo: photoURL,
-        };
+        const token = await user.getIdToken();
+        // Dispatch async actions to reload user-specific state.
+        dispatch(getLibraryBooksAsync({ token }));
+        dispatch(getReadingListBooksAsync({ token }));
+        dispatch(getFavoriteBooksAsync({ token }));
       }
     });
     return () => unsubscribe();
-  }, []);
+  }, [dispatch]);
 
   const value = {
     currentUser,
