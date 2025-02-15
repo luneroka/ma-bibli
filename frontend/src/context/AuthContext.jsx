@@ -7,6 +7,7 @@ import {
   signOut,
 } from 'firebase/auth';
 import { createContext, useContext, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { auth } from '../firebase/firebase.config';
 
 const AuthContext = createContext();
@@ -19,6 +20,7 @@ const googleProvider = new GoogleAuthProvider();
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
 
   // REGISTER
   const registerUser = async (email, password) => {
@@ -36,8 +38,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   // LOGOUT
-  const logout = () => {
-    return signOut(auth);
+  const logout = async () => {
+    await signOut(auth); // Dispatch an action to reset the Redux store
+    dispatch({ type: 'auth/logout' });
   };
 
   // MANAGE USER
@@ -66,5 +69,9 @@ export const AuthProvider = ({ children }) => {
     logout,
   };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {!loading && children}
+    </AuthContext.Provider>
+  );
 };
