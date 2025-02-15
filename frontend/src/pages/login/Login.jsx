@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
-import { FaGoogle } from 'react-icons/fa';
-import { FaEye } from 'react-icons/fa';
-import { FaEyeSlash } from 'react-icons/fa';
+import { FaGoogle, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../../context/AuthContext';
 
@@ -88,12 +86,12 @@ function Login() {
                   name='password'
                   id='password'
                   placeholder='Mot de Passe'
-                  className='text-black-75 shadow border border-black-25 focus:outline-secondary-btn
-                 w-full py-2 px-3'
+                  className='text-black-75 shadow border border-black-25 focus:outline-secondary-btn w-full py-2 px-3'
                   autoComplete='current-password'
                 />
                 {isVisible ? (
                   <button
+                    type='button'
                     onClick={handleTogglePasswordView}
                     className='cursor-pointer absolute right-3 inset-y-0 my-auto text-black-50'
                   >
@@ -101,6 +99,7 @@ function Login() {
                   </button>
                 ) : (
                   <button
+                    type='button'
                     onClick={handleTogglePasswordView}
                     className='cursor-pointer absolute right-3 inset-y-0 my-auto text-black-50'
                   >
@@ -116,7 +115,10 @@ function Login() {
             )}
 
             {/* Connect Button */}
-            <button className='cursor-pointer font-merriweather text-white-bg bg-primary-btn px-6 h-10 w-full text-body md:text-h6 hover:bg-secondary-btn active:bg-black-75'>
+            <button
+              type='submit'
+              className='cursor-pointer font-merriweather text-white-bg bg-primary-btn px-6 h-10 w-full text-body md:text-h6 hover:bg-secondary-btn active:bg-black-75'
+            >
               Se connecter
             </button>
           </form>
