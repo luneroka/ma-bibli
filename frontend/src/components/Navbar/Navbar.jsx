@@ -6,7 +6,6 @@ import { IoSearchOutline } from 'react-icons/io5';
 import avatarImg from '../../assets/avatar.png';
 import { createSearchBooksAsync } from '../../redux/features/search/searchAsyncActions';
 import { useAuth } from '../../context/AuthContext';
-import { setCurrentScreen } from 'firebase/analytics';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard' },

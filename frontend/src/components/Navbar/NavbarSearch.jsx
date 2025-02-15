@@ -121,7 +121,11 @@ const NavbarSearch = () => {
                   className='cursor-pointer'
                 >
                   <img
-                    src={avatarImg}
+                    src={
+                      currentUser && currentUser.photoURL
+                        ? currentUser.photoURL
+                        : avatarImg
+                    }
                     alt=''
                     className={`size-8 rounded-full ${
                       currentUser

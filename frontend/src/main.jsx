@@ -14,6 +14,7 @@ import ReadingListPage from './pages/reading-list/ReadingListPage.jsx';
 import SingleBookPage from './pages/single-book/SingleBookPage.jsx';
 import SearchPage from './pages/search/SearchPage.jsx';
 import PrivateRoute from './routes/PrivateRoute.jsx';
+import UserPage from './pages/user/UserPage.jsx';
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
@@ -54,7 +55,7 @@ createRoot(document.getElementById('root')).render(
             path='/mon-compte'
             element={
               <PrivateRoute>
-                <h1>Mon Compte</h1>
+                <UserPage />
               </PrivateRoute>
             }
           />

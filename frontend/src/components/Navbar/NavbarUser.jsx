@@ -11,7 +11,7 @@ const navigation = [
   { name: 'Se déconnecter', href: '/logout' },
 ];
 
-function NavbarLibrary() {
+function NavbarUser() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const { currentUser, logout } = useAuth();
@@ -52,16 +52,6 @@ function NavbarLibrary() {
 
         {/* Right side */}
         <div className='flex items-center gap-4 sm:gap-6'>
-          {/* Reading List icon */}
-          <Link to='/liste-de-lecture'>
-            <FaListAlt className='w-6 h-6 text-white-bg hover:text-primary-btn' />
-          </Link>
-
-          {/* Library Icon */}
-          <Link to='/bibli'>
-            <FaBookOpen className='w-6 h-6 text-white-bg hover:text-primary-btn' />
-          </Link>
-
           {/* Display Name */}
           {currentUser && currentUser.displayName ? (
             <div className='text-white-bg'>{currentUser.displayName}</div>
@@ -134,4 +124,4 @@ function NavbarLibrary() {
   );
 }
 
-export default NavbarLibrary;
+export default NavbarUser;
