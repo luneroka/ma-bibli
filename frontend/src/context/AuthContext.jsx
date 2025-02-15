@@ -81,9 +81,11 @@ export const AuthProvider = ({ children }) => {
   // UPDATE PROFILE
   const updateUserProfile = async (displayName) => {
     if (auth.currentUser) {
-      return await updateProfile(auth.currentUser, {
-        displayName: displayName,
-      });
+      await updateProfile(auth.currentUser, { displayName });
+      await auth.currentUser.reload();
+      // create a new reference to trigger re-render
+      setCurrentUser({ ...auth.currentUser });
+      return auth.currentUser;
     }
     throw new Error('No current user is logged in.');
   };
