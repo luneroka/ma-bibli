@@ -8,6 +8,7 @@ import {
   sendEmailVerification,
   updatePassword,
   sendPasswordResetEmail,
+  updateProfile,
 } from 'firebase/auth';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -76,6 +77,16 @@ export const AuthProvider = ({ children }) => {
     navigate('/');
   };
 
+  // UPDATE PROFILE
+  const updateUserProfile = async (displayName) => {
+    if (auth.currentUser) {
+      return await updateProfile(auth.currentUser, {
+        displayName: displayName,
+      });
+    }
+    throw new Error('No current user is logged in.');
+  };
+
   // MANAGE USER
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -102,6 +113,7 @@ export const AuthProvider = ({ children }) => {
     sendVerificationEmail,
     updateUserPassword,
     resetUserPassword,
+    updateUserProfile,
   };
 
   return (
