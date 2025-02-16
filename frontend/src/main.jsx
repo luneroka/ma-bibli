@@ -17,6 +17,7 @@ import PrivateRoute from './routes/PrivateRoute.jsx';
 import UserPage from './pages/user/UserPage.jsx';
 import ForgotPassword from './pages/auth/ForgotPassword.jsx';
 import AuthLayout from './pages/auth/AuthLayout';
+import DashboardPage from './pages/dashboard/DashboardPage.jsx';
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
@@ -35,7 +36,7 @@ createRoot(document.getElementById('root')).render(
           </Route>
 
           <Route path='/recherche' element={<SearchPage />} />
-          
+
           <Route
             path='/liste-de-lecture'
             element={
@@ -56,7 +57,7 @@ createRoot(document.getElementById('root')).render(
             path='/dashboard'
             element={
               <PrivateRoute>
-                <h1>Dashboard</h1>
+                <DashboardPage />
               </PrivateRoute>
             }
           />
