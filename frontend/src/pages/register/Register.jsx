@@ -6,23 +6,48 @@ import { useAuth } from '../../context/AuthContext';
 
 function Register() {
   const [message, setMessage] = useState('');
-  const [isVisible, setIsVisible] = useState(false);
   const { registerUser, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
 
+  // Local state for password visibility and values
+  const [passwordVisibility, setPasswordVisibility] = useState({
+    new: false,
+    confirm: false,
+  });
+  const [passwordValues, setPasswordValues] = useState({
+    new: '',
+    confirm: '',
+  });
+
+  // Common input classes
+  const inputClass =
+    'text-small text-black-75 shadow border border-black-25 focus:outline-secondary-btn w-full py-2 px-3';
+
+  // Toggle password view
+  const toggleVisibility = (field) => {
+    setPasswordVisibility((prev) => ({
+      ...prev,
+      [field]: !prev[field],
+    }));
+  };
+
   const onSubmit = async (data) => {
-    console.log(data);
+    if (passwordValues.new !== passwordValues.confirm) {
+      setMessage('Les nouveaux mots de passe ne correspondent pas.');
+      return;
+    }
     try {
-      await registerUser(data.email, data.password);
+      await registerUser(data.email, passwordValues.new);
       alert('Votre compte a été créé avec succès!');
+      navigate('/login');
     } catch (error) {
       setMessage('Veuillez fournir un email et un mot de passe valides.');
+      console.error(error);
     }
   };
 
@@ -33,13 +58,8 @@ function Register() {
       navigate('/');
     } catch (error) {
       alert('La connexion avec Google a échoué.');
+      console.error(error);
     }
-  };
-
-  // Toggle password view
-  const handleTogglePasswordView = (e) => {
-    e.preventDefault();
-    setIsVisible((prev) => !prev);
   };
 
   return (
@@ -51,7 +71,7 @@ function Register() {
           </h2>
 
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div>
+            <div className='mb-4'>
               {/* Email Input */}
               <label
                 htmlFor='email'
@@ -62,47 +82,44 @@ function Register() {
               <input
                 {...register('email', { required: true })}
                 type='email'
-                name='email'
                 id='email'
                 placeholder='Email'
-                className='text-black-75 shadow border border-black-25 focus:outline-secondary-btn w-full py-2 px-3 mb-4'
                 autoComplete='email'
+                className={`${inputClass} mb-4`}
               />
 
-              {/* Password Input */}
-              <label
-                htmlFor='password'
-                className='block text-small text-black-75 mb-1'
-              >
-                Mot de Passe
+              {/* Password Inputs */}
+              <label className='block text-small text-black-75 mb-1'>
+                Mot de passe
               </label>
-              <div className='relative w-[100%] mb-4'>
-                <input
-                  {...register('password', { required: true })}
-                  type={isVisible ? 'text' : 'password'}
-                  name='password'
-                  id='password'
-                  placeholder='Mot de Passe'
-                  className='text-black-75 shadow border border-black-25 focus:outline-secondary-btn w-full py-2 px-3'
-                  autoComplete='new-password'
-                />
-                {isVisible ? (
-                  <button
-                    type='button'
-                    onClick={handleTogglePasswordView}
-                    className='cursor-pointer absolute right-3 inset-y-0 my-auto text-black-50'
-                  >
-                    <FaEyeSlash />
-                  </button>
-                ) : (
-                  <button
-                    type='button'
-                    onClick={handleTogglePasswordView}
-                    className='cursor-pointer absolute right-3 inset-y-0 my-auto text-black-50'
-                  >
-                    <FaEye />
-                  </button>
-                )}
+              <div className='flex flex-col gap-4'>
+                {[
+                  { key: 'new', placeholder: 'Mot de passe' },
+                  { key: 'confirm', placeholder: 'Confirmer le mot de passe' },
+                ].map(({ key, placeholder }) => (
+                  <div key={key} className='relative w-full'>
+                    <input
+                      type={passwordVisibility[key] ? 'text' : 'password'}
+                      required
+                      placeholder={placeholder}
+                      value={passwordValues[key]}
+                      onChange={(e) =>
+                        setPasswordValues((prev) => ({
+                          ...prev,
+                          [key]: e.target.value,
+                        }))
+                      }
+                      className={inputClass}
+                    />
+                    <button
+                      type='button'
+                      onClick={() => toggleVisibility(key)}
+                      className='cursor-pointer absolute right-3 inset-y-0 my-auto text-black-50'
+                    >
+                      {passwordVisibility[key] ? <FaEyeSlash /> : <FaEye />}
+                    </button>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -112,7 +129,7 @@ function Register() {
             )}
 
             {/* Register Button */}
-            <button className='cursor-pointer font-merriweather text-white-bg bg-primary-btn px-6 h-10 w-full text-body md:text-h6 hover:bg-secondary-btn active:bg-black-75'>
+            <button className='cursor-pointer font-merriweather text-white-bg bg-primary-btn px-6 h-10 w-full text-small-body md:text-body hover:bg-secondary-btn active:bg-black-75'>
               Créer mon compte
             </button>
           </form>
@@ -131,7 +148,7 @@ function Register() {
           <div className='mt-6'>
             <button
               onClick={handleGoogleSignIn}
-              className='cursor-pointer font-merriweather w-full flex gap-2 items-center justify-center text-white-bg bg-main-blue px-6 h-10 text-body hover:bg-secondary-btn active:bg-black-75'
+              className='cursor-pointer font-merriweather w-full flex gap-2 items-center justify-center text-white-bg bg-main-blue px-6 h-10 text-small-body md:text-body hover:bg-secondary-btn active:bg-black-75'
             >
               <FaGoogle />
               Se connecter avec Google

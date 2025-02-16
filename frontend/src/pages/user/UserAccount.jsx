@@ -14,6 +14,10 @@ function UserAccount() {
   );
   const [message, setMessage] = useState('');
 
+  // Common input classes
+  const inputClass =
+    'text-small text-black-75 shadow border border-black-25 focus:outline-secondary-btn w-full py-2 px-3';
+
   // State for password field visibility
   const [passwordVisibility, setPasswordVisibility] = useState({
     current: false,
@@ -143,7 +147,7 @@ function UserAccount() {
                         [key]: e.target.value,
                       }))
                     }
-                    className='font-merriweather text-small text-black-75 shadow border border-black-25 focus:outline-secondary-btn w-full py-2 px-3'
+                    className={inputClass}
                   />
                   <button
                     type='button'

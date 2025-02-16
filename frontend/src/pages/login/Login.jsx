@@ -19,6 +19,10 @@ function Login() {
   // Get the redirection target from location.state or default to '/'
   const redirectTo = location.state?.from || '/';
 
+  // Common input classes
+  const inputClass =
+    'text-small text-black-75 shadow border border-black-25 focus:outline-secondary-btn w-full py-2 px-3';
+
   const onSubmit = async (data) => {
     try {
       await loginUser(data.email, data.password);
@@ -52,7 +56,7 @@ function Login() {
           </h2>
 
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div>
+            <div className='mb-4'>
               {/* Email Input */}
               <label
                 htmlFor='email'
@@ -66,7 +70,7 @@ function Login() {
                 name='email'
                 id='email'
                 placeholder='Email'
-                className='text-black-75 shadow border border-black-25 focus:outline-secondary-btn w-full py-2 px-3 mb-4'
+                className={`${inputClass} mb-4`}
                 autoComplete='email'
               />
 
@@ -75,7 +79,7 @@ function Login() {
                 htmlFor='password'
                 className='block text-small text-black-75 mb-1'
               >
-                Mot de Passe
+                Mot de passe
               </label>
               <div className='relative w-[100%] mb-4'>
                 <input
@@ -83,8 +87,8 @@ function Login() {
                   type={isVisible ? 'text' : 'password'}
                   name='password'
                   id='password'
-                  placeholder='Mot de Passe'
-                  className='text-black-75 shadow border border-black-25 focus:outline-secondary-btn w-full py-2 px-3'
+                  placeholder='Mot de passe'
+                  className={inputClass}
                   autoComplete='current-password'
                 />
                 {isVisible ? (
@@ -115,9 +119,9 @@ function Login() {
             {/* Connect Button */}
             <button
               type='submit'
-              className='cursor-pointer font-merriweather text-white-bg bg-primary-btn px-6 h-10 w-full text-body md:text-h6 hover:bg-secondary-btn active:bg-black-75'
+              className='cursor-pointer font-merriweather text-white-bg bg-primary-btn px-6 h-10 w-full text-small-body md:text-body hover:bg-secondary-btn active:bg-black-75'
             >
-              Se connecter
+              Me connecter
             </button>
           </form>
 
@@ -135,7 +139,7 @@ function Login() {
           <div className='mt-6'>
             <button
               onClick={handleGoogleSignIn}
-              className='cursor-pointer font-merriweather w-full flex gap-2 items-center justify-center text-white-bg bg-main-blue px-6 h-10 text-body hover:bg-secondary-btn active:bg-black-75'
+              className='cursor-pointer font-merriweather w-full flex gap-2 items-center justify-center text-white-bg bg-main-blue px-6 h-10 text-small-body md:text-body hover:bg-secondary-btn active:bg-black-75'
             >
               <FaGoogle />
               Se connecter avec Google
