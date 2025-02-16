@@ -18,8 +18,8 @@ function DashBody() {
       </div>
 
       {/* List Card */}
-      <ListCard />
-      <ListCard />
+      <ListCard title='Ajoutés récemment' />
+      <ListCard title='Coups de coeur' />
     </div>
   );
 }

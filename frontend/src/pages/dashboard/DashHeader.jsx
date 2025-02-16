@@ -19,7 +19,7 @@ function DashHeader() {
       {/* Library Button */}
       <a
         href='/bibli'
-        className='font-merriweather text-h6 flex gap-2 py-2 px-4 bg-primary-btn items-center text-dash-bg hover:bg-secondary-btn active:bg-black-75'
+        className='font-merriweather text-h6 font-light flex gap-2 py-2 px-4 bg-primary-btn items-center text-black-75 hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
       >
         <FaPen />
         Gérer mes livres
