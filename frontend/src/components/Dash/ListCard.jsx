@@ -1,7 +1,7 @@
 import React from 'react';
 
 function ListCard() {
-  return <div>ListCard</div>;
+  return <div className='bg-white-bg'>ListCard</div>;
 }
 
 export default ListCard;

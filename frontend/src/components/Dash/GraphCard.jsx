@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 function GraphCard() {
-  return (
-    <div>GraphCard</div>
-  )
+  return <div className='h-[450px] bg-white-bg'>GraphCard</div>;
 }
 
-export default GraphCard
+export default GraphCard;

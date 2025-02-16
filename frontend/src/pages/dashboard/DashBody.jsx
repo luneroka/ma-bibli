@@ -5,7 +5,7 @@ import ListCard from '../../components/Dash/ListCard';
 
 function DashBody() {
   return (
-    <div className='mx-[128px] grid grid-cols-4 grid-rows-2 gap-[64px]'>
+    <div className='mx-[128px] grid grid-cols-4 gap-[32px]'>
       {/* Metrics Cards */}
       <MetricCard />
       <MetricCard />
