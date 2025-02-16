@@ -7,14 +7,16 @@ import { AuthProvider } from './context/AuthContext';
 
 import App from './App.jsx';
 import HomePage from './pages/home/HomePage.jsx';
-import LoginPage from './pages/login/LoginPage.jsx';
-import RegisterPage from './pages/register/RegisterPage.jsx';
+import Login from './pages/auth/Login.jsx';
+import Register from './pages/auth/Register.jsx';
 import LibraryPage from './pages/library/LibraryPage.jsx';
 import ReadingListPage from './pages/reading-list/ReadingListPage.jsx';
 import SingleBookPage from './pages/single-book/SingleBookPage.jsx';
 import SearchPage from './pages/search/SearchPage.jsx';
 import PrivateRoute from './routes/PrivateRoute.jsx';
 import UserPage from './pages/user/UserPage.jsx';
+import ForgotPassword from './pages/auth/ForgotPassword.jsx';
+import AuthLayout from './pages/auth/AuthLayout';
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
@@ -24,8 +26,14 @@ createRoot(document.getElementById('root')).render(
           <Route path='/' element={<App />}>
             <Route index element={<HomePage />} />
           </Route>
-          <Route path='/login' element={<LoginPage />} />
-          <Route path='/register' element={<RegisterPage />} />
+
+          {/* Routes sharing the same NavbarAuth & Footer */}
+          <Route element={<AuthLayout />}>
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
+            <Route path='forgot-password' element={<ForgotPassword />} />
+          </Route>
+
           <Route path='/recherche' element={<SearchPage />} />
           <Route
             path='/liste-de-lecture'
