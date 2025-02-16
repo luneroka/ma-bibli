@@ -81,7 +81,7 @@ function Login() {
               >
                 Mot de passe
               </label>
-              <div className='relative w-[100%] mb-4'>
+              <div className='relative w-[100%] mb-1'>
                 <input
                   {...register('password', { required: true })}
                   type={isVisible ? 'text' : 'password'}
@@ -91,6 +91,7 @@ function Login() {
                   className={inputClass}
                   autoComplete='current-password'
                 />
+
                 {isVisible ? (
                   <button
                     type='button'
@@ -108,6 +109,11 @@ function Login() {
                     <FaEye />
                   </button>
                 )}
+              </div>
+
+              {/* Reset Password */}
+              <div className='flex justify-end text-small text-secondary-btn underline hover:text-primary-btn active:text-black-75 mb-4'>
+                <Link to='/forgot-password'>Mot de passe oublié ?</Link>
               </div>
             </div>
 
