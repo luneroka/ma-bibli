@@ -13,6 +13,7 @@ function Login() {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm();
 
@@ -113,7 +114,12 @@ function Login() {
 
               {/* Reset Password */}
               <div className='flex justify-end text-small text-secondary-btn underline hover:text-primary-btn active:text-black-75 mb-4'>
-                <Link to='/forgot-password'>Mot de passe oublié ?</Link>
+                <Link
+                  to='/forgot-password'
+                  state={{ email: getValues('email') }}
+                >
+                  Mot de passe oublié ?
+                </Link>
               </div>
             </div>
 

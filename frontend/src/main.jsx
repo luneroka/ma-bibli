@@ -35,6 +35,7 @@ createRoot(document.getElementById('root')).render(
           </Route>
 
           <Route path='/recherche' element={<SearchPage />} />
+          
           <Route
             path='/liste-de-lecture'
             element={
