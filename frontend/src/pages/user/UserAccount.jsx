@@ -70,9 +70,7 @@ function UserAccount() {
       // Clear the password fields
       setPasswordValues({ current: '', new: '', confirm: '' });
     } catch (error) {
-      setMessage(
-        'Erreur lors de la mise à jour du mot de passe: ' + error.message
-      );
+      setMessage('Erreur lors de la mise à jour du mot de passe');
       console.error(error);
     }
   };
@@ -95,7 +93,7 @@ function UserAccount() {
       <div className='flex-grow flex items-center justify-center mt-[64px]'>
         <div className='bg-white p-8 shadow-md w-full max-w-md'>
           {message && (
-            <p className='text-small text-black-75 italic mb-4'>{message}</p>
+            <p className='text-small text-primary-btn italic mb-4'>{message}</p>
           )}
           {/* Update Profile Form */}
           <form onSubmit={handleUpdateProfile}>

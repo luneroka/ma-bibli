@@ -125,7 +125,7 @@ function Login() {
 
             {/* Error Message */}
             {message && (
-              <p className='text-red-500 text-small italic mb-4'>{message}</p>
+              <p className='text-primary-btn text-small italic mb-4'>{message}</p>
             )}
 
             {/* Connect Button */}
