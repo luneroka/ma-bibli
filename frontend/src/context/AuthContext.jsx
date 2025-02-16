@@ -48,22 +48,22 @@ export const AuthProvider = ({ children }) => {
   };
 
   // UPDATE PASSWORD
-const updateUserPassword = async (currentPassword, newPassword) => {
-  if (auth.currentUser) {
-    const user = auth.currentUser;
-    // Create credential with current password
-    const credential = EmailAuthProvider.credential(
-      user.email,
-      currentPassword
-    );
-    // Reauthenticate the user
-    await reauthenticateWithCredential(user, credential);
-    // Now update the password
-    await updatePassword(user, newPassword);
-    return user;
-  }
-  throw new Error('No current user is logged in');
-};
+  const updateUserPassword = async (currentPassword, newPassword) => {
+    if (auth.currentUser) {
+      const user = auth.currentUser;
+      // Create credential with current password
+      const credential = EmailAuthProvider.credential(
+        user.email,
+        currentPassword
+      );
+      // Reauthenticate the user
+      await reauthenticateWithCredential(user, credential);
+      // Now update the password
+      await updatePassword(user, newPassword);
+      return user;
+    }
+    throw new Error('No current user is logged in');
+  };
 
   // RESET PASSWORD
   const resetUserPassword = async (email) => {
@@ -87,7 +87,7 @@ const updateUserPassword = async (currentPassword, newPassword) => {
   const logout = async () => {
     await signOut(auth); // Dispatch an action to reset the Redux store
     dispatch({ type: 'auth/logout' });
-    navigate('/');
+    navigate('/login');
   };
 
   // UPDATE PROFILE
