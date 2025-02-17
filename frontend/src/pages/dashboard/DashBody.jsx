@@ -21,8 +21,16 @@ function DashBody() {
       </div>
 
       {/* List Card */}
-      <ListCard title='Ajoutés récemment' />
-      <ListCard title='Coups de coeur' />
+      <ListCard
+        variant='recent'
+        title='Ajoutés récemment'
+        libraryBooks={libraryBooks}
+      />
+      <ListCard
+        variant='favorites'
+        title='Coups de coeur'
+        libraryBooks={libraryBooks}
+      />
     </div>
   );
 }
