@@ -3,8 +3,13 @@ const { transformGoogleBook } = require('../services/bookService');
 
 const getAllBooks = async (Model, req, res) => {
   try {
+    // Create a filter based on userId and category constraint if existing in req
+    const filter = { userId: req.user.uid };
+    if (req.query.category) {
+      filter.category = req.query.category;
+    }
     // Use lean() to return plain JS objects
-    const books = await Model.find({ userId: req.user.uid }).lean();
+    const books = await Model.find(filter).lean();
     res.status(200).json(books);
   } catch (error) {
     console.error('Failed to load books.', error);

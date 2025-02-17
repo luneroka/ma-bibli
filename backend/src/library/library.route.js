@@ -8,6 +8,8 @@ const {
   deleteBook,
 } = require('../book/book.controller');
 const router = express.Router();
+
+// Protect all routes by requiring valid Firebase ID tokens 
 const firebaseAuthMiddleware = require('../users/firebaseAuthMiddleware');
 router.use(firebaseAuthMiddleware);
 

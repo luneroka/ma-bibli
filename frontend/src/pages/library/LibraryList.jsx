@@ -11,7 +11,7 @@ function LibraryList({ libraryBooks = [] }) {
         </select>
       </div>
 
-      <div className='flex flex-wrap gap-4 justify-between mt-[32px]'>
+      <div className='flex flex-wrap gap-7 mt-[32px]'>
         {libraryBooks.length > 0 &&
           libraryBooks.map((book) => {
             return <BookInLibrary key={book.isbn} book={book} />;
