@@ -28,3 +28,26 @@ export function extractFullDate(dateString) {
 export function generateRandomId(length = 8) {
   return Math.random().toString(36).substr(2, length);
 }
+
+export function getMostRepeatedValue(arr, key) {
+  const counts = {};
+
+  arr.forEach((item) => {
+    const value = item[key];
+    if (typeof value === 'string') {
+      counts[value] = (counts[value] || 0) + 1;
+    }
+  });
+
+  let mostRepeated = '';
+  let maxCount = 0;
+
+  Object.entries(counts).forEach(([value, count]) => {
+    if (count > maxCount) {
+      maxCount = count;
+      mostRepeated = value;
+    }
+  });
+
+  return mostRepeated;
+}
