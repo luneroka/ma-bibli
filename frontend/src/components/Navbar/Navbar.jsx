@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaListAlt, FaBookOpen, FaUser } from 'react-icons/fa';
@@ -32,32 +32,6 @@ const Navbar = () => {
       handleSearch();
     }
   };
-
-  // Callback to handle dropdown logout selection
-  const handleDropdownSelect = (item) => {
-    if (item.name === 'Se déconnecter') {
-      logout();
-    }
-  };
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleOutsideClick = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        setIsDropdownOpen(false);
-      }
-    };
-
-    if (isDropdownOpen) {
-      document.addEventListener('mousedown', handleOutsideClick);
-    } else {
-      document.removeEventListener('mousedown', handleOutsideClick);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
-    };
-  }, [isDropdownOpen]);
 
   return (
     <header className='w-full sticky top-0 z-50 bg-main-blue h-[70px] items-center'>
@@ -126,7 +100,6 @@ const Navbar = () => {
 
                 {isDropdownOpen && (
                   <DropdownMenu
-                    onSelect={handleDropdownSelect}
                     closeDropdown={() => setIsDropdownOpen(false)}
                   />
                 )}

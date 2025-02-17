@@ -18,7 +18,7 @@ const NavbarSearch = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  const { currentUser, logout } = useAuth();
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     if (location.state?.searchTerm) {
@@ -39,32 +39,6 @@ const NavbarSearch = () => {
       handleSearch();
     }
   };
-
-  // Callback for dropdown selection
-  const handleDropdownSelect = (item) => {
-    if (item.name === 'Se déconnecter') {
-      logout();
-    }
-  };
-
-  // Close dropdown if clicking outside
-  useEffect(() => {
-    const handleOutsideClick = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        setIsDropdownOpen(false);
-      }
-    };
-
-    if (isDropdownOpen) {
-      document.addEventListener('mousedown', handleOutsideClick);
-    } else {
-      document.removeEventListener('mousedown', handleOutsideClick);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
-    };
-  }, [isDropdownOpen]);
 
   return (
     <header className='w-full sticky top-0 z-50 bg-main-blue h-[70px] items-center'>
@@ -130,7 +104,6 @@ const NavbarSearch = () => {
 
                 {isDropdownOpen && (
                   <DropdownMenu
-                    onSelect={handleDropdownSelect}
                     closeDropdown={() => setIsDropdownOpen(false)}
                   />
                 )}

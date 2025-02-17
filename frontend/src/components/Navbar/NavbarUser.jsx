@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { IoHome } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import { FaUser } from 'react-icons/fa';
@@ -9,33 +9,7 @@ import DropdownMenu from './DropdownMenu';
 function NavbarUser() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const { currentUser, logout } = useAuth();
-
-  // Callback for dropdown selection
-  const handleDropdownSelect = (item) => {
-    if (item.name === 'Se déconnecter') {
-      logout();
-    }
-  };
-
-  // Close dropdown if clicking outside of it
-  useEffect(() => {
-    const handleOutsideClick = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        setIsDropdownOpen(false);
-      }
-    };
-
-    if (isDropdownOpen) {
-      document.addEventListener('mousedown', handleOutsideClick);
-    } else {
-      document.removeEventListener('mousedown', handleOutsideClick);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
-    };
-  }, [isDropdownOpen]);
+  const { currentUser } = useAuth();
 
   return (
     <header className='w-full sticky top-0 z-50 bg-main-blue h-[70px] items-center'>
@@ -84,7 +58,6 @@ function NavbarUser() {
 
                 {isDropdownOpen && (
                   <DropdownMenu
-                    onSelect={handleDropdownSelect}
                     closeDropdown={() => setIsDropdownOpen(false)}
                   />
                 )}

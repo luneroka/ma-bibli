@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 const defaultNavigation = [
   { name: 'Dashboard', href: '/dashboard' },
@@ -7,20 +8,34 @@ const defaultNavigation = [
   { name: 'Se déconnecter', href: '/logout' },
 ];
 
-const DropdownMenu = ({
-  navigation = defaultNavigation,
-  onSelect,
-  closeDropdown,
-}) => {
+const DropdownMenu = ({ navigation = defaultNavigation, closeDropdown }) => {
+  const menuRef = useRef(null);
+  const { logout } = useAuth();
+
   const handleItemClick = (item) => {
     closeDropdown();
-    if (onSelect) {
-      onSelect(item);
+    if (item.name === 'Se déconnecter') {
+      logout();
     }
   };
 
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        closeDropdown();
+      }
+    };
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [closeDropdown]);
+
   return (
-    <div className='absolute right-0 mt-50 w-40 bg-white shadow-lg rounded-sm z-50'>
+    <div
+      ref={menuRef}
+      className='absolute right-0 mt-50 w-40 bg-white shadow-lg rounded-sm z-50'
+    >
       <ul className='py-2'>
         {navigation.map((item) => (
           <li key={item.name} onClick={() => handleItemClick(item)}>
