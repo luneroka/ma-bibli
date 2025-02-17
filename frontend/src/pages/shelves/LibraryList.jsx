@@ -39,14 +39,25 @@ function LibraryList() {
     fetchCategories();
   }, [currentUser]);
 
-  // Use an effect to refresh the book list whenever selectedCategory changes
+  // Fetch filtered books when a category is selected.
   useEffect(() => {
-    const fetchBooks = async () => {
-      const token = await currentUser.getIdToken();
-      dispatch(getLibraryBooksAsync({ token, category: selectedCategory }));
-    };
-    fetchBooks();
+    if (currentUser) {
+      currentUser.getIdToken().then((token) => {
+        dispatch(getLibraryBooksAsync({ token, category: selectedCategory }));
+      });
+    }
   }, [selectedCategory, currentUser, dispatch]);
+
+  // When leaving the library page, reset the filter (load full data)
+  useEffect(() => {
+    return () => {
+      if (currentUser) {
+        currentUser.getIdToken().then((token) => {
+          dispatch(getLibraryBooksAsync({ token }));
+        });
+      }
+    };
+  }, [dispatch, currentUser]);
 
   return (
     <>
