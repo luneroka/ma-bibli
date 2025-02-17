@@ -9,10 +9,7 @@ import { ChevronUpDownIcon, CheckIcon } from '@heroicons/react/20/solid';
 function LibraryList() {
   const dispatch = useDispatch();
   const { currentUser } = useAuth();
-
   const libraryBooks = useSelector((state) => state.library.libraryBooks) || [];
-
-  // Local states for category filter
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
 
@@ -51,7 +48,6 @@ function LibraryList() {
     fetchBooks();
   }, [selectedCategory, currentUser, dispatch]);
 
-  // Because Headless UI passes the value directly, we can use setSelectedCategory as onChange
   return (
     <>
       <div className='flex justify-between items-center gap-8 mt-[64px] mb-[32px]'>

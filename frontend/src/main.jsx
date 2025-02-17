@@ -4,13 +4,10 @@ import './index.css';
 import { Provider } from 'react-redux';
 import { store } from './redux/store.js';
 import { AuthProvider } from './context/AuthContext';
-
 import App from './App.jsx';
 import HomePage from './pages/home/HomePage.jsx';
 import Login from './pages/auth/Login.jsx';
 import Register from './pages/auth/Register.jsx';
-import LibraryPage from './pages/library/LibraryPage.jsx';
-import ReadingListPage from './pages/reading-list/ReadingListPage.jsx';
 import SingleBookPage from './pages/single-book/SingleBookPage.jsx';
 import SearchPage from './pages/search/SearchPage.jsx';
 import PrivateRoute from './routes/PrivateRoute.jsx';
@@ -18,6 +15,9 @@ import UserPage from './pages/user/UserPage.jsx';
 import ForgotPassword from './pages/auth/ForgotPassword.jsx';
 import AuthLayout from './pages/auth/AuthLayout';
 import DashboardPage from './pages/dashboard/DashboardPage.jsx';
+import ShelfLayout from './pages/shelves/ShelfLayout.jsx';
+import ReadingList from './pages/shelves/ReadingList.jsx';
+import LibraryList from './pages/shelves/LibraryList.jsx';
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
@@ -28,7 +28,7 @@ createRoot(document.getElementById('root')).render(
             <Route index element={<HomePage />} />
           </Route>
 
-          {/* Routes sharing the same NavbarAuth & Footer */}
+          {/* AUTH LAYOUT ROUTES */}
           <Route element={<AuthLayout />}>
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
@@ -37,22 +37,26 @@ createRoot(document.getElementById('root')).render(
 
           <Route path='/recherche' element={<SearchPage />} />
 
-          <Route
-            path='/liste-de-lecture'
-            element={
-              <PrivateRoute>
-                <ReadingListPage />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path='/bibli'
-            element={
-              <PrivateRoute>
-                <LibraryPage />
-              </PrivateRoute>
-            }
-          />
+          {/* SHELF LAYOUT ROUTE */}
+          <Route element={<ShelfLayout />}>
+            <Route
+              path='/liste-de-lecture'
+              element={
+                <PrivateRoute>
+                  <ReadingList />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path='/bibli'
+              element={
+                <PrivateRoute>
+                  <LibraryList />
+                </PrivateRoute>
+              }
+            />
+          </Route>
+
           <Route
             path='/dashboard'
             element={
