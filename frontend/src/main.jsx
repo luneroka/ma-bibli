@@ -4,6 +4,7 @@ import './index.css';
 import { Provider } from 'react-redux';
 import { store } from './redux/store.js';
 import { AuthProvider } from './context/AuthContext';
+
 import App from './App.jsx';
 import HomePage from './pages/home/HomePage.jsx';
 import Login from './pages/auth/Login.jsx';
@@ -24,6 +25,7 @@ createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <AuthProvider>
         <Routes>
+          {/* HOME ROUTES */}
           <Route path='/' element={<App />}>
             <Route index element={<HomePage />} />
           </Route>
@@ -34,8 +36,6 @@ createRoot(document.getElementById('root')).render(
             <Route path='/register' element={<Register />} />
             <Route path='forgot-password' element={<ForgotPassword />} />
           </Route>
-
-          <Route path='/recherche' element={<SearchPage />} />
 
           {/* SHELF LAYOUT ROUTE */}
           <Route element={<ShelfLayout />}>
@@ -57,6 +57,10 @@ createRoot(document.getElementById('root')).render(
             />
           </Route>
 
+          {/* SEARCH ROUTES */}
+          <Route path='/recherche' element={<SearchPage />} />
+
+          {/* ACCOUNT ROUTES */}
           <Route
             path='/dashboard'
             element={

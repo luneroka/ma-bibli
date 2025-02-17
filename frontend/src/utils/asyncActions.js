@@ -31,7 +31,7 @@ export const createGetAllBooksAsync = (type, apiEndpoint) =>
     }
   );
 
-// ADD BOOK (now reading normalized data)
+// ADD BOOK
 export const createAddBookAsync = (type, apiEndpoint) =>
   createAsyncThunk(
     `${type}/addBookAsync`,

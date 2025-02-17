@@ -49,7 +49,7 @@ const DropdownMenu = ({ navigation = defaultNavigation, closeDropdown }) => {
             ) : (
               <Link
                 to={item.href}
-                className='text-black-75 block px-4 py-3 text-sm hover:text-primary-btn hover:font-extrabold'
+                className='text-black-75 block px-4 py-2 text-sm hover:text-primary-btn hover:font-extrabold'
               >
                 {item.name}
               </Link>
