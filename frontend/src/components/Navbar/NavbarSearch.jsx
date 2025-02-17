@@ -1,18 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaListAlt, FaBookOpen, FaUser } from 'react-icons/fa';
-import { IoSearchOutline } from 'react-icons/io5';
-import { IoHome } from 'react-icons/io5';
+import { IoSearchOutline, IoHome } from 'react-icons/io5';
 import avatarImg from '../../assets/avatar.png';
 import { useDispatch } from 'react-redux';
 import { createSearchBooksAsync } from '../../redux/features/search/searchAsyncActions';
 import { useAuth } from '../../context/AuthContext';
-
-const navigation = [
-  { name: 'Dashboard', href: '/dashboard' },
-  { name: 'Mon compte', href: '/mon-compte' },
-  { name: 'Se déconnecter', href: '/logout' },
-];
+import DropdownMenu from './DropdownMenu';
 
 const NavbarSearch = () => {
   const location = useLocation();
@@ -23,6 +17,8 @@ const NavbarSearch = () => {
   const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+
+  const { currentUser, logout } = useAuth();
 
   useEffect(() => {
     if (location.state?.searchTerm) {
@@ -37,19 +33,21 @@ const NavbarSearch = () => {
     navigate('/recherche', { state: { searchTerm } });
   };
 
+  // Enable Search Form action with Enter key
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       handleSearch();
     }
   };
 
-  const { currentUser, logout } = useAuth();
-
-  const handleLogout = () => {
-    logout();
+  // Callback for dropdown selection
+  const handleDropdownSelect = (item) => {
+    if (item.name === 'Se déconnecter') {
+      logout();
+    }
   };
 
-  // Close dropdown if clicking outside of it
+  // Close dropdown if clicking outside
   useEffect(() => {
     const handleOutsideClick = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -78,7 +76,6 @@ const NavbarSearch = () => {
 
         {/* Middle */}
         <div className='flex items-center gap-4'>
-          {/* Search Input */}
           <div className='relative w-[100%] md:w-[480px]'>
             <IoSearchOutline className='absolute left-3 inset-y-0 my-auto' />
             <input
@@ -90,8 +87,6 @@ const NavbarSearch = () => {
               className='bg-white-bg w-full h-8 pl-10 pr-4 text-small md:text-body focus:outline-none focus:ring-2 focus:ring-primary-btn placeholder:text-small'
             />
           </div>
-
-          {/* Search Button */}
           <button
             onClick={handleSearch}
             className='cursor-pointer hidden sm:block font-merriweather text-white-bg bg-primary-btn px-6 h-8 text-small hover:bg-secondary-btn active:bg-black-75'
@@ -112,7 +107,7 @@ const NavbarSearch = () => {
             <FaBookOpen className='w-6 h-6 text-white-bg hover:text-primary-btn' />
           </Link>
 
-          {/* User Icon */}
+          {/* User Icon and dropdown */}
           <div className='relative flex items-center' ref={dropdownRef}>
             {currentUser ? (
               <>
@@ -122,9 +117,7 @@ const NavbarSearch = () => {
                 >
                   <img
                     src={
-                      currentUser && currentUser.photoURL
-                        ? currentUser.photoURL
-                        : avatarImg
+                      currentUser.photoURL ? currentUser.photoURL : avatarImg
                     }
                     alt=''
                     className={`size-8 rounded-full ${
@@ -134,39 +127,13 @@ const NavbarSearch = () => {
                     }`}
                   />
                 </button>
+
                 {isDropdownOpen && (
-                                  <div className='absolute right-0 mt-50 w-40 bg-white shadow-lg rounded-sm z-50'>
-                                    <ul className='py-2'>
-                                      {navigation.map((item) => (
-                                        <li
-                                          key={item.name}
-                                          onClick={() => {
-                                            setIsDropdownOpen(false);
-                                            if (item.name === 'Se déconnecter') {
-                                              handleLogout();
-                                            }
-                                          }}
-                                        >
-                                          {item.name === 'Se déconnecter' ? (
-                                            <div>
-                                              <hr className='text-black-10 w-[90%] justify-self-center' />
-                                              <span className='text-black-75 block px-4 py-3 text-sm cursor-pointer hover:text-primary-btn hover:font-extrabold'>
-                                                {item.name}
-                                              </span>
-                                            </div>
-                                          ) : (
-                                            <Link
-                                              to={item.href}
-                                              className=' text-black-75 block px-4 py-3 text-sm hover:text-primary-btn hover:font-extrabold'
-                                            >
-                                              {item.name}
-                                            </Link>
-                                          )}
-                                        </li>
-                                      ))}
-                                    </ul>
-                                  </div>
-                                )}
+                  <DropdownMenu
+                    onSelect={handleDropdownSelect}
+                    closeDropdown={() => setIsDropdownOpen(false)}
+                  />
+                )}
               </>
             ) : (
               <Link to='/login'>

@@ -6,12 +6,7 @@ import { IoSearchOutline } from 'react-icons/io5';
 import avatarImg from '../../assets/avatar.png';
 import { createSearchBooksAsync } from '../../redux/features/search/searchAsyncActions';
 import { useAuth } from '../../context/AuthContext';
-
-const navigation = [
-  { name: 'Dashboard', href: '/dashboard' },
-  { name: 'Mon compte', href: '/mon-compte' },
-  { name: 'Se déconnecter', href: '/logout' },
-];
+import DropdownMenu from './DropdownMenu';
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -22,10 +17,6 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    logout();
-  };
-
   const handleSearch = async () => {
     if (searchTerm) {
       await dispatch(
@@ -35,9 +26,17 @@ const Navbar = () => {
     }
   };
 
+  // Enable Search Form action with Enter key
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       handleSearch();
+    }
+  };
+
+  // Callback to handle dropdown logout selection
+  const handleDropdownSelect = (item) => {
+    if (item.name === 'Se déconnecter') {
+      logout();
     }
   };
 
@@ -65,7 +64,6 @@ const Navbar = () => {
       <nav className='flex justify-between items-center px-[64px] md:px-[128px] py-[17px]'>
         {/* Left side */}
         <div className='flex items-center gap-4'>
-          {/* Search Input */}
           <div className='relative w-[100%] md:w-[480px]'>
             <IoSearchOutline className='absolute left-3 inset-y-0 my-auto' />
             <input
@@ -78,7 +76,6 @@ const Navbar = () => {
             />
           </div>
 
-          {/* Search Button */}
           <button
             onClick={handleSearch}
             className='cursor-pointer hidden sm:block font-merriweather text-white-bg bg-primary-btn px-6 h-8 text-small hover:bg-secondary-btn active:bg-black-75'
@@ -99,16 +96,14 @@ const Navbar = () => {
             <FaBookOpen className='w-6 h-6 text-white-bg hover:text-primary-btn' />
           </Link>
 
-          {/* Display Name */}
-          {currentUser && currentUser.displayName ? (
+          {/* User displayName */}
+          {currentUser && currentUser.displayName && (
             <div className='text-white-bg font-merriweather'>
               {currentUser.displayName}
             </div>
-          ) : (
-            ''
           )}
 
-          {/* User Icon */}
+          {/* User icon and dropdown */}
           <div className='relative flex items-center' ref={dropdownRef}>
             {currentUser ? (
               <>
@@ -118,9 +113,7 @@ const Navbar = () => {
                 >
                   <img
                     src={
-                      currentUser && currentUser.photoURL
-                        ? currentUser.photoURL
-                        : avatarImg
+                      currentUser.photoURL ? currentUser.photoURL : avatarImg
                     }
                     alt=''
                     className={`size-8 rounded-full ${
@@ -130,39 +123,12 @@ const Navbar = () => {
                     }`}
                   />
                 </button>
-                {/* Show dropdown */}
+
                 {isDropdownOpen && (
-                  <div className='absolute right-0 mt-50 w-40 bg-white shadow-lg rounded-sm z-50'>
-                    <ul className='py-2'>
-                      {navigation.map((item) => (
-                        <li
-                          key={item.name}
-                          onClick={() => {
-                            setIsDropdownOpen(false);
-                            if (item.name === 'Se déconnecter') {
-                              handleLogout();
-                            }
-                          }}
-                        >
-                          {item.name === 'Se déconnecter' ? (
-                            <div>
-                              <hr className='text-black-10 w-[90%] justify-self-center' />
-                              <span className='text-black-75 block px-4 py-3 text-sm cursor-pointer hover:text-primary-btn hover:font-extrabold'>
-                                {item.name}
-                              </span>
-                            </div>
-                          ) : (
-                            <Link
-                              to={item.href}
-                              className=' text-black-75 block px-4 py-3 text-sm hover:text-primary-btn hover:font-extrabold'
-                            >
-                              {item.name}
-                            </Link>
-                          )}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  <DropdownMenu
+                    onSelect={handleDropdownSelect}
+                    closeDropdown={() => setIsDropdownOpen(false)}
+                  />
                 )}
               </>
             ) : (
