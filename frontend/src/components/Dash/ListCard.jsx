@@ -8,12 +8,8 @@ function ListCard({ variant, title, libraryBooks = [] }) {
       .slice(0, 5);
     return (
       <div className='h-[500px] bg-white-bg text-center text-chart-title p-4 overflow-hidden shadow-lg'>
-        {/* Card Title */}
         <div className='mb-8'>{title}</div>
-
-        {/* List */}
         <div>
-          {/* INSERT MAP */}
           {sortedBooks.map((book) => (
             <ListItem key={book.isbn} book={book} />
           ))}
@@ -21,13 +17,17 @@ function ListCard({ variant, title, libraryBooks = [] }) {
       </div>
     );
   } else if (variant === 'favorites') {
+    const sortedBooks = [...libraryBooks]
+      .filter((book) => book.isFavorite === true)
+      .slice(0, 5);
     return (
       <div className='h-[500px] bg-white-bg text-center text-chart-title p-4 overflow-hidden shadow-lg'>
-        {/* Card Title */}
         <div className='mb-8'>{title}</div>
-
-        {/* List */}
-        <div>{/* INSERT MAP */}</div>
+        <div>
+          {sortedBooks.map((book) => (
+            <ListItem key={book.isbn} book={book} />
+          ))}
+        </div>
       </div>
     );
   }
