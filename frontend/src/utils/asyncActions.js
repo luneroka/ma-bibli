@@ -4,9 +4,14 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 export const createGetAllBooksAsync = (type, apiEndpoint) =>
   createAsyncThunk(
     `${type}/getAllBooksAsync`,
-    async ({ token }, { rejectWithValue }) => {
+    async ({ token, category }, { rejectWithValue }) => {
       try {
-        const response = await fetch(apiEndpoint, {
+        let url = apiEndpoint;
+        if (category) {
+          // Append the category query param if provided
+          url += `?category=${encodeURIComponent(category)}`;
+        }
+        const response = await fetch(url, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
