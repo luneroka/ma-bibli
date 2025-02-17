@@ -135,35 +135,38 @@ const NavbarSearch = () => {
                   />
                 </button>
                 {isDropdownOpen && (
-                  <div className='absolute right-0 mt-50 w-40 bg-white-bg shadow-lg rounded-md z-50'>
-                    <ul className='py-2'>
-                      {navigation.map((item) => (
-                        <li
-                          key={item.name}
-                          onClick={() => {
-                            setIsDropdownOpen(false);
-                            if (item.name === 'Se déconnecter') {
-                              handleLogout();
-                            }
-                          }}
-                        >
-                          {item.name === 'Se déconnecter' ? (
-                            <span className='block px-4 py-3 text-sm hover:bg-gray-100 cursor-pointer'>
-                              {item.name}
-                            </span>
-                          ) : (
-                            <Link
-                              to={item.href}
-                              className='block px-4 py-3 text-sm hover:bg-gray-100'
-                            >
-                              {item.name}
-                            </Link>
-                          )}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+                                  <div className='absolute right-0 mt-50 w-40 bg-white shadow-lg rounded-sm z-50'>
+                                    <ul className='py-2'>
+                                      {navigation.map((item) => (
+                                        <li
+                                          key={item.name}
+                                          onClick={() => {
+                                            setIsDropdownOpen(false);
+                                            if (item.name === 'Se déconnecter') {
+                                              handleLogout();
+                                            }
+                                          }}
+                                        >
+                                          {item.name === 'Se déconnecter' ? (
+                                            <div>
+                                              <hr className='text-black-10 w-[90%] justify-self-center' />
+                                              <span className='text-black-75 block px-4 py-3 text-sm cursor-pointer hover:text-primary-btn hover:font-extrabold'>
+                                                {item.name}
+                                              </span>
+                                            </div>
+                                          ) : (
+                                            <Link
+                                              to={item.href}
+                                              className=' text-black-75 block px-4 py-3 text-sm hover:text-primary-btn hover:font-extrabold'
+                                            >
+                                              {item.name}
+                                            </Link>
+                                          )}
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  </div>
+                                )}
               </>
             ) : (
               <Link to='/login'>

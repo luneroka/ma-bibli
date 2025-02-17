@@ -101,7 +101,9 @@ const Navbar = () => {
 
           {/* Display Name */}
           {currentUser && currentUser.displayName ? (
-            <div className='text-white-bg font-merriweather'>{currentUser.displayName}</div>
+            <div className='text-white-bg font-merriweather'>
+              {currentUser.displayName}
+            </div>
           ) : (
             ''
           )}
@@ -130,7 +132,7 @@ const Navbar = () => {
                 </button>
                 {/* Show dropdown */}
                 {isDropdownOpen && (
-                  <div className='absolute right-0 mt-50 w-40 bg-white-bg shadow-lg rounded-md z-50'>
+                  <div className='absolute right-0 mt-50 w-40 bg-white shadow-lg rounded-sm z-50'>
                     <ul className='py-2'>
                       {navigation.map((item) => (
                         <li
@@ -143,13 +145,16 @@ const Navbar = () => {
                           }}
                         >
                           {item.name === 'Se déconnecter' ? (
-                            <span className='block px-4 py-3 text-sm hover:bg-gray-100 cursor-pointer'>
-                              {item.name}
-                            </span>
+                            <div>
+                              <hr className='text-black-10 w-[90%] justify-self-center' />
+                              <span className='text-black-75 block px-4 py-3 text-sm cursor-pointer hover:text-primary-btn hover:font-extrabold'>
+                                {item.name}
+                              </span>
+                            </div>
                           ) : (
                             <Link
                               to={item.href}
-                              className='block px-4 py-3 text-sm hover:bg-gray-100'
+                              className=' text-black-75 block px-4 py-3 text-sm hover:text-primary-btn hover:font-extrabold'
                             >
                               {item.name}
                             </Link>
