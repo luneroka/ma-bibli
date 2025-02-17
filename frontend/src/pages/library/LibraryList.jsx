@@ -66,10 +66,12 @@ function LibraryList() {
           onChange={handleCategoryChange}
         >
           {/* Option to reset filter */}
-          <option value=''>Toutes catégories</option>
+          <option value=''>Tous genres</option>
           {categories.map((cat) => (
             <option key={cat} value={cat}>
-              {cat}
+              <span className='block px-4 py-3 text-sm hover:bg-gray-100 cursor-pointer'>
+                {cat}
+              </span>
             </option>
           ))}
         </select>
