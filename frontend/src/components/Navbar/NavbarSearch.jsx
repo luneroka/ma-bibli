@@ -12,12 +12,10 @@ const NavbarSearch = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const initialSearchTerm = location.state?.searchTerm || '';
   const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
-
   const { currentUser } = useAuth();
 
   useEffect(() => {
@@ -33,7 +31,7 @@ const NavbarSearch = () => {
     navigate('/recherche', { state: { searchTerm } });
   };
 
-  // Enable Search Form action with Enter key
+  // Submit search form with 'Enter' key
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       handleSearch();
@@ -51,6 +49,7 @@ const NavbarSearch = () => {
         {/* Middle */}
         <div className='flex items-center gap-4'>
           <div className='relative w-[100%] md:w-[480px]'>
+            {/* Search Form */}
             <IoSearchOutline className='absolute left-3 inset-y-0 my-auto' />
             <input
               type='text'

@@ -12,8 +12,7 @@ const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const dropdownRef = useRef(null);
-
-  const { currentUser, logout } = useAuth();
+  const { currentUser } = useAuth();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -26,7 +25,7 @@ const Navbar = () => {
     }
   };
 
-  // Enable Search Form action with Enter key
+  // Submit search form with 'Enter' key
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       handleSearch();
@@ -38,6 +37,7 @@ const Navbar = () => {
       <nav className='flex justify-between items-center px-[64px] md:px-[128px] py-[17px]'>
         {/* Left side */}
         <div className='flex items-center gap-4'>
+          {/* Search Form */}
           <div className='relative w-[100%] md:w-[480px]'>
             <IoSearchOutline className='absolute left-3 inset-y-0 my-auto' />
             <input
