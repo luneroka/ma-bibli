@@ -17,7 +17,7 @@ function DashBody() {
 
       {/* Graph Card */}
       <div className='col-span-2'>
-        <GraphCard />
+        <GraphCard libraryBooks={libraryBooks} />
       </div>
 
       {/* List Card */}

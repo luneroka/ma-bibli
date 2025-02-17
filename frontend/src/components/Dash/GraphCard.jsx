@@ -1,6 +1,7 @@
 import React from 'react';
+import DoughnutGraph from './DoughnutGraph';
 
-function GraphCard() {
+function GraphCard({ libraryBooks = [] }) {
   return (
     <div className='h-[500px] bg-white-bg shadow-lg'>
       <div className='bg-white-bg text-center text-chart-title p-4'>
@@ -9,7 +10,7 @@ function GraphCard() {
 
         {/* Graph */}
         <div className='flex justify-center'>
-          <img src='/Mock-graph.png' alt='' />
+          <DoughnutGraph libraryBooks={libraryBooks} />
         </div>
       </div>
     </div>
