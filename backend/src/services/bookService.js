@@ -1,3 +1,5 @@
+const { mapBookCategory } = require('../utils/helper');
+
 const transformGoogleBook = (googleBook) => {
   if (!googleBook?.volumeInfo) return null;
   const volume = googleBook.volumeInfo;
@@ -21,6 +23,12 @@ const transformGoogleBook = (googleBook) => {
     coverUrl = `/api/proxy-image?url=${encodeURIComponent(coverUrl)}`;
   }
 
+  // Map book category
+  const category =
+    volume.categories && volume.categories.length > 0
+      ? mapBookCategory(volume.categories[0])
+      : 'Non catégorisé';
+
   return {
     isbn,
     title: volume.title || '',
@@ -29,7 +37,7 @@ const transformGoogleBook = (googleBook) => {
     publishedDate: volume.publishedDate || '',
     description: volume.description || '',
     pageCount: volume.pageCount || 0,
-    categories: volume.categories || [],
+    category: category || 'Non catégorisé',
     cover: coverUrl,
   };
 };
