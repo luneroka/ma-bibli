@@ -12,8 +12,8 @@ function DashBody() {
       {/* Metrics Cards */}
       <MetricCard variant='books' libraryBooks={libraryBooks} />
       <MetricCard variant='pageCount' libraryBooks={libraryBooks} />
-      <MetricCard variant='topGenre' />
-      <MetricCard variant='fav' />
+      <MetricCard variant='topGenre' libraryBooks={libraryBooks} />
+      <MetricCard variant='topAuthor' libraryBooks={libraryBooks} />
 
       {/* Graph Card */}
       <div className='col-span-2'>

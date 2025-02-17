@@ -51,3 +51,29 @@ export function getMostRepeatedValue(arr, key) {
 
   return mostRepeated;
 }
+
+export function getMostRepeatedAuthor(books) {
+  const counts = {};
+  books.forEach((book) => {
+    const authors = book.authors;
+    if (Array.isArray(authors)) {
+      authors.forEach((author) => {
+        if (typeof author === 'string') {
+          counts[author] = (counts[author] || 0) + 1;
+        }
+      });
+    }
+  });
+
+  let mostRepeated = '';
+  let maxCount = 0;
+
+  Object.entries(counts).forEach(([author, count]) => {
+    if (count > maxCount) {
+      maxCount = count;
+      mostRepeated = author;
+    }
+  });
+
+  return mostRepeated;
+}
