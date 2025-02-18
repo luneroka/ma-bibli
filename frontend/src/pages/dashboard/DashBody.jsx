@@ -23,12 +23,10 @@ function DashBody() {
       {/* List Card */}
       <ListCard
         variant='recent'
-        title='Ajoutés récemment'
         libraryBooks={libraryBooks}
       />
       <ListCard
         variant='favorites'
-        title='Coups de coeur'
         libraryBooks={libraryBooks}
       />
     </div>

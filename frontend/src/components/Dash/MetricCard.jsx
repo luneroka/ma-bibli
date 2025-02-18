@@ -3,12 +3,15 @@ import {
   getMostRepeatedValue,
   getMostRepeatedAuthor,
 } from '../../utils/helper';
+import { FaHeart } from 'react-icons/fa';
 
 function MetricCard({ variant, libraryBooks = [] }) {
   if (variant === 'books') {
     return (
       <div className='h-[120px] pl-[64px] bg-white-bg flex flex-col justify-center shadow-lg'>
-        <p className='text-metrics-number text-secondary-btn'>{libraryBooks.length}</p>
+        <p className='text-metrics-number text-secondary-btn'>
+          {libraryBooks.length}
+        </p>
         <p className='text-metrics-type font-light'>Livres</p>
       </div>
     );
@@ -41,7 +44,7 @@ function MetricCard({ variant, libraryBooks = [] }) {
         <p className='text-metrics-number text-secondary-btn'>
           {getMostRepeatedAuthor(libraryBooks)}
         </p>
-        <p className='text-metrics-type font-light'>Top Auteur/Autrice</p>
+        <p className='text-metrics-type font-light'>Top Auteur</p>
       </div>
     );
   }
