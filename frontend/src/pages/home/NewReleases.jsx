@@ -42,6 +42,7 @@ const NewReleases = ({ newest, libraryBooks = [], readingListBooks = [] }) => {
           {newest.map((book) => (
             <SwiperSlide key={book.isbn}>
               <BookCard
+                variant='card'
                 book={book}
                 libraryBooks={libraryBooks}
                 readingListBooks={readingListBooks}

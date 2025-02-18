@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSingleBookAsync } from '../../redux/features/single-book/singleBookAsyncActions';
-import NavbarLibrary from '../../components//Navbar/NavbarLibrary';
+import NavbarLibrary from '../../components/Navbar/NavbarLibrary';
 import Footer from '../../components/Footer';
 import BookCard from '../../components/Book/BookCard';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -10,16 +10,21 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Pagination, Navigation } from 'swiper/modules';
+import { createSearchAuthorAsync } from '../../redux/features/search/searchAsyncActions';
 
 function SingleBookPage() {
   const { isbn } = useParams();
   const dispatch = useDispatch();
-  const { book, status, error } = useSelector((state) => state.singleBook);
+  const { book } = useSelector((state) => state.singleBook);
   const libraryBooks = useSelector((state) => state.library.libraryBooks);
   const readingListBooks = useSelector(
     (state) => state.readingList.readingListBooks
   );
 
+  // Local state for author books
+  const [authorBooks, setAuthorBooks] = useState([]);
+
+  // GET SINGLE BOOK
   useEffect(() => {
     if (isbn) {
       dispatch(getSingleBookAsync(isbn));
@@ -28,13 +33,38 @@ function SingleBookPage() {
     }
   }, [dispatch, isbn]);
 
-  if (status === 'loading') {
-    return <div>Loading...</div>;
-  }
+  // GET BOOKS FROM SAME AUTHOR using local state
+  useEffect(() => {
+    // Clear previous search results immediately
+    setAuthorBooks([]);
+    let cancelled = false; // local flag for cancellation
 
-  if (status === 'failed') {
-    return <div>Error: {error}</div>;
-  }
+    if (book?.authors?.length > 0) {
+      const searchTerm = book.authors[0];
+      dispatch(
+        createSearchAuthorAsync(
+          'searchAuthor',
+          '/api/search/author'
+        )(searchTerm)
+      )
+        .unwrap()
+        .then((data) => {
+          if (!cancelled) {
+            setAuthorBooks(data?.items || []);
+          }
+        })
+        .catch((error) => {
+          if (!cancelled) {
+            console.error('Search author error:', error);
+            setAuthorBooks([]);
+          }
+        });
+    }
+
+    return () => {
+      cancelled = true; // ignore resolution if effect is cleaned up
+    };
+  }, [dispatch, isbn, book]);
 
   return (
     <>
@@ -49,8 +79,11 @@ function SingleBookPage() {
               readingListBooks={readingListBooks}
             />
 
-            <h2 className='mt-[64px] mb-[32px]'>Du même auteur</h2>
+            <h2 className='mt-[64px] mb-[32px] font-merriweather text-h6'>
+              Du même auteur
+            </h2>
             <Swiper
+              key={isbn}
               slidesPerView={1}
               spaceBetween={30}
               navigation={true}
@@ -75,16 +108,11 @@ function SingleBookPage() {
               modules={[Pagination, Navigation]}
               className='mySwiper'
             >
-              <div className='flex gap-[145px]'>
-                {libraryBooks.map((book) => (
-                  <SwiperSlide key={book.isbn}>
-                    <BookCard
-                      variant='author'
-                      book={book}
-                    />
-                  </SwiperSlide>
-                ))}
-              </div>
+              {authorBooks.map((authorBook, index) => (
+                <SwiperSlide key={authorBook.isbn || `author-${index}`}>
+                  <BookCard variant='author' book={authorBook} />
+                </SwiperSlide>
+              ))}
             </Swiper>
           </>
         ) : (

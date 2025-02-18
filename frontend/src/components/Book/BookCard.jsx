@@ -22,9 +22,9 @@ import { useAuth } from '../../context/AuthContext';
 
 const BookCard = ({
   book,
+  variant,
   libraryBooks = [],
   readingListBooks = [],
-  variant = 'card',
 }) => {
   const { currentUser } = useAuth();
   const dispatch = useDispatch();

@@ -20,6 +20,7 @@ function SearchResults({ searchResults = { items: [] } }) {
             .filter((book) => book && (book.isbn || book.title))
             .map((book) => (
               <BookCard
+                variant='card'
                 key={book.isbn}
                 book={book}
                 libraryBooks={libraryBooks}
