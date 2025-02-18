@@ -6,6 +6,13 @@ import { getLibraryBooksAsync } from '../../redux/features/library/libraryAsyncA
 import { Listbox, Transition } from '@headlessui/react';
 import { ChevronUpDownIcon, CheckIcon } from '@heroicons/react/20/solid';
 
+// Swiper imports
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import { Pagination, Navigation } from 'swiper/modules';
+
 function LibraryList() {
   const dispatch = useDispatch();
   const { currentUser } = useAuth();
@@ -13,7 +20,7 @@ function LibraryList() {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
 
-  // Fetch distinct categories when component mounts
+  // Fetch distinct categories
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -36,10 +43,12 @@ function LibraryList() {
         console.error(error);
       }
     };
-    fetchCategories();
+    if (currentUser) {
+      fetchCategories();
+    }
   }, [currentUser]);
 
-  // Fetch filtered books when a category is selected.
+  // Fetch filtered books when a category is selected
   useEffect(() => {
     if (currentUser) {
       currentUser.getIdToken().then((token) => {
@@ -48,7 +57,7 @@ function LibraryList() {
     }
   }, [selectedCategory, currentUser, dispatch]);
 
-  // When leaving the library page, reset the filter (load full data)
+  // Reset the filter (load all data) on unmount
   useEffect(() => {
     return () => {
       if (currentUser) {
@@ -59,9 +68,26 @@ function LibraryList() {
     };
   }, [dispatch, currentUser]);
 
+  // Helper: group all retrieved books by category
+  const groupByGenre = (books) => {
+    const map = {};
+    books.forEach((book) => {
+      const genre = book.category || 'Autres';
+      if (!map[genre]) {
+        map[genre] = [];
+      }
+      map[genre].push(book);
+    });
+    return map;
+  };
+
+  // Group books into an object like { "Science-Fiction": [book, ...], "Fantastique": [book, ...] }
+  const grouped = groupByGenre(libraryBooks);
+
   return (
     <>
-      <div className='flex justify-between items-center gap-8 mt-[64px] mb-[32px]'>
+      {/* Page header */}
+      <div className='flex justify-between items-center gap-8 mt-[48px] mb-5'>
         <h3 className='text-h3 text-black font-merriweather'>Ma Bibli</h3>
         <Listbox value={selectedCategory} onChange={setSelectedCategory}>
           <div className='relative'>
@@ -80,8 +106,8 @@ function LibraryList() {
               leaveFrom='opacity-100'
               leaveTo='opacity-0'
             >
-              <Listbox.Options className='absolute mt-1 w-[250px] bg-white shadow-lg z-10'>
-                {/* Option for all genres */}
+              <Listbox.Options className='absolute mt-1 w-[250px] bg-white shadow-lg z-50'>
+                {/* "All" option */}
                 <Listbox.Option
                   value=''
                   className={({ active }) =>
@@ -107,6 +133,8 @@ function LibraryList() {
                     </>
                   )}
                 </Listbox.Option>
+
+                {/* Category options */}
                 {categories.map((cat) => (
                   <Listbox.Option
                     key={cat}
@@ -143,12 +171,51 @@ function LibraryList() {
         </Listbox>
       </div>
 
-      <div className='flex flex-wrap gap-7 mt-[32px]'>
-        {libraryBooks.length > 0 &&
-          libraryBooks.map((book) => (
-            <BookInLibrary key={book.isbn} book={book} />
-          ))}
-      </div>
+      {/* Render "Shelves" */}
+      {Object.entries(grouped).map(([genre, books]) => {
+        // If user selected a specific category, skip rendering shelves of other genres.
+        if (selectedCategory && selectedCategory !== genre) {
+          return null;
+        }
+
+        return (
+          <div key={genre} className='mb-6'>
+            {/* Shelf heading */}
+            <h4 className='text-h5 text-black font-merriweather mb-2'>
+              {genre}
+            </h4>
+
+            {/* The "Shelf" styling — optional, you could add a background or 
+                an actual shelf image behind the Swiper if you want a more thematic look. */}
+            <div className='bg-white border-b border-gray-200 py-2 px-2'>
+              <Swiper
+                slidesPerView={2}
+                spaceBetween={10}
+                navigation={true}
+                breakpoints={{
+                  640: {
+                    slidesPerView: 2,
+                  },
+                  880: {
+                    slidesPerView: 3,
+                  },
+                  1250: {
+                    slidesPerView: 12,
+                  },
+                }}
+                modules={[Pagination, Navigation]}
+                className='my-custom-swiper   overflow-visible'
+              >
+                {books.map((bookItem) => (
+                  <SwiperSlide key={bookItem.isbn}>
+                    <BookInLibrary book={bookItem} />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+          </div>
+        );
+      })}
     </>
   );
 }
