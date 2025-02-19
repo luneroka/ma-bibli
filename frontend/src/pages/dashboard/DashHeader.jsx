@@ -13,9 +13,9 @@ function DashHeader() {
       <div className='flex gap-4 text-sm md:text-base text-black-50 my-2 md:my-0'>
         <p>Total</p>
         <p>|</p>
-        <p>6 derniers mois</p>
-        <p>|</p>
         <p>30 derniers jours</p>
+        <p>|</p>
+        <p>7 derniers jours</p>
       </div>
 
       {/* Library Button */}
