@@ -12,6 +12,15 @@
   --color-black-25: rgba(38, 31, 34, 0.25);
   --color-black-10: rgba(38, 31, 34, 0.1);
   --color-black-5: rgba(38, 31, 34, 0.05);
+  --color-alert-red-txt: rgb(114, 28, 36);
+  --color-alert-red-bg: rgb(248, 215, 218);
+  --color-alert-red-border: rgb(245, 198, 203);
+  --color-alert-green-txt: rgb(21, 87, 36);
+  --color-alert-green-bg: rgb(212, 237, 218);
+  --color-alert-green-border: rgb(195, 230, 203);
+  --color-alert-yellow-txt: rgb(133, 100, 4);
+  --color-alert-yellow-bg: rgb(255, 243, 205);
+  --color-alert-yellow-border: rgb(255, 238, 186);
   --font-merriweather: Merriweather, serif;
   --font-lato: Lato, serif;
   --text-body: 1rem;

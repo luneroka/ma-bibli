@@ -29,7 +29,7 @@ function Login() {
       await loginUser(data.email, data.password);
       navigate(redirectTo);
     } catch (error) {
-      setMessage('Veuillez fournir un email et un mot de passe valides.');
+      setMessage({text: 'Veuillez fournir un email et un mot de passe valides.', type: 'failure'});
     }
   };
 
@@ -58,6 +58,22 @@ function Login() {
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className='mb-4'>
+
+              {/* Error Message */}
+              {message.text && (
+                <p
+                  className={`text-small mb-4 p-2 ${
+                    message.type === 'success'
+                      ? 'text-alert-green-txt bg-alert-green-bg border-alert-green-border'
+                      : (message.type = 'failure'
+                          ? 'text-alert-red-txt bg-alert-red-bg border-alert-red-border'
+                          : 'text-alert-yellow-txt bg-alert-yellow-bg border-alert-yellow-border')
+                  }`}
+                >
+                  {message.text}
+                </p>
+              )}
+
               {/* Email Input */}
               <label
                 htmlFor='email'
@@ -122,11 +138,6 @@ function Login() {
                 </Link>
               </div>
             </div>
-
-            {/* Error Message */}
-            {message && (
-              <p className='text-primary-btn text-small italic mb-4'>{message}</p>
-            )}
 
             {/* Connect Button */}
             <button

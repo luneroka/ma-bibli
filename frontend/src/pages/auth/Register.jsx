@@ -38,7 +38,11 @@ function Register() {
 
   const onSubmit = async (data) => {
     if (passwordValues.new !== passwordValues.confirm) {
-      setMessage('Les nouveaux mots de passe ne correspondent pas.');
+      setMessage({
+        text: 'Les nouveaux mots de passe ne correspondent pas.',
+        type: 'failure',
+      });
+      setPasswordValues({ new: '', confirm: '' });
       return;
     }
     try {
@@ -46,7 +50,11 @@ function Register() {
       alert('Votre compte a été créé avec succès!');
       navigate('/login');
     } catch (error) {
-      setMessage('Veuillez fournir un email et un mot de passe valides.');
+      setMessage({
+        text: 'Veuillez fournir un email et un mot de passe valides.',
+        type: 'failure',
+      });
+      setPasswordValues({ new: '', confirm: '' });
       console.error(error);
     }
   };
@@ -72,6 +80,21 @@ function Register() {
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className='mb-4'>
+              {/* Error Message */}
+              {message.text && (
+                <p
+                  className={`text-small mb-4 p-2 ${
+                    message.type === 'success'
+                      ? 'text-alert-green-txt bg-alert-green-bg border-alert-green-border'
+                      : (message.type = 'failure'
+                          ? 'text-alert-red-txt bg-alert-red-bg border-alert-red-border'
+                          : 'text-alert-yellow-txt bg-alert-yellow-bg border-alert-yellow-border')
+                  }`}
+                >
+                  {message.text}
+                </p>
+              )}
+
               {/* Email Input */}
               <label
                 htmlFor='email'
@@ -123,13 +146,6 @@ function Register() {
                 ))}
               </div>
             </div>
-
-            {/* Error Message */}
-            {message && (
-              <p className='text-primary-btn text-small italic mb-4'>
-                {message}
-              </p>
-            )}
 
             {/* Register Button */}
             <button className='cursor-pointer font-merriweather text-white-bg bg-primary-btn px-6 h-10 w-full text-small-body md:text-body hover:bg-secondary-btn active:bg-black-75'>

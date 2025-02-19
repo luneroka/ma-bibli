@@ -12,7 +12,7 @@ function UserAccount() {
   const [displayName, setDisplayName] = useState(
     currentUser?.displayName || ''
   );
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState({ text: '', type: '' });
 
   // Common input classes
   const inputClass =
@@ -42,18 +42,30 @@ function UserAccount() {
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
     if (!displayName) {
-      setMessage('Le nom d’utilisateur ne peut pas être vide.');
+      setMessage({
+        text: 'Le nom d’utilisateur ne peut pas être vide.',
+        type: 'failure',
+      });
       return;
     }
     if (displayName === currentUser.displayName) {
-      setMessage('Le nouveau nom doit être différent du précédent.');
+      setMessage({
+        text: 'Le nouveau nom doit être différent du précédent.',
+        type: 'failure',
+      });
       return;
     }
     try {
       await updateUserProfile(displayName);
-      setMessage('Nom d’utilisateur mis à jour avec succès !');
+      setMessage({
+        text: 'Nom d’utilisateur mis à jour avec succès !',
+        type: 'success',
+      });
     } catch (error) {
-      setMessage('Erreur lors de la mise à jour du nom d’utilisateur.');
+      setMessage({
+        text: 'Erreur lors de la mise à jour du nom d’utilisateur.',
+        type: 'failure',
+      });
       console.error(error);
     }
   };
@@ -61,16 +73,25 @@ function UserAccount() {
   const handleUpdatePassword = async (e) => {
     e.preventDefault();
     if (passwordValues.new !== passwordValues.confirm) {
-      setMessage('Les nouveaux mots de passe ne correspondent pas.');
+      setMessage({
+        text: 'Les nouveaux mots de passe ne correspondent pas.',
+        type: 'failure',
+      });
       return;
     }
     try {
       await updateUserPassword(passwordValues.current, passwordValues.new);
-      setMessage('Mot de passe mis à jour avec succès !');
+      setMessage({
+        text: 'Mot de passe mis à jour avec succès !',
+        type: 'success',
+      });
       // Clear the password fields
       setPasswordValues({ current: '', new: '', confirm: '' });
     } catch (error) {
-      setMessage('Erreur lors de la mise à jour du mot de passe');
+      setMessage({
+        text: 'Erreur lors de la mise à jour du mot de passe',
+        type: 'failure',
+      });
       console.error(error);
     }
   };
@@ -92,8 +113,18 @@ function UserAccount() {
     <div className='flex flex-col flex-1 min-h-0 min-w-[500px] max-w-full mx-auto font-lato'>
       <div className='flex-grow flex items-center justify-center mt-[64px]'>
         <div className='bg-white p-8 shadow-md w-full max-w-md'>
-          {message && (
-            <p className='text-small text-primary-btn italic mb-4'>{message}</p>
+          {message.text && (
+            <p
+              className={`text-small mb-4 p-2 ${
+                message.type === 'success'
+                  ? 'text-alert-green-txt bg-alert-green-bg border-alert-green-border'
+                  : (message.type = 'failure'
+                      ? 'text-alert-red-txt bg-alert-red-bg border-alert-red-border'
+                      : 'text-alert-yellow-txt bg-alert-yellow-bg border-alert-yellow-border')
+              }`}
+            >
+              {message.text}
+            </p>
           )}
           {/* Update Profile Form */}
           <form onSubmit={handleUpdateProfile}>
