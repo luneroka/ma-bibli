@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { TiDelete } from 'react-icons/ti';
 import { removeFromReadingListAsync } from '../../redux/features/reading-list/readingListAsyncActions';
 import { IoIosAddCircleOutline } from 'react-icons/io';
-import { FaCheckCircle } from 'react-icons/fa';
+import { FaCheckCircle, FaSpinner } from 'react-icons/fa';
 import { addToLibraryAsync } from '../../redux/features/library/libraryAsyncActions';
 import { useAuth } from '../../context/AuthContext';
 
 function BookInReadingList({ book, libraryBooks = [] }) {
   const { currentUser } = useAuth();
   const dispatch = useDispatch();
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const handleRemoveFromReadingList = async (isbn) => {
     if (!currentUser) return;
@@ -44,17 +45,25 @@ function BookInReadingList({ book, libraryBooks = [] }) {
         <div className='relative gap-1'>
           {/* Book Cover */}
           <Link to={`/livres/${book.isbn}`}>
-            <img
-              src={book.cover}
-              alt='Book Cover'
-              className='w-[125px] h-[175px] cursor-pointer hover:scale-105 transition-all duration-200'
-            />
+            <div className='relative w-[125px] h-[175px] flex items-center justify-center'>
+              {!imageLoaded && (
+                <FaSpinner className='animate-spin text-3xl text-gray-500 absolute inset-0 m-auto' />
+              )}
+              <img
+                src={book.cover}
+                alt='Book Cover'
+                onLoad={() => setImageLoaded(true)}
+                className={`w-[125px] h-[175px] object-contain cursor-pointer hover:scale-105 transition-all duration-200 ${
+                  !imageLoaded ? 'hidden' : ''
+                }`}
+              />
+            </div>
           </Link>
 
           {/* Remove Button */}
           <button
             onClick={() => handleRemoveFromReadingList(book.isbn)}
-            className='absolute top-1 right-1 rounded-full shadow-md hover:text-primary-btn text-black-75 bg-white-bg  cursor-pointer hover:scale-150 transition-all duration-200'
+            className='absolute top-1 right-1 rounded-full shadow-md hover:text-primary-btn text-black-75 bg-white-bg cursor-pointer hover:scale-150 transition-all duration-200'
           >
             <TiDelete />
           </button>
