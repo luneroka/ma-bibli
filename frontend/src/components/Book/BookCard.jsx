@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   FaRegBookmark,
   FaBookmark,
   FaCheckCircle,
   FaHeart,
+  FaSpinner, // <-- added spinner
 } from 'react-icons/fa';
 import { IoIosAddCircleOutline, IoIosLogIn } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
@@ -31,6 +32,9 @@ const BookCard = ({
   const navigate = useNavigate();
   const favorites = useSelector((state) => state.favorites.favorites) || [];
   const isFavorite = favorites?.some((fav) => fav.isbn === book.isbn);
+
+  // New state to track image loading
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const handleAddToLibrary = async (book) => {
     if (!currentUser) return;
@@ -106,13 +110,19 @@ const BookCard = ({
       <>
         <div id='book-card' className='flex flex-col justify-between'>
           <div className='flex gap-[24px]'>
-            {/* Book Cover */}
-            <div className='flex w-[121px] h-[170px] flex-shrink-0 items-center'>
+            {/* Book Cover with loading spinner */}
+            <div className='flex w-[121px] h-[170px] relative flex-shrink-0 items-center justify-center'>
+              {!imageLoaded && (
+                <FaSpinner className='animate-spin text-3xl text-gray-500' />
+              )}
               <Link to={`/livres/${book.isbn}`}>
                 <img
                   src={book.cover || '../../../public/product-not-found.png'}
                   alt='Couverture non disponible'
-                  className='w-full h-full cursor-pointer hover:scale-105 transition-all duration-200'
+                  onLoad={() => setImageLoaded(true)}
+                  className={`w-full h-full cursor-pointer hover:scale-105 transition-all duration-200 ${
+                    !imageLoaded ? 'hidden' : ''
+                  }`}
                   style={{ width: '121px', height: '170px' }}
                 />
               </Link>
@@ -229,12 +239,16 @@ const BookCard = ({
       <>
         <div id='book-card' className='flex flex-col justify-between'>
           <div className='flex gap-[24px]'>
-            {/* Book Cover */}
-            <div className='w-[220px] h-[330px] flex-shrink-0'>
+            {/* Book Cover with spinner */}
+            <div className='w-[220px] h-[330px] relative flex-shrink-0 flex items-center justify-center'>
+              {!imageLoaded && (
+                <FaSpinner className='animate-spin text-3xl text-gray-500' />
+              )}
               <img
                 src={book.cover || '../../../public/product-not-found.png'}
                 alt='Couverture non disponible'
-                className='w-full h-full'
+                onLoad={() => setImageLoaded(true)}
+                className={`w-full h-full ${!imageLoaded ? 'hidden' : ''}`}
               />
             </div>
 
