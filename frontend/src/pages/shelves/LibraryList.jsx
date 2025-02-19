@@ -89,7 +89,11 @@ function LibraryList() {
       {/* Page header */}
       <div className='flex justify-between items-center gap-8 mt-[48px] mb-5 '>
         <h3 className='text-h3 text-black font-merriweather'>Ma Bibli</h3>
-        <Listbox value={selectedCategory} onChange={setSelectedCategory}>
+        <Listbox
+          value={selectedCategory}
+          onChange={setSelectedCategory}
+          className='z-10' // Lowered z-index so it sits behind the navbar dropdown
+        >
           <div className='relative'>
             <Listbox.Button className='text-small py-1 px-4 bg-secondary-btn text-white-bg w-[250px] focus:outline-none text-left'>
               {selectedCategory || 'Tous genres'}
@@ -106,7 +110,7 @@ function LibraryList() {
               leaveFrom='opacity-100'
               leaveTo='opacity-0'
             >
-              <Listbox.Options className='absolute mt-1 w-[250px] shadow-lg z-50'>
+              <Listbox.Options className='absolute mt-1 w-[250px] bg-white shadow-lg'>
                 {/* "All" option */}
                 <Listbox.Option
                   value=''
@@ -179,40 +183,36 @@ function LibraryList() {
         }
 
         return (
-          <div key={genre} className='mb-6'>
+          <div key={genre} className='mb-10'>
             {/* Shelf heading */}
             <h4 className='text-h5 text-black font-merriweather mb-2'>
               {genre}
             </h4>
 
-            {/* The "Shelf" styling — optional, you could add a background or 
-                an actual shelf image behind the Swiper if you want a more thematic look. */}
-            <div className='bg-transparent  py-2 px-2'>
-              <Swiper
-                slidesPerView={2}
-                spaceBetween={10}
-                navigation={true}
-                breakpoints={{
-                  640: {
-                    slidesPerView: 2,
-                  },
-                  880: {
-                    slidesPerView: 3,
-                  },
-                  1250: {
-                    slidesPerView: 12,
-                  },
-                }}
-                modules={[Pagination, Navigation]}
-                className='my-custom-swiper overflow-visible'
-              >
-                {books.map((bookItem) => (
-                  <SwiperSlide key={bookItem.isbn}>
-                    <BookInLibrary book={bookItem} />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </div>
+            <Swiper
+              slidesPerView={2}
+              spaceBetween={0}
+              navigation={true}
+              breakpoints={{
+                640: {
+                  slidesPerView: 2,
+                },
+                880: {
+                  slidesPerView: 5,
+                },
+                1250: {
+                  slidesPerView: 8,
+                },
+              }}
+              modules={[Pagination, Navigation]}
+              className='mySwiper'
+            >
+              {books.map((bookItem) => (
+                <SwiperSlide key={bookItem.isbn}>
+                  <BookInLibrary book={bookItem} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
         );
       })}

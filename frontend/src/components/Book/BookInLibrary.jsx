@@ -34,7 +34,7 @@ function BookInLibrary({ book }) {
 
   return (
     <>
-      <div className='relative'>
+      <div className='relative w-[125px] h-[175px]'>
         <Link to={`/livres/${book.isbn}`}>
           <img
             src={book.cover}

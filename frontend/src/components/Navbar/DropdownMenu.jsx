@@ -34,7 +34,7 @@ const DropdownMenu = ({ navigation = defaultNavigation, closeDropdown }) => {
   return (
     <div
       ref={menuRef}
-      className='absolute right-0 mt-50 w-40 bg-white shadow-lg rounded-sm z-50'
+      className='absolute right-0 mt-50 w-40 bg-white shadow-lg rounded-sm z-[9999]'
     >
       <ul className='py-2'>
         {navigation.map((item) => (
