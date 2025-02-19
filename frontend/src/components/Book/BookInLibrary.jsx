@@ -37,7 +37,7 @@ function BookInLibrary({ book }) {
 
   return (
     <>
-      <div className='relative w-[125px] h-[175px]'>
+      <div className='flex w-[125px] h-[175px] relative flex-shrink-0 items-center justify-center'>
         {/* Spinner while image is loading */}
         {!imageLoaded && (
           <FaSpinner className='animate-spin text-xl text-black-50 absolute inset-0 m-auto' />
@@ -47,9 +47,10 @@ function BookInLibrary({ book }) {
             src={book.cover}
             alt='Book Cover'
             onLoad={() => setImageLoaded(true)}
-            className={`w-[125px] h-[175px] object-contain cursor-pointer hover:scale-105 transition-all duration-200 ${
+            className={`w-full h-full cursor-pointer hover:scale-105 transition-all duration-200 ${
               !imageLoaded ? 'hidden' : ''
             }`}
+            style={{ width: '125px', height: '175px' }}
           />
         </Link>
 

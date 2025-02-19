@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { TiDelete } from 'react-icons/ti';
+import { IoIosRemoveCircle } from 'react-icons/io';
 import { removeFromReadingListAsync } from '../../redux/features/reading-list/readingListAsyncActions';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 import { FaCheckCircle, FaSpinner } from 'react-icons/fa';
@@ -42,30 +42,29 @@ function BookInReadingList({ book, libraryBooks = [] }) {
     <>
       <div className='flex flex-col gap-2'>
         {/* Book Info */}
-        <div className='relative gap-1'>
-          {/* Book Cover */}
+        <div className='flex w-[125px] h-[175px] relative flex-shrink-0 items-center justify-center'>
+          {/* Spinner while image is loading */}
+          {!imageLoaded && (
+            <FaSpinner className='animate-spin text-xl text-black-50 absolute inset-0 m-auto' />
+          )}
           <Link to={`/livres/${book.isbn}`}>
-            <div className='relative w-[125px] h-[175px] flex items-center justify-center'>
-              {!imageLoaded && (
-                <FaSpinner className='animate-spin text-xl text-black-50 absolute inset-0 m-auto' />
-              )}
-              <img
-                src={book.cover}
-                alt='Book Cover'
-                onLoad={() => setImageLoaded(true)}
-                className={`w-[125px] h-[175px] object-contain cursor-pointer hover:scale-105 transition-all duration-200 ${
-                  !imageLoaded ? 'hidden' : ''
-                }`}
-              />
-            </div>
+            <img
+              src={book.cover}
+              alt='Book Cover'
+              onLoad={() => setImageLoaded(true)}
+              className={`w-full h-full cursor-pointer hover:scale-105 transition-all duration-200 ${
+                !imageLoaded ? 'hidden' : ''
+              }`}
+              style={{ width: '125px', height: '175px' }}
+            />
           </Link>
 
-          {/* Remove Button */}
+          {/* Delete Button */}
           <button
             onClick={() => handleRemoveFromReadingList(book.isbn)}
             className='absolute top-1 right-1 rounded-full shadow-md hover:text-primary-btn text-black-75 bg-white-bg cursor-pointer hover:scale-150 transition-all duration-200'
           >
-            <TiDelete />
+            <IoIosRemoveCircle className='p-0.25' />
           </button>
         </div>
 
