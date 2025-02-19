@@ -47,7 +47,7 @@ function BookInReadingList({ book, libraryBooks = [] }) {
           <Link to={`/livres/${book.isbn}`}>
             <div className='relative w-[125px] h-[175px] flex items-center justify-center'>
               {!imageLoaded && (
-                <FaSpinner className='animate-spin text-3xl text-gray-500 absolute inset-0 m-auto' />
+                <FaSpinner className='animate-spin text-xl text-black-50 absolute inset-0 m-auto' />
               )}
               <img
                 src={book.cover}

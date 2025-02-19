@@ -40,7 +40,7 @@ function BookInLibrary({ book }) {
       <div className='relative w-[125px] h-[175px]'>
         {/* Spinner while image is loading */}
         {!imageLoaded && (
-          <FaSpinner className='animate-spin text-3xl text-gray-500 absolute inset-0 m-auto' />
+          <FaSpinner className='animate-spin text-xl text-black-50 absolute inset-0 m-auto' />
         )}
         <Link to={`/livres/${book.isbn}`}>
           <img

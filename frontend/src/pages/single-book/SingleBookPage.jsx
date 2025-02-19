@@ -11,6 +11,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Pagination, Navigation } from 'swiper/modules';
 import { createSearchAuthorAsync } from '../../redux/features/search/searchAsyncActions';
+import { FaSpinner } from 'react-icons/fa';
 
 function SingleBookPage() {
   const { isbn } = useParams();
@@ -76,7 +77,9 @@ function SingleBookPage() {
       <NavbarLibrary />
       <main className='flex-1 min-h-0 max-w-full mx-[128px] mt-[64px] font-lato'>
         {isLoading ? (
-          <div className='text-center py-16 text-lg'>Loading...</div>
+          <div className='flex items-center justify-center py-16'>
+            <FaSpinner className='animate-spin text-3xl text-black-50' />
+          </div>
         ) : book ? (
           <>
             <BookCard

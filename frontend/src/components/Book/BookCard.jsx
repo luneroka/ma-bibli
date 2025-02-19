@@ -113,7 +113,7 @@ const BookCard = ({
             {/* Book Cover with loading spinner */}
             <div className='flex w-[121px] h-[170px] relative flex-shrink-0 items-center justify-center'>
               {!imageLoaded && (
-                <FaSpinner className='animate-spin text-3xl text-gray-500' />
+                <FaSpinner className='animate-spin text-xl text-black-50' />
               )}
               <Link to={`/livres/${book.isbn}`}>
                 <img
@@ -242,7 +242,7 @@ const BookCard = ({
             {/* Book Cover with spinner */}
             <div className='w-[220px] h-[330px] relative flex-shrink-0 flex items-center justify-center'>
               {!imageLoaded && (
-                <FaSpinner className='animate-spin text-3xl text-gray-500' />
+                <FaSpinner className='animate-spin text-xl text-black-50' />
               )}
               <img
                 src={book.cover || '../../../public/product-not-found.png'}
