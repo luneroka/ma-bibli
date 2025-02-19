@@ -1,7 +1,11 @@
 import React from 'react';
 import { FaPen } from 'react-icons/fa';
 
-function DashHeader() {
+function DashHeader({ activeFilter, setActiveFIlter }) {
+  const handleFilterClick = (filterValue) => {
+    setActiveFIlter(filterValue);
+  };
+
   return (
     <div className='flex flex-col md:flex-row justify-between items-center mx-4 md:mx-[128px] mt-4 md:mt-[64px] mb-4 md:mb-[32px]'>
       {/* Title */}
@@ -11,11 +15,38 @@ function DashHeader() {
 
       {/* Filters */}
       <div className='flex gap-4 text-sm md:text-base text-black-50 my-2 md:my-0'>
-        <p>Total</p>
+        <span
+          onClick={() => handleFilterClick('Total')}
+          className={
+            activeFilter === 'Total'
+              ? 'font-bold cursor-pointer'
+              : 'cursor-pointer'
+          }
+        >
+          Total
+        </span>
         <p>|</p>
-        <p>30 derniers jours</p>
+        <span
+          onClick={() => handleFilterClick('30 jours')}
+          className={
+            activeFilter === '30 jours'
+              ? 'font-bold cursor-pointer'
+              : 'cursor-pointer'
+          }
+        >
+          30 derniers jours
+        </span>
         <p>|</p>
-        <p>7 derniers jours</p>
+        <span
+          onClick={() => handleFilterClick('7 jours')}
+          className={
+            activeFilter === '7 jours'
+              ? 'font-bold cursor-pointer'
+              : 'cursor-pointer'
+          }
+        >
+          7 derniers jours
+        </span>
       </div>
 
       {/* Library Button */}
