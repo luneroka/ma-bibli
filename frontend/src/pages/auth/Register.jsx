@@ -15,38 +15,35 @@ function Register() {
   } = useForm();
 
   // Local state for password visibility and values
-  const [passwordVisibility, setPasswordVisibility] = useState({
-    new: false,
-    confirm: false,
-  });
-  const [passwordValues, setPasswordValues] = useState({
-    new: '',
-    confirm: '',
-  });
+  const [passwordVisibility, setPasswordVisibility] = useState(false);
+  const [confirmationPasswordVisibility, setConfirmationPasswordVisibility] =
+    useState(false);
+  const [password, setPassword] = useState('');
+  const [confirmationPassword, setConfirmationPassword] = useState('');
 
   // Common input classes
   const inputClass =
     'text-small text-black-75 shadow border border-black-25 focus:outline-secondary-btn w-full py-2 px-3';
 
   // Toggle password view
-  const toggleVisibility = (field) => {
-    setPasswordVisibility((prev) => ({
-      ...prev,
-      [field]: !prev[field],
-    }));
+  const togglePasswordVisibility = () => {
+    setPasswordVisibility((prev) => !prev);
+  };
+
+  const toggleConfirmationPasswordVisibility = () => {
+    setConfirmationPasswordVisibility((prev) => !prev);
   };
 
   const onSubmit = async (data) => {
-    if (passwordValues.new !== passwordValues.confirm) {
+    if (password !== confirmationPassword) {
       setMessage({
         text: 'Les nouveaux mots de passe ne correspondent pas.',
         type: 'failure',
       });
-      setPasswordValues({ new: '', confirm: '' });
       return;
     }
     try {
-      await registerUser(data.email, passwordValues.new);
+      await registerUser(data.email, password);
       alert('Votre compte a été créé avec succès!');
       navigate('/login');
     } catch (error) {
@@ -54,7 +51,6 @@ function Register() {
         text: 'Veuillez fournir un email et un mot de passe valides.',
         type: 'failure',
       });
-      setPasswordValues({ new: '', confirm: '' });
       console.error(error);
     }
   };
@@ -117,33 +113,40 @@ function Register() {
                 Mot de passe
               </label>
               <div className='flex flex-col gap-4'>
-                {[
-                  { key: 'new', placeholder: 'Mot de passe' },
-                  { key: 'confirm', placeholder: 'Confirmer le mot de passe' },
-                ].map(({ key, placeholder }) => (
-                  <div key={key} className='relative w-full'>
-                    <input
-                      type={passwordVisibility[key] ? 'text' : 'password'}
-                      required
-                      placeholder={placeholder}
-                      value={passwordValues[key]}
-                      onChange={(e) =>
-                        setPasswordValues((prev) => ({
-                          ...prev,
-                          [key]: e.target.value,
-                        }))
-                      }
-                      className={inputClass}
-                    />
-                    <button
-                      type='button'
-                      onClick={() => toggleVisibility(key)}
-                      className='cursor-pointer absolute right-3 inset-y-0 my-auto text-black-50'
-                    >
-                      {passwordVisibility[key] ? <FaEyeSlash /> : <FaEye />}
-                    </button>
-                  </div>
-                ))}
+                <div className='relative w-full'>
+                  <input
+                    type={passwordVisibility ? 'text' : 'password'}
+                    required
+                    placeholder='Mot de passe'
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className={inputClass}
+                  />
+                  <button
+                    type='button'
+                    onClick={() => togglePasswordVisibility()}
+                    className='cursor-pointer absolute right-3 inset-y-0 my-auto text-black-50'
+                  >
+                    {passwordVisibility ? <FaEyeSlash /> : <FaEye />}
+                  </button>
+                </div>
+                <div className='relative w-full'>
+                  <input
+                    type={confirmationPasswordVisibility ? 'text' : 'password'}
+                    required
+                    placeholder='Confirmer le mot de passe'
+                    value={confirmationPassword}
+                    onChange={(e) => setConfirmationPassword(e.target.value)}
+                    className={inputClass}
+                  />
+                  <button
+                    type='button'
+                    onClick={() => toggleConfirmationPasswordVisibility()}
+                    className='cursor-pointer absolute right-3 inset-y-0 my-auto text-black-50'
+                  >
+                    {passwordVisibility ? <FaEyeSlash /> : <FaEye />}
+                  </button>
+                </div>
               </div>
             </div>
 
