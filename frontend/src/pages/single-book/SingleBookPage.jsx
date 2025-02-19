@@ -21,15 +21,20 @@ function SingleBookPage() {
     (state) => state.readingList.readingListBooks
   );
 
-  // Local state for author books
+  // Local state for author books and loading status
   const [authorBooks, setAuthorBooks] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   // GET SINGLE BOOK
   useEffect(() => {
     if (isbn) {
-      dispatch(getSingleBookAsync(isbn));
+      setIsLoading(true);
+      dispatch(getSingleBookAsync(isbn))
+        .unwrap()
+        .finally(() => setIsLoading(false));
     } else {
       console.error('ISBN parameter is undefined');
+      setIsLoading(false);
     }
   }, [dispatch, isbn]);
 
@@ -70,7 +75,9 @@ function SingleBookPage() {
     <>
       <NavbarLibrary />
       <main className='flex-1 min-h-0 max-w-full mx-[128px] mt-[64px] font-lato'>
-        {book ? (
+        {isLoading ? (
+          <div className='text-center py-16 text-lg'>Loading...</div>
+        ) : book ? (
           <>
             <BookCard
               variant='single'
@@ -116,7 +123,9 @@ function SingleBookPage() {
             </Swiper>
           </>
         ) : (
-          <div>No book data available</div>
+          <div className='text-center py-16 text-lg'>
+            No book data available
+          </div>
         )}
       </main>
       <Footer />
