@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaGoogle, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../../context/AuthContext';
+import PasswordChecklist from 'react-password-checklist';
 
 function Register() {
   const [message, setMessage] = useState('');
@@ -148,6 +149,33 @@ function Register() {
                   </button>
                 </div>
               </div>
+
+              <PasswordChecklist
+                rules={[
+                  'capital',
+                  'match',
+                  'specialChar',
+                  'minLength',
+                  'lowercase',
+                  'number',
+                ]}
+                minLength={8}
+                value={password}
+                valueAgain={confirmationPassword}
+                messages={{
+                  minLength:
+                    'Le mot de passe doit contenir au moins 8 caractères.',
+                  specialChar:
+                    'Le mot de passe doit contenir au moins 1 caractère spécial.',
+                  number:
+                    'Le mot de passe doit contenir au moins 1 caractère numérique.',
+                  capital:
+                    'Le mot de passe doit contenir au moins 1 lettre majuscule.',
+                  match: 'Les nouveaux mots de passe ne correspondent pas.',
+                  lowercase:
+                    'Le mot de passe doit contenir au moins 1 lettre minuscule.',
+                }}
+              />
             </div>
 
             {/* Register Button */}
