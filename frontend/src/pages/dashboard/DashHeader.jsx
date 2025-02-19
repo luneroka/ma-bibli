@@ -1,9 +1,9 @@
 import React from 'react';
 import { FaPen } from 'react-icons/fa';
 
-function DashHeader({ activeFilter, setActiveFIlter }) {
+function DashHeader({ activeFilter, setActiveFilter }) {
   const handleFilterClick = (filterValue) => {
-    setActiveFIlter(filterValue);
+    setActiveFilter(filterValue);
   };
 
   return (
@@ -14,12 +14,12 @@ function DashHeader({ activeFilter, setActiveFIlter }) {
       </h3>
 
       {/* Filters */}
-      <div className='flex gap-4 text-sm md:text-base text-black-50 my-2 md:my-0'>
+      <div className='flex gap-4 text-small-body md:text-body text-black-75 font-light my-2 md:my-0 leading-'>
         <span
           onClick={() => handleFilterClick('Total')}
           className={
             activeFilter === 'Total'
-              ? 'font-bold cursor-pointer'
+              ? 'cursor-pointer border-b-[1.5px] border-secondary-btn'
               : 'cursor-pointer'
           }
         >
@@ -30,7 +30,7 @@ function DashHeader({ activeFilter, setActiveFIlter }) {
           onClick={() => handleFilterClick('30 jours')}
           className={
             activeFilter === '30 jours'
-              ? 'font-bold cursor-pointer'
+              ? 'cursor-pointer border-b-[1.5px] border-secondary-btn'
               : 'cursor-pointer'
           }
         >
@@ -41,8 +41,8 @@ function DashHeader({ activeFilter, setActiveFIlter }) {
           onClick={() => handleFilterClick('7 jours')}
           className={
             activeFilter === '7 jours'
-              ? 'font-bold cursor-pointer'
-              : 'cursor-pointer'
+              ? 'cursor-pointer border-b-[1.5px] border-secondary-btn'
+              : 'cursor-pointer '
           }
         >
           7 derniers jours
