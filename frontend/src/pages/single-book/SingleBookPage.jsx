@@ -109,7 +109,7 @@ function SingleBookPage() {
               className='mySwiper'
             >
               {authorBooks.map((authorBook, index) => (
-                <SwiperSlide key={authorBook.isbn || `author-${index}`}>
+                <SwiperSlide key={`${authorBook.isbn}-${index}`}>
                   <BookCard variant='author' book={authorBook} />
                 </SwiperSlide>
               ))}

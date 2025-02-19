@@ -29,10 +29,10 @@ function ReadingList() {
       </div>
       <div className='flex flex-wrap gap-4 mt-[32px]'>
         {readingListBooks.length > 0 &&
-          readingListBooks.map((book) => {
+          readingListBooks.map((book, index) => {
             return (
               <BookInReadingList
-                key={book.isbn}
+                key={`${book.isbn}-${index}`}
                 book={book}
                 libraryBooks={libraryBooks}
               />
