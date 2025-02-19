@@ -5,7 +5,7 @@ import {
   FaCheckCircle,
   FaHeart,
 } from 'react-icons/fa';
-import { IoIosAddCircleOutline } from 'react-icons/io';
+import { IoIosAddCircleOutline, IoIosLogIn } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import {
@@ -158,7 +158,7 @@ const BookCard = ({
           </div>
 
           {/* Action Buttons (only when user is logged in) */}
-          {currentUser && (
+          {currentUser ? (
             <div className='flex gap-[16px] mt-2'>
               {/* Reading List Button */}
               {isInReadingList ? (
@@ -205,6 +205,20 @@ const BookCard = ({
                   </div>
                 </button>
               )}
+            </div>
+          ) : (
+            <div className='flex gap-[16px] mt-2'>
+              <button
+                onClick={() => handleAddToLibrary(book)}
+                className='cursor-pointer bg-primary-btn text-black-75 text-xs px-1 py-1.5 w-[125px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
+              >
+                <Link to='/login'>
+                  <div className='flex gap-1 items-center justify-center'>
+                    <IoIosLogIn className='text-body' />
+                    Se connecter
+                  </div>
+                </Link>
+              </button>
             </div>
           )}
         </div>
@@ -269,7 +283,7 @@ const BookCard = ({
           </div>
 
           {/* Action Buttons (only when user is logged in) */}
-          {currentUser && (
+          {currentUser ? (
             <div className='flex gap-[24px] mt-6'>
               {/* Reading List Button */}
               {isInReadingList ? (
@@ -326,6 +340,20 @@ const BookCard = ({
                   </div>
                 </button>
               )}
+            </div>
+          ) : (
+            <div className='flex gap-[16px] mt-2'>
+              <button
+                onClick={() => handleAddToLibrary(book)}
+                className='cursor-pointer bg-primary-btn text-black-75 text-xs px-1 py-1.5 w-[220px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
+              >
+                <Link to='/login'>
+                  <div className='flex gap-1 items-center justify-center'>
+                    <IoIosLogIn className='text-body' />
+                    Se connecter
+                  </div>
+                </Link>
+              </button>
             </div>
           )}
         </div>
