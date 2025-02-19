@@ -85,9 +85,9 @@ function LibraryList() {
   const grouped = groupByGenre(libraryBooks);
 
   return (
-    <>
+    <div className='mx-[128px]'>
       {/* Page header */}
-      <div className='flex justify-between items-center gap-8 mt-[48px] mb-5'>
+      <div className='flex justify-between items-center gap-8 mt-[48px] mb-5 '>
         <h3 className='text-h3 text-black font-merriweather'>Ma Bibli</h3>
         <Listbox value={selectedCategory} onChange={setSelectedCategory}>
           <div className='relative'>
@@ -216,7 +216,7 @@ function LibraryList() {
           </div>
         );
       })}
-    </>
+    </div>
   );
 }
 

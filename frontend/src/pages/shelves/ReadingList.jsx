@@ -21,7 +21,7 @@ function ReadingList() {
   }, [dispatch, currentUser]);
 
   return (
-    <>
+    <div className='mx-[128px]'>
       <div className='items-center gap-8 mt-[64px] mb-[32px]'>
         <h3 className='text-h3 text-black font-merriweather'>
           Ma Liste de lecture
@@ -39,7 +39,7 @@ function ReadingList() {
             );
           })}
       </div>
-    </>
+    </div>
   );
 }
 
