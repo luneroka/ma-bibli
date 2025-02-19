@@ -106,7 +106,7 @@ function LibraryList() {
               leaveFrom='opacity-100'
               leaveTo='opacity-0'
             >
-              <Listbox.Options className='absolute mt-1 w-[250px] bg-white shadow-lg z-50'>
+              <Listbox.Options className='absolute mt-1 w-[250px] shadow-lg z-50'>
                 {/* "All" option */}
                 <Listbox.Option
                   value=''
@@ -187,7 +187,7 @@ function LibraryList() {
 
             {/* The "Shelf" styling — optional, you could add a background or 
                 an actual shelf image behind the Swiper if you want a more thematic look. */}
-            <div className='bg-white border-b border-gray-200 py-2 px-2'>
+            <div className='bg-transparent  py-2 px-2'>
               <Swiper
                 slidesPerView={2}
                 spaceBetween={10}
@@ -204,7 +204,7 @@ function LibraryList() {
                   },
                 }}
                 modules={[Pagination, Navigation]}
-                className='my-custom-swiper   overflow-visible'
+                className='my-custom-swiper overflow-visible'
               >
                 {books.map((bookItem) => (
                   <SwiperSlide key={bookItem.isbn}>
