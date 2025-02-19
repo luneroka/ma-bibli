@@ -53,6 +53,8 @@ html {
   overflow-x: hidden;
 }
 
+/* SWIPER STYLES */
+
 .swiper-button-next,
 .swiper-button-prev {
   background-color: var(--color-white-bg);
@@ -68,6 +70,48 @@ html {
 .swiper-button-next:after {
   font-size: 24px !important;
   color: #5b8fa1;
+}
+
+/* PASSWORD CHECKLIST */
+.password-checklist-container ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  font-size: 0.75rem;
+}
+
+.password-checklist-container ul li {
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+/* Target valid checklist items */
+.password-checklist-container ul li.valid {
+  color: rgba(22, 163, 74, 0.5);
+}
+
+/* Target invalid checklist items */
+.password-checklist-container ul li.invalid {
+  color: rgba(38, 31, 34, 0.5);
+}
+
+/* SVG icons */
+.password-checklist-container ul li svg.checklist-icon {
+  width: 9px !important;
+  height: 9px !important;
+  margin-right: 2.5px !important;
+  margin-left: 0;
+}
+
+/* Valid checklist icons */
+.password-checklist-container ul li.valid svg.checklist-icon path {
+  fill: rgba(22, 163, 74, 0.75) !important;
+}
+
+/* Invalid checklist icons */
+.password-checklist-container ul li.invalid svg.checklist-icon path {
+  fill: rgba(229, 26, 26, 0.75) !important;
 }
 
 /* .library-page-background {

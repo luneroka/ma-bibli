@@ -150,32 +150,27 @@ function Register() {
                 </div>
               </div>
 
-              <PasswordChecklist
-                rules={[
-                  'capital',
-                  'match',
-                  'specialChar',
-                  'minLength',
-                  'lowercase',
-                  'number',
-                ]}
-                minLength={8}
-                value={password}
-                valueAgain={confirmationPassword}
-                messages={{
-                  minLength:
-                    'Le mot de passe doit contenir au moins 8 caractères.',
-                  specialChar:
-                    'Le mot de passe doit contenir au moins 1 caractère spécial.',
-                  number:
-                    'Le mot de passe doit contenir au moins 1 caractère numérique.',
-                  capital:
-                    'Le mot de passe doit contenir au moins 1 lettre majuscule.',
-                  match: 'Les nouveaux mots de passe ne correspondent pas.',
-                  lowercase:
-                    'Le mot de passe doit contenir au moins 1 lettre minuscule.',
-                }}
-              />
+              <div className='password-checklist-container'>
+                <PasswordChecklist
+                  rules={[
+                    'capital',
+                    'lowercase',
+                    'number',
+                    'specialChar',
+                    'minLength',
+                  ]}
+                  minLength={8}
+                  value={password}
+                  valueAgain={confirmationPassword}
+                  messages={{
+                    capital: 'Doit contenir au moins 1 lettre majuscule.',
+                    lowercase: 'Doit contenir au moins 1 lettre minuscule.',
+                    number: 'Doit contenir au moins 1 caractère numérique.',
+                    specialChar: 'Doit contenir au moins 1 caractère spécial.',
+                    minLength: 'Doit contenir au moins 8 caractères.',
+                  }}
+                />
+              </div>
             </div>
 
             {/* Register Button */}
