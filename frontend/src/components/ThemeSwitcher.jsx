@@ -37,6 +37,18 @@ const themes = {
     '--color-secondary-btn': '#82CCDD',
     '--color-white-bg': '#FFF8E1',
   },
+  oceanBreeze: {
+    '--color-main-blue': '#2A4D69',
+    '--color-primary-btn': '#4B86B4',
+    '--color-secondary-btn': '#ADCBE3',
+    '--color-white-bg': '#EDF5E1',
+  },
+  sunsetVibes: {
+    '--color-main-blue': '#5D2E8C',
+    '--color-primary-btn': '#FF6F61',
+    '--color-secondary-btn': '#D65DB1',
+    '--color-white-bg': '#FFFBF2',
+  },
 };
 
 function ThemeSwitcher() {
@@ -82,6 +94,8 @@ function ThemeSwitcher() {
         <option value='coastalCalm'>Coastal Calm</option>
         <option value='vintageTouch'>Vintage Touch</option>
         <option value='tropicalPunch'>Tropical Punch</option>
+        <option value='oceanBreeze'>Ocean Breeze</option>
+        <option value='sunsetVibes'>Sunset Vibes</option>
       </select>
     </div>
   );
