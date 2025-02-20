@@ -67,16 +67,16 @@ function ThemeSwitcher() {
 
   return (
     <div className=''>
-      <label htmlFor='theme-select' className='mr-2'>
+      {/*       <label htmlFor='theme-select' className='mr-2'>
         Thème :
-      </label>
+      </label> */}
       <select
         id='theme-select'
         value={theme}
         onChange={handleThemeChange}
-        className='text-small text-white-bgasdsfcv  focus:outline-none'
+        className='text-xs p-1 text-white-bg border border-white-bg rounded focus:outline-none'
       >
-        <option value='default'>Default</option>
+        <option value='default'>Ma Bibli (Défaut)</option>
         <option value='urbanIndus'>Urban Indus</option>
         <option value='spookyHalloween'>Spooky Halloween</option>
         <option value='coastalCalm'>Coastal Calm</option>
