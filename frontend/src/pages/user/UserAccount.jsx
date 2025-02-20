@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaEye, FaEyeSlash, FaSpinner } from 'react-icons/fa';
 import ConfirmModal from '../../components/ConfirmModal';
 import { useNavigate } from 'react-router';
 
@@ -16,12 +16,12 @@ function UserAccount() {
     currentUser?.displayName || ''
   );
   const [message, setMessage] = useState({ text: '', type: '' });
+  const [confirmModalVisibility, setConfirmModalVisibility] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   // Common input classes
   const inputClass =
     'text-small text-black-75 shadow border border-black-25 focus:outline-secondary-btn w-full py-2 px-3';
-
-  const [confirmModalVisibility, setConfirmModalVisibility] = useState(false);
 
   // State for password field visibility
   const [passwordVisibility, setPasswordVisibility] = useState({
@@ -102,11 +102,14 @@ function UserAccount() {
   };
 
   const handleDeleteAccount = async () => {
+    setIsDeleting(true);
     try {
       await deleteUserAccount();
       navigate('/confirmation', { state: { type: 'delete' } });
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -123,6 +126,14 @@ function UserAccount() {
     }
   };
 
+  if (isDeleting) {
+    return (
+      <div className='fixed inset-0 flex items-center mt-[64px] justify-center bg-white-bg'>
+        <FaSpinner className='animate-spin text-3xl text-black-50 py-16' />
+      </div>
+    );
+  }
+
   return (
     <div className='flex flex-col flex-1 min-h-0 min-w-[500px] max-w-full mx-auto font-lato'>
       <div className='flex-grow flex items-center justify-center mt-[64px]'>
@@ -132,9 +143,9 @@ function UserAccount() {
               className={`text-small mb-4 p-2 ${
                 message.type === 'success'
                   ? 'text-alert-green-txt bg-alert-green-bg border-alert-green-border'
-                  : (message.type = 'failure'
-                      ? 'text-alert-red-txt bg-alert-red-bg border-alert-red-border'
-                      : 'text-alert-yellow-txt bg-alert-yellow-bg border-alert-yellow-border')
+                  : message.type === 'failure'
+                  ? 'text-alert-red-txt bg-alert-red-bg border-alert-red-border'
+                  : 'text-alert-yellow-txt bg-alert-yellow-bg border-alert-yellow-border'
               }`}
             >
               {message.text}
@@ -163,7 +174,6 @@ function UserAccount() {
               </div>
             </div>
           </form>
-
           {/* Update Password Form */}
           <form onSubmit={handleUpdatePassword}>
             <label className='text-small-body font-bold text-black-75 mb-1'>
@@ -178,7 +188,7 @@ function UserAccount() {
                   placeholder: 'Confirmer nouveau mot de passe',
                 },
               ].map(({ key, placeholder }) => (
-                <div key={key} className='relative w-[100%] mb-4'>
+                <div key={key} className='relative w-full mb-4'>
                   <input
                     type={passwordVisibility[key] ? 'text' : 'password'}
                     required
@@ -211,7 +221,6 @@ function UserAccount() {
               </div>
             </div>
           </form>
-
           {/* Delete Account Button */}
           <form>
             <p className='text-small-body font-bold text-black-75 mb-2'>
