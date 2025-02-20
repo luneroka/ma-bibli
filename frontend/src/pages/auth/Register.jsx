@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaGoogle, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../../context/AuthContext';
@@ -8,6 +8,8 @@ import PasswordChecklist from 'react-password-checklist';
 function Register() {
   const [message, setMessage] = useState('');
   const { registerUser, signInWithGoogle } = useAuth();
+  const { state } = useLocation();
+  const { type } = state || {};
   const navigate = useNavigate();
   const {
     register,
@@ -45,8 +47,7 @@ function Register() {
     }
     try {
       await registerUser(data.email, password);
-      alert('Votre compte a été créé avec succès!');
-      navigate('/login');
+      navigate('/confirmation', { state: { type: 'register' } });
     } catch (error) {
       setMessage({
         text: 'Veuillez fournir un email et un mot de passe valides.',

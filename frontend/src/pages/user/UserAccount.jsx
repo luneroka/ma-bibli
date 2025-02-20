@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import ConfirmModal from '../../components/ConfirmModal';
+import { useNavigate } from 'react-router';
 
 function UserAccount() {
+  const navigate = useNavigate();
   const {
     currentUser,
     updateUserProfile,
@@ -102,6 +104,7 @@ function UserAccount() {
   const handleDeleteAccount = async () => {
     try {
       await deleteUserAccount();
+      navigate('/confirmation', { state: { type: 'delete' } });
     } catch (error) {
       console.error(error);
     }
