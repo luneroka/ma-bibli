@@ -7,6 +7,7 @@ import avatarImg from '../../assets/avatar.png';
 import { createSearchBooksAsync } from '../../redux/features/search/searchAsyncActions';
 import { useAuth } from '../../context/AuthContext';
 import DropdownMenu from './DropdownMenu';
+import ThemeSwitcher from '../ThemeSwitcher';
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -56,6 +57,12 @@ const Navbar = () => {
           >
             Rechercher
           </button>
+        </div>
+
+        {/* Middle */}
+        {/* Change Theme */}
+        <div className='text-white-bg text-small font-merriweather'>
+          <ThemeSwitcher />
         </div>
 
         {/* Right side */}

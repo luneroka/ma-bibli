@@ -174,6 +174,7 @@ function UserAccount() {
               </div>
             </div>
           </form>
+
           {/* Update Password Form */}
           <form onSubmit={handleUpdatePassword}>
             <label className='text-small-body font-bold text-black-75 mb-1'>

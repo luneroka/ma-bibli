@@ -1,4 +1,3 @@
-//// filepath: /Users/Yoann/Documents/Coding/Projects/ma-bibli/frontend/src/components/ThemeSwitcher.jsx
 import React, { useState, useEffect } from 'react';
 
 const themes = {
@@ -41,14 +40,22 @@ const themes = {
 };
 
 function ThemeSwitcher() {
-  const [theme, setTheme] = useState('default');
+  // Initialize the theme from localStorage or use "default"
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('appTheme') || 'default';
+  });
 
   useEffect(() => {
     applyTheme(theme);
+    localStorage.setItem('appTheme', theme);
   }, [theme]);
 
   const applyTheme = (themeKey) => {
     const themeProperties = themes[themeKey];
+    if (!themeProperties) {
+      console.warn(`Theme "${themeKey}" not found. Falling back to default.`);
+      return;
+    }
     Object.entries(themeProperties).forEach(([varName, value]) => {
       document.documentElement.style.setProperty(varName, value);
     });
@@ -59,21 +66,22 @@ function ThemeSwitcher() {
   };
 
   return (
-    <div className='p-4'>
+    <div className=''>
       <label htmlFor='theme-select' className='mr-2'>
-        Theme:
+        Thème :
       </label>
       <select
         id='theme-select'
         value={theme}
         onChange={handleThemeChange}
-        className='p-2 border rounded'
+        className='text-small text-white-bgasdsfcv  focus:outline-none'
       >
         <option value='default'>Default</option>
-        <option value='deepForest'>Deep Forest</option>
-        <option value='sunsetGlow'>Sunset Glow</option>
+        <option value='urbanIndus'>Urban Indus</option>
+        <option value='spookyHalloween'>Spooky Halloween</option>
         <option value='coastalCalm'>Coastal Calm</option>
         <option value='vintageTouch'>Vintage Touch</option>
+        <option value='tropicalPunch'>Tropical Punch</option>
       </select>
     </div>
   );

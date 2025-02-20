@@ -5,6 +5,7 @@ import { FaUser } from 'react-icons/fa';
 import avatarImg from '../../assets/avatar.png';
 import { useAuth } from '../../context/AuthContext';
 import DropdownMenu from './DropdownMenu';
+import ThemeSwitcher from '../ThemeSwitcher';
 
 function NavbarUser() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -20,6 +21,12 @@ function NavbarUser() {
           <Link to='/'>
             <IoHome className='cursor-pointer w-6 h-6 text-white-bg hover:text-primary-btn' />
           </Link>
+        </div>
+
+        {/* Middle */}
+        {/* Change Theme */}
+        <div className='text-white-bg text-small font-merriweather'>
+          <ThemeSwitcher />
         </div>
 
         {/* Right side */}
