@@ -85,14 +85,14 @@ function LibraryList() {
   const grouped = groupByGenre(libraryBooks);
 
   return (
-    <div className='mx-[128px]'>
+    <div className='mx-[64px] md:mx-[128px]'>
       {/* Page header */}
-      <div className='flex justify-between items-center gap-8 mt-[48px] mb-5 '>
+      <div className='flex flex-col justify-start items-start [@media(min-width:700px)]:flex-row [@media(min-width:700px)]:justify-between [@media(min-width:700px)]:items-center gap-2 mt-[48px] mb-5'>
         <h3 className='text-h3 text-black font-merriweather'>Ma Bibli</h3>
         <Listbox
           value={selectedCategory}
           onChange={setSelectedCategory}
-          className='z-10' // Lowered z-index so it sits behind the navbar dropdown
+          className='z-10'
         >
           <div className='relative'>
             <Listbox.Button className='text-small py-1 px-4 bg-secondary-btn text-white-bg w-[250px] focus:outline-none text-left'>
@@ -194,13 +194,13 @@ function LibraryList() {
               spaceBetween={0}
               navigation={true}
               breakpoints={{
-                640: {
-                  slidesPerView: 2,
+                700: {
+                  slidesPerView: 3,
                 },
-                880: {
+                970: {
                   slidesPerView: 5,
                 },
-                1250: {
+                1350: {
                   slidesPerView: 8,
                 },
               }}
