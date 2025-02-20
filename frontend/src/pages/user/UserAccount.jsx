@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import ConfirmModal from '../../components/ConfirmModal';
 
 function UserAccount() {
   const {
@@ -17,6 +18,8 @@ function UserAccount() {
   // Common input classes
   const inputClass =
     'text-small text-black-75 shadow border border-black-25 focus:outline-secondary-btn w-full py-2 px-3';
+
+  const [confirmModalVisibility, setConfirmModalVisibility] = useState(false);
 
   // State for password field visibility
   const [passwordVisibility, setPasswordVisibility] = useState({
@@ -97,15 +100,23 @@ function UserAccount() {
   };
 
   const handleDeleteAccount = async () => {
-    const confirmed = window.confirm(
-      'Êtes-vous sûr de vouloir supprimer votre compte ?'
-    );
+    try {
+      await deleteUserAccount();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // New function to trigger confirmation via the modal
+  const triggerDeleteAccount = () => {
+    setConfirmModalVisibility(true);
+  };
+
+  // The callback received when the ConfirmModal is answered
+  const onConfirmDelete = async (confirmed) => {
+    setConfirmModalVisibility(false);
     if (confirmed) {
-      try {
-        await deleteUserAccount();
-      } catch (error) {
-        console.error(error);
-      }
+      await handleDeleteAccount();
     }
   };
 
@@ -199,7 +210,7 @@ function UserAccount() {
           </form>
 
           {/* Delete Account Button */}
-          <div>
+          <form>
             <p className='text-small-body font-bold text-black-75 mb-2'>
               Supprimer mon compte
             </p>
@@ -209,13 +220,19 @@ function UserAccount() {
             </p>
             <div className='flex justify-end'>
               <button
-                onClick={handleDeleteAccount}
+                type='button'
+                onClick={triggerDeleteAccount}
                 className='cursor-pointer mt-4 w-40 bg-[#e51a1af7] hover:bg-red-500 text-white-bg p-2 text-small font-merriweather'
               >
                 Supprimer le compte
               </button>
             </div>
-          </div>
+            <ConfirmModal
+              visible={confirmModalVisibility}
+              onConfirm={onConfirmDelete}
+              message='Êtes-vous sûr de vouloir supprimer votre compte ?'
+            />
+          </form>
         </div>
       </div>
     </div>

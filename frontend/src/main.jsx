@@ -19,6 +19,7 @@ import DashboardPage from './pages/dashboard/DashboardPage.jsx';
 import ShelfLayout from './pages/shelves/ShelfLayout.jsx';
 import ReadingList from './pages/shelves/ReadingList.jsx';
 import LibraryList from './pages/shelves/LibraryList.jsx';
+import AuthConfirmation from './pages/auth/AuthConfirmation.jsx';
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
@@ -34,6 +35,7 @@ createRoot(document.getElementById('root')).render(
           <Route element={<AuthLayout />}>
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
+            <Route path='/confirmation' element={<AuthConfirmation />} />
             <Route path='forgot-password' element={<ForgotPassword />} />
           </Route>
 
