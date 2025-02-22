@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { FaEye, FaEyeSlash, FaSpinner } from 'react-icons/fa';
 import ConfirmModal from '../../components/ConfirmModal';
 import { useNavigate } from 'react-router';
 import ThemeSwitcher from '../../components/ThemeSwitcher';
+import { ReadingObjectiveContext } from '../../context/ReadingObjectiveContext';
 
 function UserAccount() {
   const navigate = useNavigate();
@@ -19,6 +20,13 @@ function UserAccount() {
   const [message, setMessage] = useState({ text: '', type: '' });
   const [confirmModalVisibility, setConfirmModalVisibility] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const { setReadingObjective } = useContext(ReadingObjectiveContext);
+  const [localObjective, setLocalObjective] = useState('');
+
+  const handleObjectiveSubmit = (e) => {
+    e.preventDefault();
+    setReadingObjective(Number(localObjective));
+  };
 
   // Common input classes
   const inputClass =
@@ -193,17 +201,25 @@ function UserAccount() {
             <p className='text-small-body font-bold text-black-75 mb-1'>
               Objectif de lecture pour {new Date().getFullYear()}
             </p>
-            <div className='flex flex-col gap-2 mb-8'>
-              <input className={inputClass} placeholder='Nombre de livres...' />
-              <div className='flex justify-end'>
-                <button
-                  type='submit'
-                  className='cursor-pointer bg-secondary-btn hover:bg-primary-btn active:bg-black-75 text-white p-2 w-40 text-small font-merriweather'
-                >
-                  Modifier
-                </button>
+            <form onSubmit={handleObjectiveSubmit}>
+              <div className='flex flex-col gap-2 mb-8'>
+                <input
+                  type='number'
+                  value={localObjective}
+                  onChange={(e) => setLocalObjective(e.target.value)}
+                  placeholder='Nombre de livres...'
+                  className={inputClass}
+                />
+                <div className='flex justify-end'>
+                  <button
+                    type='submit'
+                    className='cursor-pointer bg-secondary-btn hover:bg-primary-btn active:bg-black-75 text-white p-2 w-40 text-small font-merriweather'
+                  >
+                    Modifier
+                  </button>
+                </div>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>

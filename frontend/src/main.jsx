@@ -20,6 +20,7 @@ import ShelfLayout from './pages/shelves/ShelfLayout.jsx';
 import Wishlist from './pages/shelves/Wishlist.jsx';
 import LibraryList from './pages/shelves/LibraryList.jsx';
 import AuthConfirmation from './pages/auth/AuthConfirmation.jsx';
+import { ReadingObjectiveProvider } from './context/ReadingObjectiveContext.jsx';
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
@@ -67,7 +68,9 @@ createRoot(document.getElementById('root')).render(
             path='/dashboard'
             element={
               <PrivateRoute>
-                <DashboardPage />
+                <ReadingObjectiveProvider>
+                  <DashboardPage />
+                </ReadingObjectiveProvider>
               </PrivateRoute>
             }
           />
