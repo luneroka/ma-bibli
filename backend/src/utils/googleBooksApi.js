@@ -14,6 +14,7 @@ const searchBooksFromGoogle = async (searchTerm) => {
   if (data.items) {
     data.items = data.items.filter(
       (book) =>
+        book.volumeInfo?.title &&
         book.volumeInfo?.imageLinks &&
         book.volumeInfo?.authors &&
         book.volumeInfo?.pageCount > 0
@@ -34,6 +35,7 @@ const searchAuthorFromGoogle = async (searchTerm) => {
   if (data.items) {
     data.items = data.items.filter(
       (book) =>
+        book.volumeInfo?.title &&
         book.volumeInfo?.imageLinks &&
         book.volumeInfo?.authors &&
         book.volumeInfo?.pageCount > 0
@@ -53,6 +55,7 @@ const searchNewestFromGoogle = async () => {
   if (data.items) {
     data.items = data.items.filter(
       (book) =>
+        book.volumeInfo?.title &&
         book.volumeInfo?.imageLinks &&
         book.volumeInfo?.authors &&
         book.volumeInfo?.pageCount > 0
