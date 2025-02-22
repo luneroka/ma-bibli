@@ -151,7 +151,7 @@ const toggleHaveRead = async (Model, req, res) => {
       return res.status(403).json({ message: 'Forbidden' });
     }
 
-    // Toggle isFavorite status
+    // Toggle haveRead status
     book.haveRead = !book.haveRead;
     await book.save();
     res
