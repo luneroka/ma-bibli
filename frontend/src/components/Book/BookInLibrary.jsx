@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { IoIosRemoveCircle } from 'react-icons/io';
-import { FaHeart, FaSpinner } from 'react-icons/fa';
+import { FaHeart, FaSpinner, FaArrowCircleRight } from 'react-icons/fa';
 import { removeFromLibraryAsync } from '../../redux/features/library/libraryAsyncActions';
 import { toggleFavoriteAsync } from '../../redux/features/favorites/favoritesAsyncActions';
 import { toggleHaveReadAsync } from '../../redux/features/have-read/haveReadAsyncActions';
@@ -99,9 +99,9 @@ function BookInLibrary({ book }) {
           onClick={() => handleHaveRead(book.isbn)}
           className='cursor-pointer bg-primary-btn text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn w-[125px] active:bg-black-75 active:text-white-bg'
         >
-          <div className='flex gap-1 items-center justify-center'>
-            <div className='text-body'></div>
+          <div className='flex gap-1 items-center justify-center text-small'>
             J'ai lu !
+            <FaArrowCircleRight className='text-body' />
           </div>
         </button>
       )}
