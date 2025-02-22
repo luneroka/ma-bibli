@@ -32,6 +32,9 @@ const BookCard = ({
   const navigate = useNavigate();
   const favorites = useSelector((state) => state.favorites.favorites) || [];
   const isFavorite = favorites?.some((fav) => fav.isbn === book.isbn);
+  const isRead =
+    libraryBooks.find((libraryBook) => libraryBook.isbn === book.isbn)
+      ?.haveRead || false;
 
   // New state to track image loading
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -195,15 +198,24 @@ const BookCard = ({
 
               {/* Library Button */}
               {isInLibrary ? (
-                <button
-                  onClick={() => handleRemoveFromLibrary(book.isbn)}
-                  className='cursor-pointer bg-secondary-btn text-black-75 text-xs px-1 py-1.5 w-[125px]'
-                >
-                  <div className='flex gap-1 items-center justify-center'>
-                    <FaCheckCircle className='text-body' />
-                    Dans la bibli !
-                  </div>
-                </button>
+                isRead ? (
+                  <button className='bg-secondary-btn text-black-75 text-xs px-1 py-1.5 w-[125px]'>
+                    <div className='flex gap-1 items-center justify-center'>
+                      <FaCheckCircle className='text-body' />
+                      J'ai lu !
+                    </div>
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => handleRemoveFromLibrary(book.isbn)}
+                    className='cursor-pointer bg-secondary-btn text-black-75 text-xs px-1 py-1.5 w-[125px]'
+                  >
+                    <div className='flex gap-1 items-center justify-center'>
+                      <FaCheckCircle className='text-body' />
+                      Dans la bibli !
+                    </div>
+                  </button>
+                )
               ) : (
                 <button
                   onClick={() => handleAddToLibrary(book)}
@@ -324,7 +336,24 @@ const BookCard = ({
 
               {/* Library Button */}
               {isInLibrary ? (
-                <>
+                isRead ? (
+                  <>
+                    <button className='bg-secondary-btn text-black-75 text-small px-1 py-2.5 w-[220px]'>
+                      <div className='flex gap-1 items-center justify-center'>
+                        <FaCheckCircle className='text-body' />
+                        J'ai lu !
+                      </div>
+                    </button>
+                    <button
+                      onClick={() => handleFavorite(book.isbn)}
+                      className={`text-h4 rounded-full cursor-pointer hover:scale-150 transition-all duration-200 ${
+                        isFavorite ? 'text-primary-btn' : 'text-black-75'
+                      }`}
+                    >
+                      <FaHeart className='p-0.5' />
+                    </button>
+                  </>
+                ) : (
                   <button
                     onClick={() => handleRemoveFromLibrary(book.isbn)}
                     className='cursor-pointer bg-secondary-btn text-black-75 text-small px-1 py-2.5 w-[220px]'
@@ -334,15 +363,7 @@ const BookCard = ({
                       Dans la bibli !
                     </div>
                   </button>
-                  <button
-                    onClick={() => handleFavorite(book.isbn)}
-                    className={`text-h4 rounded-full cursor-pointer hover:scale-150 transition-all duration-200 ${
-                      isFavorite ? 'text-primary-btn' : 'text-black-75'
-                    }`}
-                  >
-                    <FaHeart className='p-0.5' />
-                  </button>
-                </>
+                )
               ) : (
                 <button
                   onClick={() => handleAddToLibrary(book)}
