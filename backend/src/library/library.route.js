@@ -6,6 +6,8 @@ const {
   getFavoriteBooks,
   toggleIsFavorite,
   deleteBook,
+  getHaveReadBooks,
+  toggleHaveRead,
 } = require('../book/book.controller');
 const router = express.Router();
 
@@ -30,8 +32,11 @@ router.put('/favorites/:isbn', (req, res) =>
   toggleIsFavorite(LibraryBook, req, res)
 );
 
-// HAVE READ endpoints
-router.get('/have-read', (req))
+// HAVE READ endpoints to get fave read and toggle have read state
+router.get('/have-read', (req, res) => getHaveReadBooks(LibraryBook, req, res));
+router.put('/have-read/:isbn', (req, res) =>
+  toggleHaveRead(LibraryBook, req, res)
+);
 
 // GET a list of distinct categories a user has in library
 router.get('/categories', async (req, res) => {
