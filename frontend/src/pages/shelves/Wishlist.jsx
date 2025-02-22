@@ -20,7 +20,7 @@ function Wishlist() {
 
   return (
     <div className='mx-[128px]'>
-      <div className='items-center gap-8 mt-[64px] mb-[32px]'>
+      <div className='items-center gap-8 mt-[48px] mb-[32px]'>
         <h3 className='text-h3 text-black font-merriweather'>Wishlist</h3>
       </div>
       <div className='flex flex-wrap gap-4 mt-[32px]'>

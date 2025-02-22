@@ -172,21 +172,21 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
               {isInWishlist ? (
                 <button
                   onClick={() => handleRemoveFromWishlist(book.isbn)}
-                  className='cursor-pointer bg-secondary-btn text-black-75 text-xs px-1 py-1.5 w-[121px]'
+                  className='cursor-pointer bg-secondary-btn text-black-75 px-1 py-1.5 w-[121px]'
                 >
-                  <div className='flex gap-1 items-center justify-center'>
+                  <div className='flex gap-1 items-center justify-center text-xs'>
                     <FaBookmark className='text-body' />
-                    Dans la liste !
+                    Wishlist
                   </div>
                 </button>
               ) : (
                 <button
                   onClick={() => handleAddToWishlist(book)}
-                  className='cursor-pointer bg-primary-btn text-black-75 text-xs px-1 py-1.5 w-[121px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
+                  className='cursor-pointer bg-primary-btn text-black-75 px-1 py-1.5 w-[121px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
                 >
-                  <div className='flex gap-1 items-center justify-center'>
+                  <div className='flex gap-1 items-center justify-center text-xs'>
                     <FaRegBookmark className='text-body' />
-                    Liste de lecture
+                    Wishlist
                   </div>
                 </button>
               )}
@@ -194,8 +194,8 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
               {/* Library Button */}
               {isInLibrary ? (
                 isRead ? (
-                  <button className='bg-secondary-btn text-black-75 text-xs px-1 py-1.5 w-[125px]'>
-                    <div className='flex gap-1 items-center justify-center'>
+                  <button className='bg-secondary-btn text-black-75 px-1 py-1.5 w-[125px]'>
+                    <div className='flex gap-1 items-center justify-center text-xs'>
                       <FaCheckCircle className='text-body' />
                       J'ai lu !
                     </div>
@@ -203,22 +203,22 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
                 ) : (
                   <button
                     onClick={() => handleRemoveFromLibrary(book.isbn)}
-                    className='cursor-pointer bg-secondary-btn text-black-75 text-xs px-1 py-1.5 w-[125px]'
+                    className='cursor-pointer bg-secondary-btn text-black-75 px-1 py-1.5 w-[125px]'
                   >
-                    <div className='flex gap-1 items-center justify-center'>
+                    <div className='flex gap-1 items-center justify-center text-xs'>
                       <FaCheckCircle className='text-body' />
-                      Dans la bibli !
+                      Bibli
                     </div>
                   </button>
                 )
               ) : (
                 <button
                   onClick={() => handleAddToLibrary(book)}
-                  className='cursor-pointer bg-primary-btn text-black-75 text-xs px-1 py-1.5 w-[125px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
+                  className='cursor-pointer bg-primary-btn text-black-75 px-1 py-1.5 w-[125px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
                 >
-                  <div className='flex gap-1 items-center justify-center'>
+                  <div className='flex gap-1 items-center justify-center text-xs'>
                     <IoIosAddCircleOutline className='text-body' />
-                    Ajouter à ma bibli
+                    Bibli
                   </div>
                 </button>
               )}
@@ -314,7 +314,7 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
                 >
                   <div className='flex gap-1 items-center justify-center'>
                     <FaBookmark className='text-body' />
-                    Dans la liste !
+                    Wishlist
                   </div>
                 </button>
               ) : (
@@ -324,7 +324,7 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
                 >
                   <div className='flex gap-1 items-center justify-center'>
                     <FaRegBookmark className='text-body' />
-                    Liste de lecture
+                    Wishlist
                   </div>
                 </button>
               )}
@@ -355,7 +355,7 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
                   >
                     <div className='flex gap-1 items-center justify-center'>
                       <FaCheckCircle className='text-body' />
-                      Dans la bibli !
+                      Bibli
                     </div>
                   </button>
                 )
@@ -366,7 +366,7 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
                 >
                   <div className='flex gap-1 items-center justify-center'>
                     <IoIosAddCircleOutline className='text-body' />
-                    Ajouter à ma bibli
+                    Bibli
                   </div>
                 </button>
               )}

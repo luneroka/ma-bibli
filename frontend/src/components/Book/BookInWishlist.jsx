@@ -60,7 +60,7 @@ function BookInWishlist({ book, libraryBooks = [] }) {
 
         {/* Delete Button */}
         <button
-          onClick={() => handleRemoveWishlist(book.isbn)}
+          onClick={() => handleRemoveFromWishlist(book.isbn)}
           className='absolute top-1 right-1 rounded-full shadow-md hover:text-primary-btn text-black-75 bg-white-bg cursor-pointer hover:scale-150 transition-all duration-200'
         >
           <IoIosRemoveCircle className='p-0.25' />
