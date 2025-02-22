@@ -73,14 +73,16 @@ function BookInLibrary({ book }) {
         </Link>
 
         {/* Favorite Button */}
-        <button
-          onClick={() => handleFavorite(book.isbn)}
-          className={`absolute top-1 left-1 rounded-full shadow-md bg-white-bg cursor-pointer hover:scale-150 transition-all duration-200 ${
-            isFavorite ? 'text-primary-btn' : 'text-black-75'
-          }`}
-        >
-          <FaHeart className='p-0.5' />
-        </button>
+        {haveRead && (
+          <button
+            onClick={() => handleFavorite(book.isbn)}
+            className={`absolute top-1 left-1 rounded-full shadow-md bg-white-bg cursor-pointer hover:scale-150 transition-all duration-200 ${
+              isFavorite ? 'text-primary-btn' : 'text-black-75'
+            }`}
+          >
+            <FaHeart className='p-0.5' />
+          </button>
+        )}
 
         {/* Delete Button */}
         <button
