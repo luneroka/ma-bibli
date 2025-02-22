@@ -7,7 +7,7 @@ function DashHeader({ activeFilter, setActiveFilter }) {
   };
 
   return (
-    <div className='flex flex-col md:flex-row justify-between items-center mx-4 md:mx-[128px] mt-4 md:mt-[64px] mb-4 md:mb-[32px]'>
+    <div className='flex flex-col md:flex-row justify-between items-center mx-4 md:mx-[128px] mt-4 md:mt-[32px]'>
       {/* Title */}
       <h3 className='text-h4 md:text-h3 text-black font-merriweather'>
         Dashboard

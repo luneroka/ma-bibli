@@ -31,22 +31,29 @@ function DashBody({ activeFilter }) {
   })();
 
   return (
-    <div className='mx-[64px] md:mx-[128px] grid grid-cols-1 min-[700px]:grid-cols-2 lg:grid-cols-4 gap-[32px]'>
-      {/* Metrics Cards */}
-      <MetricCard variant='books' libraryBooks={filteredBooks} />
-      <MetricCard variant='pageCount' libraryBooks={filteredBooks} />
-      <MetricCard variant='topGenre' libraryBooks={filteredBooks} />
-      <MetricCard variant='topAuthor' libraryBooks={filteredBooks} />
+    <>
+      <div className='mx-[128px] my-[16px]'>Progression</div>
+      <div className='mx-[64px] md:mx-[128px] grid grid-cols-1 min-[700px]:grid-cols-2 lg:grid-cols-4 gap-[16px]'>
+        {/* Metrics Cards */}
+        <MetricCard variant='books' libraryBooks={filteredBooks} />
+        <MetricCard variant='pageCount' libraryBooks={filteredBooks} />
+        <MetricCard variant='topGenre' libraryBooks={filteredBooks} />
+        <MetricCard variant='topAuthor' libraryBooks={filteredBooks} />
 
-      {/* Graph Card */}
-      <div className='col-span-1 min-[700px]:col-span-2 lg:col-span-2'>
-        <GraphCard libraryBooks={filteredBooks} />
+        {/* Progression Bars */}
+        <div className='h-[16px] col-span-2'></div>
+        <div className='h-[16px] col-span-2'></div>
+
+        {/* Graph Card */}
+        <div className='col-span-1 min-[700px]:col-span-2 lg:col-span-2'>
+          <GraphCard libraryBooks={filteredBooks} />
+        </div>
+
+        {/* List Card */}
+        <ListCard variant='recent' libraryBooks={filteredBooks} />
+        <ListCard variant='favorites' libraryBooks={filteredBooks} />
       </div>
-
-      {/* List Card */}
-      <ListCard variant='recent' libraryBooks={filteredBooks} />
-      <ListCard variant='favorites' libraryBooks={filteredBooks} />
-    </div>
+    </>
   );
 }
 
