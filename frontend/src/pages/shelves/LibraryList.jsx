@@ -19,6 +19,20 @@ function LibraryList() {
   const libraryBooks = useSelector((state) => state.library.libraryBooks) || [];
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [activeFilter, setActiveFilter] = useState("J'ai");
+
+  // Create filteredBooks array based on haveRead attribute
+  const filteredBooks = () => {
+    if (activeFilter === "J'ai") {
+      return libraryBooks.filter((book) => book.haveRead === false);
+    }
+
+    if (activeFilter === "J'ai lu") {
+      return libraryBooks.filter((book) => book.haveRead === true);
+    }
+
+    return libraryBooks;
+  };
 
   // Fetch distinct categories
   useEffect(() => {
@@ -48,7 +62,7 @@ function LibraryList() {
     }
   }, [currentUser]);
 
-  // Fetch filtered books when a category is selected
+  // Fetch books filtered by category when a category is selected
   useEffect(() => {
     if (currentUser) {
       currentUser.getIdToken().then((token) => {
@@ -57,7 +71,7 @@ function LibraryList() {
     }
   }, [selectedCategory, currentUser, dispatch]);
 
-  // Reset the filter (load all data) on unmount
+  // Reset the category filter (load all data) on unmount
   useEffect(() => {
     return () => {
       if (currentUser) {
@@ -82,13 +96,46 @@ function LibraryList() {
   };
 
   // Group books into an object like { "Science-Fiction": [book, ...], "Fantastique": [book, ...] }
-  const grouped = groupByGenre(libraryBooks);
+  const grouped = groupByGenre(filteredBooks());
+
+  // Filter have and have read
+  const handleFilterClick = (filterValue) => {
+    setActiveFilter(filterValue);
+  };
 
   return (
     <div className='mx-[64px] md:mx-[128px]'>
       {/* Page header */}
       <div className='flex flex-col justify-start items-start [@media(min-width:700px)]:flex-row [@media(min-width:700px)]:justify-between [@media(min-width:700px)]:items-center gap-2 mt-[48px] mb-5'>
+        {/* Page Title */}
         <h3 className='text-h3 text-black font-merriweather'>Ma Bibli</h3>
+
+        {/* Filter Have Read */}
+        <div className='flex gap-4 text-small-body md:text-body text-black-75 font-light my-2 md:my-0 leading-'>
+          <span
+            onClick={() => handleFilterClick("J'ai")}
+            className={
+              activeFilter === "J'ai"
+                ? 'cursor-pointer border-b-[1.5px] border-secondary-btn'
+                : 'cursor-pointer'
+            }
+          >
+            J'ai
+          </span>
+          <p>|</p>
+          <span
+            onClick={() => handleFilterClick("J'ai lu")}
+            className={
+              activeFilter === "J'ai lu"
+                ? 'cursor-pointer border-b-[1.5px] border-secondary-btn'
+                : 'cursor-pointer'
+            }
+          >
+            J'ai lu
+          </span>
+        </div>
+
+        {/* Filter By Genre */}
         <Listbox
           value={selectedCategory}
           onChange={setSelectedCategory}
