@@ -6,6 +6,8 @@ import { FaHeart, FaSpinner } from 'react-icons/fa';
 import { removeFromLibraryAsync } from '../../redux/features/library/libraryAsyncActions';
 import { toggleFavoriteAsync } from '../../redux/features/favorites/favoritesAsyncActions';
 import { toggleHaveReadAsync } from '../../redux/features/have-read/haveReadAsyncActions';
+import { toggleHaveReadOptimistic } from '../../redux/features/library/librarySlice';
+import { getLibraryBooksAsync } from '../../redux/features/library/libraryAsyncActions';
 import { useAuth } from '../../context/AuthContext';
 
 function BookInLibrary({ book }) {
@@ -39,11 +41,15 @@ function BookInLibrary({ book }) {
 
   const handleHaveRead = async (isbn) => {
     if (!currentUser) return;
+    // Optimistically update libraryBooks in the library slice:
+    dispatch(toggleHaveReadOptimistic({ isbn }));
     try {
       const token = await currentUser.getIdToken();
-      dispatch(toggleHaveReadAsync({ token, isbn }));
+      // Dispatch async call to toggle on the backend
+      await dispatch(toggleHaveReadAsync({ token, isbn }));
     } catch (error) {
       console.error('Error fetching token for have read toggle:', error);
+      // Optionally revert the optimistic update if needed.
     }
   };
 

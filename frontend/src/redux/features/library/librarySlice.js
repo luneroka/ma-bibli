@@ -3,6 +3,7 @@ import {
   getLibraryBooksAsync,
   addToLibraryAsync,
   removeFromLibraryAsync,
+  // If you have a toggleHaveReadAsync for library, you might use that too.
 } from './libraryAsyncActions';
 import { toggleFavoriteAsync } from '../favorites/favoritesAsyncActions';
 
@@ -15,7 +16,18 @@ const initialState = {
 const librarySlice = createSlice({
   name: 'library',
   initialState,
-  reducers: {},
+  reducers: {
+    // Add an optimistic toggle reducer
+    toggleHaveReadOptimistic: (state, action) => {
+      const { isbn } = action.payload;
+      const index = state.libraryBooks.findIndex((book) => book.isbn === isbn);
+      if (index !== -1) {
+        // Toggle the haveRead property immediately
+        state.libraryBooks[index].haveRead =
+          !state.libraryBooks[index].haveRead;
+      }
+    },
+  },
   extraReducers: (builder) => {
     builder
       // GET LIBRARY BOOKS
@@ -75,4 +87,5 @@ const librarySlice = createSlice({
   },
 });
 
+export const { toggleHaveReadOptimistic } = librarySlice.actions;
 export default librarySlice.reducer;
