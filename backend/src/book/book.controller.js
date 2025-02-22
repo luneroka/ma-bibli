@@ -120,6 +120,34 @@ const toggleIsFavorite = async (Model, req, res) => {
   }
 };
 
+const toggleHaveRead = async (Model, req, res) => {
+  try {
+    const { isbn } = req.params;
+    const book = await Model.findOne({ isbn });
+    if (!book) {
+      return res.status(404).json({ message: 'Book not found' });
+    }
+
+    // Verify book ownership
+    if (book.userId !== req.user.uid) {
+      return res.status(403).json({ message: 'Forbidden' });
+    }
+
+    // Toggle isFavorite status
+    book.haveRead = !book.haveRead;
+    await book.save();
+    res
+      .status(200)
+      .json({ message: 'Have read status toggled successfully', book });
+  } catch (error) {
+    console.error('Failed to toggle have read status', error);
+    res.status(500).json({
+      message: 'Failed to toggle have read status',
+      error: error.message,
+    });
+  }
+};
+
 const deleteBook = async (Model, req, res) => {
   try {
     const { isbn } = req.params;
@@ -149,5 +177,6 @@ module.exports = {
   addBook,
   getFavoriteBooks,
   toggleIsFavorite,
+  toggleHaveRead,
   deleteBook,
 };
