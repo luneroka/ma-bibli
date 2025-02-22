@@ -50,6 +50,10 @@ const bookSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    dateHaveRead: {
+      type: Date,
+      default: null,
+    },
     createdAt: {
       type: Date,
       default: Date.now,

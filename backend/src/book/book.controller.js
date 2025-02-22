@@ -129,12 +129,10 @@ const getHaveReadBooks = async (Model, req, res) => {
     res.status(200).json(haveReadBooks);
   } catch (error) {
     console.error('Failed to load have read books.', error);
-    res
-      .status(500)
-      .json({
-        message: 'Failed to load have read books',
-        error: error.message,
-      });
+    res.status(500).json({
+      message: 'Failed to load have read books',
+      error: error.message,
+    });
   }
 };
 
@@ -151,8 +149,14 @@ const toggleHaveRead = async (Model, req, res) => {
       return res.status(403).json({ message: 'Forbidden' });
     }
 
-    // Toggle haveRead status
+    // Toggle haveRead status and update dateHaveRead
     book.haveRead = !book.haveRead;
+    if (book.haveRead) {
+      book.dateHaveRead = new Date();
+    } else {
+      book.dateHaveRead = null;
+    }
+
     await book.save();
     res
       .status(200)
