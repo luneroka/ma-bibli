@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { FaEye, FaEyeSlash, FaSpinner } from 'react-icons/fa';
 import ConfirmModal from '../../components/ConfirmModal';
@@ -14,18 +14,43 @@ function UserAccount() {
     updateUserPassword,
     deleteUserAccount,
   } = useAuth();
+
   const [displayName, setDisplayName] = useState(
     currentUser?.displayName || ''
   );
-  const [message, setMessage] = useState({ text: '', type: '' });
+  const [personalizeMessage, setPersonalizeMessage] = useState({
+    text: '',
+    type: '',
+  });
+  const [accountMessage, setAccountMessage] = useState({ text: '', type: '' });
   const [confirmModalVisibility, setConfirmModalVisibility] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const { setReadingObjective } = useContext(ReadingObjectiveContext);
-  const [localObjective, setLocalObjective] = useState('');
+
+  // Get both the current objective and the updater from context.
+  const { readingObjective, setReadingObjective } = useContext(
+    ReadingObjectiveContext
+  );
+
+  // Initialize localObjective with the current readingObjective (converted to a string for the input)
+  const [localObjective, setLocalObjective] = useState(
+    readingObjective ? readingObjective.toString() : ''
+  );
+
+  // Keep localObjective in sync if the context changes
+  useEffect(() => {
+    setLocalObjective(readingObjective ? readingObjective.toString() : '');
+  }, [readingObjective]);
 
   const handleObjectiveSubmit = (e) => {
     e.preventDefault();
-    setReadingObjective(Number(localObjective));
+    const objectiveValue = Number(localObjective);
+    setReadingObjective(objectiveValue);
+    setPersonalizeMessage({
+      text: "L'objectif a été mis à jour avec succès !",
+      type: 'success',
+    });
+    // Optionally you can clear or reformat the local input:
+    setLocalObjective(objectiveValue.toString());
   };
 
   // Common input classes
@@ -56,14 +81,14 @@ function UserAccount() {
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
     if (!displayName) {
-      setMessage({
+      setAccountMessage({
         text: 'Le nom d’utilisateur ne peut pas être vide.',
         type: 'failure',
       });
       return;
     }
     if (displayName === currentUser.displayName) {
-      setMessage({
+      setAccountMessage({
         text: 'Le nouveau nom doit être différent du précédent.',
         type: 'failure',
       });
@@ -71,12 +96,12 @@ function UserAccount() {
     }
     try {
       await updateUserProfile(displayName);
-      setMessage({
+      setPersonalizeMessage({
         text: 'Nom d’utilisateur mis à jour avec succès !',
         type: 'success',
       });
     } catch (error) {
-      setMessage({
+      setPersonalizeMessage({
         text: 'Erreur lors de la mise à jour du nom d’utilisateur.',
         type: 'failure',
       });
@@ -87,7 +112,7 @@ function UserAccount() {
   const handleUpdatePassword = async (e) => {
     e.preventDefault();
     if (passwordValues.new !== passwordValues.confirm) {
-      setMessage({
+      setAccountMessage({
         text: 'Les nouveaux mots de passe ne correspondent pas.',
         type: 'failure',
       });
@@ -95,14 +120,14 @@ function UserAccount() {
     }
     try {
       await updateUserPassword(passwordValues.current, passwordValues.new);
-      setMessage({
+      setAccountMessage({
         text: 'Mot de passe mis à jour avec succès !',
         type: 'success',
       });
       // Clear the password fields
       setPasswordValues({ current: '', new: '', confirm: '' });
     } catch (error) {
-      setMessage({
+      setAccountMessage({
         text: 'Erreur lors de la mise à jour du mot de passe',
         type: 'failure',
       });
@@ -149,17 +174,17 @@ function UserAccount() {
         <div className='flex-grow flex flex-col items-center justify-center mt-[64px]'>
           <div className='font-merriweather mb-4 text-h6'>Personnaliser</div>
           <div className='bg-white p-8 shadow-md w-full max-w-md'>
-            {message.text && (
+            {personalizeMessage.text && (
               <p
                 className={`text-small mb-4 p-2 ${
-                  message.type === 'success'
+                  personalizeMessage.type === 'success'
                     ? 'text-alert-green-txt bg-alert-green-bg border-alert-green-border'
-                    : message.type === 'failure'
+                    : personalizeMessage.type === 'failure'
                     ? 'text-alert-red-txt bg-alert-red-bg border-alert-red-border'
                     : 'text-alert-yellow-txt bg-alert-yellow-bg border-alert-yellow-border'
                 }`}
               >
-                {message.text}
+                {personalizeMessage.text}
               </p>
             )}
 
@@ -207,7 +232,6 @@ function UserAccount() {
                   type='number'
                   value={localObjective}
                   onChange={(e) => setLocalObjective(e.target.value)}
-                  placeholder='Nombre de livres...'
                   className={inputClass}
                 />
                 <div className='flex justify-end'>
@@ -229,17 +253,17 @@ function UserAccount() {
         <div className='flex-grow flex flex-col items-center justify-center mt-[64px]'>
           <div className='font-merriweather mb-4 text-h6'>Gérer mon compte</div>
           <div className='bg-white p-8 shadow-md w-full max-w-md'>
-            {message.text && (
+            {accountMessage.text && (
               <p
                 className={`text-small mb-4 p-2 ${
-                  message.type === 'success'
+                  accountMessage.type === 'success'
                     ? 'text-alert-green-txt bg-alert-green-bg border-alert-green-border'
-                    : message.type === 'failure'
+                    : accountMessage.type === 'failure'
                     ? 'text-alert-red-txt bg-alert-red-bg border-alert-red-border'
                     : 'text-alert-yellow-txt bg-alert-yellow-bg border-alert-yellow-border'
                 }`}
               >
-                {message.text}
+                {accountMessage.text}
               </p>
             )}
 

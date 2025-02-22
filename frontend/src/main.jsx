@@ -26,65 +26,65 @@ createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <BrowserRouter>
       <AuthProvider>
-        <Routes>
-          {/* HOME ROUTES */}
-          <Route path='/' element={<App />}>
-            <Route index element={<HomePage />} />
-          </Route>
+        <ReadingObjectiveProvider>
+          <Routes>
+            {/* HOME ROUTES */}
+            <Route path='/' element={<App />}>
+              <Route index element={<HomePage />} />
+            </Route>
 
-          {/* AUTH LAYOUT ROUTES */}
-          <Route element={<AuthLayout />}>
-            <Route path='/login' element={<Login />} />
-            <Route path='/register' element={<Register />} />
-            <Route path='/confirmation' element={<AuthConfirmation />} />
-            <Route path='forgot-password' element={<ForgotPassword />} />
-          </Route>
+            {/* AUTH LAYOUT ROUTES */}
+            <Route element={<AuthLayout />}>
+              <Route path='/login' element={<Login />} />
+              <Route path='/register' element={<Register />} />
+              <Route path='/confirmation' element={<AuthConfirmation />} />
+              <Route path='forgot-password' element={<ForgotPassword />} />
+            </Route>
 
-          {/* SHELF LAYOUT ROUTE */}
-          <Route element={<ShelfLayout />}>
+            {/* SHELF LAYOUT ROUTE */}
+            <Route element={<ShelfLayout />}>
+              <Route
+                path='/wishlist'
+                element={
+                  <PrivateRoute>
+                    <Wishlist />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path='/bibli'
+                element={
+                  <PrivateRoute>
+                    <LibraryList />
+                  </PrivateRoute>
+                }
+              />
+            </Route>
+
+            {/* SEARCH ROUTES */}
+            <Route path='/recherche' element={<SearchPage />} />
+
+            {/* ACCOUNT ROUTES */}
             <Route
-              path='/wishlist'
+              path='/dashboard'
               element={
                 <PrivateRoute>
-                  <Wishlist />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path='/bibli'
-              element={
-                <PrivateRoute>
-                  <LibraryList />
-                </PrivateRoute>
-              }
-            />
-          </Route>
-
-          {/* SEARCH ROUTES */}
-          <Route path='/recherche' element={<SearchPage />} />
-
-          {/* ACCOUNT ROUTES */}
-          <Route
-            path='/dashboard'
-            element={
-              <PrivateRoute>
-                <ReadingObjectiveProvider>
                   <DashboardPage />
-                </ReadingObjectiveProvider>
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path='/mon-compte'
-            element={
-              <PrivateRoute>
-                <UserPage />
-              </PrivateRoute>
-            }
-          />
-          <Route path='/livres' element={<Navigate to='/' />} />
-          <Route path='/livres/:isbn' element={<SingleBookPage />} />
-        </Routes>
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path='/mon-compte'
+              element={
+                <PrivateRoute>
+                  <UserPage />
+                </PrivateRoute>
+              }
+            />
+            <Route path='/livres' element={<Navigate to='/' />} />
+            <Route path='/livres/:isbn' element={<SingleBookPage />} />
+          </Routes>
+        </ReadingObjectiveProvider>
       </AuthProvider>
     </BrowserRouter>
   </Provider>

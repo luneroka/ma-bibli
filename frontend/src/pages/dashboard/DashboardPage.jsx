@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import NavbarUser from '../../components/Navbar/NavbarUser';
 import Footer from '../../components/Footer';
 import DashHeader from './DashHeader';
 import DashBody from './DashBody';
+import { ReadingObjectiveContext } from '../../context/ReadingObjectiveContext';
 
 function DashboardPage() {
   const [activeFilter, setActiveFilter] = useState('Total');
+  const { readingObjective } = useContext(ReadingObjectiveContext);
 
   return (
     <>
@@ -15,7 +17,10 @@ function DashboardPage() {
           activeFilter={activeFilter}
           setActiveFilter={setActiveFilter}
         />
-        <DashBody activeFilter={activeFilter} />
+        <DashBody
+          activeFilter={activeFilter}
+          readingObjective={readingObjective}
+        />
       </main>
       <Footer />
     </>

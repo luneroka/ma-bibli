@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import PrograssBars from '../../components/Dash/PrograssBars';
 import { Link } from 'react-router-dom';
 
-function DashBody({ activeFilter }) {
+function DashBody({ activeFilter, readingObjective }) {
   const libraryBooks = useSelector((state) => state.library.libraryBooks) || [];
   const haveReadBooks = [...libraryBooks].filter(
     (book) => book.haveRead === true
@@ -40,7 +40,9 @@ function DashBody({ activeFilter }) {
     (haveReadBooks.length / libraryBooks.length) * 100
   );
 
-  const userProgress = '';
+  const userProgress = readingObjective
+    ? Math.round((haveReadBooks.length / readingObjective) * 100)
+    : 0;
 
   return (
     <div className='mx-[64px] md:mx-[128px] grid grid-cols-1 min-[700px]:grid-cols-2 lg:grid-cols-4 gap-[24px]'>
@@ -52,21 +54,18 @@ function DashBody({ activeFilter }) {
 
       {/* Progression Bars */}
       <div className='col-span-2 '>
-        <p className='text-small text-black-75'>
-          % livres lus vs livres possédés
-        </p>
+        <p className='text-small font-light text-black-75'>LIVRES LUS</p>
         <PrograssBars
           className='h-[16px] flex items-center'
           progress={countProgress}
         />
       </div>
       <div className='col-span-2'>
-        <p className='text-small text-black-75'>
-          % livres lus vs objectif annuel (
-          <span className='text-primary-btn underline hover:seconday-primary-btn active:text-black-75'>
+        <p className='text-small font-light text-black-75'>
+          OBJECTIF ANNUEL
+          <span className='ml-2 text-primary-btn hover:text-secondary-btn active:text-black-75 text-xs'>
             <Link to='/mon-compte'>définir un objectif</Link>
           </span>
-          )
         </p>
         <PrograssBars
           className='h-[16px] flex items-center'

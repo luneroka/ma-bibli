@@ -34,7 +34,7 @@ function ThemeSwitcher() {
         onChange={handleThemeChange}
         className='focus:outline-none w-full'
       >
-        <option value='default'>Ma Bibli (Défaut)</option>
+        <option value='default'>Ma Bibli (défaut)</option>
         <option value='urbanIndus'>Urban Indus</option>
         <option value='spookyHalloween'>Spooky Halloween</option>
         <option value='coastalCalm'>Coastal Calm</option>
