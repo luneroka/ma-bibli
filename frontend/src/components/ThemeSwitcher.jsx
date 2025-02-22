@@ -32,7 +32,7 @@ function ThemeSwitcher() {
         id='theme-select'
         value={theme}
         onChange={handleThemeChange}
-        className='text-xs p-1 text-white-bg border border-white-bg rounded focus:outline-none'
+        className='focus:outline-none w-full'
       >
         <option value='default'>Ma Bibli (Défaut)</option>
         <option value='urbanIndus'>Urban Indus</option>

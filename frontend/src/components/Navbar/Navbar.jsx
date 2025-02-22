@@ -61,8 +61,8 @@ const Navbar = () => {
 
         {/* Middle */}
         {/* Change Theme */}
-        <div className='text-white-bg text-small font-merriweather'>
-          <ThemeSwitcher />
+        <div className='text-white-bg text-small font-merriweather border border-white-bg rounded focus:outline-none'>
+          <ThemeSwitcher className='text-xs p-1 text-white-bg' />
         </div>
 
         {/* Right side */}

@@ -4,6 +4,7 @@ import GraphCard from '../../components/Dash/GraphCard';
 import ListCard from '../../components/Dash/ListCard';
 import { useSelector } from 'react-redux';
 import PrograssBars from '../../components/Dash/PrograssBars';
+import { Link } from 'react-router-dom';
 
 function DashBody({ activeFilter }) {
   const libraryBooks = useSelector((state) => state.library.libraryBooks) || [];
@@ -52,7 +53,7 @@ function DashBody({ activeFilter }) {
       {/* Progression Bars */}
       <div className='col-span-2 '>
         <p className='text-small text-black-75'>
-          Livres lus vs livres possédés
+          % livres lus vs livres possédés
         </p>
         <PrograssBars
           className='h-[16px] flex items-center'
@@ -61,7 +62,11 @@ function DashBody({ activeFilter }) {
       </div>
       <div className='col-span-2'>
         <p className='text-small text-black-75'>
-          Livres lus vs objectif annuel
+          % livres lus vs objectif annuel (
+          <span className='text-primary-btn underline hover:seconday-primary-btn active:text-black-75'>
+            <Link to='/mon-compte'>définir un objectif</Link>
+          </span>
+          )
         </p>
         <PrograssBars
           className='h-[16px] flex items-center'
