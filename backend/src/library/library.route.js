@@ -30,6 +30,9 @@ router.put('/favorites/:isbn', (req, res) =>
   toggleIsFavorite(LibraryBook, req, res)
 );
 
+// HAVE READ endpoints
+router.get('/have-read', (req))
+
 // GET a list of distinct categories a user has in library
 router.get('/categories', async (req, res) => {
   try {

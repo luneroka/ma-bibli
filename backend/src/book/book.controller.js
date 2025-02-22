@@ -120,6 +120,24 @@ const toggleIsFavorite = async (Model, req, res) => {
   }
 };
 
+const getHaveReadBooks = async (Model, req, res) => {
+  try {
+    const haveReadBooks = await Model.find({
+      userId: req.user.uid,
+      haveRead: true,
+    }).lean();
+    res.status(200).json(haveReadBooks);
+  } catch (error) {
+    console.error('Failed to load have read books.', error);
+    res
+      .status(500)
+      .json({
+        message: 'Failed to load have read books',
+        error: error.message,
+      });
+  }
+};
+
 const toggleHaveRead = async (Model, req, res) => {
   try {
     const { isbn } = req.params;
@@ -177,6 +195,7 @@ module.exports = {
   addBook,
   getFavoriteBooks,
   toggleIsFavorite,
+  getHaveReadBooks,
   toggleHaveRead,
   deleteBook,
 };
