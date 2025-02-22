@@ -3,7 +3,6 @@ import {
   getLibraryBooksAsync,
   addToLibraryAsync,
   removeFromLibraryAsync,
-  // If you have a toggleHaveReadAsync for library, you might use that too.
 } from './libraryAsyncActions';
 import { toggleFavoriteAsync } from '../favorites/favoritesAsyncActions';
 

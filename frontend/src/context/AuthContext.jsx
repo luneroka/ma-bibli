@@ -17,7 +17,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { auth } from '../firebase/firebase.config';
 import { getLibraryBooksAsync } from '../redux/features/library/libraryAsyncActions';
-import { getReadingListBooksAsync } from '../redux/features/reading-list/readingListAsyncActions';
+import { getWishlistBooksAsync } from '../redux/features/wishlist/wishlistAsyncActions';
 import { getFavoriteBooksAsync } from '../redux/features/favorites/favoritesAsyncActions';
 import { useNavigate } from 'react-router';
 
@@ -123,7 +123,7 @@ export const AuthProvider = ({ children }) => {
         const token = await user.getIdToken();
         // Dispatch async actions to reload user-specific state.
         dispatch(getLibraryBooksAsync({ token }));
-        dispatch(getReadingListBooksAsync({ token }));
+        dispatch(getWishlistBooksAsync({ token }));
         dispatch(getFavoriteBooksAsync({ token }));
       }
     });

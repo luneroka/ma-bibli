@@ -70,7 +70,7 @@ const NavbarSearch = () => {
 
         {/* Right side */}
         <div className='flex items-center gap-4 sm:gap-6'>
-          {/* Reading List Icon */}
+          {/* Wishlist Icon */}
           <Link to='/liste-de-lecture'>
             <FaListAlt className='w-6 h-6 text-white-bg hover:text-primary-btn' />
           </Link>

@@ -24,8 +24,8 @@ function NavbarLibrary() {
 
         {/* Right side */}
         <div className='flex items-center gap-4 sm:gap-6'>
-          {/* Reading List Icon */}
-          <Link to='/liste-de-lecture'>
+          {/* Wishlist Icon */}
+          <Link to='/wishlist'>
             <FaListAlt className='w-6 h-6 text-white-bg hover:text-primary-btn' />
           </Link>
 

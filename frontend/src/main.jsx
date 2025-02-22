@@ -17,7 +17,7 @@ import ForgotPassword from './pages/auth/ForgotPassword.jsx';
 import AuthLayout from './pages/auth/AuthLayout';
 import DashboardPage from './pages/dashboard/DashboardPage.jsx';
 import ShelfLayout from './pages/shelves/ShelfLayout.jsx';
-import ReadingList from './pages/shelves/ReadingList.jsx';
+import Wishlist from './pages/shelves/Wishlist.jsx';
 import LibraryList from './pages/shelves/LibraryList.jsx';
 import AuthConfirmation from './pages/auth/AuthConfirmation.jsx';
 
@@ -42,10 +42,10 @@ createRoot(document.getElementById('root')).render(
           {/* SHELF LAYOUT ROUTE */}
           <Route element={<ShelfLayout />}>
             <Route
-              path='/liste-de-lecture'
+              path='/wishlist'
               element={
                 <PrivateRoute>
-                  <ReadingList />
+                  <Wishlist />
                 </PrivateRoute>
               }
             />

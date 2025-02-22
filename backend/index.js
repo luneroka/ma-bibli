@@ -40,8 +40,8 @@ const libraryRoutes = require('./src/library/library.route');
 app.use('/api/library', libraryRoutes);
 
 // Reading List routes
-const readingListRoutes = require('./src/reading-list/readingList.route');
-app.use('/api/reading-list', readingListRoutes);
+const wishlistRoutes = require('./src/wishlist/wishlist.route');
+app.use('/api/wishlist', wishlistRoutes);
 
 // Root route
 app.get('/', (req, res) => {

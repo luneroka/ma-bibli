@@ -18,9 +18,7 @@ function SingleBookPage() {
   const dispatch = useDispatch();
   const { book } = useSelector((state) => state.singleBook);
   const libraryBooks = useSelector((state) => state.library.libraryBooks);
-  const readingListBooks = useSelector(
-    (state) => state.readingList.readingListBooks
-  );
+  const wishlistBooks = useSelector((state) => state.wishlist.wishlistBooks);
 
   // Local state for author books and loading status
   const [authorBooks, setAuthorBooks] = useState([]);
@@ -86,7 +84,7 @@ function SingleBookPage() {
               variant='single'
               book={book}
               libraryBooks={libraryBooks}
-              readingListBooks={readingListBooks}
+              wishlistBooks={wishlistBooks}
             />
 
             <h2 className='mt-[64px] mb-[32px] font-merriweather text-h6'>

@@ -4,9 +4,7 @@ import { useSelector } from 'react-redux';
 
 function SearchResults({ searchResults = { items: [] } }) {
   const libraryBooks = useSelector((state) => state.library.libraryBooks);
-  const readingListBooks = useSelector(
-    (state) => state.readingList.readingListBooks
-  );
+  const wishlistBooks = useSelector((state) => state.wishlist.wishlistBooks);
 
   const uniqueBooks = searchResults.items.filter(
     (book, index, self) => index === self.findIndex((b) => b.isbn === book.isbn)
@@ -24,7 +22,7 @@ function SearchResults({ searchResults = { items: [] } }) {
                 key={book.isbn}
                 book={book}
                 libraryBooks={libraryBooks}
-                readingListBooks={readingListBooks}
+                wishlistBooks={wishlistBooks}
               />
             ))}
         </div>

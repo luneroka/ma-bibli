@@ -2,11 +2,10 @@ import React, { useEffect } from 'react';
 import { Outlet } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { getLibraryBooksAsync } from './redux/features/library/libraryAsyncActions';
-import { getReadingListBooksAsync } from './redux/features/reading-list/readingListAsyncActions';
+import { getWishlistBooksAsync } from './redux/features/wishlist/wishlistAsyncActions';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import themes from './assets/themes';
 
 const applyTheme = (themeKey) => {
@@ -22,7 +21,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getLibraryBooksAsync());
-    dispatch(getReadingListBooksAsync());
+    dispatch(getWishlistBooksAsync());
   }, [dispatch]);
 
   useEffect(() => {

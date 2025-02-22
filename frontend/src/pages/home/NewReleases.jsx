@@ -6,7 +6,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Pagination, Navigation } from 'swiper/modules';
 
-const NewReleases = ({ newest, libraryBooks = [], readingListBooks = [] }) => {
+const NewReleases = ({ newest, libraryBooks = [], wishlistBooks = [] }) => {
   return (
     <>
       <div className='flex items-center gap-8 mb-[32px]'>
@@ -45,7 +45,7 @@ const NewReleases = ({ newest, libraryBooks = [], readingListBooks = [] }) => {
                 variant='card'
                 book={book}
                 libraryBooks={libraryBooks}
-                readingListBooks={readingListBooks}
+                wishlistBooks={wishlistBooks}
               />
             </SwiperSlide>
           ))}

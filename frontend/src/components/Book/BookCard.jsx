@@ -4,7 +4,7 @@ import {
   FaBookmark,
   FaCheckCircle,
   FaHeart,
-  FaSpinner, // <-- added spinner
+  FaSpinner,
 } from 'react-icons/fa';
 import { IoIosAddCircleOutline, IoIosLogIn } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,19 +14,14 @@ import {
   removeFromLibraryAsync,
 } from '../../redux/features/library/libraryAsyncActions';
 import {
-  addToReadingListAsync,
-  removeFromReadingListAsync,
-} from '../../redux/features/reading-list/readingListAsyncActions';
+  addToWishlistAsync,
+  removeFromWishlistAsync,
+} from '../../redux/features/wishlist/wishlistAsyncActions';
 import { formatNumber, extractYear, extractFullDate } from '../../utils/helper';
 import { toggleFavoriteAsync } from '../../redux/features/favorites/favoritesAsyncActions';
 import { useAuth } from '../../context/AuthContext';
 
-const BookCard = ({
-  book,
-  variant,
-  libraryBooks = [],
-  readingListBooks = [],
-}) => {
+const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
   const { currentUser } = useAuth();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -59,23 +54,23 @@ const BookCard = ({
     }
   };
 
-  const handleAddToReadingList = async (book) => {
+  const handleAddToWishlist = async (book) => {
     if (!currentUser) return;
     try {
       const token = await currentUser.getIdToken();
-      dispatch(addToReadingListAsync({ token, optimisticBook: book }));
+      dispatch(addToWishlistAsync({ token, optimisticBook: book }));
     } catch (error) {
-      console.error('Error fetching token for reading list add:', error);
+      console.error('Error fetching token for wishlist add:', error);
     }
   };
 
-  const handleRemoveFromReadingList = async (isbn) => {
+  const handleRemoveFromWishlist = async (isbn) => {
     if (!currentUser) return;
     try {
       const token = await currentUser.getIdToken();
-      dispatch(removeFromReadingListAsync({ token, isbn }));
+      dispatch(removeFromWishlistAsync({ token, isbn }));
     } catch (error) {
-      console.error('Error fetching token for reading list delete:', error);
+      console.error('Error fetching token for wishlist delete:', error);
     }
   };
 
@@ -98,8 +93,8 @@ const BookCard = ({
   const isInLibrary = libraryBooks.some(
     (libraryBook) => libraryBook.isbn === book.isbn
   );
-  const isInReadingList = readingListBooks.some(
-    (readingListBook) => readingListBook.isbn === book.isbn
+  const isInWishlist = wishlistBooks.some(
+    (wishlistBooks) => wishlistBooks.isbn === book.isbn
   );
 
   // Convert HTML to plain text for detailed description
@@ -173,10 +168,10 @@ const BookCard = ({
           {/* Action Buttons (only when user is logged in) */}
           {currentUser ? (
             <div className='flex gap-[16px] mt-2'>
-              {/* Reading List Button */}
-              {isInReadingList ? (
+              {/* wishlist List Button */}
+              {isInWishlist ? (
                 <button
-                  onClick={() => handleRemoveFromReadingList(book.isbn)}
+                  onClick={() => handleRemoveFromWishlist(book.isbn)}
                   className='cursor-pointer bg-secondary-btn text-black-75 text-xs px-1 py-1.5 w-[121px]'
                 >
                   <div className='flex gap-1 items-center justify-center'>
@@ -186,7 +181,7 @@ const BookCard = ({
                 </button>
               ) : (
                 <button
-                  onClick={() => handleAddToReadingList(book)}
+                  onClick={() => handleAddToWishlist(book)}
                   className='cursor-pointer bg-primary-btn text-black-75 text-xs px-1 py-1.5 w-[121px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
                 >
                   <div className='flex gap-1 items-center justify-center'>
@@ -311,10 +306,10 @@ const BookCard = ({
           {/* Action Buttons (only when user is logged in) */}
           {currentUser ? (
             <div className='flex gap-[24px] mt-6'>
-              {/* Reading List Button */}
-              {isInReadingList ? (
+              {/* wishlist List Button */}
+              {isInWishlist ? (
                 <button
-                  onClick={() => handleRemoveFromReadingList(book.isbn)}
+                  onClick={() => handleRemoveFromWishlist(book.isbn)}
                   className='cursor-pointer bg-secondary-btn text-black-75 text-small px-1 py-2.5 w-[220px]'
                 >
                   <div className='flex gap-1 items-center justify-center'>
@@ -324,7 +319,7 @@ const BookCard = ({
                 </button>
               ) : (
                 <button
-                  onClick={() => handleAddToReadingList(book)}
+                  onClick={() => handleAddToWishlist(book)}
                   className='cursor-pointer bg-primary-btn text-black-75 text-small px-1 py-2.5 w-[220px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
                 >
                   <div className='flex gap-1 items-center justify-center'>

@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { createSearchNewestAsync } from '../../redux/features/newest/newestAsyncActions';
 import { createGetNewsAsync } from '../../redux/features/news/newsAsyncActions';
 import { useAuth } from '../../context/AuthContext';
-import { getReadingListBooksAsync } from '../../redux/features/reading-list/readingListAsyncActions';
+import { getWishlistBooksAsync } from '../../redux/features/wishlist/wishlistAsyncActions';
 import { getLibraryBooksAsync } from '../../redux/features/library/libraryAsyncActions';
 import { getFavoriteBooksAsync } from '../../redux/features/favorites/favoritesAsyncActions';
 
@@ -15,9 +15,7 @@ const HomePage = () => {
   const newest = useSelector((state) => state.newest.newest.items);
   const news = useSelector((state) => state.news.news);
   const libraryBooks = useSelector((state) => state.library.libraryBooks);
-  const readingListBooks = useSelector(
-    (state) => state.readingList.readingListBooks
-  );
+  const wishlistBooks = useSelector((state) => state.wishlist.wishlistBooks);
 
   useEffect(() => {
     dispatch(createSearchNewestAsync('newest', '/api/search/newest')());
@@ -25,7 +23,7 @@ const HomePage = () => {
     if (currentUser) {
       currentUser.getIdToken().then((token) => {
         dispatch(getLibraryBooksAsync({ token }));
-        dispatch(getReadingListBooksAsync({ token }));
+        dispatch(getWishlistBooksAsync({ token }));
         dispatch(getFavoriteBooksAsync({ token }));
       });
     }
@@ -38,7 +36,7 @@ const HomePage = () => {
           <NewReleases
             newest={newest}
             libraryBooks={libraryBooks}
-            readingListBooks={readingListBooks}
+            wishlistBooks={wishlistBooks}
           />
         </div>
 
