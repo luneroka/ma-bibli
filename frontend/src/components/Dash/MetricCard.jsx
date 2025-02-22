@@ -11,19 +11,15 @@ function MetricCard({ variant, libraryBooks = [] }) {
 
   if (variant === 'books') {
     return (
-      <div className='h-[120px] pl-[64px] pr-[96px] bg-white-bg flex justify-between items-center shadow-lg'>
-        <div className=''>
-          <p className='text-metrics-number text-secondary-btn'>
-            {libraryBooks.length}
-          </p>
-          <p className='text-metrics-type font-light'>Livres</p>
-        </div>
-        <div className='text-h1 font-thin text-black-50'>|</div>
+      <div className='h-[120px] pl-[64px] bg-white-bg flex justify-between items-center shadow-lg'>
         <div>
           <p className='text-metrics-number text-secondary-btn'>
-            {haveReadBooks.length}
+            {haveReadBooks.length}{' '}
+            <span className='text-black-50 text-body'>
+              /{libraryBooks.length}{' '}
+            </span>
           </p>
-          <p className='text-metrics-type font-light'>Lus</p>
+          <p className='text-metrics-type font-light'>Livres lus</p>
         </div>
       </div>
     );
@@ -40,11 +36,11 @@ function MetricCard({ variant, libraryBooks = [] }) {
 
     return (
       <div className='h-[120px] pl-[64px] bg-white-bg flex flex-col justify-center shadow-lg'>
-        {/* <p className='text-metrics-number text-secondary-btn'>
-          {totalPages.toLocaleString('fr-FR')}
-        </p> */}
         <p className='text-metrics-number text-secondary-btn'>
-          {totalReadPages.toLocaleString('fr-FR')}
+          {totalReadPages.toLocaleString('fr-FR')}{' '}
+          <span className='text-black-50 text-body'>
+            /{totalPages.toLocaleString('fr-FR')}
+          </span>
         </p>
         <p className='text-metrics-type font-light'>Pages lues</p>
       </div>
