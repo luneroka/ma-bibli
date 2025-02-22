@@ -5,11 +5,12 @@ import { FaHeart } from 'react-icons/fa';
 function ListCard({ variant, libraryBooks = [] }) {
   if (variant === 'recent') {
     const sortedBooks = [...libraryBooks]
-      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+      .filter((book) => book.haveRead === true && book.dateHaveRead)
+      .sort((a, b) => new Date(b.dateHaveRead) - new Date(a.dateHaveRead))
       .slice(0, 5);
     return (
       <div className='h-[500px] bg-white-bg text-center text-chart-title p-4 overflow-hidden shadow-lg'>
-        <div className='mb-8'>Ajoutés récemment</div>
+        <div className='mb-8'>Lus récemment</div>
         <div>
           {sortedBooks.map((book) => (
             <ListItem key={book.isbn} book={book} />

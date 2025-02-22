@@ -3,7 +3,6 @@ import {
   getMostRepeatedValue,
   getMostRepeatedAuthor,
 } from '../../utils/helper';
-import { FaHeart } from 'react-icons/fa';
 
 function MetricCard({ variant, libraryBooks = [] }) {
   if (variant === 'books') {
