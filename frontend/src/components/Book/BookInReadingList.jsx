@@ -39,7 +39,6 @@ function BookInReadingList({ book, libraryBooks = [] }) {
   );
 
   return (
-    <>
       <div className='flex flex-col gap-2'>
         {/* Book Info */}
         <div className='flex w-[125px] h-[175px] relative flex-shrink-0 items-center justify-center'>
@@ -92,7 +91,6 @@ function BookInReadingList({ book, libraryBooks = [] }) {
           </button>
         )}
       </div>
-    </>
   );
 }
 

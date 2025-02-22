@@ -5,12 +5,14 @@ import { IoIosRemoveCircle } from 'react-icons/io';
 import { FaHeart, FaSpinner } from 'react-icons/fa';
 import { removeFromLibraryAsync } from '../../redux/features/library/libraryAsyncActions';
 import { toggleFavoriteAsync } from '../../redux/features/favorites/favoritesAsyncActions';
+import { toggleHaveReadAsync } from '../../redux/features/have-read/haveReadAsyncActions';
 import { useAuth } from '../../context/AuthContext';
 
 function BookInLibrary({ book }) {
   const { currentUser } = useAuth();
   const dispatch = useDispatch();
   const isFavorite = book.isFavorite;
+  const haveRead = book.haveRead;
 
   // State to track image loading
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -35,8 +37,18 @@ function BookInLibrary({ book }) {
     }
   };
 
+  const handleHaveRead = async (isbn) => {
+    if (!currentUser) return;
+    try {
+      const token = await currentUser.getIdToken();
+      dispatch(toggleHaveReadAsync({ token, isbn }));
+    } catch (error) {
+      console.error('Error fetching token for have read toggle:', error);
+    }
+  };
+
   return (
-    <>
+    <div className='flex flex-col gap-2'>
       <div className='flex w-[125px] h-[175px] relative flex-shrink-0 items-center justify-center'>
         {/* Spinner while image is loading */}
         {!imageLoaded && (
@@ -72,7 +84,20 @@ function BookInLibrary({ book }) {
           <IoIosRemoveCircle className='p-0.25' />
         </button>
       </div>
-    </>
+
+      {/* Have Read Button */}
+      {!haveRead && (
+        <button
+          onClick={() => handleHaveRead(book.isbn)}
+          className='cursor-pointer bg-primary-btn text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn w-[125px] active:bg-black-75 active:text-white-bg'
+        >
+          <div className='flex gap-1 items-center justify-center'>
+            <div className='text-body'></div>
+            J'ai lu !
+          </div>
+        </button>
+      )}
+    </div>
   );
 }
 
