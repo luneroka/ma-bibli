@@ -3,9 +3,13 @@ import MetricCard from '../../components/Dash/MetricCard';
 import GraphCard from '../../components/Dash/GraphCard';
 import ListCard from '../../components/Dash/ListCard';
 import { useSelector } from 'react-redux';
+import PrograssBars from '../../components/Dash/PrograssBars';
 
 function DashBody({ activeFilter }) {
   const libraryBooks = useSelector((state) => state.library.libraryBooks) || [];
+  const haveReadBooks = [...libraryBooks].filter(
+    (book) => book.haveRead === true
+  );
 
   const filteredBooks = (() => {
     if (activeFilter === '7 jours') {
@@ -30,30 +34,50 @@ function DashBody({ activeFilter }) {
     return libraryBooks;
   })();
 
+  // Progression bars data
+  const countProgress = Math.round(
+    (haveReadBooks.length / libraryBooks.length) * 100
+  );
+
+  const userProgress = '';
+
   return (
-    <>
-      <div className='mx-[128px] my-[16px]'>Progression</div>
-      <div className='mx-[64px] md:mx-[128px] grid grid-cols-1 min-[700px]:grid-cols-2 lg:grid-cols-4 gap-[16px]'>
-        {/* Metrics Cards */}
-        <MetricCard variant='books' libraryBooks={filteredBooks} />
-        <MetricCard variant='pageCount' libraryBooks={filteredBooks} />
-        <MetricCard variant='topGenre' libraryBooks={filteredBooks} />
-        <MetricCard variant='topAuthor' libraryBooks={filteredBooks} />
+    <div className='mx-[64px] md:mx-[128px] grid grid-cols-1 min-[700px]:grid-cols-2 lg:grid-cols-4 gap-[24px]'>
+      {/* Metrics Cards */}
+      <MetricCard variant='books' libraryBooks={filteredBooks} />
+      <MetricCard variant='pageCount' libraryBooks={filteredBooks} />
+      <MetricCard variant='topGenre' libraryBooks={filteredBooks} />
+      <MetricCard variant='topAuthor' libraryBooks={filteredBooks} />
 
-        {/* Progression Bars */}
-        <div className='h-[16px] col-span-2'></div>
-        <div className='h-[16px] col-span-2'></div>
-
-        {/* Graph Card */}
-        <div className='col-span-1 min-[700px]:col-span-2 lg:col-span-2'>
-          <GraphCard libraryBooks={filteredBooks} />
-        </div>
-
-        {/* List Card */}
-        <ListCard variant='recent' libraryBooks={filteredBooks} />
-        <ListCard variant='favorites' libraryBooks={filteredBooks} />
+      {/* Progression Bars */}
+      <div className='col-span-2 '>
+        <p className='text-small text-black-75'>
+          Livres lus vs livres possédés
+        </p>
+        <PrograssBars
+          className='h-[16px] flex items-center'
+          progress={countProgress}
+        />
       </div>
-    </>
+      <div className='col-span-2'>
+        <p className='text-small text-black-75'>
+          Livres lus vs objectif annuel
+        </p>
+        <PrograssBars
+          className='h-[16px] flex items-center'
+          progress={userProgress}
+        />
+      </div>
+
+      {/* Graph Card */}
+      <div className='col-span-1 min-[700px]:col-span-2 lg:col-span-2'>
+        <GraphCard libraryBooks={filteredBooks} />
+      </div>
+
+      {/* List Card */}
+      <ListCard variant='recent' libraryBooks={filteredBooks} />
+      <ListCard variant='favorites' libraryBooks={filteredBooks} />
+    </div>
   );
 }
 

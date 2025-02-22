@@ -23,12 +23,6 @@ function NavbarUser() {
           </Link>
         </div>
 
-        {/* Middle */}
-        {/* Change Theme */}
-        <div className='text-white-bg text-small font-merriweather'>
-          <ThemeSwitcher />
-        </div>
-
         {/* Right side */}
         <div className='flex items-center gap-4 sm:gap-6'>
           {/* Display Name */}
