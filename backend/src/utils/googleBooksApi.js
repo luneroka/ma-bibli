@@ -3,7 +3,7 @@ const apiKey = process.env.GOOGLE_BOOKS_API_KEY;
 const { fetchJson } = require('./helper');
 
 const searchBooksFromGoogle = async (searchTerm) => {
-  const maxResults = 20;
+  const maxResults = 40;
   const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(
     searchTerm
   )}&maxResults=${maxResults}&key=${apiKey}`;
@@ -13,11 +13,7 @@ const searchBooksFromGoogle = async (searchTerm) => {
   // Filter out books with missing images or pageCount ≤ 0
   if (data.items) {
     data.items = data.items.filter(
-      (book) =>
-        book.volumeInfo?.title &&
-        book.volumeInfo?.imageLinks &&
-        book.volumeInfo?.authors &&
-        book.volumeInfo?.pageCount > 0
+      (book) => book.volumeInfo?.title && book.volumeInfo?.pageCount > 0
     );
   } else {
     data.items = [];
@@ -34,11 +30,7 @@ const searchAuthorFromGoogle = async (searchTerm) => {
   const data = await fetchJson(url);
   if (data.items) {
     data.items = data.items.filter(
-      (book) =>
-        book.volumeInfo?.title &&
-        book.volumeInfo?.imageLinks &&
-        book.volumeInfo?.authors &&
-        book.volumeInfo?.pageCount > 0
+      (book) => book.volumeInfo?.title && book.volumeInfo?.pageCount > 0
     );
   } else {
     data.items = [];
@@ -67,8 +59,15 @@ const searchNewestFromGoogle = async () => {
 };
 
 const fetchBookFromGoogle = async (isbn) => {
-  const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${apiKey}`;
-  const data = await fetchJson(url);
+  // First, try a strict ISBN-based query.
+  const primaryUrl = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${apiKey}`;
+  let data = await fetchJson(primaryUrl);
+
+  // If no items are returned, try a fallback query (e.g. without the "isbn:" prefix).
+  if (!data.items || data.items.length === 0) {
+    const fallbackUrl = `https://www.googleapis.com/books/v1/volumes?q=${isbn}&key=${apiKey}`;
+    data = await fetchJson(fallbackUrl);
+  }
   return data;
 };
 

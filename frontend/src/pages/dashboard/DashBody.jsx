@@ -15,7 +15,7 @@ function DashBody({ activeFilter, readingObjective }) {
   const filteredBooks = (() => {
     if (activeFilter === '7 jours') {
       const sevenDaysAgo = new Date();
-      sevenDaysAgo.setHours(sevenDaysAgo.getHours() - 12);
+      sevenDaysAgo.setHours(sevenDaysAgo.getHours() - 0.1);
       console.log(sevenDaysAgo);
       return libraryBooks.filter(
         (book) => new Date(book.createdAt) >= sevenDaysAgo
@@ -24,7 +24,7 @@ function DashBody({ activeFilter, readingObjective }) {
 
     if (activeFilter === '30 jours') {
       const thirtyDaysAgo = new Date();
-      thirtyDaysAgo.setHours(thirtyDaysAgo.getHours() - 16);
+      thirtyDaysAgo.setHours(thirtyDaysAgo.getHours() - 0.2);
       return libraryBooks.filter(
         (book) => new Date(book.createdAt) >= thirtyDaysAgo
       );
@@ -55,7 +55,9 @@ function DashBody({ activeFilter, readingObjective }) {
     <div className='mx-[64px] md:mx-[128px] grid grid-cols-1 min-[700px]:grid-cols-2 lg:grid-cols-4 gap-[24px]'>
       {/* Progression Bars */}
       <div className='col-span-2 '>
-        <p className='text-small font-light text-black-75'>LIVRES LUS / LIVRES POSSÉDÉS</p>
+        <p className='text-small font-light text-black-75'>
+          LIVRES LUS / LIVRES POSSÉDÉS
+        </p>
         <PrograssBars
           className='h-[16px] flex items-center'
           progress={countProgress}

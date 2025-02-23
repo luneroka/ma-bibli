@@ -16,10 +16,11 @@ const transformGoogleBook = (googleBook) => {
   let coverUrl =
     volume.imageLinks?.thumbnail ||
     volume.imageLinks?.smallThumbnail ||
-    '../../../../frontend/public/product-not-found.png';
+    '/product-not-found.png'; // use an absolute URL so the file can be found
 
-  // If it's from Google, use the proxy endpoint
-  if (coverUrl) {
+  // If the cover is an absolute URL, wrap it with the proxy endpoint.
+  // Otherwise (fallback image), leave it as is.
+  if (coverUrl.startsWith('http')) {
     coverUrl = `/api/proxy-image?url=${encodeURIComponent(coverUrl)}`;
   }
 
