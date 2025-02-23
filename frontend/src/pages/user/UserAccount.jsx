@@ -31,25 +31,33 @@ function UserAccount() {
     ReadingObjectiveContext
   );
 
-  // Initialize localObjective with the current readingObjective (converted to a string for the input)
+  // Initialize localObjective(s)
   const [localObjective, setLocalObjective] = useState(
-    readingObjective ? readingObjective.toString() : ''
+    readingObjective.objective ? readingObjective.objective.toString() : ''
+  );
+  const [localTimeframeObjective, setLocalTimeframeObjective] = useState(
+    readingObjective.timeframe || ''
   );
 
-  // Keep localObjective in sync if the context changes
+  // Keep objectives in sync if the context changes
   useEffect(() => {
-    setLocalObjective(readingObjective ? readingObjective.toString() : '');
+    setLocalObjective(
+      readingObjective.objective ? readingObjective.objective.toString() : ''
+    );
+    setLocalTimeframeObjective(readingObjective.timeframe || '');
   }, [readingObjective]);
 
   const handleObjectiveSubmit = (e) => {
     e.preventDefault();
     const objectiveValue = Number(localObjective);
-    setReadingObjective(objectiveValue);
+    setReadingObjective({
+      objective: objectiveValue,
+      timeframe: localTimeframeObjective,
+    });
     setPersonalizeMessage({
       text: "L'objectif a été mis à jour avec succès !",
       type: 'success',
     });
-    // Optionally you can clear or reformat the local input:
     setLocalObjective(objectiveValue.toString());
   };
 
@@ -193,13 +201,13 @@ function UserAccount() {
               <label className='text-small-body font-bold text-black-75 mb-1'>
                 Changer le nom d'utilisateur
               </label>
-              <div className='flex flex-col gap-2 mb-8'>
+              <div className='flex flex-col mb-8'>
                 <input
                   type='text'
                   required
                   value={displayName}
                   onChange={(e) => setDisplayName(e.target.value)}
-                  className='font-merriweather text-black-75 shadow border border-black-25 focus:outline-secondary-btn w-full py-2 px-3'
+                  className='font-merriweather text-black-75 shadow border border-black-25 focus:outline-secondary-btn w-full py-2 px-3 mb-4'
                 />
                 <div className='flex justify-end'>
                   <button
@@ -223,25 +231,38 @@ function UserAccount() {
             </div>
 
             {/* Set Reading Objective */}
-            <p className='text-small-body font-bold text-black-75 mb-1'>
-              Objectif de lecture pour {new Date().getFullYear()}
-            </p>
             <form onSubmit={handleObjectiveSubmit}>
-              <div className='flex flex-col gap-2 mb-8'>
-                <input
-                  type='number'
-                  value={localObjective}
-                  onChange={(e) => setLocalObjective(e.target.value)}
-                  className={inputClass}
-                />
-                <div className='flex justify-end'>
-                  <button
-                    type='submit'
-                    className='cursor-pointer bg-secondary-btn hover:bg-primary-btn active:bg-black-75 text-white p-2 w-40 text-small font-merriweather'
-                  >
-                    Modifier
-                  </button>
+              <div className='flex gap-2 mb-4'>
+                <div>
+                  <label className='text-small-body font-bold text-black-75 mb-1'>
+                    Objectif de lecture pour {new Date().getFullYear()}
+                  </label>
+                  <input
+                    type='number'
+                    value={localObjective}
+                    onChange={(e) => setLocalObjective(e.target.value)}
+                    className={inputClass}
+                  />
                 </div>
+                <div>
+                  <label className='text-small-body font-bold text-black-75 mb-1'>
+                    À partir du :
+                  </label>
+                  <input
+                    type='date'
+                    value={localTimeframeObjective}
+                    onChange={(e) => setLocalTimeframeObjective(e.target.value)}
+                    className={inputClass}
+                  />
+                </div>
+              </div>
+              <div className='flex justify-start'>
+                <button
+                  type='submit'
+                  className='cursor-pointer bg-secondary-btn hover:bg-primary-btn active:bg-black-75 text-white p-2 w-40 text-small font-merriweather'
+                >
+                  Modifier
+                </button>
               </div>
             </form>
           </div>

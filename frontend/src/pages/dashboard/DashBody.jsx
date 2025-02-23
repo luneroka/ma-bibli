@@ -16,7 +16,6 @@ function DashBody({ activeFilter, readingObjective }) {
     if (activeFilter === '7 jours') {
       const sevenDaysAgo = new Date();
       sevenDaysAgo.setHours(sevenDaysAgo.getHours() - 12);
-      // sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
       console.log(sevenDaysAgo);
       return libraryBooks.filter(
         (book) => new Date(book.createdAt) >= sevenDaysAgo
@@ -26,7 +25,6 @@ function DashBody({ activeFilter, readingObjective }) {
     if (activeFilter === '30 jours') {
       const thirtyDaysAgo = new Date();
       thirtyDaysAgo.setHours(thirtyDaysAgo.getHours() - 16);
-      // thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
       return libraryBooks.filter(
         (book) => new Date(book.createdAt) >= thirtyDaysAgo
       );
@@ -40,15 +38,24 @@ function DashBody({ activeFilter, readingObjective }) {
     (haveReadBooks.length / libraryBooks.length) * 100
   );
 
-  const userProgress = readingObjective
-    ? Math.round((haveReadBooks.length / readingObjective) * 100)
+  const filteredHaveReadBooks = readingObjective.timeframe
+    ? haveReadBooks.filter(
+        (book) =>
+          new Date(book.dateHaveRead) >= new Date(readingObjective.timeframe)
+      )
+    : haveReadBooks;
+
+  const userProgress = readingObjective.objective
+    ? Math.round(
+        (filteredHaveReadBooks.length / readingObjective.objective) * 100
+      )
     : 0;
 
   return (
     <div className='mx-[64px] md:mx-[128px] grid grid-cols-1 min-[700px]:grid-cols-2 lg:grid-cols-4 gap-[24px]'>
       {/* Progression Bars */}
       <div className='col-span-2 '>
-        <p className='text-small font-light text-black-75'>LIVRES LUS</p>
+        <p className='text-small font-light text-black-75'>LIVRES LUS / LIVRES POSSÉDÉS</p>
         <PrograssBars
           className='h-[16px] flex items-center'
           progress={countProgress}
@@ -56,9 +63,11 @@ function DashBody({ activeFilter, readingObjective }) {
       </div>
       <div className='col-span-2'>
         <p className='text-small font-light text-black-75'>
-          OBJECTIF ANNUEL
+          OBJECTIF ANNUEL : {readingObjective.objective} livres du{' '}
+          {new Date(readingObjective.timeframe).toLocaleDateString('fr-FR')} au
+          31/12/{new Date().getFullYear()}
           <span className='ml-2 text-primary-btn hover:text-secondary-btn active:text-black-75 text-xs'>
-            <Link to='/mon-compte'>définir un objectif</Link>
+            <Link to='/mon-compte'>modifier l'objectif</Link>
           </span>
         </p>
         <PrograssBars
@@ -67,18 +76,16 @@ function DashBody({ activeFilter, readingObjective }) {
         />
       </div>
 
-      {/* Metrics Cards */}
+      {/* Metrics Cards and other components */}
       <MetricCard variant='books' libraryBooks={filteredBooks} />
       <MetricCard variant='pageCount' libraryBooks={filteredBooks} />
       <MetricCard variant='topGenre' libraryBooks={filteredBooks} />
       <MetricCard variant='topAuthor' libraryBooks={filteredBooks} />
 
-      {/* Graph Card */}
       <div className='col-span-1 min-[700px]:col-span-2 lg:col-span-2'>
         <GraphCard libraryBooks={filteredBooks} />
       </div>
 
-      {/* List Card */}
       <ListCard variant='recent' libraryBooks={filteredBooks} />
       <ListCard variant='favorites' libraryBooks={filteredBooks} />
     </div>

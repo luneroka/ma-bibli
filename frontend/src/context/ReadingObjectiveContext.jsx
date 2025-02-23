@@ -1,21 +1,19 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState } from 'react';
 
 export const ReadingObjectiveContext = createContext({
-  readingObjective: 0,
+  readingObjective: { objective: 0, timeframe: '' },
   setReadingObjective: () => {},
 });
 
 export const ReadingObjectiveProvider = ({ children }) => {
-  // Initialize state from localStorage if available, otherwise default to 0.
   const [readingObjective, setReadingObjectiveState] = useState(() => {
-    const storedObjective = localStorage.getItem('readingObjective');
-    return storedObjective !== null ? Number(storedObjective) : 0;
+    const stored = localStorage.getItem('readingObjective');
+    return stored ? JSON.parse(stored) : { objective: 0, timeframe: '' };
   });
 
-  // Update both state and localStorage whenever the reading objective changes.
   const setReadingObjective = (value) => {
     setReadingObjectiveState(value);
-    localStorage.setItem('readingObjective', value);
+    localStorage.setItem('readingObjective', JSON.stringify(value));
   };
 
   return (
