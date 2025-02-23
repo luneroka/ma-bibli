@@ -23,7 +23,7 @@ function PrograssBars({ progress, bgColour = 'var(--color-secondary-btn)' }) {
 
   const progressTextStyle = {
     padding: '0 8px',
-    color: 'black',
+    color: 'var(--color-white-bg)',
     fontWeight: 500,
     fontSize: 'var(--text-small)',
   };

@@ -46,12 +46,6 @@ function DashBody({ activeFilter, readingObjective }) {
 
   return (
     <div className='mx-[64px] md:mx-[128px] grid grid-cols-1 min-[700px]:grid-cols-2 lg:grid-cols-4 gap-[24px]'>
-      {/* Metrics Cards */}
-      <MetricCard variant='books' libraryBooks={filteredBooks} />
-      <MetricCard variant='pageCount' libraryBooks={filteredBooks} />
-      <MetricCard variant='topGenre' libraryBooks={filteredBooks} />
-      <MetricCard variant='topAuthor' libraryBooks={filteredBooks} />
-
       {/* Progression Bars */}
       <div className='col-span-2 '>
         <p className='text-small font-light text-black-75'>LIVRES LUS</p>
@@ -72,6 +66,12 @@ function DashBody({ activeFilter, readingObjective }) {
           progress={userProgress}
         />
       </div>
+
+      {/* Metrics Cards */}
+      <MetricCard variant='books' libraryBooks={filteredBooks} />
+      <MetricCard variant='pageCount' libraryBooks={filteredBooks} />
+      <MetricCard variant='topGenre' libraryBooks={filteredBooks} />
+      <MetricCard variant='topAuthor' libraryBooks={filteredBooks} />
 
       {/* Graph Card */}
       <div className='col-span-1 min-[700px]:col-span-2 lg:col-span-2'>
