@@ -5,10 +5,14 @@ const port = process.env.PORT || 3000;
 const mongoose = require('mongoose');
 const cors = require('cors');
 const admin = require('firebase-admin');
+const path = require('path');
 
 // Initialize Firebase Admin
 const serviceAccount = require('./serviceAccountKey.json');
 admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
+
+// Serve static files in the uploads folder
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Middleware
 app.use(express.json());

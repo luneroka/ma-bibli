@@ -193,6 +193,45 @@ const deleteBook = async (Model, req, res) => {
   }
 };
 
+const updateBookInfo = async (Model, req, res) => {
+  try {
+    const { isbn } = req.params;
+    const { title, authors, publisher, publishedDate } = req.body;
+    let updateFields = { title, publisher, publishedDate };
+
+    // Convert authors from CSV string to array
+    updateFields.authors = authors
+      ? authors.split(',').map((a) => a.trim())
+      : undefined;
+
+    // If file is provided, update the cover URL
+    if (req.file) {
+      updateFields.cover = `/uploads/${req.file.filename}`;
+    }
+
+    // Remove undefined properties
+    Object.keys(updateFields).forEach(
+      (key) => updateFields[key] === undefined && delete updateFields[key]
+    );
+
+    const updatedBook = await Model.findOneAndUpdate(
+      { isbn, userId: req.user.uid },
+      updateFields,
+      { new: true }
+    );
+
+    if (!updatedBook) {
+      return res.status(404).json({ message: 'Book not found or forbidden.' });
+    }
+    res.status(200).json({ message: 'Book updated', book: updatedBook });
+  } catch (error) {
+    console.error('Error updating book info:', error);
+    res
+      .status(500)
+      .json({ message: 'Error updating book info', error: error.message });
+  }
+};
+
 module.exports = {
   getAllBooks,
   getSingleBook,
@@ -202,4 +241,5 @@ module.exports = {
   getHaveReadBooks,
   toggleHaveRead,
   deleteBook,
+  updateBookInfo,
 };

@@ -34,7 +34,6 @@ const searchSlice = createSlice({
         (state, action) => {
           state.loading = false;
           state.searchResults = action.payload;
-          console.log('Search results:', action.payload);
         }
       )
       .addCase(
@@ -57,7 +56,6 @@ const searchSlice = createSlice({
         (state, action) => {
           state.loading = false;
           state.searchResults = action.payload;
-          console.log('Search results:', action.payload);
         }
       )
       .addCase(

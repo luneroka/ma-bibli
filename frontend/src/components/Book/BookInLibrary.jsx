@@ -19,6 +19,27 @@ function BookInLibrary({ book }) {
   // State to track image loading
   const [imageLoaded, setImageLoaded] = useState(false);
 
+  // Helper: Get correct cover URL
+  const getCoverUrl = (cover) => {
+    if (!cover) return '/product-not-found.png';
+    // If already an absolute URL, return as is.
+    if (cover.startsWith('http://') || cover.startsWith('https://'))
+      return cover;
+
+    // If uploaded cover from our backend, append timestamp to bust cache.
+    if (cover.startsWith('/uploads/')) {
+      return `http://localhost:3000${cover}?t=${Date.now()}`;
+    }
+
+    // If coming from our proxy, prepend backend host.
+    if (cover.startsWith('/api/proxy-image')) {
+      return `http://localhost:3000${cover}`;
+    }
+
+    // Fallback for any other type.
+    return cover;
+  };
+
   const handleRemoveFromLibrary = async (isbn) => {
     if (!currentUser) return;
     try {
@@ -62,7 +83,7 @@ function BookInLibrary({ book }) {
         )}
         <Link to={`/livres/${book.isbn}`}>
           <img
-            src={book.cover}
+            src={getCoverUrl(book.cover)}
             alt='Book Cover'
             onLoad={() => setImageLoaded(true)}
             className={`w-full h-full cursor-pointer hover:scale-105 transition-all duration-200 ${
@@ -105,6 +126,13 @@ function BookInLibrary({ book }) {
           </div>
         </button>
       )}
+
+      {/* Update btn */}
+      <Link to={`/livres/${book.isbn}/edit`} state={{ book }}>
+        <button className='cursor-pointer w-[125px] bg-gray-200 text-black text-xs px-1 py-1.5 hover:bg-gray-300'>
+          Modifier
+        </button>
+      </Link>
     </div>
   );
 }

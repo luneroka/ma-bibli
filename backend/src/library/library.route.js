@@ -1,5 +1,6 @@
 const express = require('express');
 const LibraryBook = require('./library.model');
+const upload = require('../utils/uploadMiddleware');
 const {
   getAllBooks,
   addBook,
@@ -8,6 +9,7 @@ const {
   deleteBook,
   getHaveReadBooks,
   toggleHaveRead,
+  updateBookInfo,
 } = require('../book/book.controller');
 const router = express.Router();
 
@@ -50,5 +52,10 @@ router.get('/categories', async (req, res) => {
     res.status(500).json({ message: 'Failed to fetch categories' });
   }
 });
+
+// UPDATE BOOK INFO
+router.post('/update/:isbn', upload.single('cover'), (req, res) =>
+  updateBookInfo(LibraryBook, req, res)
+);
 
 module.exports = router;
