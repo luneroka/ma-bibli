@@ -3,7 +3,7 @@ import { Outlet } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { getLibraryBooksAsync } from './redux/features/library/libraryAsyncActions';
 import { getWishlistBooksAsync } from './redux/features/wishlist/wishlistAsyncActions';
-import './App.css';
+import './styles/App.css';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer';
 import themes from './assets/themes';

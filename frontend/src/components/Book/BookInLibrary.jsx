@@ -7,7 +7,6 @@ import { removeFromLibraryAsync } from '../../redux/features/library/libraryAsyn
 import { toggleFavoriteAsync } from '../../redux/features/favorites/favoritesAsyncActions';
 import { toggleHaveReadAsync } from '../../redux/features/have-read/haveReadAsyncActions';
 import { toggleHaveReadOptimistic } from '../../redux/features/library/librarySlice';
-import { getLibraryBooksAsync } from '../../redux/features/library/libraryAsyncActions';
 import { useAuth } from '../../context/AuthContext';
 
 function BookInLibrary({ book }) {
