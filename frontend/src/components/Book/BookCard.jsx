@@ -140,7 +140,7 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
               {/* Authors */}
               <div>
                 {book.authors &&
-                  book.authors.slice(0, 3).map((author) => (
+                  book.authors.slice(0, 2).map((author) => (
                     <p
                       key={author}
                       className='text-small text-black-75 cursor-pointer hover:text-secondary-btn hover:underline overflow-hidden'
@@ -151,6 +151,13 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
                         : author}
                     </p>
                   ))}
+              </div>
+
+              {/* Publisher */}
+              <div className='text-small text-black-50'>
+                {book.publisher && book.publisher.length > 15
+                  ? `${book.publisher.slice(0, 30)}...`
+                  : book.publisher}
               </div>
 
               {/* Published Date */}
@@ -420,7 +427,7 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
               {/* Authors */}
               <div>
                 {book.authors &&
-                  book.authors.slice(0, 3).map((author) => (
+                  book.authors.slice(0, 2).map((author) => (
                     <p
                       key={author}
                       className='text-small text-black-75 cursor-pointer hover:text-secondary-btn hover:underline overflow-hidden'
@@ -431,6 +438,13 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
                         : author}
                     </p>
                   ))}
+              </div>
+
+              {/* Publisher */}
+              <div className='text-small text-black-50'>
+                {book.publisher && book.publisher.length > 15
+                  ? `${book.publisher.slice(0, 30)}...`
+                  : book.publisher}
               </div>
 
               {/* Published Date */}
