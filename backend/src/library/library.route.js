@@ -58,4 +58,26 @@ router.post('/update/:isbn', upload.single('cover'), (req, res) =>
   updateBookInfo(LibraryBook, req, res)
 );
 
+// GET a single book by ISBN for the authenticated user
+router.get('/book/:isbn', async (req, res) => {
+  try {
+    const { isbn } = req.params;
+    // LibraryBook is already required and used in this file.
+    const book = await LibraryBook.findOne({
+      isbn,
+      userId: req.user.uid,
+    }).lean();
+    if (!book) {
+      return res.status(404).json({ message: 'Book not found' });
+    }
+    res.status(200).json({ book });
+  } catch (error) {
+    console.error('Error fetching book:', error);
+    res.status(500).json({
+      message: 'Error fetching book',
+      error: error.message,
+    });
+  }
+});
+
 module.exports = router;

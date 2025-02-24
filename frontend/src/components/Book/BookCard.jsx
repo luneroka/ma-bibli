@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   FaRegBookmark,
   FaBookmark,
@@ -33,6 +33,61 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
 
   // New state to track image loading
   const [imageLoaded, setImageLoaded] = useState(false);
+
+  // For variant "perso", fetch the latest book data from the db.
+  const [dbBook, setDbBook] = useState(book);
+  useEffect(() => {
+    if (variant === 'perso' && currentUser) {
+      const fetchBookFromDb = async () => {
+        try {
+          const token = await currentUser.getIdToken();
+          const response = await fetch(
+            `http://localhost:3000/api/library/book/${book.isbn}`,
+            {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          if (response.ok) {
+            const data = await response.json();
+            setDbBook(data.book);
+          } else {
+            console.error('Failed to fetch book from db', response.statusText);
+          }
+        } catch (err) {
+          console.error('Error fetching book from db', err);
+        }
+      };
+      fetchBookFromDb();
+    }
+  }, [variant, book.isbn, currentUser]);
+
+  // Use dbBook (if fetched) when variant is "perso"; fallback to props.book otherwise.
+  const displayBook = variant === 'perso' ? dbBook : book;
+
+  // Helper: Get correct cover URL
+  const getCoverUrl = (cover) => {
+    if (!cover) return '/product-not-found.png';
+    // If already an absolute URL, return as is.
+    if (cover.startsWith('http://') || cover.startsWith('https://'))
+      return cover;
+
+    // If uploaded cover from our backend, append timestamp to bust cache.
+    if (cover.startsWith('/uploads/')) {
+      return `http://localhost:3000${cover}?t=${Date.now()}`;
+    }
+
+    // If coming from our proxy, prepend backend host.
+    if (cover.startsWith('/api/proxy-image')) {
+      return `http://localhost:3000${cover}`;
+    }
+
+    // Fallback for any other type.
+    return cover;
+  };
 
   const handleAddToLibrary = async (book) => {
     if (!currentUser) return;
@@ -91,17 +146,16 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
   };
 
   const isInLibrary = libraryBooks.some(
-    (libraryBook) => libraryBook.isbn === book.isbn
+    (libraryBook) => libraryBook.isbn === displayBook.isbn
   );
   const isInWishlist = wishlistBooks.some(
-    (wishlistBooks) => wishlistBooks.isbn === book.isbn
+    (wishlistBook) => wishlistBook.isbn === displayBook.isbn
   );
 
   // Convert HTML to plain text for detailed description
-  const plainTextDescription =
-    book.description && variant === 'single'
-      ? book.description.replace(/<\/?[^>]+(>|$)/g, '')
-      : null;
+  const plainTextDescription = displayBook.description
+    ? displayBook.description.replace(/<\/?[^>]+(>|$)/g, '')
+    : 'Pas de description...';
 
   if (variant === 'card') {
     return (
@@ -113,9 +167,11 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
               {!imageLoaded && (
                 <FaSpinner className='animate-spin text-xl text-black-50' />
               )}
-              <Link to={`/livres/${book.isbn}`}>
+              <Link to={`/livres/${displayBook.isbn}`}>
                 <img
-                  src={book.cover || '../../../public/product-not-found.png'}
+                  src={
+                    displayBook.cover || '../../../public/product-not-found.png'
+                  }
                   alt='Couverture non disponible'
                   onLoad={() => setImageLoaded(true)}
                   className={`w-full h-full cursor-pointer hover:scale-105 transition-all duration-200 ${
@@ -129,18 +185,18 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
             {/* Book Details */}
             <div className='flex flex-col justify-center w-[220px] h-[170px]'>
               {/* Title */}
-              <Link to={`/livres/${book.isbn}`}>
+              <Link to={`/livres/${displayBook.isbn}`}>
                 <p className='text-small-body text-black-75 hover:text-black font-bold leading-4.5 overflow-hidden mb-2 text-pretty'>
-                  {book.title.length > 40
-                    ? `${book.title.slice(0, 40)}...`
-                    : book.title}
+                  {displayBook.title.length > 40
+                    ? `${displayBook.title.slice(0, 40)}...`
+                    : displayBook.title}
                 </p>
               </Link>
 
               {/* Authors */}
               <div>
-                {book.authors &&
-                  book.authors.slice(0, 2).map((author) => (
+                {displayBook.authors &&
+                  displayBook.authors.slice(0, 2).map((author) => (
                     <p
                       key={author}
                       className='text-small text-black-75 cursor-pointer hover:text-secondary-btn hover:underline overflow-hidden'
@@ -155,19 +211,19 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
 
               {/* Publisher */}
               <div className='text-small text-black-50'>
-                {book.publisher && book.publisher.length > 15
-                  ? `${book.publisher.slice(0, 30)}...`
-                  : book.publisher}
+                {displayBook.publisher && displayBook.publisher.length > 15
+                  ? `${displayBook.publisher.slice(0, 30)}...`
+                  : displayBook.publisher}
               </div>
 
               {/* Published Date */}
               <p className='text-small text-black-50'>
-                Publication : {extractYear(book.publishedDate)}
+                Publication : {extractYear(displayBook.publishedDate)}
               </p>
 
               {/* Page Count */}
               <p className='text-small text-black-50'>
-                Pages : {formatNumber(book.pageCount)}
+                Pages : {formatNumber(displayBook.pageCount)}
               </p>
             </div>
           </div>
@@ -178,7 +234,7 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
               {/* wishlist List Button */}
               {isInWishlist ? (
                 <button
-                  onClick={() => handleRemoveFromWishlist(book.isbn)}
+                  onClick={() => handleRemoveFromWishlist(displayBook.isbn)}
                   className='cursor-pointer bg-secondary-btn text-black-75 px-1 py-1.5 w-[121px]'
                 >
                   <div className='flex gap-1 items-center justify-center text-xs'>
@@ -188,7 +244,7 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
                 </button>
               ) : (
                 <button
-                  onClick={() => handleAddToWishlist(book)}
+                  onClick={() => handleAddToWishlist(displayBook)}
                   className='cursor-pointer bg-primary-btn text-black-75 px-1 py-1.5 w-[121px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
                 >
                   <div className='flex gap-1 items-center justify-center text-xs'>
@@ -209,7 +265,7 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
                   </button>
                 ) : (
                   <button
-                    onClick={() => handleRemoveFromLibrary(book.isbn)}
+                    onClick={() => handleRemoveFromLibrary(displayBook.isbn)}
                     className='cursor-pointer bg-secondary-btn text-black-75 px-1 py-1.5 w-[125px]'
                   >
                     <div className='flex gap-1 items-center justify-center text-xs'>
@@ -220,7 +276,7 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
                 )
               ) : (
                 <button
-                  onClick={() => handleAddToLibrary(book)}
+                  onClick={() => handleAddToLibrary(displayBook)}
                   className='cursor-pointer bg-primary-btn text-black-75 px-1 py-1.5 w-[125px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
                 >
                   <div className='flex gap-1 items-center justify-center text-xs'>
@@ -233,7 +289,7 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
           ) : (
             <div className='flex gap-[16px] mt-2'>
               <button
-                onClick={() => handleAddToLibrary(book)}
+                onClick={() => handleAddToLibrary(displayBook)}
                 className='cursor-pointer bg-primary-btn text-black-75 text-xs px-1 py-1.5 w-[125px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
               >
                 <Link to='/login'>
@@ -259,7 +315,9 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
                 <FaSpinner className='animate-spin text-xl text-black-50' />
               )}
               <img
-                src={book.cover || '../../../public/product-not-found.png'}
+                src={
+                  displayBook.cover || '../../../public/product-not-found.png'
+                }
                 alt='Couverture non disponible'
                 onLoad={() => setImageLoaded(true)}
                 className={`w-full h-full ${!imageLoaded ? 'hidden' : ''}`}
@@ -269,19 +327,19 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
             {/* Book Details */}
             <div className='flex flex-col justify-between w-full'>
               {/* Title */}
-              <p className='text-h5 text-black'>{book.title}</p>
+              <p className='text-h5 text-black'>{displayBook.title}</p>
 
               {/* Authors */}
-              {book.authors && (
+              {displayBook.authors && (
                 <p className='italic text-black overflow-hidden'>
-                  {book.authors.slice(0, 3).map((author, index) => (
+                  {displayBook.authors.slice(0, 3).map((author, index) => (
                     <span
                       key={author}
                       className='cursor-pointer hover:text-secondary-btn hover:underline'
                       onClick={() => handleAuthorClick(author)}
                     >
                       {author}
-                      {index < book.authors.length - 1 && ', '}
+                      {index < displayBook.authors.length - 1 && ', '}
                     </span>
                   ))}
                 </p>
@@ -290,14 +348,14 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
               {/* Publisher */}
               <p className='text-small-body text-black'>
                 Éditeur :{' '}
-                <span className='text-black-85'>{book.publisher}</span>
+                <span className='text-black-85'>{displayBook.publisher}</span>
               </p>
 
               {/* Published Date */}
               <p className='text-small-body text-black'>
                 Publication :{' '}
                 <span className='text-black-85'>
-                  {extractFullDate(book.publishedDate)}
+                  {extractFullDate(displayBook.publishedDate)}
                 </span>
               </p>
 
@@ -316,7 +374,7 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
               {/* wishlist List Button */}
               {isInWishlist ? (
                 <button
-                  onClick={() => handleRemoveFromWishlist(book.isbn)}
+                  onClick={() => handleRemoveFromWishlist(displayBook.isbn)}
                   className='cursor-pointer bg-secondary-btn text-black-75 text-small px-1 py-2.5 w-[220px]'
                 >
                   <div className='flex gap-1 items-center justify-center'>
@@ -326,7 +384,7 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
                 </button>
               ) : (
                 <button
-                  onClick={() => handleAddToWishlist(book)}
+                  onClick={() => handleAddToWishlist(displayBook)}
                   className='cursor-pointer bg-primary-btn text-black-75 text-small px-1 py-2.5 w-[220px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
                 >
                   <div className='flex gap-1 items-center justify-center'>
@@ -347,7 +405,7 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
                       </div>
                     </button>
                     <button
-                      onClick={() => handleFavorite(book.isbn)}
+                      onClick={() => handleFavorite(displayBook.isbn)}
                       className={`text-h4 rounded-full cursor-pointer hover:scale-150 transition-all duration-200 ${
                         isFavorite ? 'text-primary-btn' : 'text-black-75'
                       }`}
@@ -357,7 +415,7 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
                   </>
                 ) : (
                   <button
-                    onClick={() => handleRemoveFromLibrary(book.isbn)}
+                    onClick={() => handleRemoveFromLibrary(displayBook.isbn)}
                     className='cursor-pointer bg-secondary-btn text-black-75 text-small px-1 py-2.5 w-[220px]'
                   >
                     <div className='flex gap-1 items-center justify-center'>
@@ -368,7 +426,7 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
                 )
               ) : (
                 <button
-                  onClick={() => handleAddToLibrary(book)}
+                  onClick={() => handleAddToLibrary(displayBook)}
                   className='cursor-pointer bg-primary-btn text-black-75 text-small px-1 py-2.5 w-[220px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
                 >
                   <div className='flex gap-1 items-center justify-center'>
@@ -381,7 +439,155 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
           ) : (
             <div className='flex gap-[16px] mt-2'>
               <button
-                onClick={() => handleAddToLibrary(book)}
+                onClick={() => handleAddToLibrary(displayBook)}
+                className='cursor-pointer bg-primary-btn text-black-75 text-xs px-1 py-1.5 w-[220px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
+              >
+                <Link to='/login'>
+                  <div className='flex gap-1 items-center justify-center'>
+                    <IoIosLogIn className='text-body' />
+                    Se connecter
+                  </div>
+                </Link>
+              </button>
+            </div>
+          )}
+        </div>
+      </>
+    );
+  } else if (variant === 'perso') {
+    return (
+      <>
+        <div id='book-card' className='flex flex-col justify-between'>
+          <div className='flex gap-[24px]'>
+            {/* Book Cover with spinner */}
+            <div className='w-[220px] h-[330px] relative flex-shrink-0 flex items-center justify-center'>
+              {!imageLoaded && (
+                <FaSpinner className='animate-spin text-xl text-black-50' />
+              )}
+              <img
+                src={getCoverUrl(displayBook.cover)}
+                alt='Couverture non disponible'
+                onLoad={() => setImageLoaded(true)}
+                className={`w-full h-full ${!imageLoaded ? 'hidden' : ''}`}
+              />
+            </div>
+
+            {/* Book Details */}
+            <div className='flex flex-col justify-between w-full'>
+              {/* Title */}
+              <p className='text-h5 text-black'>{displayBook.title}</p>
+
+              {/* Authors */}
+              {displayBook.authors && (
+                <p className='italic text-black overflow-hidden'>
+                  {displayBook.authors.slice(0, 3).map((author, index) => (
+                    <span
+                      key={author}
+                      className='cursor-pointer hover:text-secondary-btn hover:underline'
+                      onClick={() => handleAuthorClick(author)}
+                    >
+                      {author}
+                      {index < displayBook.authors.length - 1 && ', '}
+                    </span>
+                  ))}
+                </p>
+              )}
+
+              {/* Publisher */}
+              <p className='text-small-body text-black'>
+                Éditeur :{' '}
+                <span className='text-black-85'>{displayBook.publisher}</span>
+              </p>
+
+              {/* Published Date */}
+              <p className='text-small-body text-black'>
+                Publication :{' '}
+                <span className='text-black-85'>
+                  {extractFullDate(displayBook.publishedDate)}
+                </span>
+              </p>
+
+              {/* Description */}
+              <p className='h-[180px] max-w-[600px] text-small-body text-black-85 text-justify'>
+                {plainTextDescription && plainTextDescription.length > 580
+                  ? `${plainTextDescription.slice(0, 580)}...`
+                  : plainTextDescription || 'Pas de description...'}
+              </p>
+            </div>
+          </div>
+
+          {/* Action Buttons (only when user is logged in) */}
+          {currentUser ? (
+            <div className='flex gap-[24px] mt-6'>
+              {/* wishlist List Button */}
+              {isInWishlist ? (
+                <button
+                  onClick={() => handleRemoveFromWishlist(displayBook.isbn)}
+                  className='cursor-pointer bg-secondary-btn text-black-75 text-small px-1 py-2.5 w-[220px]'
+                >
+                  <div className='flex gap-1 items-center justify-center'>
+                    <FaBookmark className='text-body' />
+                    Wishlist
+                  </div>
+                </button>
+              ) : (
+                <button
+                  onClick={() => handleAddToWishlist(displayBook)}
+                  className='cursor-pointer bg-primary-btn text-black-75 text-small px-1 py-2.5 w-[220px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
+                >
+                  <div className='flex gap-1 items-center justify-center'>
+                    <FaRegBookmark className='text-body' />
+                    Wishlist
+                  </div>
+                </button>
+              )}
+
+              {/* Library Button */}
+              {isInLibrary ? (
+                isRead ? (
+                  <>
+                    <button className='bg-secondary-btn text-black-75 text-small px-1 py-2.5 w-[220px]'>
+                      <div className='flex gap-1 items-center justify-center'>
+                        <FaCheckCircle className='text-body' />
+                        J'ai lu !
+                      </div>
+                    </button>
+                    <button
+                      onClick={() => handleFavorite(displayBook.isbn)}
+                      className={`text-h4 rounded-full cursor-pointer hover:scale-150 transition-all duration-200 ${
+                        isFavorite ? 'text-primary-btn' : 'text-black-75'
+                      }`}
+                    >
+                      <FaHeart className='p-0.5' />
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    onClick={() => handleRemoveFromLibrary(displayBook.isbn)}
+                    className='cursor-pointer bg-secondary-btn text-black-75 text-small px-1 py-2.5 w-[220px]'
+                  >
+                    <div className='flex gap-1 items-center justify-center'>
+                      <FaCheckCircle className='text-body' />
+                      Bibli
+                    </div>
+                  </button>
+                )
+              ) : (
+                <button
+                  onClick={() => handleAddToLibrary(displayBook)}
+                  className='cursor-pointer bg-primary-btn text-black-75 text-small px-1 py-2.5 w-[220px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
+                >
+                  <div className='flex gap-1 items-center justify-center'>
+                    <IoIosAddCircleOutline className='text-body' />
+                    Bibli
+                  </div>
+                </button>
+              )}
+            </div>
+          ) : (
+            <div className='flex gap-[16px] mt-2'>
+              <button
+                onClick={() => handleAddToLibrary(displayBook)}
                 className='cursor-pointer bg-primary-btn text-black-75 text-xs px-1 py-1.5 w-[220px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
               >
                 <Link to='/login'>
@@ -403,9 +609,11 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
           <div className='flex gap-[24px]'>
             {/* Book Cover */}
             <div className='flex w-[121px] h-[170px] flex-shrink-0 items-center'>
-              <Link to={`/livres/${book.isbn}`}>
+              <Link to={`/livres/${displayBook.isbn}`}>
                 <img
-                  src={book.cover || '../../../public/product-not-found.png'}
+                  src={
+                    displayBook.cover || '../../../public/product-not-found.png'
+                  }
                   alt='Couverture non disponible'
                   className='w-full h-full cursor-pointer hover:scale-105 transition-all duration-200'
                   style={{ width: '121px', height: '170px' }}
@@ -416,18 +624,18 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
             {/* Book Details */}
             <div className='flex flex-col justify-center w-[220px] h-[170px]'>
               {/* Title */}
-              <Link to={`/livres/${book.isbn}`}>
+              <Link to={`/livres/${displayBook.isbn}`}>
                 <p className='text-small-body text-black-75 hover:text-black font-bold leading-4.5 overflow-hidden mb-2 text-pretty'>
-                  {book.title.length > 40
-                    ? `${book.title.slice(0, 40)}...`
-                    : book.title}
+                  {displayBook.title.length > 40
+                    ? `${displayBook.title.slice(0, 40)}...`
+                    : displayBook.title}
                 </p>
               </Link>
 
               {/* Authors */}
               <div>
-                {book.authors &&
-                  book.authors.slice(0, 2).map((author) => (
+                {displayBook.authors &&
+                  displayBook.authors.slice(0, 2).map((author) => (
                     <p
                       key={author}
                       className='text-small text-black-75 cursor-pointer hover:text-secondary-btn hover:underline overflow-hidden'
@@ -442,19 +650,19 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
 
               {/* Publisher */}
               <div className='text-small text-black-50'>
-                {book.publisher && book.publisher.length > 15
-                  ? `${book.publisher.slice(0, 30)}...`
-                  : book.publisher}
+                {displayBook.publisher && displayBook.publisher.length > 15
+                  ? `${displayBook.publisher.slice(0, 30)}...`
+                  : displayBook.publisher}
               </div>
 
               {/* Published Date */}
               <p className='text-small text-black-50'>
-                Publication : {extractYear(book.publishedDate)}
+                Publication : {extractYear(displayBook.publishedDate)}
               </p>
 
               {/* Page Count */}
               <p className='text-small text-black-50'>
-                Pages : {formatNumber(book.pageCount)}
+                Pages : {formatNumber(displayBook.pageCount)}
               </p>
             </div>
           </div>

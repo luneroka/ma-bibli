@@ -20,6 +20,10 @@ function SingleBookPage() {
   const libraryBooks = useSelector((state) => state.library.libraryBooks);
   const wishlistBooks = useSelector((state) => state.wishlist.wishlistBooks);
 
+  const isInLibrary = book
+    ? libraryBooks.some((libraryBook) => libraryBook.isbn === book.isbn)
+    : false;
+
   // Local state for author books and loading status
   const [authorBooks, setAuthorBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -81,7 +85,7 @@ function SingleBookPage() {
         ) : book ? (
           <>
             <BookCard
-              variant='single'
+              variant={isInLibrary ? 'perso' : 'single'}
               book={book}
               libraryBooks={libraryBooks}
               wishlistBooks={wishlistBooks}
