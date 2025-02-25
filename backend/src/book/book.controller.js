@@ -1,5 +1,7 @@
 const { fetchBookFromGoogle } = require('../utils/googleBooksApi');
 const { transformGoogleBook } = require('../services/bookService');
+const { generateRandomId } = require('../utils/helper');
+const LibraryBook = require('../library/library.model');
 
 const getAllBooks = async (Model, req, res) => {
   try {
@@ -232,6 +234,52 @@ const updateBookInfo = async (Model, req, res) => {
   }
 };
 
+const createBook = async (Model, req, res) => {
+  try {
+    const {
+      title,
+      authors,
+      publisher,
+      publishedDate,
+      description,
+      pageCount,
+      category,
+    } = req.body;
+    const userId = req.user.uid;
+    const isbn = generateRandomId() + Date.now();
+    const cover = req.file
+      ? `/uploads/${req.file.filename}`
+      : '/product-not-found.png';
+
+    const newBook = new Model({
+      userId,
+      isbn,
+      title,
+      authors: authors.split(',').map((a) => a.trim()),
+      publisher,
+      publishedDate,
+      description,
+      pageCount,
+      category,
+      cover,
+      isFavorite: false,
+      haveRead: false,
+      dateHaveRead: null,
+      createdAt: new Date(),
+    });
+
+    await newBook.save();
+    res
+      .status(200)
+      .json({ message: 'Book created successfully', book: newBook });
+  } catch (error) {
+    console.error('Failed to create book.', error);
+    res
+      .status(500)
+      .json({ message: 'Failed to create book', error: error.message });
+  }
+};
+
 module.exports = {
   getAllBooks,
   getSingleBook,
@@ -242,4 +290,5 @@ module.exports = {
   toggleHaveRead,
   deleteBook,
   updateBookInfo,
+  createBook,
 };

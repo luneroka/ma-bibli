@@ -4,6 +4,7 @@ const upload = require('../utils/uploadMiddleware');
 const {
   getAllBooks,
   addBook,
+  createBook,
   getFavoriteBooks,
   toggleIsFavorite,
   deleteBook,
@@ -56,6 +57,11 @@ router.get('/categories', async (req, res) => {
 // UPDATE BOOK INFO
 router.post('/update/:isbn', upload.single('cover'), (req, res) =>
   updateBookInfo(LibraryBook, req, res)
+);
+
+// POST endpoint to create a new book
+router.post('/create', upload.single('cover'), (req, res) =>
+  createBook(LibraryBook, req, res)
 );
 
 // GET a single book by ISBN for the authenticated user

@@ -5,6 +5,7 @@ import { useAuth } from '../../context/AuthContext';
 import { getLibraryBooksAsync } from '../../redux/features/library/libraryAsyncActions';
 import { Listbox, Transition } from '@headlessui/react';
 import { ChevronUpDownIcon, CheckIcon } from '@heroicons/react/20/solid';
+import { IoCreateOutline } from 'react-icons/io5';
 
 // Swiper imports
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -12,6 +13,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Pagination, Navigation } from 'swiper/modules';
+import { Link } from 'react-router-dom';
 
 function LibraryList() {
   const dispatch = useDispatch();
@@ -108,7 +110,15 @@ function LibraryList() {
       {/* Page header */}
       <div className='flex flex-col justify-start items-start [@media(min-width:700px)]:flex-row [@media(min-width:700px)]:justify-between [@media(min-width:700px)]:items-center gap-2 mt-[48px] mb-5'>
         {/* Page Title */}
-        <h3 className='text-h3 text-black font-merriweather'>Ma Bibli</h3>
+        <div className='flex gap-6 items-center'>
+          <h3 className='text-h3 text-black font-merriweather'>Ma Bibli</h3>
+          <Link to='/livres/créer'>
+            <button className='cursor-pointer text-small py-1 px-2 bg-secondary-btn hover:bg-primary-btn active:bg-black-75 text-white-bg focus:outline-none text-left flex gap-1 items-center'>
+              <IoCreateOutline className='size-4' />
+              Créer un livre 
+            </button>
+          </Link>
+        </div>
 
         {/* Filter Have Read */}
         <div className='flex gap-4 text-small-body md:text-body text-black-75 font-light my-2 md:my-0 leading-'>

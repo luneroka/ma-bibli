@@ -22,6 +22,7 @@ import LibraryList from './pages/shelves/LibraryList.jsx';
 import AuthConfirmation from './pages/auth/AuthConfirmation.jsx';
 import { ReadingObjectiveProvider } from './context/ReadingObjectiveContext.jsx';
 import BookEditForm from './pages/shelves/BookEditForm.jsx';
+import BookCreateForm from './pages/shelves/BookCreateForm.jsx';
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
@@ -65,6 +66,14 @@ createRoot(document.getElementById('root')).render(
                 element={
                   <PrivateRoute>
                     <BookEditForm />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path='/livres/créer'
+                element={
+                  <PrivateRoute>
+                    <BookCreateForm />
                   </PrivateRoute>
                 }
               />

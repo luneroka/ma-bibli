@@ -80,4 +80,9 @@ function mapBookCategory(category) {
   return categoryMapping[category.toUpperCase()] || 'Non catégorisé';
 }
 
-module.exports = { fetchJson, mapBookCategory };
+// Simple function to generate a random ID.
+function generateRandomId(length = 8) {
+  return Math.random().toString(36).substr(2, length);
+}
+
+module.exports = { fetchJson, mapBookCategory, generateRandomId };
