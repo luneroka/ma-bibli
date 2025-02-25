@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { IoIosRemoveCircle } from 'react-icons/io';
-import { FaHeart, FaSpinner, FaArrowCircleRight } from 'react-icons/fa';
+import { FaHeart, FaSpinner } from 'react-icons/fa';
 import { removeFromLibraryAsync } from '../../redux/features/library/libraryAsyncActions';
 import { toggleFavoriteAsync } from '../../redux/features/favorites/favoritesAsyncActions';
 import { toggleHaveReadAsync } from '../../redux/features/have-read/haveReadAsyncActions';
 import { toggleHaveReadOptimistic } from '../../redux/features/library/librarySlice';
 import { useAuth } from '../../context/AuthContext';
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import {
+  ChevronDownIcon,
+  CheckCircleIcon,
+  HeartIcon,
+  PencilIcon,
+  TrashIcon,
+} from '@heroicons/react/16/solid';
 
 function BookInLibrary({ book }) {
   const { currentUser } = useAuth();
@@ -50,6 +57,7 @@ function BookInLibrary({ book }) {
   };
 
   const handleFavorite = async (isbn) => {
+    console.log('Toggling favorite for', isbn);
     if (!currentUser) return;
     try {
       const token = await currentUser.getIdToken();
@@ -92,46 +100,113 @@ function BookInLibrary({ book }) {
           />
         </Link>
 
-        {/* Favorite Button */}
-        {haveRead && (
+        {isFavorite && (
           <button
             onClick={() => handleFavorite(book.isbn)}
-            className={`absolute top-1 left-1 rounded-full shadow-md bg-white-bg cursor-pointer hover:scale-150 transition-all duration-200 ${
-              isFavorite ? 'text-primary-btn' : 'text-black-75'
-            }`}
+            className='text-primary-btn absolute top-2 right-2 rounded-full shadow-md cursor-pointer hover:scale-150 transition-all duration-200'
           >
-            <FaHeart className='p-0.5' />
+            <FaHeart className='size-5' />
           </button>
         )}
-
-        {/* Delete Button */}
-        <button
-          onClick={() => handleRemoveFromLibrary(book.isbn)}
-          className='absolute top-1 right-1 rounded-full shadow-md hover:text-primary-btn text-black-75 bg-white-bg cursor-pointer hover:scale-150 transition-all duration-200'
-        >
-          <IoIosRemoveCircle className='p-0.25' />
-        </button>
       </div>
 
-      {/* Have Read Button */}
-      {!haveRead && (
-        <button
-          onClick={() => handleHaveRead(book.isbn)}
-          className='cursor-pointer bg-primary-btn text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn w-[125px] active:bg-black-75 active:text-white-bg'
-        >
-          <div className='flex gap-1 items-center justify-center text-small'>
-            J'ai lu !
-            <FaArrowCircleRight className='text-body' />
-          </div>
-        </button>
-      )}
+      {!haveRead ? (
+        <Menu>
+          <MenuButton className='inline-flex items-center justify-center gap-2 cursor-pointer bg-black-10 text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn hover:text-white-bg w-[125px] focus:outline-none'>
+            Gérer
+            <ChevronDownIcon className='size-4 fill-black-50' />
+          </MenuButton>
 
-      {/* Update btn */}
-      <Link to={`/livres/${book.isbn}/edit`} state={{ book }}>
-        <button className='cursor-pointer w-[125px] bg-gray-200 text-black text-xs px-1 py-1.5 hover:bg-gray-300'>
-          Modifier
-        </button>
-      </Link>
+          <MenuItems
+            transition
+            anchor='bottom end'
+            className='bg-white shadow-lg focus:outline-none'
+          >
+            <MenuItem>
+              <button
+                onClick={() => handleHaveRead(book.isbn)}
+                className='group flex cursor-pointer bg-white text-black-75 text-xs px-1 py-1.5 hover:bg-black-10 w-[125px] active:bg-black-75 active:text-white-bg'
+              >
+                <div className='flex gap-1 items-center justify-center text-xs'>
+                  <CheckCircleIcon className='size-4 fill-secondary-btn' />
+                  J'ai lu !
+                </div>
+              </button>
+            </MenuItem>
+            <MenuItem>
+              <Link to={`/livres/${book.isbn}/edit`} state={{ book }}>
+                <button className='group flex cursor-pointer bg-white text-black-75 text-xs px-1 py-1.5 hover:bg-black-10 w-[125px] active:bg-black-75 active:text-white-bg'>
+                  <div className='flex gap-1 items-center justify-center text-xs'>
+                    <PencilIcon className='size-4 fill-black-25' />
+                    Modifier
+                  </div>
+                </button>
+              </Link>
+            </MenuItem>
+            <MenuItem>
+              <button
+                onClick={() => handleRemoveFromLibrary(book.isbn)}
+                className='group flex cursor-pointer bg-white text-black-75 text-xs px-1 py-1.5 hover:bg-black-10 w-[125px] active:bg-black-75 active:text-white-bg'
+              >
+                <div className='flex gap-1 items-center justify-center text-xs'>
+                  <TrashIcon className='size-4 fill-red-500' />
+                  Supprimer
+                </div>
+              </button>
+            </MenuItem>
+          </MenuItems>
+        </Menu>
+      ) : (
+        <Menu>
+          <MenuButton className='inline-flex items-center justify-center gap-2 cursor-pointer bg-black-10 text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn hover:text-white-bg w-[125px] focus:outline-none'>
+            Gérer
+            <ChevronDownIcon className='size-4 fill-black-50' />
+          </MenuButton>
+
+          <MenuItems
+            transition
+            anchor='bottom end'
+            className='bg-white shadow-lg focus:outline-none'
+          >
+            <MenuItem>
+              <button
+                onClick={() => handleFavorite(book.isbn)}
+                className='group flex cursor-pointer bg-white text-black-75 text-xs px-1 py-1.5 hover:bg-black-10 w-[125px] active:bg-black-75 active:text-white-bg'
+              >
+                <div className='flex gap-1 items-center justify-center text-xs'>
+                  <HeartIcon
+                    className={`size-4 ${
+                      isFavorite ? 'fill-primary-btn' : 'fill-black-25'
+                    }`}
+                  />
+                  Coup de coeur
+                </div>
+              </button>
+            </MenuItem>
+            <MenuItem>
+              <Link to={`/livres/${book.isbn}/edit`} state={{ book }}>
+                <button className='group flex cursor-pointer bg-white text-black-75 text-xs px-1 py-1.5 hover:bg-black-10 w-[125px] active:bg-black-75 active:text-white-bg'>
+                  <div className='flex gap-1 items-center justify-center text-xs'>
+                    <PencilIcon className='size-4 fill-black-25' />
+                    Modifier
+                  </div>
+                </button>
+              </Link>
+            </MenuItem>
+            <MenuItem>
+              <button
+                onClick={() => handleRemoveFromLibrary(book.isbn)}
+                className='group flex cursor-pointer bg-white text-black-75 text-xs px-1 py-1.5 hover:bg-black-10 w-[125px] active:bg-black-75 active:text-white-bg'
+              >
+                <div className='flex gap-1 items-center justify-center text-xs'>
+                  <TrashIcon className='size-4 fill-red-500' />
+                  Supprimer
+                </div>
+              </button>
+            </MenuItem>
+          </MenuItems>
+        </Menu>
+      )}
     </div>
   );
 }
