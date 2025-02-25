@@ -34,9 +34,12 @@ const BookEditForm = () => {
     book.publishedDate ? formatDate(book.publishedDate) : ''
   );
   const [coverFile, setCoverFile] = useState(null);
+  const [coverFileName, setCoverFileName] = useState('Aucun fichier choisi');
 
   const handleFileChange = (e) => {
-    setCoverFile(e.target.files[0]);
+    const file = e.target.files[0];
+    setCoverFile(file);
+    setCoverFileName(file ? file.name : 'Aucun fichier choisi');
   };
 
   const handleSubmit = async (e) => {
@@ -116,12 +119,20 @@ const BookEditForm = () => {
               />
             </label>
             <label className='block text-small text-black-75 mb-1'>
-              Télécharger une image de couverture
-              <input
-                type='file'
-                onChange={handleFileChange}
-                className={inputClass}
-              />
+              Importer une image de couverture
+              <div className='relative'>
+                <input
+                  type='file'
+                  onChange={handleFileChange}
+                  className='absolute inset-0 w-full h-full opacity-0 cursor-pointer'
+                />
+                <div className='flex items-center justify-between bg-white border border-black-25 p-2 cursor-pointer'>
+                  <span>{coverFileName}</span>
+                  <span className='bg-black-10 text-black-75 p-1 text-xs'>
+                    Choisir un fichier
+                  </span>
+                </div>
+              </div>
             </label>
             <button
               type='submit'
