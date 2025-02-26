@@ -177,7 +177,7 @@ function UserAccount() {
   }
 
   return (
-    <div className='flex justify-around items-start'>
+    <div className='flex flex-col lg:flex-row lg:gap-12'>
       <div className='flex flex-col flex-1 min-h-0 min-w-[500px] max-w-full mx-auto font-lato'>
         <div className='flex-grow flex flex-col items-center justify-center mt-[64px]'>
           <div className='font-merriweather mb-4 text-h6'>Personnaliser</div>

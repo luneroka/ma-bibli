@@ -40,11 +40,11 @@ function SearchPage() {
 
   return (
     <>
-        <NavbarSearch />
-        <main className='flex-1 min-h-0 max-w-full mx-[128px] font-lato'>
-          <SearchResults searchResults={searchResults} />
-        </main>
-        <Footer />
+      <NavbarSearch />
+      <main className='flex-1 min-h-0 max-w-full mx-[64px] md:mx-[128px] font-lato'>
+        <SearchResults searchResults={searchResults} />
+      </main>
+      <Footer />
     </>
   );
 }

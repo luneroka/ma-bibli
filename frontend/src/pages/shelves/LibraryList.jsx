@@ -108,14 +108,14 @@ function LibraryList() {
   return (
     <div className='mx-[64px] md:mx-[128px]'>
       {/* Page header */}
-      <div className='flex flex-col justify-start items-start [@media(min-width:700px)]:flex-row [@media(min-width:700px)]:justify-between [@media(min-width:700px)]:items-center gap-2 mt-[48px] mb-5'>
+      <div className='flex flex-col justify-start items-start [@media(min-width:970px)]:flex-row [@media(min-width:970px)]:justify-between [@media(min-width:970px)]:items-center gap-2 mt-[48px] mb-5'>
         {/* Page Title */}
         <div className='flex gap-6 items-center'>
           <h3 className='text-h3 text-black font-merriweather'>Ma Bibli</h3>
           <Link to='/livres/créer'>
             <button className='cursor-pointer text-small py-1 px-2 bg-secondary-btn hover:bg-primary-btn active:bg-black-75 text-white-bg focus:outline-none text-left flex gap-1 items-center'>
               <IoCreateOutline className='size-4' />
-              Créer un livre 
+              Créer un livre
             </button>
           </Link>
         </div>

@@ -53,7 +53,7 @@ function DashBody({ activeFilter, readingObjective }) {
   return (
     <div className='mx-[64px] md:mx-[128px] grid grid-cols-1 min-[700px]:grid-cols-2 lg:grid-cols-4 gap-[24px]'>
       {/* Progression Bars */}
-      <div className='col-span-2 '>
+      <div className='col-span-1 min-[700px]:col-span-2'>
         <p className='text-small font-light text-black-75'>
           LIVRES LUS / LIVRES POSSÉDÉS
         </p>
@@ -62,7 +62,7 @@ function DashBody({ activeFilter, readingObjective }) {
           progress={countProgress}
         />
       </div>
-      <div className='col-span-2'>
+      <div className='col-span-1 min-[700px]:col-span-2'>
         <p className='text-small font-light text-black-75'>
           OBJECTIF ANNUEL : {readingObjective.objective} livres du{' '}
           {new Date(readingObjective.timeframe).toLocaleDateString('fr-FR')} au
@@ -83,7 +83,7 @@ function DashBody({ activeFilter, readingObjective }) {
       <MetricCard variant='topGenre' libraryBooks={filteredBooks} />
       <MetricCard variant='topAuthor' libraryBooks={filteredBooks} />
 
-      <div className='col-span-1 min-[700px]:col-span-2 lg:col-span-2'>
+      <div className='col-span-1 min-[700px]:col-span-2'>
         <GraphCard libraryBooks={filteredBooks} />
       </div>
 

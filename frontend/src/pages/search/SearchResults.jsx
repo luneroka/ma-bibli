@@ -13,7 +13,7 @@ function SearchResults({ searchResults = { items: [] } }) {
   return (
     <>
       <div className='items-center gap-8 mt-[64px] mb-[32px]'>
-        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-16 mt-[32px]'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-16 mt-[32px]'>
           {uniqueBooks
             .filter((book) => book && (book.isbn || book.title))
             .map((book) => (

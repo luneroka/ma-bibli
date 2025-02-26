@@ -31,7 +31,10 @@ const HomePage = () => {
 
   return (
     <>
-      <div key={currentUser?.uid || 'no-user'} className='px-[128px]'>
+      <div
+        key={currentUser?.uid || 'no-user'}
+        className='px-[64px] md:px-[128px]'
+      >
         <div className='my-[80px]'>
           <NewReleases
             newest={newest}

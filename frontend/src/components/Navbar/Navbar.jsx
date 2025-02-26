@@ -61,7 +61,7 @@ const Navbar = () => {
 
         {/* Middle */}
         {/* Change Theme */}
-        <div className='text-white-bg text-xs font-merriweather border border-white-bg rounded focus:outline-none p-1'>
+        <div className='text-white-bg text-xs font-merriweather border border-white-bg rounded focus:outline-none p-1 hidden min-[1330px]:block'>
           <ThemeSwitcher className='text-white-bg' />
         </div>
 
@@ -79,7 +79,7 @@ const Navbar = () => {
 
           {/* User displayName */}
           {currentUser && currentUser.displayName && (
-            <div className='text-white-bg font-merriweather'>
+            <div className='text-white-bg font-merriweather hidden sm:block'>
               {currentUser.displayName}
             </div>
           )}

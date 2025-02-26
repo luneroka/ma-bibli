@@ -69,15 +69,15 @@ const NavbarSearch = () => {
         </div>
 
         {/* Right side */}
-        <div className='flex items-center gap-4 sm:gap-6'>
+        <div className='flex items-center gap sm:gap-6'>
           {/* Wishlist Icon */}
           <Link to='/liste-de-lecture'>
-            <FaListAlt className='w-6 h-6 text-white-bg hover:text-primary-btn' />
+            <FaListAlt className='w-6 h-6 text-white-bg hover:text-primary-btn hidden sm:block' />
           </Link>
 
           {/* Library Icon */}
           <Link to='/bibli'>
-            <FaBookOpen className='w-6 h-6 text-white-bg hover:text-primary-btn' />
+            <FaBookOpen className='w-6 h-6 text-white-bg hover:text-primary-btn hidden sm:block' />
           </Link>
 
           {/* User Icon and dropdown */}
