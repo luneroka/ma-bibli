@@ -77,7 +77,7 @@ function mapBookCategory(category) {
     BIBLES: 'Sujets Spécialisés',
   };
 
-  return categoryMapping[category.toUpperCase()] || 'Non catégorisé';
+  return categoryMapping[category.toUpperCase()] || 'Autres';
 }
 
 // Simple function to generate a random ID.

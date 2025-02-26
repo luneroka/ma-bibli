@@ -14,7 +14,8 @@ const categoryOptions = [
   'Science & Technologie',
   'Développement Personnel & Bien-être',
   'Mode de Vie',
-  'Bêta Lecture',
+  'Sujets Spécialisés',
+  'Autres',
 ];
 
 const BookCreateForm = () => {
