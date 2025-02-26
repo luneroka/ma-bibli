@@ -191,7 +191,7 @@ const deleteBook = async (Model, req, res) => {
     if (book.cover && book.cover.includes('cloudinary.com')) {
       try {
         // Extract the public_id from the URL
-        // URL format is typically: https://res.cloudinary.com/cloud_name/image/upload/v1234567890/folder/public_id.ext
+        // URL format : https://res.cloudinary.com/cloud_name/image/upload/v1234567890/folder/public_id.ext
         const urlParts = book.cover.split('/');
         const filenameWithExtension = urlParts[urlParts.length - 1];
         const publicId =
@@ -272,7 +272,7 @@ const createBook = async (Model, req, res) => {
 
     // Use Cloudinary URL if file was uploaded, else default image
     const cover = req.file
-      ? req.file.path // Use path instead of secure_url
+      ? req.file.path
       : '/product-not-found.png';
 
     const newBook = new Model({

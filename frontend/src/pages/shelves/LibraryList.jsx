@@ -97,7 +97,7 @@ function LibraryList() {
     return map;
   };
 
-  // Group books into an object like { "Science-Fiction": [book, ...], "Fantastique": [book, ...] }
+  // Group books into an object like { "Science-Fiction": [book, ...], "Littérature": [book, ...] }
   const grouped = groupByGenre(filteredBooks());
 
   // Filter have and have read

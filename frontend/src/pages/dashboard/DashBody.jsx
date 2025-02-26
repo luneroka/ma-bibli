@@ -16,7 +16,6 @@ function DashBody({ activeFilter, readingObjective }) {
     if (activeFilter === '7 jours') {
       const sevenDaysAgo = new Date();
       sevenDaysAgo.setHours(sevenDaysAgo.getHours() - 0.1);
-      console.log(sevenDaysAgo);
       return libraryBooks.filter(
         (book) => new Date(book.createdAt) >= sevenDaysAgo
       );

@@ -4,16 +4,19 @@ import {
   createRemoveBookAsync,
 } from '../../../utils/asyncActions';
 
+// Get API URL from environment variables with fallback
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
 export const getWishlistBooksAsync = createGetAllBooksAsync(
   'wishlist',
-  'http://localhost:3000/api/wishlist'
+  `${API_URL}/api/wishlist`
 );
 
 export const addToWishlistAsync = createAddBookAsync(
   'wishlist',
-  'http://localhost:3000/api/wishlist/add-book'
+  `${API_URL}/api/wishlist/add-book`
 );
 export const removeFromWishlistAsync = createRemoveBookAsync(
   'wishlist',
-  'http://localhost:3000/api/wishlist/delete-book'
+  `${API_URL}/api/wishlist/delete-book`
 );

@@ -9,7 +9,7 @@ const fetchJson = async (url) => {
 };
 
 function mapBookCategory(category) {
-  if (!category || typeof category !== 'string') return 'Non catégorisé';
+  if (!category || typeof category !== 'string') return 'Autres';
   const categoryMapping = {
     'ANTIQUES & COLLECTIBLES': 'Art & Design',
     ARCHITECTURE: 'Art & Design',
