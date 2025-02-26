@@ -78,23 +78,30 @@ export function getMostRepeatedAuthor(books) {
   return mostRepeated;
 }
 
-  // Helper: Get correct cover URL
-  export const getCoverUrl = (cover) => {
-    if (!cover) return '/product-not-found.png';
-    // If already an absolute URL, return as is.
-    if (cover.startsWith('http://') || cover.startsWith('https://'))
-      return cover;
+// Helper: Get correct cover URL
+export const getCoverUrl = (cover) => {
+  if (!cover) {
+    return '/product-not-found.png';
+  }
 
-    // If uploaded cover from our backend, append timestamp to bust cache.
-    if (cover.startsWith('/uploads/')) {
-      return `http://localhost:3000${cover}?t=${Date.now()}`;
-    }
-
-    // If coming from our proxy, prepend backend host.
-    if (cover.startsWith('/api/proxy-image')) {
-      return `http://localhost:3000${cover}`;
-    }
-
-    // Fallback for any other type.
+  // If it's a Cloudinary URL, use it as-is
+  if (cover.includes('cloudinary.com')) {
     return cover;
-  };
+  }
+
+  // If it's a relative path from local server (older books)
+  if (cover.startsWith('/uploads/')) {
+    // Use API_URL from env if available, otherwise fallback to localhost
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+    return `${API_URL}${cover}?t=${Date.now()}`;
+  }
+
+  // If coming from our proxy, prepend backend host.
+  if (cover.startsWith('/api/proxy-image')) {
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+    return `${API_URL}${cover}`;
+  }
+
+  // Fallback for any other type.
+  return cover;
+};

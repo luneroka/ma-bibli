@@ -2,6 +2,7 @@ const { fetchBookFromGoogle } = require('../utils/googleBooksApi');
 const { transformGoogleBook } = require('../services/bookService');
 const { generateRandomId } = require('../utils/helper');
 const LibraryBook = require('../library/library.model');
+const cloudinary = require('cloudinary').v2;
 
 const getAllBooks = async (Model, req, res) => {
   try {
@@ -186,6 +187,25 @@ const deleteBook = async (Model, req, res) => {
       return res.status(403).json({ message: 'Forbidden' });
     }
 
+    // Check if the book has a Cloudinary image that needs to be deleted
+    if (book.cover && book.cover.includes('cloudinary.com')) {
+      try {
+        // Extract the public_id from the URL
+        // URL format is typically: https://res.cloudinary.com/cloud_name/image/upload/v1234567890/folder/public_id.ext
+        const urlParts = book.cover.split('/');
+        const filenameWithExtension = urlParts[urlParts.length - 1];
+        const publicId =
+          'ma_bibli/covers/' + filenameWithExtension.split('.')[0];
+
+        // Delete the image from Cloudinary
+        await cloudinary.uploader.destroy(publicId);
+        console.log(`Deleted Cloudinary resource: ${publicId}`);
+      } catch (cloudinaryError) {
+        console.error('Failed to delete Cloudinary resource:', cloudinaryError);
+        // We continue with deletion even if Cloudinary deletion fails
+      }
+    }
+
     // Now delete the book.
     await book.deleteOne();
     res.status(200).json({ message: 'Book removed successfully', book });
@@ -208,7 +228,9 @@ const updateBookInfo = async (Model, req, res) => {
 
     // If file is provided, update the cover URL
     if (req.file) {
-      updateFields.cover = `/uploads/${req.file.filename}`;
+      console.log('File uploaded to Cloudinary:', req.file);
+      // The URL is provided in path for multer-storage-cloudinary
+      updateFields.cover = req.file.path;
     }
 
     // Remove undefined properties
@@ -247,8 +269,10 @@ const createBook = async (Model, req, res) => {
     } = req.body;
     const userId = req.user.uid;
     const isbn = generateRandomId() + Date.now();
+
+    // Use Cloudinary URL if file was uploaded, else default image
     const cover = req.file
-      ? `/uploads/${req.file.filename}`
+      ? req.file.path // Use path instead of secure_url
       : '/product-not-found.png';
 
     const newBook = new Model({
