@@ -1,8 +1,38 @@
-# React + Vite
+# ![Ma Bibli Logo](./frontend/src/assets/page-icon.png) Ma Bibli - Personal Book Library App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Ma Bibli** is a full-stack web application for managing your personal book collection. Create, organize, and track your reading habits with an intuitive interface.
 
-Currently, two official plugins are available:
+## 📚 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Book Management**: Add, edit and remove books in your personal library
+- **Reading Tracker**: Mark books as read and track your reading history
+- **Favorites**: Mark and filter your favorite books
+- **Wishlist**: Maintain a separate wishlist of books you want to read
+- **Book Search**: Search for books by title or author
+- **Book Details**: View comprehensive information about each book
+- **Author Discovery**: Explore other works by the same author
+- **User Authentication**: Secure login and account management
+- **Responsive Design**: Works on desktop, tablet and mobile devices
+
+## 🛠️ Tech Stack
+
+### Frontend
+
+- React 18 with React Router
+- Redux Toolkit for state management
+- Tailwind CSS for styling
+- Headless UI components
+- React Icons
+- Swiper for carousels
+
+### Backend
+
+- Node.js with Express
+- MongoDB with Mongoose
+- Firebase Authentication
+- Cloudinary for image storage
+- JWT for API authentication
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
