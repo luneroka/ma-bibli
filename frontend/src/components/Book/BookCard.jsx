@@ -7,6 +7,7 @@ import {
   FaCheckCircle,
   FaHeart,
   FaSpinner,
+  FaPencilAlt,
 } from 'react-icons/fa';
 import { IoIosAddCircleOutline, IoIosLogIn } from 'react-icons/io';
 import {
@@ -352,12 +353,19 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
               {isInLibrary ? (
                 isRead ? (
                   <>
-                    <button className='bg-secondary-btn text-black-75 text-small px-1 py-2.5 w-[220px]'>
+                    <button className='bg-secondary-btn text-black-75 text-small px-1 py-2.5 w-[170px]'>
                       <div className='flex gap-1 items-center justify-center'>
                         <FaCheckCircle className='text-body' />
                         J'ai lu !
                       </div>
                     </button>
+                    <Link to={`/livres/${book.isbn}/edit`} state={{ book }}>
+                      <button className='cursor-pointer bg-black-10 text-black-75 text-small px-1 py-2.5 w-[50px] h-full hover:bg-secondary-btn'>
+                        <div className='flex items-center justify-center'>
+                          <FaPencilAlt className='text-body' />
+                        </div>
+                      </button>
+                    </Link>
                     <button
                       onClick={() => handleFavorite(book.isbn)}
                       className={`text-h4 rounded-full cursor-pointer hover:scale-150 transition-all duration-200 ${
@@ -368,15 +376,24 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
                     </button>
                   </>
                 ) : (
-                  <button
-                    onClick={() => handleRemoveFromLibrary(book.isbn)}
-                    className='cursor-pointer bg-secondary-btn text-black-75 text-small px-1 py-2.5 w-[220px]'
-                  >
-                    <div className='flex gap-1 items-center justify-center'>
-                      <FaCheckCircle className='text-body' />
-                      Bibli
-                    </div>
-                  </button>
+                  <>
+                    <button
+                      onClick={() => handleRemoveFromLibrary(book.isbn)}
+                      className='cursor-pointer bg-secondary-btn text-black-75 text-small px-1 py-2.5 w-[170px]'
+                    >
+                      <div className='flex gap-1 items-center justify-center'>
+                        <FaCheckCircle className='text-body' />
+                        Bibli
+                      </div>
+                    </button>
+                    <Link to={`/livres/${book.isbn}/edit`} state={{ book }}>
+                      <button className='cursor-pointer bg-black-10 text-black-75 text-small px-1 py-2.5 w-[50px] hover:bg-secondary-btn'>
+                        <div className='flex items-center justify-center'>
+                          <FaPencilAlt className='text-body' />
+                        </div>
+                      </button>
+                    </Link>
+                  </>
                 )
               ) : (
                 <button
