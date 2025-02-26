@@ -267,7 +267,7 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
         <div id='book-card' className='flex flex-col justify-between'>
           <div className='flex gap-[24px]'>
             {/* Book Cover with spinner */}
-            <div className='w-[220px] h-[330px] relative flex-shrink-0 flex items-center justify-center'>
+            <div className='hiddew-[220px] h-[330px] relative flex-shrink-0 flex items-center justify-center'>
               {!imageLoaded && (
                 <FaSpinner className='animate-spin text-xl text-black-50' />
               )}
@@ -275,7 +275,9 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
                 src={coverUrl}
                 alt='Couverture non disponible'
                 onLoad={() => setImageLoaded(true)}
-                className={`w-full h-full ${!imageLoaded ? 'hidden' : ''}`}
+                className={`hidden sm:block w-full h-full ${
+                  !imageLoaded ? 'hidden' : ''
+                }`}
               />
             </div>
 
@@ -315,7 +317,7 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
               </p>
 
               {/* Description */}
-              <p className='h-[180px] max-w-[600px] text-small-body text-black-85 text-justify'>
+              <p className='w-full max-w-full md:max-w-[600px] h-auto md:h-[180px] overflow-hidden text-small-body text-black-85 text-justify'>
                 {plainTextDescription && plainTextDescription.length > 580
                   ? `${plainTextDescription.slice(0, 580)}...`
                   : plainTextDescription || 'Pas de description...'}
