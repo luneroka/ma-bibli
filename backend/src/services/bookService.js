@@ -28,7 +28,7 @@ const transformGoogleBook = (googleBook) => {
   const category =
     volume.categories && volume.categories.length > 0
       ? mapBookCategory(volume.categories[0])
-      : 'Non catégorisé';
+      : 'Autres';
 
   return {
     isbn,
@@ -38,7 +38,7 @@ const transformGoogleBook = (googleBook) => {
     publishedDate: volume.publishedDate || 'N/A',
     description: volume.description || 'Pas de description.',
     pageCount: volume.pageCount || 0,
-    category: category || 'Non catégorisé',
+    category: category || 'Autres',
     cover: coverUrl,
   };
 };
