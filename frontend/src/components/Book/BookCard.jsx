@@ -17,7 +17,12 @@ import {
   addToWishlistAsync,
   removeFromWishlistAsync,
 } from '../../redux/features/wishlist/wishlistAsyncActions';
-import { formatNumber, extractYear, extractFullDate } from '../../utils/helper';
+import {
+  formatNumber,
+  extractYear,
+  extractFullDate,
+  getCoverUrl,
+} from '../../utils/helper';
 import { toggleFavoriteAsync } from '../../redux/features/favorites/favoritesAsyncActions';
 import { useAuth } from '../../context/AuthContext';
 
@@ -67,27 +72,6 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
 
   // Use dbBook (if fetched) when variant is "perso"; fallback to props.book otherwise.
   const displayBook = variant === 'perso' ? dbBook : book;
-
-  // Helper: Get correct cover URL
-  const getCoverUrl = (cover) => {
-    if (!cover) return '/product-not-found.png';
-    // If already an absolute URL, return as is.
-    if (cover.startsWith('http://') || cover.startsWith('https://'))
-      return cover;
-
-    // If uploaded cover from our backend, append timestamp to bust cache.
-    if (cover.startsWith('/uploads/')) {
-      return `http://localhost:3000${cover}?t=${Date.now()}`;
-    }
-
-    // If coming from our proxy, prepend backend host.
-    if (cover.startsWith('/api/proxy-image')) {
-      return `http://localhost:3000${cover}`;
-    }
-
-    // Fallback for any other type.
-    return cover;
-  };
 
   const handleAddToLibrary = async (book) => {
     if (!currentUser) return;

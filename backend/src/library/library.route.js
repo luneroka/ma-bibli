@@ -68,7 +68,6 @@ router.post('/create', upload.single('cover'), (req, res) =>
 router.get('/book/:isbn', async (req, res) => {
   try {
     const { isbn } = req.params;
-    // LibraryBook is already required and used in this file.
     const book = await LibraryBook.findOne({
       isbn,
       userId: req.user.uid,
