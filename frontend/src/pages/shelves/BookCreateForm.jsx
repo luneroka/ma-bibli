@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { categoryOptions } from '../../utils/categories';
 
-// Config should come from environment variables
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const ALLOWED_FILE_TYPES = [

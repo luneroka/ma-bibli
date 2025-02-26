@@ -1,7 +1,6 @@
 const { fetchBookFromGoogle } = require('../utils/googleBooksApi');
 const { transformGoogleBook } = require('../services/bookService');
 const { generateRandomId } = require('../utils/helper');
-const LibraryBook = require('../library/library.model');
 const cloudinary = require('cloudinary').v2;
 
 const getAllBooks = async (Model, req, res) => {

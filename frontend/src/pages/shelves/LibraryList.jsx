@@ -6,6 +6,7 @@ import { getLibraryBooksAsync } from '../../redux/features/library/libraryAsyncA
 import { Listbox, Transition } from '@headlessui/react';
 import { ChevronUpDownIcon, CheckIcon } from '@heroicons/react/20/solid';
 import { IoCreateOutline } from 'react-icons/io5';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 // Swiper imports
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -42,7 +43,7 @@ function LibraryList() {
       try {
         const token = await currentUser.getIdToken();
         const response = await fetch(
-          'http://localhost:3000/api/library/categories',
+          `${API_URL}/api/library/categories`,
           {
             headers: {
               'Content-Type': 'application/json',
