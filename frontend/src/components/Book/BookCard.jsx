@@ -39,7 +39,7 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
   // New state to track image loading
   const [imageLoaded, setImageLoaded] = useState(false);
 
-  // For variant "perso", fetch the latest book data from the db.
+  // For database-fetched books, fetch the latest data
   const [dbBook, setDbBook] = useState(book);
   useEffect(() => {
     if (variant === 'perso' && currentUser) {
@@ -70,8 +70,14 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
     }
   }, [variant, book.isbn, currentUser]);
 
-  // Use dbBook (if fetched) when variant is "perso"; fallback to props.book otherwise.
-  const displayBook = variant === 'perso' ? dbBook : book;
+  // Use dbBook (if fetched) when variant is "perso"; fallback to props.book otherwise
+  const isPersoVariant = variant === 'perso';
+  const displayBook = isPersoVariant ? dbBook : book;
+
+  // Process the cover URL based on whether it's a personal book or not
+  const coverUrl = isPersoVariant
+    ? getCoverUrl(displayBook.cover)
+    : displayBook.cover || '/product-not-found.png';
 
   const handleAddToLibrary = async (book) => {
     if (!currentUser) return;
@@ -288,7 +294,7 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
         </div>
       </>
     );
-  } else if (variant === 'single') {
+  } else if (variant === 'single' || variant === 'perso') {
     return (
       <>
         <div id='book-card' className='flex flex-col justify-between'>
@@ -299,157 +305,7 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
                 <FaSpinner className='animate-spin text-xl text-black-50' />
               )}
               <img
-                src={
-                  displayBook.cover || '../../../public/product-not-found.png'
-                }
-                alt='Couverture non disponible'
-                onLoad={() => setImageLoaded(true)}
-                className={`w-full h-full ${!imageLoaded ? 'hidden' : ''}`}
-              />
-            </div>
-
-            {/* Book Details */}
-            <div className='flex flex-col justify-between w-full'>
-              {/* Title */}
-              <p className='text-h5 text-black'>{displayBook.title}</p>
-
-              {/* Authors */}
-              {displayBook.authors && (
-                <p className='italic text-black overflow-hidden'>
-                  {displayBook.authors.slice(0, 3).map((author, index) => (
-                    <span
-                      key={author}
-                      className='cursor-pointer hover:text-secondary-btn hover:underline'
-                      onClick={() => handleAuthorClick(author)}
-                    >
-                      {author}
-                      {index < displayBook.authors.length - 1 && ', '}
-                    </span>
-                  ))}
-                </p>
-              )}
-
-              {/* Publisher */}
-              <p className='text-small-body text-black'>
-                Éditeur :{' '}
-                <span className='text-black-85'>{displayBook.publisher}</span>
-              </p>
-
-              {/* Published Date */}
-              <p className='text-small-body text-black'>
-                Publication :{' '}
-                <span className='text-black-85'>
-                  {extractFullDate(displayBook.publishedDate)}
-                </span>
-              </p>
-
-              {/* Description */}
-              <p className='h-[180px] max-w-[600px] text-small-body text-black-85 text-justify'>
-                {plainTextDescription && plainTextDescription.length > 580
-                  ? `${plainTextDescription.slice(0, 580)}...`
-                  : plainTextDescription || 'Pas de description...'}
-              </p>
-            </div>
-          </div>
-
-          {/* Action Buttons (only when user is logged in) */}
-          {currentUser ? (
-            <div className='flex gap-[24px] mt-6'>
-              {/* wishlist List Button */}
-              {isInWishlist ? (
-                <button
-                  onClick={() => handleRemoveFromWishlist(displayBook.isbn)}
-                  className='cursor-pointer bg-secondary-btn text-black-75 text-small px-1 py-2.5 w-[220px]'
-                >
-                  <div className='flex gap-1 items-center justify-center'>
-                    <FaBookmark className='text-body' />
-                    Wishlist
-                  </div>
-                </button>
-              ) : (
-                <button
-                  onClick={() => handleAddToWishlist(displayBook)}
-                  className='cursor-pointer bg-primary-btn text-black-75 text-small px-1 py-2.5 w-[220px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
-                >
-                  <div className='flex gap-1 items-center justify-center'>
-                    <FaRegBookmark className='text-body' />
-                    Wishlist
-                  </div>
-                </button>
-              )}
-
-              {/* Library Button */}
-              {isInLibrary ? (
-                isRead ? (
-                  <>
-                    <button className='bg-secondary-btn text-black-75 text-small px-1 py-2.5 w-[220px]'>
-                      <div className='flex gap-1 items-center justify-center'>
-                        <FaCheckCircle className='text-body' />
-                        J'ai lu !
-                      </div>
-                    </button>
-                    <button
-                      onClick={() => handleFavorite(displayBook.isbn)}
-                      className={`text-h4 rounded-full cursor-pointer hover:scale-150 transition-all duration-200 ${
-                        isFavorite ? 'text-primary-btn' : 'text-black-75'
-                      }`}
-                    >
-                      <FaHeart className='p-0.5' />
-                    </button>
-                  </>
-                ) : (
-                  <button
-                    onClick={() => handleRemoveFromLibrary(displayBook.isbn)}
-                    className='cursor-pointer bg-secondary-btn text-black-75 text-small px-1 py-2.5 w-[220px]'
-                  >
-                    <div className='flex gap-1 items-center justify-center'>
-                      <FaCheckCircle className='text-body' />
-                      Bibli
-                    </div>
-                  </button>
-                )
-              ) : (
-                <button
-                  onClick={() => handleAddToLibrary(displayBook)}
-                  className='cursor-pointer bg-primary-btn text-black-75 text-small px-1 py-2.5 w-[220px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
-                >
-                  <div className='flex gap-1 items-center justify-center'>
-                    <IoIosAddCircleOutline className='text-body' />
-                    Bibli
-                  </div>
-                </button>
-              )}
-            </div>
-          ) : (
-            <div className='flex gap-[16px] mt-2'>
-              <button
-                onClick={() => handleAddToLibrary(displayBook)}
-                className='cursor-pointer bg-primary-btn text-black-75 text-xs px-1 py-1.5 w-[220px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
-              >
-                <Link to='/login'>
-                  <div className='flex gap-1 items-center justify-center'>
-                    <IoIosLogIn className='text-body' />
-                    Se connecter
-                  </div>
-                </Link>
-              </button>
-            </div>
-          )}
-        </div>
-      </>
-    );
-  } else if (variant === 'perso') {
-    return (
-      <>
-        <div id='book-card' className='flex flex-col justify-between'>
-          <div className='flex gap-[24px]'>
-            {/* Book Cover with spinner */}
-            <div className='w-[220px] h-[330px] relative flex-shrink-0 flex items-center justify-center'>
-              {!imageLoaded && (
-                <FaSpinner className='animate-spin text-xl text-black-50' />
-              )}
-              <img
-                src={getCoverUrl(displayBook.cover)}
+                src={coverUrl}
                 alt='Couverture non disponible'
                 onLoad={() => setImageLoaded(true)}
                 className={`w-full h-full ${!imageLoaded ? 'hidden' : ''}`}

@@ -15,6 +15,7 @@ import {
   PencilIcon,
   TrashIcon,
 } from '@heroicons/react/16/solid';
+import { getCoverUrl } from '../../utils/helper';
 
 function BookInLibrary({ book }) {
   const { currentUser } = useAuth();
@@ -24,27 +25,6 @@ function BookInLibrary({ book }) {
 
   // State to track image loading
   const [imageLoaded, setImageLoaded] = useState(false);
-
-  // Helper: Get correct cover URL
-  const getCoverUrl = (cover) => {
-    if (!cover) return '/product-not-found.png';
-    // If already an absolute URL, return as is.
-    if (cover.startsWith('http://') || cover.startsWith('https://'))
-      return cover;
-
-    // If uploaded cover from our backend, append timestamp to bust cache.
-    if (cover.startsWith('/uploads/')) {
-      return `http://localhost:3000${cover}?t=${Date.now()}`;
-    }
-
-    // If coming from our proxy, prepend backend host.
-    if (cover.startsWith('/api/proxy-image')) {
-      return `http://localhost:3000${cover}`;
-    }
-
-    // Fallback for any other type.
-    return cover;
-  };
 
   const handleRemoveFromLibrary = async (isbn) => {
     if (!currentUser) return;
