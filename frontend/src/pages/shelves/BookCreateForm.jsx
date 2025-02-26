@@ -1,22 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-
-const categoryOptions = [
-  'Art & Design',
-  'Littérature',
-  'Biographie & Mémoires',
-  'Affaires & Finance',
-  'Divertissement',
-  'Éducation & Référence',
-  'Sciences Sociales & Culturelles',
-  'Jeunesse & Young Adult',
-  'Science & Technologie',
-  'Développement Personnel & Bien-être',
-  'Mode de Vie',
-  'Sujets Spécialisés',
-  'Autres',
-];
+import { categoryOptions } from '../../utils/categories';
 
 const BookCreateForm = () => {
   const { currentUser } = useAuth();
@@ -141,7 +126,7 @@ const BookCreateForm = () => {
               />
             </label>
             <label className='block text-small text-black-75 mb-1'>
-              Catégorie
+              Genre
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}

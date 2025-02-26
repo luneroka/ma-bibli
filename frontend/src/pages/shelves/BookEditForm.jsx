@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { categoryOptions } from '../../utils/categories';
 
 const BookEditForm = () => {
   const { currentUser } = useAuth();
@@ -33,6 +34,7 @@ const BookEditForm = () => {
   const [publishedDate, setPublishedDate] = useState(
     book.publishedDate ? formatDate(book.publishedDate) : ''
   );
+  const [category, setCategory] = useState(book.category);
   const [coverFile, setCoverFile] = useState(null);
   const [coverFileName, setCoverFileName] = useState('Aucun fichier choisi');
 
@@ -49,6 +51,7 @@ const BookEditForm = () => {
     formData.append('authors', authors);
     formData.append('publisher', publisher);
     formData.append('publishedDate', publishedDate);
+    formData.append('category', category);
     if (coverFile) {
       formData.append('cover', coverFile);
     }
@@ -117,6 +120,20 @@ const BookEditForm = () => {
                 onChange={(e) => setPublishedDate(e.target.value)}
                 className={inputClass}
               />
+            </label>
+            <label className='block text-small text-black-75 mb-1'>
+              Genre
+              <select
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                className={inputClass}
+              >
+                {categoryOptions.map((cat, index) => (
+                  <option key={index} value={cat}>
+                    {cat}
+                  </option>
+                ))}
+              </select>
             </label>
             <label className='block text-small text-black-75 mb-1'>
               Importer une image de couverture

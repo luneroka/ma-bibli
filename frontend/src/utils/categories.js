@@ -1,0 +1,15 @@
+export const categoryOptions = [
+  'Art & Design',
+  'Littérature',
+  'Biographie & Mémoires',
+  'Affaires & Finance',
+  'Divertissement',
+  'Éducation & Référence',
+  'Sciences Sociales & Culturelles',
+  'Jeunesse & Young Adult',
+  'Science & Technologie',
+  'Développement Personnel & Bien-être',
+  'Mode de Vie',
+  'Sujets Spécialisés',
+  'Autres',
+];

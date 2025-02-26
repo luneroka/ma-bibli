@@ -198,8 +198,8 @@ const deleteBook = async (Model, req, res) => {
 const updateBookInfo = async (Model, req, res) => {
   try {
     const { isbn } = req.params;
-    const { title, authors, publisher, publishedDate } = req.body;
-    let updateFields = { title, publisher, publishedDate };
+    const { title, authors, publisher, publishedDate, category } = req.body;
+    let updateFields = { title, publisher, publishedDate, category };
 
     // Convert authors from CSV string to array
     updateFields.authors = authors
