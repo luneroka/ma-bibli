@@ -19,6 +19,7 @@ router.get('/', async (req, res) => {
   const imageUrl = req.query.url;
 
   if (!imageUrl) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
     return res.status(400).json({ error: 'URL parameter is required' });
   }
 
