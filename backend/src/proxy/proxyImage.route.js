@@ -55,6 +55,7 @@ router.get('/', async (req, res) => {
     const contentType = response.headers['content-type'] || 'image/jpeg';
     res.setHeader('Content-Type', contentType);
     res.setHeader('Cache-Control', 'public, max-age=604800'); // 7 days
+    res.setHeader('Access-Control-Allow-Origin', '*'); // Allow all origins
 
     // Send image data
     return res.send(Buffer.from(response.data));
