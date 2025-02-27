@@ -267,7 +267,7 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
         <div id='book-card' className='flex flex-col justify-between'>
           <div className='flex gap-[24px]'>
             {/* Book Cover with spinner */}
-            <div className='hiddew-[220px] h-[330px] relative flex-shrink-0 flex items-center justify-center'>
+            <div className='hidden sm:block w-[220px] h-[330px] relative flex-shrink-0 items-center justify-center'>
               {!imageLoaded && (
                 <FaSpinner className='animate-spin text-xl text-black-50' />
               )}
