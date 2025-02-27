@@ -42,6 +42,7 @@ function ThemeSwitcher() {
         <option value='tropicalPunch'>Tropical Punch</option>
         <option value='oceanBreeze'>Ocean Breeze</option>
         <option value='sunsetVibes'>Sunset Vibes</option>
+        <option value='darkMode'>Dark Mode</option>
       </select>
     </div>
   );

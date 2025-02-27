@@ -71,8 +71,8 @@ function Register() {
   return (
     <div className='flex flex-col flex-1 min-h-0 min-w-[500px] max-w-full mx-auto font-lato'>
       <div className='flex-grow flex items-center justify-center mt-[64px]'>
-        <div className='bg-white p-8 shadow-md w-full max-w-md'>
-          <h2 className='text-h5 text-black mb-8 font-merriweather'>
+        <div className='bg-white-bg p-8 shadow-md w-full max-w-md'>
+          <h2 className='text-h5 text-black-100 mb-8 font-merriweather'>
             Créer mon coin lecture
           </h2>
 
@@ -177,7 +177,7 @@ function Register() {
             </div>
 
             {/* Register Button */}
-            <button className='cursor-pointer font-merriweather text-white-bg bg-primary-btn px-6 h-10 w-full text-small-body md:text-body hover:bg-secondary-btn active:bg-black-75'>
+            <button className='cursor-pointer font-merriweather text-white-100 bg-primary-btn px-6 h-10 w-full text-small-body md:text-body hover:bg-secondary-btn active:bg-black-75'>
               Créer mon compte
             </button>
           </form>
@@ -185,7 +185,7 @@ function Register() {
           <hr className='text-black-10 mt-6 mb-6' />
 
           {/* Redirect To Login */}
-          <p className='text-black text-small'>
+          <p className='text-black-100 text-small'>
             Déjà inscrit ?{' '}
             <span className='text-secondary-btn underline hover:text-primary-btn active:text-black-75'>
               <Link to='/login'>Se connecter.</Link>
@@ -196,7 +196,7 @@ function Register() {
           <div className='mt-6'>
             <button
               onClick={handleGoogleSignIn}
-              className='cursor-pointer font-merriweather w-full flex gap-2 items-center justify-center text-white-bg bg-main-blue px-6 h-10 text-small-body md:text-body hover:bg-secondary-btn active:bg-black-75'
+              className='cursor-pointer font-merriweather w-full flex gap-2 items-center justify-center text-white-100 bg-secondary-btn px-6 h-10 text-small-body md:text-body hover:bg-primary-btn active:bg-black-75'
             >
               <FaGoogle />
               Se connecter avec Google

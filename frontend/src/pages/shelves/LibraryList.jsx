@@ -42,15 +42,12 @@ function LibraryList() {
     const fetchCategories = async () => {
       try {
         const token = await currentUser.getIdToken();
-        const response = await fetch(
-          `${API_URL}/api/library/categories`,
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await fetch(`${API_URL}/api/library/categories`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        });
         if (!response.ok) {
           throw new Error('Failed to fetch categories');
         }
@@ -112,9 +109,9 @@ function LibraryList() {
       <div className='flex flex-col justify-start items-start [@media(min-width:970px)]:flex-row [@media(min-width:970px)]:justify-between [@media(min-width:970px)]:items-center gap-2 mt-[48px] mb-5'>
         {/* Page Title */}
         <div className='flex gap-6 items-center'>
-          <h3 className='text-h3 text-black font-merriweather'>Ma Bibli</h3>
+          <h3 className='text-h3 text-black-100 font-merriweather'>Ma Bibli</h3>
           <Link to='/livres/créer'>
-            <button className='cursor-pointer text-small py-1 px-2 bg-secondary-btn hover:bg-primary-btn active:bg-black-75 text-white-bg focus:outline-none text-left flex gap-1 items-center'>
+            <button className='cursor-pointer text-small py-1 px-2 bg-secondary-btn hover:bg-primary-btn active:bg-black-75 text-black-75 focus:outline-none text-left flex gap-1 items-center'>
               <IoCreateOutline className='size-4' />
               Créer un livre
             </button>
@@ -153,11 +150,11 @@ function LibraryList() {
           className='z-10'
         >
           <div className='relative'>
-            <Listbox.Button className='text-small py-1 px-4 bg-secondary-btn text-white-bg w-[250px] focus:outline-none text-left'>
+            <Listbox.Button className='text-small py-1 px-4 bg-secondary-btn text-black-75 w-[250px] focus:outline-none text-left'>
               {selectedCategory || 'Tous genres'}
               <span className='absolute inset-y-0 right-0 flex items-center pr-2'>
                 <ChevronUpDownIcon
-                  className='h-5 w-5 text-white-bg'
+                  className='h-5 w-5 text-black-75'
                   aria-hidden='true'
                 />
               </span>
@@ -168,13 +165,13 @@ function LibraryList() {
               leaveFrom='opacity-100'
               leaveTo='opacity-0'
             >
-              <Listbox.Options className='absolute mt-1 w-[250px] bg-white shadow-lg'>
+              <Listbox.Options className='absolute mt-1 w-[250px] bg-white-100 shadow-lg'>
                 {/* "All" option */}
                 <Listbox.Option
                   value=''
                   className={({ active }) =>
                     `text-small cursor-default select-none relative py-2 pl-3 pr-9 ${
-                      active ? 'bg-primary-btn text-white-bg' : 'text-gray-900'
+                      active ? 'bg-primary-btn text-white-100' : 'text-black-100'
                     }`
                   }
                 >
@@ -203,9 +200,7 @@ function LibraryList() {
                     value={cat}
                     className={({ active }) =>
                       `text-small cursor-default select-none relative py-2 pl-3 pr-9 ${
-                        active
-                          ? 'bg-primary-btn text-white-bg'
-                          : 'text-gray-900'
+                        active ? 'bg-primary-btn text-white-100' : 'text-black-100'
                       }`
                     }
                   >
@@ -243,7 +238,7 @@ function LibraryList() {
         return (
           <div key={genre} className='mb-10'>
             {/* Shelf heading */}
-            <h4 className='text-h5 text-black font-merriweather mb-2'>
+            <h4 className='text-h5 text-black-100 font-merriweather mb-2'>
               {genre}
             </h4>
 

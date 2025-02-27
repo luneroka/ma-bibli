@@ -47,13 +47,13 @@ const Navbar = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder='Rechercher un livre ou un auteur...'
-              className='bg-white-bg w-full h-8 pl-10 pr-4 text-small md:text-body focus:outline-none focus:ring-2 focus:ring-primary-btn placeholder:text-small'
+              className='bg-white w-full h-8 pl-10 pr-4 text-small md:text-body focus:outline-none focus:ring-2 focus:ring-primary-btn placeholder:text-small'
             />
           </div>
 
           <button
             onClick={handleSearch}
-            className='cursor-pointer hidden sm:block font-merriweather text-white-bg bg-primary-btn px-6 h-8 text-small hover:bg-secondary-btn active:bg-black-75'
+            className='cursor-pointer hidden sm:block font-merriweather text-white bg-primary-btn px-6 h-8 text-small hover:bg-secondary-btn active:bg-black-75'
           >
             Rechercher
           </button>
@@ -61,25 +61,25 @@ const Navbar = () => {
 
         {/* Middle */}
         {/* Change Theme */}
-        <div className='text-white-bg text-xs font-merriweather border border-white-bg rounded focus:outline-none p-1 hidden min-[1330px]:block'>
-          <ThemeSwitcher className='text-white-bg' />
+        <div className='text-white text-xs font-merriweather border border-white rounded focus:outline-none p-1 hidden min-[1330px]:block'>
+          <ThemeSwitcher />
         </div>
 
         {/* Right side */}
         <div className='flex items-center gap-4 sm:gap-6'>
           {/* Wishlist Icon */}
           <Link to='/wishlist'>
-            <FaListAlt className='w-6 h-6 text-white-bg hover:text-primary-btn' />
+            <FaListAlt className='w-6 h-6 text-white hover:text-primary-btn' />
           </Link>
 
           {/* Library Icon */}
           <Link to='/bibli'>
-            <FaBookOpen className='w-6 h-6 text-white-bg hover:text-primary-btn' />
+            <FaBookOpen className='w-6 h-6 text-white hover:text-primary-btn' />
           </Link>
 
           {/* User displayName */}
           {currentUser && currentUser.displayName && (
-            <div className='text-white-bg font-merriweather hidden sm:block'>
+            <div className='text-white font-merriweather hidden sm:block'>
               {currentUser.displayName}
             </div>
           )}
@@ -99,7 +99,7 @@ const Navbar = () => {
                     alt=''
                     className={`size-8 rounded-full ${
                       currentUser
-                        ? 'ring-2 ring-white-bg hover:ring-primary-btn'
+                        ? 'ring-2 ring-white hover:ring-primary-btn'
                         : ''
                     }`}
                   />
@@ -113,7 +113,7 @@ const Navbar = () => {
               </>
             ) : (
               <Link to='/login'>
-                <FaUser className='w-6 h-6 text-white-bg hover:text-primary-btn' />
+                <FaUser className='w-6 h-6 text-white hover:text-primary-btn' />
               </Link>
             )}
           </div>

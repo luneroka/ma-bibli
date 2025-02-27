@@ -170,7 +170,7 @@ function UserAccount() {
 
   if (isDeleting) {
     return (
-      <div className='fixed inset-0 flex items-center mt-[64px] justify-center bg-white-bg'>
+      <div className='fixed inset-0 flex items-center mt-[64px] justify-center bg-white-100'>
         <FaSpinner className='animate-spin text-3xl text-black-50 py-16' />
       </div>
     );
@@ -180,8 +180,10 @@ function UserAccount() {
     <div className='flex flex-col lg:flex-row lg:gap-12'>
       <div className='flex flex-col flex-1 min-h-0 min-w-[500px] max-w-full mx-auto font-lato'>
         <div className='flex-grow flex flex-col items-center justify-center mt-[64px]'>
-          <div className='font-merriweather mb-4 text-h6'>Personnaliser</div>
-          <div className='bg-white p-8 shadow-md w-full max-w-md'>
+          <div className='font-merriweather mb-4 text-h6 text-black-100'>
+            Personnaliser
+          </div>
+          <div className='bg-white-bg p-8 shadow-md w-full h-full max-w-md'>
             {personalizeMessage.text && (
               <p
                 className={`text-small mb-4 p-2 ${
@@ -272,8 +274,10 @@ function UserAccount() {
       {/* Account Management */}
       <div className='flex flex-col flex-1 min-h-0 min-w-[500px] max-w-full mx-auto font-lato'>
         <div className='flex-grow flex flex-col items-center justify-center mt-[64px]'>
-          <div className='font-merriweather mb-4 text-h6'>Gérer mon compte</div>
-          <div className='bg-white p-8 shadow-md w-full max-w-md'>
+          <div className='font-merriweather mb-4 text-h6 text-black-100'>
+            Gérer mon compte
+          </div>
+          <div className='bg-white-bg p-8 shadow-md w-full h-full max-w-md'>
             {accountMessage.text && (
               <p
                 className={`text-small mb-4 p-2 ${
@@ -358,7 +362,7 @@ function UserAccount() {
                 <button
                   type='button'
                   onClick={triggerDeleteAccount}
-                  className='cursor-pointer mt-4 w-40 bg-[#e51a1af7] hover:bg-red-500 text-white-bg p-2 text-small font-merriweather'
+                  className='cursor-pointer mt-4 w-40 bg-[#e51a1af7] hover:bg-red-500 text-white-100 p-2 text-small font-merriweather'
                 >
                   Supprimer le compte
                 </button>

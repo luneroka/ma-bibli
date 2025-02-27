@@ -43,7 +43,7 @@ const NavbarSearch = () => {
       <nav className='flex justify-between items-center px-[64px] md:px-[128px] py-[17px]'>
         {/* Left side */}
         <Link to='/'>
-          <IoHome className='cursor-pointer w-6 h-6 text-white-bg hover:text-primary-btn' />
+          <IoHome className='cursor-pointer w-6 h-6 text-white hover:text-primary-btn' />
         </Link>
 
         {/* Middle */}
@@ -57,12 +57,12 @@ const NavbarSearch = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder='Rechercher un livre ou un auteur...'
-              className='bg-white-bg w-full h-8 pl-10 pr-4 text-small md:text-body focus:outline-none focus:ring-2 focus:ring-primary-btn placeholder:text-small'
+              className='bg-white w-full h-8 pl-10 pr-4 text-small md:text-body focus:outline-none focus:ring-2 focus:ring-primary-btn placeholder:text-small'
             />
           </div>
           <button
             onClick={handleSearch}
-            className='cursor-pointer hidden sm:block font-merriweather text-white-bg bg-primary-btn px-6 h-8 text-small hover:bg-secondary-btn active:bg-black-75'
+            className='cursor-pointer hidden sm:block font-merriweather text-white bg-primary-btn px-6 h-8 text-small hover:bg-secondary-btn active:bg-black-75'
           >
             Rechercher
           </button>
@@ -71,13 +71,13 @@ const NavbarSearch = () => {
         {/* Right side */}
         <div className='flex items-center gap sm:gap-6'>
           {/* Wishlist Icon */}
-          <Link to='/liste-de-lecture'>
-            <FaListAlt className='w-6 h-6 text-white-bg hover:text-primary-btn hidden sm:block' />
+          <Link to='/wishlist'>
+            <FaListAlt className='w-6 h-6 text-white hover:text-primary-btn hidden sm:block' />
           </Link>
 
           {/* Library Icon */}
           <Link to='/bibli'>
-            <FaBookOpen className='w-6 h-6 text-white-bg hover:text-primary-btn hidden sm:block' />
+            <FaBookOpen className='w-6 h-6 text-white hover:text-primary-btn hidden sm:block' />
           </Link>
 
           {/* User Icon and dropdown */}
@@ -95,7 +95,7 @@ const NavbarSearch = () => {
                     alt=''
                     className={`size-8 rounded-full ${
                       currentUser
-                        ? 'ring-2 ring-white-bg hover:ring-primary-btn'
+                        ? 'ring-2 ring-white hover:ring-primary-btn'
                         : ''
                     }`}
                   />
@@ -109,7 +109,7 @@ const NavbarSearch = () => {
               </>
             ) : (
               <Link to='/login'>
-                <FaUser className='w-6 h-6 text-white-bg hover:text-primary-btn' />
+                <FaUser className='w-6 h-6 text-white hover:text-primary-btn' />
               </Link>
             )}
           </div>

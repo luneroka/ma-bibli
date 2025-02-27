@@ -18,14 +18,14 @@ function NewsCard({ article }) {
           <a
             href={article.url}
             target='_blank'
-            className='text-small text-black font-bold text-wrap flex items-center'
+            className='text-small text-black-100 font-bold text-wrap flex items-center'
           >
             {article.title.length > 115
               ? `${article.title.slice(0, 115)}...`
               : article.title}
           </a>
           <div className='w-12 h-[2px] bg-secondary-btn opacity-75 my-2'></div>
-          <p className='text-small text-black h-[112px] overflow-hidden'>
+          <p className='text-small text-black-100 h-[112px] overflow-hidden'>
             {article.description.length > 300
               ? `${article.description.slice(0, 300)}...`
               : article.description}

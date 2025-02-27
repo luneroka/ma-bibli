@@ -61,7 +61,7 @@ function BookInWishlist({ book, libraryBooks = [] }) {
         {/* Delete Button */}
         <button
           onClick={() => handleRemoveFromWishlist(book.isbn)}
-          className='absolute top-1 right-1 rounded-full shadow-md hover:text-primary-btn text-black-75 bg-white-bg cursor-pointer hover:scale-150 transition-all duration-200'
+          className='absolute top-1 right-1 rounded-full shadow-md hover:text-primary-btn text-black bg-white cursor-pointer hover:scale-150 transition-all duration-200'
         >
           <IoIosRemoveCircle className='p-0.25' />
         </button>
@@ -69,7 +69,7 @@ function BookInWishlist({ book, libraryBooks = [] }) {
 
       {/* Library Button */}
       {isInLibrary ? (
-        <button className='bg-secondary-btn text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn w-[125px]'>
+        <button className='bg-secondary-btn text-black-75 hover:text-white-75 text-xs px-1 py-1.5 hover:bg-secondary-btn w-[125px]'>
           <div className='flex gap-1 items-center justify-center'>
             <div className='text-body'>
               <FaCheckCircle />
@@ -80,7 +80,7 @@ function BookInWishlist({ book, libraryBooks = [] }) {
       ) : (
         <button
           onClick={() => handleMoveToLibrary(book)}
-          className='cursor-pointer bg-primary-btn text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn w-[125px] active:bg-black-75 active:text-white-bg'
+          className='cursor-pointer bg-primary-btn text-black-75 hover:text-white-75 text-xs px-1 py-1.5 hover:bg-secondary-btn w-[125px] active:bg-black-75 active:text-white-100'
         >
           <div className='flex gap-1 items-center justify-center'>
             <div className='text-body'>

@@ -184,8 +184,8 @@ const BookEditForm = () => {
   return (
     <div className='flex flex-col flex-1 min-h-0 min-w-[500px] max-w-full mx-auto font-lato'>
       <div className='flex-grow flex items-center justify-center mt-[64px]'>
-        <div className='bg-white p-8 shadow-md w-full max-w-md'>
-          <h2 className='text-h4 mb-4 text-black font-merriweather'>
+        <div className='bg-white-bg p-8 shadow-md w-full max-w-md'>
+          <h2 className='text-h4 mb-4 text-black-100 font-merriweather'>
             Modifier le livre
           </h2>
 
@@ -282,7 +282,7 @@ const BookEditForm = () => {
                   accept={ALLOWED_FILE_TYPES.join(',')}
                   className='absolute inset-0 w-full h-full opacity-0 cursor-pointer'
                 />
-                <div className='flex items-center justify-between bg-white border border-black-25 p-2 cursor-pointer'>
+                <div className='flex items-center justify-between bg-white-bg border border-black-25 p-2 cursor-pointer'>
                   <span className='truncate flex-1'>{coverFileName}</span>
                   <span className='bg-black-10 text-black-75 p-1 text-xs'>
                     Choisir un fichier

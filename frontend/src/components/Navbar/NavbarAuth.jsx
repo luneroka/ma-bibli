@@ -10,7 +10,7 @@ function NavbarAuth() {
         <div className='flex items-center gap-4'>
           {/* Search Input */}
           <Link to='/'>
-            <IoHome className='cursor-pointer w-6 h-6 text-white-bg hover:text-primary-btn' />
+            <IoHome className='cursor-pointer w-6 h-6 text-white hover:text-primary-btn' />
           </Link>
         </div>
       </nav>

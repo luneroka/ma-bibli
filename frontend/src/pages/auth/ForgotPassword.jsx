@@ -27,11 +27,11 @@ function ForgotPassword() {
   return (
     <div className='flex flex-col flex-1 min-h-0 min-w-[500px] max-w-full mx-auto font-lato'>
       <div className='flex-grow flex items-center justify-center mt-[64px]'>
-        <div className='bg-white p-8 shadow-md w-full max-w-md'>
-          <h2 className='text-h5 text-black mb-8 font-merriweather'>
+        <div className='bg-white-bg p-8 shadow-md w-full max-w-md'>
+          <h2 className='text-h5 text-black-100 mb-8 font-merriweather'>
             Mot de passe oublié ?
           </h2>
-          <p className='mb-4'>
+          <p className='mb-4 text-black-85'>
             Saisissez votre addresse e-mail pour obtenir les instructions.
           </p>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -54,7 +54,7 @@ function ForgotPassword() {
               />
               <button
                 type='submit'
-                className='cursor-pointer font-merriweather text-white-bg bg-primary-btn px-6 h-10 w-full text-small-body md:text-body hover:bg-secondary-btn active:bg-black-75'
+                className='cursor-pointer font-merriweather text-white-100 bg-primary-btn px-6 h-10 w-full text-small-body md:text-body hover:bg-secondary-btn active:bg-black-75'
               >
                 Envoyer les instructions
               </button>
@@ -67,7 +67,7 @@ function ForgotPassword() {
           )}
 
           {/* Login or Register */}
-          <div className='text-black text-small-body mt-8 text-center'>
+          <div className='text-black-85 text-small-body mt-8 text-center'>
             <span className='text-secondary-btn underline hover:text-primary-btn active:text-black-75'>
               <Link to='/login'>Se connecter</Link>
             </span>{' '}

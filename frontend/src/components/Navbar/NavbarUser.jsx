@@ -19,7 +19,7 @@ function NavbarUser() {
         <div className='flex items-center gap-4'>
           {/* Home Icon */}
           <Link to='/'>
-            <IoHome className='cursor-pointer w-6 h-6 text-white-bg hover:text-primary-btn' />
+            <IoHome className='cursor-pointer w-6 h-6 text-white hover:text-primary-btn' />
           </Link>
         </div>
 
@@ -27,7 +27,7 @@ function NavbarUser() {
         <div className='flex items-center gap-4 sm:gap-6'>
           {/* Display Name */}
           {currentUser && currentUser.displayName ? (
-            <div className='text-white-bg font-merriweather'>
+            <div className='text-white font-merriweather'>
               {currentUser.displayName}
             </div>
           ) : (
@@ -51,7 +51,7 @@ function NavbarUser() {
                     alt=''
                     className={`size-8 rounded-full ${
                       currentUser
-                        ? 'ring-2 ring-white-bg hover:ring-primary-btn'
+                        ? 'ring-2 ring-white hover:ring-primary-btn'
                         : ''
                     }`}
                   />
@@ -65,7 +65,7 @@ function NavbarUser() {
               </>
             ) : (
               <Link to='/login'>
-                <FaUser className='w-6 h-6 text-white-bg hover:text-primary-btn' />
+                <FaUser className='w-6 h-6 text-white hover:text-primary-btn' />
               </Link>
             )}
           </div>

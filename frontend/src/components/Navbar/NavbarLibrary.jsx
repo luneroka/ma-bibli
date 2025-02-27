@@ -18,7 +18,7 @@ function NavbarLibrary() {
         <div className='flex items-center gap-4'>
           {/* Home Icon */}
           <Link to='/'>
-            <IoHome className='cursor-pointer w-6 h-6 text-white-bg hover:text-primary-btn' />
+            <IoHome className='cursor-pointer w-6 h-6 text-white hover:text-primary-btn' />
           </Link>
         </div>
 
@@ -26,17 +26,17 @@ function NavbarLibrary() {
         <div className='flex items-center gap-4 sm:gap-6'>
           {/* Wishlist Icon */}
           <Link to='/wishlist'>
-            <FaListAlt className='w-6 h-6 text-white-bg hover:text-primary-btn' />
+            <FaListAlt className='w-6 h-6 text-white hover:text-primary-btn' />
           </Link>
 
           {/* Library Icon */}
           <Link to='/bibli'>
-            <FaBookOpen className='w-6 h-6 text-white-bg hover:text-primary-btn' />
+            <FaBookOpen className='w-6 h-6 text-white hover:text-primary-btn' />
           </Link>
 
           {/* Display Name */}
           {currentUser && currentUser.displayName ? (
-            <div className='text-white-bg font-merriweather'>
+            <div className='text-white font-merriweather'>
               {currentUser.displayName}
             </div>
           ) : (
@@ -58,7 +58,7 @@ function NavbarLibrary() {
                     alt=''
                     className={`size-8 rounded-full ${
                       currentUser
-                        ? 'ring-2 ring-white-bg hover:ring-primary-btn'
+                        ? 'ring-2 ring-white hover:ring-primary-btn'
                         : ''
                     }`}
                   />
@@ -72,7 +72,7 @@ function NavbarLibrary() {
               </>
             ) : (
               <Link to='/login'>
-                <FaUser className='w-6 h-6 text-white-bg hover:text-primary-btn' />
+                <FaUser className='w-6 h-6 text-white hover:text-primary-btn' />
               </Link>
             )}
           </div>

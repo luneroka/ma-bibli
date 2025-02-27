@@ -202,7 +202,7 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
               ) : (
                 <button
                   onClick={() => handleAddToWishlist(book)}
-                  className='cursor-pointer bg-primary-btn text-black-75 px-1 py-1.5 w-[121px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
+                  className='cursor-pointer bg-primary-btn text-black-75 px-1 py-1.5 w-[121px] hover:bg-secondary-btn active:bg-black-75 active:text-white-100'
                 >
                   <div className='flex gap-1 items-center justify-center text-xs'>
                     <FaRegBookmark className='text-body' />
@@ -234,7 +234,7 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
               ) : (
                 <button
                   onClick={() => handleAddToLibrary(book)}
-                  className='cursor-pointer bg-primary-btn text-black-75 px-1 py-1.5 w-[125px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
+                  className='cursor-pointer bg-primary-btn text-black-75 px-1 py-1.5 w-[125px] hover:bg-secondary-btn active:bg-black-75 active:text-white-100'
                 >
                   <div className='flex gap-1 items-center justify-center text-xs'>
                     <IoIosAddCircleOutline className='text-body' />
@@ -247,7 +247,7 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
             <div className='flex gap-[16px] mt-2'>
               <button
                 onClick={() => handleAddToLibrary(book)}
-                className='cursor-pointer bg-primary-btn text-black-75 text-xs px-1 py-1.5 w-[125px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
+                className='cursor-pointer bg-primary-btn text-black-75 text-xs px-1 py-1.5 w-[125px] hover:bg-secondary-btn active:bg-black-75 active:text-white-100'
               >
                 <Link to='/login'>
                   <div className='flex gap-1 items-center justify-center'>
@@ -284,11 +284,11 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
             {/* Book Details */}
             <div className='flex flex-col justify-between w-full'>
               {/* Title */}
-              <p className='text-h5 text-black'>{book.title}</p>
+              <p className='text-h5 text-black-100'>{book.title}</p>
 
               {/* Authors */}
               {book.authors && (
-                <p className='italic text-black overflow-hidden'>
+                <p className='italic text-black-100 overflow-hidden'>
                   {book.authors.slice(0, 3).map((author, index) => (
                     <span
                       key={author}
@@ -303,13 +303,13 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
               )}
 
               {/* Publisher */}
-              <p className='text-small-body text-black'>
+              <p className='text-small-body text-black-100'>
                 Éditeur :{' '}
                 <span className='text-black-85'>{book.publisher}</span>
               </p>
 
               {/* Published Date */}
-              <p className='text-small-body text-black'>
+              <p className='text-small-body text-black-100'>
                 Publication :{' '}
                 <span className='text-black-85'>
                   {extractFullDate(book.publishedDate)}
@@ -342,7 +342,7 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
               ) : (
                 <button
                   onClick={() => handleAddToWishlist(book)}
-                  className='cursor-pointer bg-primary-btn text-black-75 text-small px-1 py-2.5 w-[220px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
+                  className='cursor-pointer bg-primary-btn text-black-75 text-small px-1 py-2.5 w-[220px] hover:bg-secondary-btn active:bg-black-75 active:text-white-100'
                 >
                   <div className='flex gap-1 items-center justify-center'>
                     <FaRegBookmark className='text-body' />
@@ -389,7 +389,7 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
                       </div>
                     </button>
                     <Link to={`/livres/${book.isbn}/edit`} state={{ book }}>
-                      <button className='cursor-pointer bg-black-10 text-black-75 text-small px-1 py-2.5 w-[50px] hover:bg-secondary-btn'>
+                      <button className='cursor-pointer bg-black-10 text-black-75 text-small px-1 py-2.5 w-[50px] h-full hover:bg-secondary-btn'>
                         <div className='flex items-center justify-center'>
                           <FaPencilAlt className='text-body' />
                         </div>
@@ -400,7 +400,7 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
               ) : (
                 <button
                   onClick={() => handleAddToLibrary(book)}
-                  className='cursor-pointer bg-primary-btn text-black-75 text-small px-1 py-2.5 w-[220px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
+                  className='cursor-pointer bg-primary-btn text-black-75 text-small px-1 py-2.5 w-[220px] hover:bg-secondary-btn active:bg-black-75 active:text-white-100'
                 >
                   <div className='flex gap-1 items-center justify-center'>
                     <IoIosAddCircleOutline className='text-body' />
@@ -413,7 +413,7 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
             <div className='flex gap-[16px] mt-2'>
               <button
                 onClick={() => handleAddToLibrary(book)}
-                className='cursor-pointer bg-primary-btn text-black-75 text-xs px-1 py-1.5 w-[220px] hover:bg-secondary-btn active:bg-black-75 active:text-white-bg'
+                className='cursor-pointer bg-primary-btn text-black-75 text-xs px-1 py-1.5 w-[220px] hover:bg-secondary-btn active:bg-black-75 active:text-white-100'
               >
                 <Link to='/login'>
                   <div className='flex gap-1 items-center justify-center'>

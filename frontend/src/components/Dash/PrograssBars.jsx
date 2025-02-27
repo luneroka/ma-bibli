@@ -3,7 +3,7 @@ import React from 'react';
 function PrograssBars({ progress, bgColour = 'var(--color-secondary-btn)' }) {
   const parentStyle = {
     width: '100%',
-    backgroundColor: 'var(--color-white-bg)',
+    backgroundColor: 'var(--color-white)',
     borderRadius: '8px',
     margin: '0 0',
     height: '24px',
@@ -23,7 +23,7 @@ function PrograssBars({ progress, bgColour = 'var(--color-secondary-btn)' }) {
 
   const progressTextStyle = {
     padding: '0 8px',
-    color: 'var(--color-white-bg)',
+    color: 'var(--color-white)',
     fontWeight: 500,
     fontSize: 'var(--text-small)',
   };

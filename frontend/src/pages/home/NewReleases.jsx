@@ -10,7 +10,7 @@ const NewReleases = ({ newest, libraryBooks = [], wishlistBooks = [] }) => {
   return (
     <>
       <div className='flex items-center gap-8 mb-[32px]'>
-        <h2 className='text-h2 text-black font-merriweather'>Nouveautés</h2>
+        <h2 className='text-h2 text-black-100 font-merriweather'>Nouveautés</h2>
       </div>
 
       <Swiper

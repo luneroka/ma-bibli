@@ -92,9 +92,9 @@ function BookInLibrary({ book }) {
 
       {!haveRead ? (
         <Menu>
-          <MenuButton className='inline-flex items-center justify-center gap-2 cursor-pointer bg-black-10 text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn hover:text-white-bg w-[125px] focus:outline-none'>
+          <MenuButton className='inline-flex items-center justify-center gap-2 cursor-pointer bg-black-10 text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn hover:text-white-100 w-[125px] focus:outline-none'>
             Gérer
-            <ChevronDownIcon className='size-4 fill-black-50' />
+            <ChevronDownIcon className='size-4' />
           </MenuButton>
 
           <MenuItems
@@ -105,7 +105,7 @@ function BookInLibrary({ book }) {
             <MenuItem>
               <button
                 onClick={() => handleHaveRead(book.isbn)}
-                className='group flex cursor-pointer bg-white text-black-75 text-xs px-1 py-1.5 hover:bg-black-10 w-[125px] active:bg-black-75 active:text-white-bg'
+                className='group flex cursor-pointer bg-white-100 text-black-75 text-xs px-1 py-1.5 hover:bg-black-10 hover:text-black w-[125px] active:bg-black-75 active:text-white-100'
               >
                 <div className='flex gap-1 items-center justify-center text-xs'>
                   <CheckCircleIcon className='size-4 fill-secondary-btn' />
@@ -115,9 +115,9 @@ function BookInLibrary({ book }) {
             </MenuItem>
             <MenuItem>
               <Link to={`/livres/${book.isbn}/edit`} state={{ book }}>
-                <button className='group flex cursor-pointer bg-white text-black-75 text-xs px-1 py-1.5 hover:bg-black-10 w-[125px] active:bg-black-75 active:text-white-bg'>
+                <button className='group flex cursor-pointer bg-white-100 text-black-75 text-xs px-1 py-1.5 hover:bg-black-10 hover:text-black w-[125px] active:bg-black-75 active:text-white-75'>
                   <div className='flex gap-1 items-center justify-center text-xs'>
-                    <PencilIcon className='size-4 fill-black-25' />
+                    <PencilIcon className='size-4' />
                     Modifier
                   </div>
                 </button>
@@ -126,7 +126,7 @@ function BookInLibrary({ book }) {
             <MenuItem>
               <button
                 onClick={() => handleRemoveFromLibrary(book.isbn)}
-                className='group flex cursor-pointer bg-white text-black-75 text-xs px-1 py-1.5 hover:bg-black-10 w-[125px] active:bg-black-75 active:text-white-bg'
+                className='group flex cursor-pointer bg-white-100 text-black-75 text-xs px-1 py-1.5 hover:bg-black-10 hover:text-black w-[125px] active:bg-black-75 active:text-white-75'
               >
                 <div className='flex gap-1 items-center justify-center text-xs'>
                   <TrashIcon className='size-4 fill-red-500' />
@@ -138,9 +138,9 @@ function BookInLibrary({ book }) {
         </Menu>
       ) : (
         <Menu>
-          <MenuButton className='inline-flex items-center justify-center gap-2 cursor-pointer bg-black-10 text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn hover:text-white-bg w-[125px] focus:outline-none'>
+          <MenuButton className='inline-flex items-center justify-center gap-2 cursor-pointer bg-black-10 text-black-75 text-xs px-1 py-1.5 hover:bg-secondary-btn hover:text-white-75 w-[125px] focus:outline-none'>
             Gérer
-            <ChevronDownIcon className='size-4 fill-black-50' />
+            <ChevronDownIcon className='size-4' />
           </MenuButton>
 
           <MenuItems
@@ -151,13 +151,11 @@ function BookInLibrary({ book }) {
             <MenuItem>
               <button
                 onClick={() => handleFavorite(book.isbn)}
-                className='group flex cursor-pointer bg-white text-black-75 text-xs px-1 py-1.5 hover:bg-black-10 w-[125px] active:bg-black-75 active:text-white-bg'
+                className='group flex cursor-pointer bg-white-100 text-black-75 text-xs px-1 py-1.5 hover:bg-black-10 hover:text-black w-[125px] active:bg-black-75 active:text-white-100'
               >
                 <div className='flex gap-1 items-center justify-center text-xs'>
                   <HeartIcon
-                    className={`size-4 ${
-                      isFavorite ? 'fill-primary-btn' : 'fill-black-25'
-                    }`}
+                    className={`size-4 ${isFavorite ? 'fill-primary-btn' : ''}`}
                   />
                   Coup de coeur
                 </div>
@@ -165,9 +163,9 @@ function BookInLibrary({ book }) {
             </MenuItem>
             <MenuItem>
               <Link to={`/livres/${book.isbn}/edit`} state={{ book }}>
-                <button className='group flex cursor-pointer bg-white text-black-75 text-xs px-1 py-1.5 hover:bg-black-10 w-[125px] active:bg-black-75 active:text-white-bg'>
+                <button className='group flex cursor-pointer bg-white-100 text-black-75 text-xs px-1 py-1.5 hover:bg-black-10 hover:text-black w-[125px] active:bg-black-75 active:text-white-100'>
                   <div className='flex gap-1 items-center justify-center text-xs'>
-                    <PencilIcon className='size-4 fill-black-25' />
+                    <PencilIcon className='size-4' />
                     Modifier
                   </div>
                 </button>
@@ -176,7 +174,7 @@ function BookInLibrary({ book }) {
             <MenuItem>
               <button
                 onClick={() => handleRemoveFromLibrary(book.isbn)}
-                className='group flex cursor-pointer bg-white text-black-75 text-xs px-1 py-1.5 hover:bg-black-10 w-[125px] active:bg-black-75 active:text-white-bg'
+                className='group flex cursor-pointer bg-white-100 text-black-75 text-xs px-1 py-1.5 hover:bg-black-10 hover:text-black w-[125px] active:bg-black-75 active:text-white-100'
               >
                 <div className='flex gap-1 items-center justify-center text-xs'>
                   <TrashIcon className='size-4 fill-red-500' />

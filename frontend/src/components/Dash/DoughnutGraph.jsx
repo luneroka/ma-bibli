@@ -3,7 +3,7 @@ import { Chart, ArcElement, Tooltip, Legend, Title } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 
 Chart.register(ArcElement, Tooltip, Legend, Title);
-Chart.defaults.plugins.tooltip.backgroundColor = 'var(--color-white-bg)';
+Chart.defaults.plugins.tooltip.backgroundColor = 'var(--color-white)';
 Chart.defaults.plugins.legend.position = 'right';
 Chart.defaults.plugins.legend.title.display = true;
 Chart.defaults.plugins.legend.title.font = 'Lato';

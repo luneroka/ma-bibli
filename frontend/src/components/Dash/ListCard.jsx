@@ -10,7 +10,7 @@ function ListCard({ variant, libraryBooks = [] }) {
       .slice(0, 5);
     return (
       <div className='h-[500px] bg-white-bg text-center text-chart-title p-4 overflow-hidden shadow-lg'>
-        <div className='mb-8'>Lus récemment</div>
+        <div className='mb-8 text-black-100'>Lus récemment</div>
         <div>
           {sortedBooks.map((book) => (
             <ListItem key={book.isbn} book={book} />
@@ -24,7 +24,7 @@ function ListCard({ variant, libraryBooks = [] }) {
       .slice(0, 5);
     return (
       <div className='h-[500px] bg-white-bg text-chart-title p-4 overflow-hidden shadow-lg'>
-        <div className='flex gap-2 mb-8 justify-self-center'>
+        <div className='flex gap-2 mb-8 justify-self-center text-black-100'>
           Coups de coeur{' '}
           <span className='text-primary-btn self-center'>
             <FaHeart />

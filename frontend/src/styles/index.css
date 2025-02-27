@@ -5,6 +5,14 @@
   --color-secondary-btn: #5b8fa1;
   --color-white-bg: #f9f9f9;
   --color-dash-bg: #e5e5e5;
+  --color-body-bg: #f9f9f9;
+  --color-white-100: rgba(255, 255, 255, 1);
+  --color-white-85: rgba(255, 255, 255, 0.85);
+  --color-white-75: rgba(255, 255, 255, 0.75);
+  --color-white-50: rgba(255, 255, 255, 0.5);
+  --color-white-25: rgba(255, 255, 255, 0.25);
+  --color-white-10: rgba(255, 255, 255, 0.1);
+  --color-white-5: rgba(255, 255, 255, 0.05);
   --color-black-100: rgba(38, 31, 34, 1);
   --color-black-85: rgba(38, 31, 34, 0.85);
   --color-black-75: rgba(38, 31, 34, 0.75);
@@ -46,7 +54,7 @@ html,
 body {
   font-family: Lato, serif;
   font-size: 18px;
-  background-color: #f9f9f9;
+  background-color: var(--color-body-bg);
   margin: 0;
 }
 
@@ -87,6 +95,10 @@ html {
   align-items: center;
 }
 
+.password-checklist-container ul li span {
+  color: var(--color-black-100);
+}
+
 /* Target valid checklist items */
 .password-checklist-container ul li.valid {
   color: rgba(22, 163, 74, 0.5);
@@ -114,10 +126,3 @@ html {
 .password-checklist-container ul li.invalid svg.checklist-icon path {
   fill: rgba(229, 26, 26, 0.75) !important;
 }
-
-/* .library-page-background {
-  background-image: url('/src/assets/library-background.png');
-  background-repeat: repeat;
-  background-size: auto;
-}
- */
