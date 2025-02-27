@@ -40,7 +40,7 @@ const NavbarSearch = () => {
 
   return (
     <header className='w-full sticky top-0 z-50 bg-main-blue h-[70px] items-center'>
-      <nav className='flex justify-between items-center px-[64px] md:px-[128px] py-[17px]'>
+      <nav className='flex justify-between items-center px-[32px] sm:px-[64px] md:px-[128px] py-[17px]'>
         {/* Left side */}
         <Link to='/'>
           <IoHome className='cursor-pointer w-6 h-6 text-white hover:text-primary-btn' />
@@ -48,7 +48,7 @@ const NavbarSearch = () => {
 
         {/* Middle */}
         <div className='flex items-center gap-4'>
-          <div className='relative w-[100%] md:w-[480px]'>
+          <div className='relative sm:w-[420px]'>
             {/* Search Form */}
             <IoSearchOutline className='absolute left-3 inset-y-0 my-auto' />
             <input
@@ -62,7 +62,7 @@ const NavbarSearch = () => {
           </div>
           <button
             onClick={handleSearch}
-            className='cursor-pointer hidden sm:block font-merriweather text-white bg-primary-btn px-6 h-8 text-small hover:bg-secondary-btn active:bg-black-75'
+            className='cursor-pointer hidden md:block font-merriweather text-white bg-primary-btn px-6 h-8 text-small hover:bg-secondary-btn active:bg-black-75'
           >
             Rechercher
           </button>

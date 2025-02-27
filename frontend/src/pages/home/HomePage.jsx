@@ -33,9 +33,9 @@ const HomePage = () => {
     <>
       <div
         key={currentUser?.uid || 'no-user'}
-        className='px-[64px] md:px-[128px]'
+        className='px-[32px] sm:px-[64px] md:px-[128px]'
       >
-        <div className='my-[80px]'>
+        <div className='my-[32px] sm:my-[64px] md:my-[80px]'>
           <NewReleases
             newest={newest}
             libraryBooks={libraryBooks}

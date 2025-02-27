@@ -19,8 +19,8 @@ function Wishlist() {
   }, [dispatch, currentUser]);
 
   return (
-    <div className='mx-[128px]'>
-      <div className='items-center gap-8 mt-[48px] mb-[32px]'>
+    <div className='mx-[32px] sm:mx-[64px] md:mx-[128px]'>
+      <div className='items-center gap-8 mt-[32px] sm:mt-[48px] mb-[32px]'>
         <h3 className='text-h3 text-black-100 font-merriweather'>Wishlist</h3>
       </div>
       <div className='flex flex-wrap gap-4 mt-[32px]'>

@@ -35,11 +35,11 @@ const Navbar = () => {
 
   return (
     <header className='w-full sticky top-0 z-50 bg-main-blue h-[70px] items-center'>
-      <nav className='flex justify-between items-center px-[64px] md:px-[128px] py-[17px]'>
+      <nav className='flex justify-between items-center px-[32px] sm:px-[64px] md:px-[128px] py-[17px]'>
         {/* Left side */}
         <div className='flex items-center gap-4'>
           {/* Search Form */}
-          <div className='relative w-[100%] md:w-[480px]'>
+          <div className='relative sm:w-[480px]'>
             <IoSearchOutline className='absolute left-3 inset-y-0 my-auto' />
             <input
               type='text'
@@ -53,7 +53,7 @@ const Navbar = () => {
 
           <button
             onClick={handleSearch}
-            className='cursor-pointer hidden sm:block font-merriweather text-white bg-primary-btn px-6 h-8 text-small hover:bg-secondary-btn active:bg-black-75'
+            className='cursor-pointer hidden md:block font-merriweather text-white bg-primary-btn px-6 h-8 text-small hover:bg-secondary-btn active:bg-black-75'
           >
             Rechercher
           </button>
@@ -79,7 +79,7 @@ const Navbar = () => {
 
           {/* User displayName */}
           {currentUser && currentUser.displayName && (
-            <div className='text-white font-merriweather hidden sm:block'>
+            <div className='text-white font-merriweather hidden md:block'>
               {currentUser.displayName}
             </div>
           )}

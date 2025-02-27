@@ -14,7 +14,7 @@ function NavbarUser() {
 
   return (
     <header className='w-full sticky top-0 z-50 bg-main-blue h-[70px] items-center'>
-      <nav className='flex justify-between items-center px-[64px] md:px-[128px] py-[17px] h-full'>
+      <nav className='flex justify-between items-center px-[32px] sm:px-[64px] md:px-[128px] py-[17px] h-full'>
         {/* Left side */}
         <div className='flex items-center gap-4'>
           {/* Home Icon */}

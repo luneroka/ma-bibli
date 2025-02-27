@@ -104,9 +104,9 @@ function LibraryList() {
   };
 
   return (
-    <div className='mx-[64px] md:mx-[128px]'>
+    <div className='mx-[32px] sm:mx-[64px] md:mx-[128px]'>
       {/* Page header */}
-      <div className='flex flex-col justify-start items-start [@media(min-width:970px)]:flex-row [@media(min-width:970px)]:justify-between [@media(min-width:970px)]:items-center gap-2 mt-[48px] mb-5'>
+      <div className='flex flex-col justify-start items-start [@media(min-width:970px)]:flex-row [@media(min-width:970px)]:justify-between [@media(min-width:970px)]:items-center gap-2 mt-[32px] sm:mt-[48px] mb-5'>
         {/* Page Title */}
         <div className='flex gap-6 items-center'>
           <h3 className='text-h3 text-black-100 font-merriweather'>Ma Bibli</h3>
@@ -171,7 +171,9 @@ function LibraryList() {
                   value=''
                   className={({ active }) =>
                     `text-small cursor-default select-none relative py-2 pl-3 pr-9 ${
-                      active ? 'bg-primary-btn text-white-100' : 'text-black-100'
+                      active
+                        ? 'bg-primary-btn text-white-100'
+                        : 'text-black-100'
                     }`
                   }
                 >
@@ -200,7 +202,9 @@ function LibraryList() {
                     value={cat}
                     className={({ active }) =>
                       `text-small cursor-default select-none relative py-2 pl-3 pr-9 ${
-                        active ? 'bg-primary-btn text-white-100' : 'text-black-100'
+                        active
+                          ? 'bg-primary-btn text-white-100'
+                          : 'text-black-100'
                       }`
                     }
                   >
