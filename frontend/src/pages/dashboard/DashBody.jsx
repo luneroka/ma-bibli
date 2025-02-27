@@ -15,7 +15,7 @@ function DashBody({ activeFilter, readingObjective }) {
   const filteredBooks = (() => {
     if (activeFilter === '7 jours') {
       const sevenDaysAgo = new Date();
-      sevenDaysAgo.setDays(sevenDaysAgo.getDays() - 7);
+      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
       return libraryBooks.filter(
         (book) => new Date(book.createdAt) >= sevenDaysAgo
       );
@@ -23,7 +23,7 @@ function DashBody({ activeFilter, readingObjective }) {
 
     if (activeFilter === '30 jours') {
       const thirtyDaysAgo = new Date();
-      thirtyDaysAgo.setDays(thirtyDaysAgo.getDays() - 30);
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
       return libraryBooks.filter(
         (book) => new Date(book.createdAt) >= thirtyDaysAgo
       );
