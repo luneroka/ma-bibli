@@ -5,14 +5,62 @@ const port = process.env.PORT || 3000;
 const mongoose = require('mongoose');
 const cors = require('cors');
 const admin = require('firebase-admin');
-const path = require('path');
 
 // Initialize Firebase Admin
-const serviceAccount = require('./serviceAccountKey.json');
-admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
+let firebaseConfig;
 
-// Serve static files in the uploads folder
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+if (process.env.NODE_ENV === 'production') {
+  // Production: Use environment variables
+  try {
+    const serviceAccount = {
+      type: process.env.FIREBASE_TYPE,
+      project_id: process.env.FIREBASE_PROJECT_ID,
+      private_key_id: process.env.FIREBASE_PRIVATE_KEY_ID,
+      private_key: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+      client_email: process.env.FIREBASE_CLIENT_EMAIL,
+      client_id: process.env.FIREBASE_CLIENT_ID,
+      auth_uri: process.env.FIREBASE_AUTH_URI,
+      token_uri: process.env.FIREBASE_TOKEN_URI,
+      auth_provider_x509_cert_url:
+        process.env.FIREBASE_AUTH_PROVIDER_X509_CERT_URL,
+      client_x509_cert_url: process.env.FIREBASE_CLIENT_X509_CERT_URL,
+    };
+
+    firebaseConfig = { credential: admin.credential.cert(serviceAccount) };
+    admin.initializeApp(firebaseConfig);
+    console.log('Firebase Admin SDK initialized in PRODUCTION mode');
+  } catch (error) {
+    console.error('Error setting up Firebase service account:', error);
+    process.exit(1);
+  }
+} else {
+  // Development: Use local environment variables
+  try {
+    const serviceAccount = {
+      type: process.env.FIREBASE_TYPE,
+      project_id: process.env.FIREBASE_PROJECT_ID,
+      private_key_id: process.env.FIREBASE_PRIVATE_KEY_ID,
+      private_key: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+      client_email: process.env.FIREBASE_CLIENT_EMAIL,
+      client_id: process.env.FIREBASE_CLIENT_ID,
+      auth_uri: process.env.FIREBASE_AUTH_URI,
+      token_uri: process.env.FIREBASE_TOKEN_URI,
+      auth_provider_x509_cert_url:
+        process.env.FIREBASE_AUTH_PROVIDER_X509_CERT_URL,
+      client_x509_cert_url: process.env.FIREBASE_CLIENT_X509_CERT_URL,
+    };
+
+    firebaseConfig = { credential: admin.credential.cert(serviceAccount) };
+    admin.initializeApp(firebaseConfig);
+    console.log('Firebase Admin SDK initialized in DEVELOPMENT mode');
+  } catch (error) {
+    console.error(
+      'Error setting up Firebase service account in development:',
+      error
+    );
+    process.exit(1);
+  }
+}
 
 // Middleware
 app.use(express.json());
