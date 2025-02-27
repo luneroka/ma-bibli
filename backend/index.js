@@ -66,7 +66,7 @@ if (process.env.NODE_ENV === 'production') {
 app.use(express.json());
 app.use(
   cors({
-    origin: ['http://localhost:5173', 'https://my-app-bay-chi-79.vercel.app'],
+    origin: ['http://localhost:5173', 'https://ma-bibli.com'],
     credentials: true,
   })
 );
