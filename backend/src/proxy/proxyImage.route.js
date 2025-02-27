@@ -1,26 +1,51 @@
 const express = require('express');
-const fetch = require('node-fetch');
 const router = express.Router();
+const axios = require('axios');
 
 router.get('/', async (req, res) => {
-  const { url } = req.query;
-  if (!url) {
-    return res.status(400).json({ error: 'Missing URL parameter' });
+  const imageUrl = req.query.url;
+
+  if (!imageUrl) {
+    return res.status(400).json({ error: 'URL parameter is required' });
   }
+
   try {
-    // Fetch image from the provided URL
-    const response = await fetch(url);
-    if (!response.ok) {
-      return res.status(response.status).end();
-    }
-    // Set the CORS header to allow your frontend to load the image
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    // Forward the correct content-type header
-    res.setHeader('Content-Type', response.headers.get('content-type'));
-    response.body.pipe(res);
+    // Add proper User-Agent to avoid being blocked
+    const response = await axios({
+      method: 'get',
+      url: decodeURIComponent(imageUrl),
+      responseType: 'arraybuffer',
+      timeout: 8000,
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (compatible; MaBibliApp/1.0)',
+        Referer: 'https://ma-bibli.vercel.app/',
+      },
+    });
+
+    // Set appropriate headers
+    const contentType = response.headers['content-type'] || 'image/jpeg';
+    res.setHeader('Content-Type', contentType);
+
+    // Add caching headers (important for performance)
+    res.setHeader('Cache-Control', 'public, max-age=86400'); // 24 hours
+
+    // Send image data
+    return res.send(Buffer.from(response.data));
   } catch (error) {
-    console.error('Error proxying image:', error);
-    res.status(500).json({ error: error.message });
+    console.error('Image proxy error:', error.message);
+
+    // Return a fallback image instead of error
+    try {
+      // You should upload a placeholder to your Cloudinary account
+      const fallbackUrl =
+        'https://res.cloudinary.com/dhxckc6ld/image/upload/v1/ma_bibli/covers/placeholder.jpg';
+
+      // Redirect to fallback image
+      return res.redirect(fallbackUrl);
+    } catch (fallbackError) {
+      // If all else fails, return error
+      return res.status(500).send('Image not available');
+    }
   }
 });
 
