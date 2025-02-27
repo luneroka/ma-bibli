@@ -62,6 +62,9 @@ router.get('/', async (req, res) => {
   } catch (error) {
     console.error(`Image proxy error for ${decodedUrl}: ${error.message}`);
 
+    // Set CORS headers for error responses as well
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
     // Return a fallback image via redirect
     return res.redirect(
       'https://res.cloudinary.com/dhxckc6ld/image/upload/v1/ma_bibli/covers/placeholder.jpg'
