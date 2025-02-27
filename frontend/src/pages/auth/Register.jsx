@@ -76,7 +76,7 @@ function Register() {
             Créer mon coin lecture
           </h2>
 
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)} autoComplete='on'>
             <div className='mb-4'>
               {/* Error Message */}
               {message.text && (
@@ -123,6 +123,7 @@ function Register() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className={inputClass}
+                    autoComplete='new-password'
                   />
                   <button
                     type='button'
@@ -140,6 +141,7 @@ function Register() {
                     value={confirmationPassword}
                     onChange={(e) => setConfirmationPassword(e.target.value)}
                     className={inputClass}
+                    autoComplete='new-password'
                   />
                   <button
                     type='button'

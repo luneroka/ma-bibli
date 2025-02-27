@@ -29,7 +29,10 @@ function Login() {
       await loginUser(data.email, data.password);
       navigate(redirectTo);
     } catch (error) {
-      setMessage({text: 'Veuillez fournir un email et un mot de passe valides.', type: 'failure'});
+      setMessage({
+        text: 'Veuillez fournir un email et un mot de passe valides.',
+        type: 'failure',
+      });
     }
   };
 
@@ -56,9 +59,8 @@ function Login() {
             Mon coin lecture
           </h2>
 
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)} autoComplete='on'>
             <div className='mb-4'>
-
               {/* Error Message */}
               {message.text && (
                 <p
@@ -88,7 +90,7 @@ function Login() {
                 id='email'
                 placeholder='Email'
                 className={`${inputClass} mb-4`}
-                autoComplete='email'
+                autoComplete='username email'
               />
 
               {/* Password Input */}

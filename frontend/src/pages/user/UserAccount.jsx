@@ -295,18 +295,28 @@ function UserAccount() {
               </label>
               <div className='flex flex-col gap-2 mb-8'>
                 {[
-                  { key: 'current', placeholder: 'Mot de passe actuel' },
-                  { key: 'new', placeholder: 'Nouveau mot de passe' },
+                  {
+                    key: 'current',
+                    placeholder: 'Mot de passe actuel',
+                    autocomplete: 'current-password',
+                  },
+                  {
+                    key: 'new',
+                    placeholder: 'Nouveau mot de passe',
+                    autocomplete: 'new-password',
+                  },
                   {
                     key: 'confirm',
                     placeholder: 'Confirmer nouveau mot de passe',
+                    autocomplete: 'new-password',
                   },
-                ].map(({ key, placeholder }) => (
+                ].map(({ key, placeholder, autocomplete }) => (
                   <div key={key} className='relative w-full mb-4'>
                     <input
                       type={passwordVisibility[key] ? 'text' : 'password'}
                       required
                       placeholder={placeholder}
+                      autoComplete={autocomplete}
                       value={passwordValues[key]}
                       onChange={(e) =>
                         setPasswordValues((prev) => ({
