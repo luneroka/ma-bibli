@@ -177,9 +177,9 @@ function UserAccount() {
   }
 
   return (
-    <div className='flex flex-col lg:flex-row lg:gap-12'>
+    <div className='flex flex-col lg:flex-row lg:gap-12 my-[64px]'>
       <div className='flex flex-col flex-1 min-h-0 min-w-[500px] max-w-full mx-auto font-lato'>
-        <div className='flex-grow flex flex-col items-center justify-center mt-[64px]'>
+        <div className='flex-grow flex flex-col items-center justify-center'>
           <div className='font-merriweather mb-4 text-h6 text-black-100'>
             Personnaliser
           </div>
@@ -273,7 +273,7 @@ function UserAccount() {
 
       {/* Account Management */}
       <div className='flex flex-col flex-1 min-h-0 min-w-[500px] max-w-full mx-auto font-lato'>
-        <div className='flex-grow flex flex-col items-center justify-center mt-[64px]'>
+        <div className='flex-grow flex flex-col items-center justify-center'>
           <div className='font-merriweather mb-4 text-h6 text-black-100'>
             Gérer mon compte
           </div>
