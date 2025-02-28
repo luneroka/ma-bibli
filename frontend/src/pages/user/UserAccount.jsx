@@ -177,10 +177,10 @@ function UserAccount() {
   }
 
   return (
-    <div className='flex flex-col lg:flex-row lg:gap-12 my-[64px]'>
-      <div className='flex flex-col flex-1 min-h-0 min-w-[500px] max-w-full mx-auto font-lato'>
+    <div className='flex flex-col lg:flex-row gap-8 lg:gap-12 my-[16px] sm:my-[32px] md:my-[48px]'>
+      <div className='flex flex-col flex-1 min-h-0  min-w-[300px] xs:min-w-[500px] max-w-full mx-auto font-lato'>
         <div className='flex-grow flex flex-col items-center justify-center'>
-          <div className='font-merriweather mb-4 text-h6 text-black-100'>
+          <div className='font-merriweather mb-0 lg:mb-4 text-h6 text-black-100'>
             Personnaliser
           </div>
           <div className='bg-white-bg p-8 shadow-md w-full h-full max-w-md'>
@@ -237,7 +237,7 @@ function UserAccount() {
               <div className='flex gap-2 mb-4'>
                 <div>
                   <label className='text-small-body font-bold text-black-75 mb-1'>
-                    Objectif de lecture pour {new Date().getFullYear()}
+                    Objectif de lecture {new Date().getFullYear()}
                   </label>
                   <input
                     type='number'
@@ -272,9 +272,9 @@ function UserAccount() {
       </div>
 
       {/* Account Management */}
-      <div className='flex flex-col flex-1 min-h-0 min-w-[500px] max-w-full mx-auto font-lato'>
+      <div className='flex flex-col flex-1 min-h-0 min-w-[300px] xs:min-w-[500px] max-w-full mx-auto font-lato'>
         <div className='flex-grow flex flex-col items-center justify-center'>
-          <div className='font-merriweather mb-4 text-h6 text-black-100'>
+          <div className='font-merriweather mb-0 xs:mb-4 text-h6 text-black-100'>
             Gérer mon compte
           </div>
           <div className='bg-white-bg p-8 shadow-md w-full h-full max-w-md'>
