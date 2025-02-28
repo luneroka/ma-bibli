@@ -8,7 +8,7 @@ function AuthConfirmation() {
 
   return (
     <div>
-      <div className='flex flex-col flex-1 min-h-0 min-w-[500px] max-w-full mx-auto font-lato'>
+      <div className='flex flex-col flex-1 min-h-0 min-w-[300px] xs:min-w-[500px] max-w-full mx-auto font-lato'>
         <div className='flex-grow flex items-center justify-center mt-[64px]'>
           <div className='bg-white-bg p-8 shadow-md w-full max-w-md'>
             {type === 'register' ? (

@@ -108,7 +108,7 @@ function SingleBookPage() {
   return (
     <>
       <NavbarLibrary />
-      <main className='flex-1 min-h-0 max-w-full mx-[32px] sm:mx-[64px] md:mx-[128px] mt-[64px] font-lato'>
+      <main className='flex-1 min-h-0 max-w-full mx-[32px] sm:mx-[64px] md:mx-[128px] my-[32px] md:my-[48px] font-lato '>
         {isLoading ? (
           <div className='flex items-center justify-center py-16'>
             <FaSpinner className='animate-spin text-3xl text-black-50' />
