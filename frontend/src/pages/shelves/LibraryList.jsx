@@ -121,7 +121,7 @@ function LibraryList() {
         </div>
 
         {/* Filter Have Read */}
-        <div className='flex gap-4 text-small-body md:text-body text-black-75 font-light my-2 md:my-0 leading-'>
+        <div className='flex gap-4 text-small-body md:text-body text-black-75 font-light mt-2 mb-4 md:my-0 leading-'>
           <span
             onClick={() => handleFilterClick("J'ai")}
             className={
@@ -242,7 +242,7 @@ function LibraryList() {
         }
 
         return (
-          <div key={genre} className='mb-10'>
+          <div key={genre} className='mb-6 xs:mb-8 sm:mb-10'>
             {/* Shelf heading */}
             <h4 className='text-h6 xs:text-h5 min-[1450px]:text-h4 text-black-100 font-merriweather mb-2'>
               {genre}
