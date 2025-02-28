@@ -100,7 +100,7 @@ function BookInLibrary({ book }) {
           <MenuItems
             transition
             anchor='bottom end'
-            className='bg-white shadow-lg focus:outline-none'
+            className='bg-white shadow-lg focus:outline-none z-50'
           >
             <MenuItem>
               <button
@@ -146,7 +146,7 @@ function BookInLibrary({ book }) {
           <MenuItems
             transition
             anchor='bottom end'
-            className='bg-white shadow-lg focus:outline-none'
+            className='bg-white shadow-lg focus:outline-none z-50'
           >
             <MenuItem>
               <button
