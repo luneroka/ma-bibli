@@ -116,6 +116,15 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
     ? book.description.replace(/<\/?[^>]+(>|$)/g, '')
     : 'Pas de description...';
 
+  // Handle Surface Go navigation
+  const handleBookClick = (e) => {
+    // Prevent default only if it's a navigation action
+    if (variant !== 'perso' && !e.target.closest('button')) {
+      e.preventDefault();
+      navigate(`/livres/${book.isbn}`);
+    }
+  };
+
   if (variant === 'card') {
     return (
       <>
@@ -126,17 +135,25 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
               {!imageLoaded && (
                 <FaSpinner className='animate-spin text-xl text-black-50' />
               )}
-              <Link to={`/livres/${book.isbn}`}>
-                <img
-                  src={book.cover || '../../../public/product-not-found.png'}
-                  alt='Couverture non disponible'
-                  onLoad={() => setImageLoaded(true)}
-                  className={`w-full h-full cursor-pointer hover:scale-105 transition-all duration-200 ${
-                    !imageLoaded ? 'hidden' : ''
-                  }`}
-                  style={{ width: '121px', height: '170px' }}
-                />
-              </Link>
+              <div
+                className='book-card'
+                onClick={handleBookClick}
+                onTouchEnd={handleBookClick} // Add touch event specifically
+                role='button'
+                tabIndex={0}
+              >
+                <Link to={`/livres/${book.isbn}`}>
+                  <img
+                    src={book.cover || '../../../public/product-not-found.png'}
+                    alt='Couverture non disponible'
+                    onLoad={() => setImageLoaded(true)}
+                    className={`w-full h-full cursor-pointer hover:scale-105 transition-all duration-200 ${
+                      !imageLoaded ? 'hidden' : ''
+                    }`}
+                    style={{ width: '121px', height: '170px' }}
+                  />
+                </Link>
+              </div>
             </div>
 
             {/* Book Details */}
