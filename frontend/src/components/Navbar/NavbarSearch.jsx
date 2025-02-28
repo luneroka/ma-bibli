@@ -80,6 +80,15 @@ const NavbarSearch = () => {
             <FaBookOpen className='size-5 xs:size-6 text-white hover:text-primary-btn' />
           </Link>
 
+          {/* Display Name */}
+          {currentUser && currentUser.displayName ? (
+            <div className='text-white font-merriweather hidden min-[880px]:block'>
+              {currentUser.displayName}
+            </div>
+          ) : (
+            ''
+          )}
+
           {/* User Icon and dropdown */}
           <div className='relative flex items-center' ref={dropdownRef}>
             {currentUser ? (
