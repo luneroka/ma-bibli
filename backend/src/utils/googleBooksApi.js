@@ -13,7 +13,7 @@ const searchBooksFromGoogle = async (searchTerm) => {
   // Filter out books with missing images or pageCount ≤ 0
   if (data.items) {
     data.items = data.items.filter(
-      (book) => book.volumeInfo?.title && book.volumeInfo?.pageCount > 0
+      (book) => book.volumeInfo?.title
     );
   } else {
     data.items = [];
