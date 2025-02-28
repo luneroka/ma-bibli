@@ -106,10 +106,12 @@ function LibraryList() {
   return (
     <div className='mx-[32px] sm:mx-[64px] md:mx-[128px]'>
       {/* Page header */}
-      <div className='flex flex-col justify-start items-start [@media(min-width:970px)]:flex-row [@media(min-width:970px)]:justify-between [@media(min-width:970px)]:items-center gap-2 mt-[32px] sm:mt-[48px] mb-5'>
+      <div className='flex flex-col justify-start items-start [@media(min-width:970px)]:flex-row [@media(min-width:970px)]:justify-between [@media(min-width:970px)]:items-center gap-0 md:gap-2 mt-[32px] md:mt-[48px] mb-5'>
         {/* Page Title */}
         <div className='flex gap-6 items-center'>
-          <h3 className='text-h3 text-black-100 font-merriweather'>Ma Bibli</h3>
+          <h3 className='text-h4 xs:text-h3 min-[1450px]:text-h2 text-black-100 font-merriweather'>
+            Ma Bibli
+          </h3>
           <Link to='/livres/créer'>
             <button className='cursor-pointer text-small py-1 px-2 bg-secondary-btn hover:bg-primary-btn active:bg-black-75 text-black-75 focus:outline-none text-left flex gap-1 items-center'>
               <IoCreateOutline className='size-4' />
@@ -242,7 +244,7 @@ function LibraryList() {
         return (
           <div key={genre} className='mb-10'>
             {/* Shelf heading */}
-            <h4 className='text-h5 text-black-100 font-merriweather mb-2'>
+            <h4 className='text-h6 xs:text-h5 min-[1450px]:text-h4 text-black-100 font-merriweather mb-2'>
               {genre}
             </h4>
 
