@@ -39,7 +39,7 @@ const Navbar = () => {
         {/* Left side */}
         <div className='flex items-center gap-4'>
           {/* Search Form */}
-          <div className='relative sm:w-[480px]'>
+          <div className='relative xs:w-[350px] sm:w-[480px]'>
             <IoSearchOutline className='absolute left-3 inset-y-0 my-auto' />
             <input
               type='text'
@@ -69,12 +69,12 @@ const Navbar = () => {
         <div className='flex items-center gap-4 sm:gap-6'>
           {/* Wishlist Icon */}
           <Link to='/wishlist'>
-            <FaListAlt className='w-6 h-6 text-white hover:text-primary-btn' />
+            <FaListAlt className='size-4 xs:size-6 text-white hover:text-primary-btn' />
           </Link>
 
           {/* Library Icon */}
           <Link to='/bibli'>
-            <FaBookOpen className='w-6 h-6 text-white hover:text-primary-btn' />
+            <FaBookOpen className='size-4 xs:size-6 text-white hover:text-primary-btn' />
           </Link>
 
           {/* User displayName */}
@@ -97,7 +97,7 @@ const Navbar = () => {
                       currentUser.photoURL ? currentUser.photoURL : avatarImg
                     }
                     alt=''
-                    className={`size-8 rounded-full ${
+                    className={`size-6 xs:size-8 rounded-full ${
                       currentUser
                         ? 'ring-2 ring-white hover:ring-primary-btn'
                         : ''

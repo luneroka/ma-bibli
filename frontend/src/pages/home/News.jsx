@@ -10,8 +10,8 @@ import { generateRandomId } from '../../utils/helper.js';
 const News = ({ news }) => {
   return (
     <>
-      <div className='flex items-center gap-8 mb-[32px]'>
-        <h3 className='text-h3 text-black-100 font-merriweather'>
+      <div className='flex items-center gap-8 mb-[16px] md:mb-[32px]'>
+        <h3 className='text-h4 xs:text-h3 min-[1450px]:text-h2 text-black-100 font-merriweather'>
           Actualités littéraires
         </h3>
       </div>
@@ -25,11 +25,11 @@ const News = ({ news }) => {
             slidesPerView: 1,
             spaceBetween: 20,
           },
-          880: {
-            slidesPerView: 1,
+          750: {
+            slidesPerView: 2,
             spaceBetween: 40,
           },
-          1250: {
+          1050: {
             slidesPerView: 2,
             spaceBetween: 50,
           },

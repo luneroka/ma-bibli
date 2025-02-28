@@ -44,6 +44,7 @@
   --text-metrics-number: 1.44rem;
   --text-metrics-type: 1.111rem;
   --text-chart-title: 1.111rem;
+  --breakpoint-xs: 32rem;
   --breakpoint-sm: 47rem;
   --breakpoint-md: 75rem;
   --breakpoint-lg: 80rem;
@@ -56,6 +57,13 @@ body {
   font-size: 18px;
   background-color: var(--color-body-bg);
   margin: 0;
+}
+
+@media (max-width: 1450px) {
+  html,
+  body {
+    font-size: 16px;
+  }
 }
 
 html {
@@ -79,6 +87,13 @@ html {
 .swiper-button-next:after {
   font-size: 24px !important;
   color: #5b8fa1;
+}
+
+@media (max-width: 1050px) {
+  .swiper-button-next,
+  .swiper-button-prev {
+    visibility: hidden;
+  }
 }
 
 /* PASSWORD CHECKLIST */

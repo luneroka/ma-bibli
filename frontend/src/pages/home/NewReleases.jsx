@@ -9,8 +9,10 @@ import { Pagination, Navigation } from 'swiper/modules';
 const NewReleases = ({ newest, libraryBooks = [], wishlistBooks = [] }) => {
   return (
     <>
-      <div className='flex items-center gap-8 mb-[32px]'>
-        <h2 className='text-h2 text-black-100 font-merriweather'>Nouveautés</h2>
+      <div className='flex items-center gap-8 mb-[16px] md:mb-[32px]'>
+        <h2 className='text-h4 xs:text-h3 min-[1450px]:text-h2 text-black-100 font-merriweather'>
+          Nouveautés
+        </h2>
       </div>
 
       <Swiper
@@ -22,11 +24,11 @@ const NewReleases = ({ newest, libraryBooks = [], wishlistBooks = [] }) => {
             slidesPerView: 1,
             spaceBetween: 20,
           },
-          880: {
+          750: {
             slidesPerView: 2,
             spaceBetween: 40,
           },
-          1250: {
+          1050: {
             slidesPerView: 3,
             spaceBetween: 50,
           },

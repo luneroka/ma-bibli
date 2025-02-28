@@ -3,8 +3,8 @@ import React from 'react';
 function NewsCard({ article }) {
   return (
     <>
-      <div className='flex gap-[24px] h-[170px]'>
-        <div className='w-[255px]'>
+      <div className='flex gap-[24px]'>
+        <div className='w-[255px] hidden md:block'>
           <a href={article.url} target='_blank'>
             <img
               src={article.urlToImage}
@@ -25,14 +25,14 @@ function NewsCard({ article }) {
               : article.title}
           </a>
           <div className='w-12 h-[2px] bg-secondary-btn opacity-75 my-2'></div>
-          <p className='text-small text-black-100 h-[112px] overflow-hidden'>
+          <p className='text-small text-black-100 overflow-hidden'>
             {article.description.length > 300
               ? `${article.description.slice(0, 300)}...`
               : article.description}
           </p>
         </div>
       </div>
-      <div className='text-small text-black-50 italic mt-1'>
+      <div className='text-small text-black-50 italic mt-1 mb-[32px]'>
         Source : {article.source.name}
       </div>
     </>
