@@ -19,6 +19,12 @@ const transformSearchResults = (data) => {
 const searchBooks = async (req, res) => {
   try {
     const { searchTerm } = req.params;
+
+    // Check if searchTerm is empty or just whitespace
+    if (!searchTerm || searchTerm.trim() === '') {
+      return res.status(200).json({ items: [] });
+    }
+
     const results = await searchBooksFromGoogle(searchTerm);
     res.status(200).json(transformSearchResults(results));
   } catch (error) {
@@ -33,6 +39,12 @@ const searchBooks = async (req, res) => {
 const searchAuthor = async (req, res) => {
   try {
     const { searchTerm } = req.params;
+
+    // Check if searchTerm is empty or just whitespace
+    if (!searchTerm || searchTerm.trim() === '') {
+      return res.status(200).json({ items: [] });
+    }
+
     const results = await searchAuthorFromGoogle(searchTerm);
     res.status(200).json(transformSearchResults(results));
   } catch (error) {

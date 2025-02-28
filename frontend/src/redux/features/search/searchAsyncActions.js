@@ -6,19 +6,35 @@ export const createSearchBooksAsync = (type, apiEndpoint) =>
     `${type}/searchBooksAsync`,
     async (searchTerm, { rejectWithValue }) => {
       try {
+        // Validate searchTerm before sending the request
+        if (!searchTerm || !searchTerm.trim()) {
+          // Return empty results instead of making an API call
+          return { items: [] };
+        }
+
         const response = await fetch(
-          `${apiEndpoint}/${encodeURIComponent(searchTerm)}`,
+          `${apiEndpoint}/${encodeURIComponent(searchTerm.trim())}`,
           {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
           }
         );
+
         if (!response.ok) {
+          // For 500 errors, return empty results instead of throwing
+          if (response.status === 500) {
+            console.warn(
+              `Search error: Server returned 500 for term "${searchTerm}"`
+            );
+            return { items: [] };
+          }
           throw new Error(`Failed to search books in ${type}`);
         }
+
         const data = await response.json();
         return data;
       } catch (error) {
+        console.error('Search error:', error);
         return rejectWithValue(error.message);
       }
     }
@@ -30,19 +46,35 @@ export const createSearchAuthorAsync = (type, apiEndpoint) =>
     `${type}/searchAuthorAsync`,
     async (searchTerm, { rejectWithValue }) => {
       try {
+        // Validate searchTerm before sending the request
+        if (!searchTerm || !searchTerm.trim()) {
+          // Return empty results instead of making an API call
+          return { items: [] };
+        }
+
         const response = await fetch(
-          `${apiEndpoint}/${encodeURIComponent(searchTerm)}`,
+          `${apiEndpoint}/${encodeURIComponent(searchTerm.trim())}`,
           {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
           }
         );
+
         if (!response.ok) {
+          // For 500 errors, return empty results instead of throwing
+          if (response.status === 500) {
+            console.warn(
+              `Search error: Server returned 500 for term "${searchTerm}"`
+            );
+            return { items: [] };
+          }
           throw new Error(`Failed to search authors in ${type}`);
         }
+
         const data = await response.json();
         return data;
       } catch (error) {
+        console.error('Search error:', error);
         return rejectWithValue(error.message);
       }
     }
