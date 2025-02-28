@@ -7,7 +7,7 @@ function DashHeader({ activeFilter, setActiveFilter }) {
   };
 
   return (
-    <div className='flex flex-col md:flex-row justify-between items-center mx-[32px] sm:mx-[64px] md:mx-[128px] mt-4 md:mt-[32px] md:mb-[24px]'>
+    <div className='flex flex-col md:flex-row gap-2 md:gap-0 justify-between items-center mx-[32px] sm:mx-[64px] md:mx-[128px] mt-4 md:mt-[32px] md:mb-[24px]'>
       {/* Title */}
       <h3 className='text-h4 md:text-h3 text-black-100 font-merriweather'>
         Dashboard
@@ -52,7 +52,7 @@ function DashHeader({ activeFilter, setActiveFilter }) {
       {/* Library Button */}
       <a
         href='/bibli'
-        className='font-merriweather text-body md:text-body font-light flex gap-1 md:gap-2 py-1 md:py-2 px-2 md:px-4 bg-primary-btn items-center text-black-75 hover:bg-secondary-btn active:bg-black-75 active:text-white-75'
+        className='font-merriweather text-body md:text-body font-light flex gap-1 mb-4 md:mb-0 md:gap-2 py-1 md:py-2 px-2 md:px-4 bg-primary-btn items-center text-black-75 hover:bg-secondary-btn active:bg-black-75 active:text-white-75'
       >
         <FaPen className='text-xs md:text-base' />
         Gérer mes livres
