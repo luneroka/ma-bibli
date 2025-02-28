@@ -51,7 +51,8 @@ function mapBookCategory(category) {
     'SPORTS & RECREATION': 'Divertissement',
     'PERFORMING ARTS': 'Divertissement',
     MUSIC: 'Divertissement',
-    'COMICS & GRAPHIC NOVELS': 'Divertissement',
+
+    'COMICS & GRAPHIC NOVELS': 'BD & Manga',
 
     EDUCATION: 'Éducation & Référence',
     'STUDY AIDS': 'Éducation & Référence',

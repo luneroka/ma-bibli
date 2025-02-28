@@ -4,6 +4,7 @@ export const categoryOptions = [
   'Biographie & Mémoires',
   'Affaires & Finance',
   'Divertissement',
+  'BD & Manga',
   'Éducation & Référence',
   'Sciences Sociales & Culturelles',
   'Jeunesse & Young Adult',
