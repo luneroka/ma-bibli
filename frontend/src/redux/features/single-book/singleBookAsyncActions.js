@@ -1,11 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { getAuth } from 'firebase/auth';
 
 export const getSingleBookAsync = createAsyncThunk(
   'singleBook/getSingleBookAsync',
   async (isbn, { rejectWithValue }) => {
     try {
       // Get current user and token
-      const currentUser = firebase.auth().currentUser;
+      const auth = getAuth();
+      const currentUser = auth.currentUser;
       let headers = {
         'Content-Type': 'application/json',
       };
