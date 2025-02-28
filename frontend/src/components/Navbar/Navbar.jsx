@@ -46,8 +46,8 @@ const Navbar = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder='Rechercher un livre ou un auteur...'
-              className='bg-white w-full h-8 pl-10 pr-4 text-small md:text-body focus:outline-none focus:ring-2 focus:ring-primary-btn placeholder:text-small'
+              placeholder='Rechercher un livre...'
+              className='bg-white w-full h-7 xs:h-8 pl-10 pr-4 text-small md:text-body focus:outline-none focus:ring-2 focus:ring-primary-btn placeholder:text-small'
             />
           </div>
 
@@ -69,12 +69,12 @@ const Navbar = () => {
         <div className='flex items-center gap-4 sm:gap-6'>
           {/* Wishlist Icon */}
           <Link to='/wishlist'>
-            <FaListAlt className='size-4 xs:size-6 text-white hover:text-primary-btn' />
+            <FaListAlt className='size-5 xs:size-6 text-white hover:text-primary-btn' />
           </Link>
 
           {/* Library Icon */}
           <Link to='/bibli'>
-            <FaBookOpen className='size-4 xs:size-6 text-white hover:text-primary-btn' />
+            <FaBookOpen className='size-5 xs:size-6 text-white hover:text-primary-btn' />
           </Link>
 
           {/* User displayName */}
@@ -113,7 +113,7 @@ const Navbar = () => {
               </>
             ) : (
               <Link to='/login'>
-                <FaUser className='w-6 h-6 text-white hover:text-primary-btn' />
+                <FaUser className='size-5 xs:size-6 text-white hover:text-primary-btn' />
               </Link>
             )}
           </div>
