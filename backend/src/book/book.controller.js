@@ -41,6 +41,7 @@ const addBook = async (Model, req, res) => {
       console.error('ISBN not provided.');
       return res.status(400).json({ message: 'ISBN not provided.' });
     }
+
     // Fetch and normalize book data.
     const bookData = await fetchBookFromGoogle(isbn);
     if (!bookData?.items || bookData.items.length === 0) {
@@ -55,10 +56,10 @@ const addBook = async (Model, req, res) => {
       return res.status(400).json({ message: 'Invalid book data returned.' });
     }
 
-    // Assign current user to the book objecct
+    // Assign current user to the book object
     bookObj.userId = req.user.uid;
 
-    // Optionally, check if the book already exists.
+    // Check if the book already exists for the current user.
     const existing = await Model.findOne({
       isbn: bookObj.isbn,
       userId: req.user.uid,
@@ -68,10 +69,17 @@ const addBook = async (Model, req, res) => {
         .status(200)
         .json({ message: 'Book already exists', book: existing });
     }
+
     const newBook = new Model(bookObj);
     await newBook.save();
     res.status(200).json({ message: 'Book added successfully', book: newBook });
   } catch (error) {
+    if (error.code === 11000) {
+      // Handle duplicate key error
+      return res
+        .status(400)
+        .json({ message: 'Book already exists for this user' });
+    }
     console.error('Failed to add book.', error);
     res
       .status(500)
@@ -97,7 +105,10 @@ const getFavoriteBooks = async (Model, req, res) => {
 const toggleIsFavorite = async (Model, req, res) => {
   try {
     const { isbn } = req.params;
-    const book = await Model.findOne({ isbn });
+    const book = await Model.findOne({
+      isbn,
+      userId: req.user.uid,
+    });
     if (!book) {
       return res.status(404).json({ message: 'Book not found' });
     }
@@ -141,7 +152,10 @@ const getHaveReadBooks = async (Model, req, res) => {
 const toggleHaveRead = async (Model, req, res) => {
   try {
     const { isbn } = req.params;
-    const book = await Model.findOne({ isbn });
+    const book = await Model.findOne({
+      isbn,
+      userId: req.user.uid,
+    });
     if (!book) {
       return res.status(404).json({ message: 'Book not found' });
     }
@@ -176,7 +190,10 @@ const deleteBook = async (Model, req, res) => {
   try {
     const { isbn } = req.params;
     // First, fetch the book without deleting it so we can verify ownership.
-    const book = await Model.findOne({ isbn });
+    const book = await Model.findOne({
+      isbn,
+      userId: req.user.uid,
+    });
     if (!book) {
       return res.status(404).json({ message: 'Book not found' });
     }
@@ -270,9 +287,7 @@ const createBook = async (Model, req, res) => {
     const isbn = generateRandomId() + Date.now();
 
     // Use Cloudinary URL if file was uploaded, else default image
-    const cover = req.file
-      ? req.file.path
-      : '/product-not-found.png';
+    const cover = req.file ? req.file.path : '/product-not-found.png';
 
     const newBook = new Model({
       userId,
