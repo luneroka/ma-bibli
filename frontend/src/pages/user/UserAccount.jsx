@@ -227,7 +227,7 @@ function UserAccount() {
               <p className='text-small-body font-bold text-black-75 mb-1'>
                 Changer le thème
               </p>
-              <div className='text-small text-black-75 shadow border border-black-25 w-full py-2 px-3'>
+              <div className='text-small bg-white-bg text-black-75 shadow border border-black-25 w-full py-2 px-3'>
                 <ThemeSwitcher />
               </div>
             </div>
