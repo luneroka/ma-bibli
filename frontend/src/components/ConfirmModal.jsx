@@ -4,7 +4,7 @@ function ConfirmModal({ visible, onConfirm, message = 'Êtes-vous sûr ?' }) {
   if (!visible) return null;
 
   return (
-    <div className='fixed inset-0 flex items-center justify-center bg-white-100 bg-opacity-50'>
+    <div className='fixed inset-0 flex items-center justify-center bg-white-100 bg-opacity-50 p-8'>
       <div className='bg-white-100 p-6 rounded shadow-md max-w-sm mx-auto'>
         <p className='mb-4 text-black text-base'>{message}</p>
         <div className='flex justify-end gap-4'>
