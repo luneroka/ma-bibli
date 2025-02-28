@@ -90,9 +90,15 @@ html {
 }
 
 @media (max-width: 1050px) {
-  .swiper-button-next,
   .swiper-button-prev {
     visibility: hidden;
+  }
+}
+
+@media (max-width: 1050px) {
+  .swiper-button-next {
+    background: none;
+    opacity: 0.25;
   }
 }
 
