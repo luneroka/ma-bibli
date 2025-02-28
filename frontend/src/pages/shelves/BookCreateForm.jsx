@@ -147,10 +147,10 @@ const BookCreateForm = () => {
   };
 
   return (
-    <div className='flex flex-col flex-1 min-h-0 min-w-[500px] max-w-full mx-auto font-lato'>
-      <div className='flex-grow flex items-center justify-center my-[64px]'>
+    <div className='flex flex-col flex-1 min-h-0 min-w-[300px] xs:min-w-[500px] max-w-full mx-auto font-lato'>
+      <div className='flex-grow flex items-center justify-center my-[16px] sm:my-[32px] md:my-[48px]'>
         <div className='bg-white-bg p-8 shadow-md w-full max-w-md'>
-          <h2 className='text-h4 mb-4 text-black-100 font-merriweather'>
+          <h2 className='text-h4 mb-0 xs:mb-2 sm:mb-4 text-black-100 font-merriweather'>
             Créer un livre
           </h2>
 

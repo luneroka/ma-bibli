@@ -21,9 +21,11 @@ function Wishlist() {
   return (
     <div className='mx-[32px] sm:mx-[64px] md:mx-[128px]'>
       <div className='items-center gap-8 mt-[32px] md:mt-[48px] mb-5'>
-        <h3 className='text-h3 text-black-100 font-merriweather'>Wishlist</h3>
+        <h3 className='text-h4 xs:text-h3 min-[1450px]:text-h2 text-black-100 font-merriweather'>
+          Wishlist
+        </h3>
       </div>
-      <div className='flex flex-wrap gap-4 mt-[32px]'>
+      <div className='flex flex-wrap gap-4 mt-[16px] xs:mt-[32px]'>
         {wishlistBooks.length > 0 &&
           wishlistBooks.map((book, index) => {
             return (
