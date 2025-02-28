@@ -167,7 +167,7 @@ const BookEditForm = () => {
       const data = await response.json();
 
       if (response.ok) {
-        navigate(`/livres/${book.isbn}`);
+        navigate('/bibli');
       } else {
         throw new Error(
           data.message || 'Erreur lors de la mise à jour du livre'
