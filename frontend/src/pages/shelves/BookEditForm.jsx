@@ -3,7 +3,31 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { categoryOptions } from '../../utils/categories';
 
+// Update API URL configuration to use relative paths in production
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
+// More reliable environment detection
+const isProduction = () => {
+  // Check if we're on the live domain
+  return (
+    window.location.hostname === 'ma-bibli.com' ||
+    window.location.hostname === 'www.ma-bibli.com'
+  );
+};
+
+const getApiPath = (endpoint) => {
+  // In production, use relative paths to leverage the proxy
+  if (isProduction()) {
+    // Remove /api if it's already there to avoid /api/api/...
+    const path = endpoint.startsWith('/api')
+      ? endpoint
+      : `/api${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
+    return path;
+  }
+  // In development, use the full URL with API_URL
+  return `${API_URL}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
+};
+
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const ALLOWED_FILE_TYPES = [
   'image/jpeg',
@@ -153,8 +177,9 @@ const BookEditForm = () => {
       }
 
       const token = await currentUser.getIdToken();
+      // Fixed template string syntax - using backticks instead of single quotes
       const response = await fetch(
-        `${API_URL}/api/library/update/${book.isbn}`,
+        getApiPath(`/api/library/update/${book.isbn}`),
         {
           method: 'POST',
           headers: {

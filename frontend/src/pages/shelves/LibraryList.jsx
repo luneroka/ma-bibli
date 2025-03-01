@@ -6,8 +6,6 @@ import { getLibraryBooksAsync } from '../../redux/features/library/libraryAsyncA
 import { Listbox, Transition } from '@headlessui/react';
 import { ChevronUpDownIcon, CheckIcon } from '@heroicons/react/20/solid';
 import { IoCreateOutline } from 'react-icons/io5';
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
-
 // Swiper imports
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -15,6 +13,31 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Pagination, Navigation } from 'swiper/modules';
 import { Link } from 'react-router-dom';
+
+// Update API URL configuration to use relative paths in production
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
+// More reliable environment detection
+const isProduction = () => {
+  // Check if we're on the live domain
+  return (
+    window.location.hostname === 'ma-bibli.com' ||
+    window.location.hostname === 'www.ma-bibli.com'
+  );
+};
+
+const getApiPath = (endpoint) => {
+  // In production, use relative paths to leverage the proxy
+  if (isProduction()) {
+    // Remove /api if it's already there to avoid /api/api/...
+    const path = endpoint.startsWith('/api')
+      ? endpoint
+      : `/api${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
+    return path;
+  }
+  // In development, use the full URL with API_URL
+  return `${API_URL}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
+};
 
 function LibraryList() {
   const dispatch = useDispatch();
@@ -42,7 +65,8 @@ function LibraryList() {
     const fetchCategories = async () => {
       try {
         const token = await currentUser.getIdToken();
-        const response = await fetch(`${API_URL}/api/library/categories`, {
+        // Use the getApiPath helper to get the appropriate URL
+        const response = await fetch(getApiPath('/api/library/categories'), {
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
@@ -54,7 +78,7 @@ function LibraryList() {
         const data = await response.json();
         setCategories(data);
       } catch (error) {
-        console.error(error);
+        console.error('Error fetching categories:', error);
       }
     };
     if (currentUser) {
