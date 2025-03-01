@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import {
@@ -116,10 +116,25 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
     ? book.description.replace(/<\/?[^>]+(>|$)/g, '')
     : 'Pas de description...';
 
-  // Handle Surface Go navigation
+  // Add state to track screen size
+  const [isXsScreen, setIsXsScreen] = useState(window.innerWidth < 640);
+
+  // Add effect to update screen size state when window resizes
+  useEffect(() => {
+    const handleResize = () => {
+      setIsXsScreen(window.innerWidth < 640);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  // Handle book click with screen size check
   const handleBookClick = (e) => {
-    // Prevent default only if it's a navigation action
-    if (variant !== 'perso' && !e.target.closest('button')) {
+    // Prevent default only if it's a navigation action and not on xs screens
+    if (variant !== 'perso' && !isXsScreen && !e.target.closest('button')) {
       e.preventDefault();
       navigate(`/livres/${book.isbn}`);
     }
@@ -136,23 +151,37 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
                 <FaSpinner className='animate-spin text-xl text-black-50' />
               )}
               <div
-                className='book-card'
+                className={`book-card ${
+                  isXsScreen ? 'pointer-events-none' : ''
+                }`}
                 onClick={handleBookClick}
-                onTouchEnd={handleBookClick} // Add touch event specifically
+                onTouchEnd={handleBookClick}
                 role='button'
                 tabIndex={0}
               >
-                <Link to={`/livres/${book.isbn}`}>
+                {isXsScreen ? (
                   <img
                     src={book.cover || '../../../public/product-not-found.png'}
                     alt='Couverture non disponible'
                     onLoad={() => setImageLoaded(true)}
-                    className={`w-full h-full cursor-pointer hover:scale-105 transition-all duration-200 ${
-                      !imageLoaded ? 'hidden' : ''
-                    }`}
+                    className={`w-full h-full ${!imageLoaded ? 'hidden' : ''}`}
                     style={{ width: '121px', height: '170px' }}
                   />
-                </Link>
+                ) : (
+                  <Link to={`/livres/${book.isbn}`}>
+                    <img
+                      src={
+                        book.cover || '../../../public/product-not-found.png'
+                      }
+                      alt='Couverture non disponible'
+                      onLoad={() => setImageLoaded(true)}
+                      className={`w-full h-full cursor-pointer hover:scale-105 transition-all duration-200 ${
+                        !imageLoaded ? 'hidden' : ''
+                      }`}
+                      style={{ width: '121px', height: '170px' }}
+                    />
+                  </Link>
+                )}
               </div>
             </div>
 
@@ -451,14 +480,23 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
           <div className='flex gap-[24px]'>
             {/* Book Cover */}
             <div className='flex w-[121px] h-[170px] flex-shrink-0 items-center'>
-              <Link to={`/livres/${book.isbn}`}>
+              {isXsScreen ? (
                 <img
                   src={book.cover || '../../../public/product-not-found.png'}
                   alt='Couverture non disponible'
-                  className='w-full h-full cursor-pointer hover:scale-105 transition-all duration-200'
+                  className='w-full h-full'
                   style={{ width: '121px', height: '170px' }}
                 />
-              </Link>
+              ) : (
+                <Link to={`/livres/${book.isbn}`}>
+                  <img
+                    src={book.cover || '../../../public/product-not-found.png'}
+                    alt='Couverture non disponible'
+                    className='w-full h-full cursor-pointer hover:scale-105 transition-all duration-200'
+                    style={{ width: '121px', height: '170px' }}
+                  />
+                </Link>
+              )}
             </div>
 
             {/* Book Details */}

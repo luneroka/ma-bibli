@@ -126,7 +126,7 @@ function SingleBookPage() {
               wishlistBooks={wishlistBooks}
             />
 
-            <h2 className='mt-[64px] mb-[32px] font-merriweather text-h6'>
+            <h2 className='mt-[64px] mb-[32px] font-merriweather text-h6 text-black-100'>
               Du même auteur
             </h2>
 
