@@ -63,6 +63,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Middleware
+app.options('*', cors());
 app.use(express.json());
 app.use(
   cors({
