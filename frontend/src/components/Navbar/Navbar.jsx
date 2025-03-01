@@ -8,6 +8,7 @@ import { createSearchBooksAsync } from '../../redux/features/search/searchAsyncA
 import { useAuth } from '../../context/AuthContext';
 import DropdownMenu from './DropdownMenu';
 import ThemeSwitcher from '../ThemeSwitcher';
+import { getApiPath } from '../../utils/apiConfig';
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -20,7 +21,10 @@ const Navbar = () => {
   const handleSearch = async () => {
     if (searchTerm) {
       await dispatch(
-        createSearchBooksAsync('searchBooks', '/api/search/books')(searchTerm)
+        createSearchBooksAsync(
+          'searchBooks',
+          getApiPath('/api/search/books')
+        )(searchTerm)
       );
       navigate('/recherche', { state: { searchTerm } });
     }

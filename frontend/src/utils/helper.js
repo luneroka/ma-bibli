@@ -1,3 +1,5 @@
+import { getApiPath } from './apiConfig';
+
 export const formatNumber = (number) => {
   if (number >= 1000) {
     return Intl.NumberFormat('fr-FR').format(number);
@@ -80,8 +82,6 @@ export function getMostRepeatedAuthor(books) {
 
 // Helper: Get correct cover URL
 export const getCoverUrl = (cover) => {
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
-
   if (!cover) {
     return '/product-not-found.png';
   }
@@ -93,12 +93,12 @@ export const getCoverUrl = (cover) => {
 
   // If it's a relative path from local server (older books)
   if (cover.startsWith('/uploads/')) {
-    return `${API_URL}${cover}?t=${Date.now()}`;
+    return `${getApiPath(cover)}?t=${Date.now()}`;
   }
 
-  // If coming from our proxy, prepend backend host.
+  // If coming from our proxy, use getApiPath
   if (cover.startsWith('/api/proxy-image')) {
-    return `${API_URL}${cover}`;
+    return getApiPath(cover);
   }
 
   // Fallback for any other type.

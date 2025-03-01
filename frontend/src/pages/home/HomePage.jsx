@@ -8,6 +8,7 @@ import { useAuth } from '../../context/AuthContext';
 import { getWishlistBooksAsync } from '../../redux/features/wishlist/wishlistAsyncActions';
 import { getLibraryBooksAsync } from '../../redux/features/library/libraryAsyncActions';
 import { getFavoriteBooksAsync } from '../../redux/features/favorites/favoritesAsyncActions';
+import { getApiPath } from '../../utils/apiConfig';
 
 const HomePage = () => {
   const { currentUser } = useAuth();
@@ -18,8 +19,12 @@ const HomePage = () => {
   const wishlistBooks = useSelector((state) => state.wishlist.wishlistBooks);
 
   useEffect(() => {
-    dispatch(createSearchNewestAsync('newest', '/api/search/newest')());
-    dispatch(createGetNewsAsync('news', '/api/news')());
+    // Use getApiPath to get the appropriate URL for the environment
+    dispatch(
+      createSearchNewestAsync('newest', getApiPath('/api/search/newest'))()
+    );
+    dispatch(createGetNewsAsync('news', getApiPath('/api/news'))());
+
     if (currentUser) {
       currentUser.getIdToken().then((token) => {
         dispatch(getLibraryBooksAsync({ token }));

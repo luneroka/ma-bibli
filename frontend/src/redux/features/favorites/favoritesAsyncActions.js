@@ -1,13 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createGetAllBooksAsync } from '../../../utils/asyncActions';
-
-// Get API URL from environment variables with fallback
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+import { getApiPath } from '../../../utils/apiConfig';
 
 // GET FAVORITES
 export const getFavoriteBooksAsync = createGetAllBooksAsync(
   'favorites',
-  `${API_URL}/api/library/favorites`
+  getApiPath('/api/library/favorites')
 );
 
 // TOGGLE FAVORITE
@@ -36,5 +34,5 @@ const createToggleFavoriteAsync = (type, apiEndpoint) =>
 
 export const toggleFavoriteAsync = createToggleFavoriteAsync(
   'favorites',
-  `${API_URL}/api/library/favorites`
+  getApiPath('/api/library/favorites')
 );

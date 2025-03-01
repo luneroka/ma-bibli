@@ -12,6 +12,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Pagination, Navigation } from 'swiper/modules';
 import { FaSpinner } from 'react-icons/fa';
+import { getApiPath } from '../../utils/apiConfig';
 
 function SingleBookPage() {
   const { isbn } = useParams();
@@ -77,7 +78,10 @@ function SingleBookPage() {
     setAuthorBooks([]); // Clear previous results
 
     dispatch(
-      createSearchAuthorAsync('searchAuthor', '/api/search/author')(authorName)
+      createSearchAuthorAsync(
+        'searchAuthor',
+        getApiPath('/api/search/author')
+      )(authorName)
     )
       .unwrap()
       .then((data) => {

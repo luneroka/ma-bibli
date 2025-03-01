@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { createSearchBooksAsync } from '../../redux/features/search/searchAsyncActions';
 import { useAuth } from '../../context/AuthContext';
 import DropdownMenu from './DropdownMenu';
+import { getApiPath } from '../../utils/apiConfig';
 
 const NavbarSearch = () => {
   const location = useLocation();
@@ -26,7 +27,10 @@ const NavbarSearch = () => {
 
   const handleSearch = async () => {
     await dispatch(
-      createSearchBooksAsync('searchBooks', '/api/search/books')(searchTerm)
+      createSearchBooksAsync(
+        'searchBooks',
+        getApiPath('/api/search/books')
+      )(searchTerm)
     );
     navigate('/recherche', { state: { searchTerm } });
   };

@@ -9,6 +9,7 @@ import {
   createSearchAuthorAsync,
 } from '../../redux/features/search/searchAsyncActions';
 import { clearSearchResults } from '../../redux/features/search/searchSlice';
+import { getApiPath } from '../../utils/apiConfig';
 
 function SearchPage() {
   const location = useLocation();
@@ -23,12 +24,15 @@ function SearchPage() {
         dispatch(
           createSearchAuthorAsync(
             'searchAuthor',
-            '/api/search/author'
+            getApiPath('/api/search/author')
           )(searchTerm)
         );
       } else {
         dispatch(
-          createSearchBooksAsync('searchBooks', '/api/search/books')(searchTerm)
+          createSearchBooksAsync(
+            'searchBooks',
+            getApiPath('/api/search/books')
+          )(searchTerm)
         );
       }
     }

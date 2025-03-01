@@ -1,13 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createGetAllBooksAsync } from '../../../utils/asyncActions';
-
-// Get API URL from environment variables with fallback
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+import { getApiPath } from '../../../utils/apiConfig';
 
 // GET HAVE READ
 export const getHaveReadBooksAsync = createGetAllBooksAsync(
   'have-read',
-  `${API_URL}/api/library/have-read`
+  getApiPath('/api/library/have-read')
 );
 
 // TOGGLE HAVE READ
@@ -36,5 +34,5 @@ const createToggleHaveReadAsync = (type, apiEndpoint) =>
 
 export const toggleHaveReadAsync = createToggleHaveReadAsync(
   'have-read',
-  `${API_URL}/api/library/have-read`
+  getApiPath('/api/library/have-read')
 );

@@ -13,31 +13,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Pagination, Navigation } from 'swiper/modules';
 import { Link } from 'react-router-dom';
-
-// Update API URL configuration to use relative paths in production
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
-
-// More reliable environment detection
-const isProduction = () => {
-  // Check if we're on the live domain
-  return (
-    window.location.hostname === 'ma-bibli.com' ||
-    window.location.hostname === 'www.ma-bibli.com'
-  );
-};
-
-const getApiPath = (endpoint) => {
-  // In production, use relative paths to leverage the proxy
-  if (isProduction()) {
-    // Remove /api if it's already there to avoid /api/api/...
-    const path = endpoint.startsWith('/api')
-      ? endpoint
-      : `/api${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
-    return path;
-  }
-  // In development, use the full URL with API_URL
-  return `${API_URL}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
-};
+import { getApiPath } from '../../utils/apiConfig';
 
 function LibraryList() {
   const dispatch = useDispatch();

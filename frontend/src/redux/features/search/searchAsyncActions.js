@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { getApiPath } from '../../../utils/apiConfig';
 
 // SEARCH BOOKS
 export const createSearchBooksAsync = (type, apiEndpoint) =>
@@ -8,7 +9,6 @@ export const createSearchBooksAsync = (type, apiEndpoint) =>
       try {
         // Validate searchTerm before sending the request
         if (!searchTerm || !searchTerm.trim()) {
-          // Return empty results instead of making an API call
           return { items: [] };
         }
 
@@ -21,7 +21,6 @@ export const createSearchBooksAsync = (type, apiEndpoint) =>
         );
 
         if (!response.ok) {
-          // For 500 errors, return empty results instead of throwing
           if (response.status === 500) {
             console.warn(
               `Search error: Server returned 500 for term "${searchTerm}"`
@@ -46,9 +45,7 @@ export const createSearchAuthorAsync = (type, apiEndpoint) =>
     `${type}/searchAuthorAsync`,
     async (searchTerm, { rejectWithValue }) => {
       try {
-        // Validate searchTerm before sending the request
         if (!searchTerm || !searchTerm.trim()) {
-          // Return empty results instead of making an API call
           return { items: [] };
         }
 

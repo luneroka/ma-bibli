@@ -3,20 +3,19 @@ import {
   createAddBookAsync,
   createRemoveBookAsync,
 } from '../../../utils/asyncActions';
-
-// Get API URL from environment variables with fallback
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+import { getApiPath } from '../../../utils/apiConfig';
 
 export const getWishlistBooksAsync = createGetAllBooksAsync(
   'wishlist',
-  `${API_URL}/api/wishlist`
+  getApiPath('/api/wishlist')
 );
 
 export const addToWishlistAsync = createAddBookAsync(
   'wishlist',
-  `${API_URL}/api/wishlist/add-book`
+  getApiPath('/api/wishlist/add-book')
 );
+
 export const removeFromWishlistAsync = createRemoveBookAsync(
   'wishlist',
-  `${API_URL}/api/wishlist/delete-book`
+  getApiPath('/api/wishlist/delete-book')
 );

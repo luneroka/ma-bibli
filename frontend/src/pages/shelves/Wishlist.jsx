@@ -3,6 +3,7 @@ import BookInWishlist from '../../components/Book/BookInWishlist';
 import { getWishlistBooksAsync } from '../../redux/features/wishlist/wishlistAsyncActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAuth } from '../../context/AuthContext';
+import { getApiPath } from '../../utils/apiConfig';
 
 function Wishlist() {
   const { currentUser } = useAuth();
@@ -14,7 +15,13 @@ function Wishlist() {
     if (!currentUser) return;
     (async () => {
       const token = await currentUser.getIdToken();
-      dispatch(getWishlistBooksAsync({ token }));
+      // Pass the apiPath to the async action
+      dispatch(
+        getWishlistBooksAsync({
+          token,
+          apiPath: getApiPath('/api/wishlist'),
+        })
+      );
     })();
   }, [dispatch, currentUser]);
 
