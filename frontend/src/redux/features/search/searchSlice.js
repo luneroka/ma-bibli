@@ -3,6 +3,7 @@ import {
   createSearchBooksAsync,
   createSearchAuthorAsync,
 } from './searchAsyncActions';
+import { getApiPath } from '../../../utils/apiConfig';
 
 const initialState = {
   searchResults: { items: [] },
@@ -24,20 +25,23 @@ const searchSlice = createSlice({
     builder
       // SEARCH BOOKS
       .addCase(
-        createSearchBooksAsync('searchBooks', '/api/search/books').pending,
+        createSearchBooksAsync('searchBooks', getApiPath('/api/search/books'))
+          .pending,
         (state) => {
           state.loading = true;
         }
       )
       .addCase(
-        createSearchBooksAsync('searchBooks', '/api/search/books').fulfilled,
+        createSearchBooksAsync('searchBooks', getApiPath('/api/search/books'))
+          .fulfilled,
         (state, action) => {
           state.loading = false;
           state.searchResults = action.payload;
         }
       )
       .addCase(
-        createSearchBooksAsync('searchBooks', '/api/search/books').rejected,
+        createSearchBooksAsync('searchBooks', getApiPath('/api/search/books'))
+          .rejected,
         (state, action) => {
           state.loading = false;
           state.error = action.payload;
@@ -46,20 +50,29 @@ const searchSlice = createSlice({
 
       // SEARCH AUTHOR
       .addCase(
-        createSearchAuthorAsync('searchAuthor', '/api/search/author').pending,
+        createSearchAuthorAsync(
+          'searchAuthor',
+          getApiPath('/api/search/author')
+        ).pending,
         (state) => {
           state.loading = true;
         }
       )
       .addCase(
-        createSearchAuthorAsync('searchAuthor', '/api/search/author').fulfilled,
+        createSearchAuthorAsync(
+          'searchAuthor',
+          getApiPath('/api/search/author')
+        ).fulfilled,
         (state, action) => {
           state.loading = false;
           state.searchResults = action.payload;
         }
       )
       .addCase(
-        createSearchAuthorAsync('searchAuthor', '/api/search/author').rejected,
+        createSearchAuthorAsync(
+          'searchAuthor',
+          getApiPath('/api/search/author')
+        ).rejected,
         (state, action) => {
           state.loading = false;
           state.error = action.payload;

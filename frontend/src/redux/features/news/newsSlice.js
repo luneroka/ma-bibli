@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createGetNewsAsync } from './newsAsyncActions';
+import { getApiPath } from '../../../utils/apiConfig';
 
 const initialState = {
   news: [],
@@ -7,7 +8,7 @@ const initialState = {
   error: null,
 };
 
-const getNewsAsync = createGetNewsAsync('news', '/api/news');
+const getNewsAsync = createGetNewsAsync('news', getApiPath('/api/news'));
 
 const newsSlice = createSlice({
   name: 'news',

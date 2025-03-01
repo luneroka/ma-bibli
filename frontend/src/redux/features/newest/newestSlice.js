@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createSearchNewestAsync } from './newestAsyncActions';
+import { getApiPath } from '../../../utils/apiConfig';
 
 const initialState = {
   newest: { items: [] },
@@ -15,20 +16,23 @@ const newestSlice = createSlice({
     builder
       // SEARCH NEWEST
       .addCase(
-        createSearchNewestAsync('newest', '/api/search/newest').pending,
+        createSearchNewestAsync('newest', getApiPath('/api/search/newest'))
+          .pending,
         (state) => {
           state.loading = true;
         }
       )
       .addCase(
-        createSearchNewestAsync('newest', '/api/search/newest').fulfilled,
+        createSearchNewestAsync('newest', getApiPath('/api/search/newest'))
+          .fulfilled,
         (state, action) => {
           state.loading = false;
           state.newest = action.payload;
         }
       )
       .addCase(
-        createSearchNewestAsync('newest', '/api/search/newest').rejected,
+        createSearchNewestAsync('newest', getApiPath('/api/search/newest'))
+          .rejected,
         (state, action) => {
           state.loading = false;
           state.error = action.payload;
