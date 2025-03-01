@@ -12,7 +12,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://ma-bibli-3p6msbmvw-lunerokas-projects.vercel.app/api/:path*"
+      "destination": "https:/ma-bibli-api.vercel.app/api/:path*"
     },
     {
       "source": "/(.*)",
