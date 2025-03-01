@@ -6,6 +6,9 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const admin = require('firebase-admin');
 
+// Handle preflight OPTIONS requests
+app.options('*', cors());
+
 // Initialize Firebase Admin
 let firebaseConfig;
 
@@ -63,7 +66,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Middleware
-app.options('*', cors());
 app.use(express.json());
 app.use(
   cors({
