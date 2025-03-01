@@ -105,7 +105,11 @@ app.get('/', (req, res) => {
 
 async function main() {
   try {
-    await mongoose.connect(process.env.DB_URL);
+    await mongoose.connect(process.env.DB_URL, {
+      serverSelectionTimeoutMS: 100000,
+      connectTimeoutMS: 100000,
+      socketTimeoutMS: 100000,
+    });
     console.log('MongoDB connected successfully!');
   } catch (err) {
     console.error('Failed to connect to MongoDB', err);
