@@ -3,14 +3,15 @@ const router = express.Router();
 const axios = require('axios');
 
 // Helper function to retry failed requests
-const fetchWithRetry = async (url, options, retries = 2) => {
+const fetchWithRetry = async (url, options, retries = 3) => {
+  // Increase retries to 3
   try {
     return await axios(options);
   } catch (error) {
     if (retries <= 0) throw error;
 
     // Wait a bit before retrying (exponential backoff)
-    await new Promise((resolve) => setTimeout(resolve, 200 * (3 - retries)));
+    await new Promise((resolve) => setTimeout(resolve, 300 * (4 - retries))); // Increase delay
     return fetchWithRetry(url, options, retries - 1);
   }
 };
@@ -32,10 +33,11 @@ router.get('/', async (req, res) => {
       method: 'get',
       url: decodedUrl,
       responseType: 'arraybuffer',
-      timeout: isGoogleBooksUrl ? 10000 : 8000, // Longer timeout for Google Books
+      timeout: isGoogleBooksUrl ? 12000 : 8000, // Increase timeout for Google Books
       headers: {
-        'User-Agent': 'Mozilla/5.0 (compatible; MaBibliApp/1.0)',
-        Referer: 'https://ma-bibli.vercel.app/',
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+        Referer: 'https://ma-bibli.com/',
         Accept: 'image/webp,image/jpeg,image/png,*/*',
       },
       // Don't throw errors on non-200 responses
@@ -66,10 +68,22 @@ router.get('/', async (req, res) => {
     // Set CORS headers for error responses as well
     res.setHeader('Access-Control-Allow-Origin', '*');
 
-    // Return a fallback image via redirect
-    return res.redirect(
-      'https://res.cloudinary.com/dhxckc6ld/image/upload/v1/ma_bibli/covers/placeholder.jpg'
-    );
+    // Since redirect might be causing issues, send the fallback image directly
+    try {
+      const fallbackImageUrl =
+        'https://res.cloudinary.com/dhxckc6ld/image/upload/v1/ma_bibli/covers/placeholder.jpg';
+      const fallbackResponse = await axios({
+        method: 'get',
+        url: fallbackImageUrl,
+        responseType: 'arraybuffer',
+      });
+
+      res.setHeader('Content-Type', 'image/jpeg');
+      return res.send(Buffer.from(fallbackResponse.data));
+    } catch (fallbackError) {
+      // If even the fallback fails, return a simple 404
+      return res.status(404).json({ error: 'Image not found' });
+    }
   }
 });
 
