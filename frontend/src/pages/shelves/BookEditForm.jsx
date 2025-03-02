@@ -235,7 +235,7 @@ const BookEditForm = () => {
                 type='date'
                 value={publishedDate}
                 onChange={(e) => setPublishedDate(e.target.value)}
-                max={new Date().toISOString().split('T')[0]} // Prevents future dates
+                // max={new Date().toISOString().split('T')[0]} // Prevents future dates
                 className={inputClass}
               />
             </label>

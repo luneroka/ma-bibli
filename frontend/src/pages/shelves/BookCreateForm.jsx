@@ -199,17 +199,18 @@ const BookCreateForm = () => {
                 type='date'
                 value={publishedDate}
                 onChange={(e) => setPublishedDate(e.target.value)}
-                max={new Date().toISOString().split('T')[0]} // Prevents future dates
+                // max={new Date().toISOString().split('T')[0]} // Prevents future dates
                 className={inputClass}
               />
             </label>
             <label className='block text-small text-black-75 mb-1'>
-              Description
+              Description *
               <textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 maxLength={2000}
                 className={`${inputClass} h-24`}
+                required
               />
             </label>
             <label className='block text-small text-black-75 mb-1'>
