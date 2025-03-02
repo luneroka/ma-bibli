@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSingleBookAsync } from '../../redux/features/single-book/singleBookAsyncActions';
 import { createSearchAuthorAsync } from '../../redux/features/search/searchAsyncActions';
-import NavbarLibrary from '../../components/Navbar/NavbarLibrary';
+import NavbarSearch from '../../components/Navbar/NavbarSearch';
 import Footer from '../../components/Footer';
 import BookCard from '../../components/Book/BookCard';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -111,8 +111,8 @@ function SingleBookPage() {
 
   return (
     <>
-      <NavbarLibrary />
-      <main className='flex-1 min-h-0 max-w-full mx-[32px] sm:mx-[64px] md:mx-[128px] my-[32px] md:my-[48px] font-lato '>
+      <NavbarSearch />
+      <main className='flex-1 min-h-0 max-w-full mx-[32px] sm:mx-[64px] lg:mx-[128px] my-[32px] md:my-[48px] font-lato '>
         {isLoading ? (
           <div className='flex items-center justify-center py-16'>
             <FaSpinner className='animate-spin text-3xl text-black-50' />

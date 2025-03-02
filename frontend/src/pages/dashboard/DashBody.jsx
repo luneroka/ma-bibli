@@ -51,7 +51,7 @@ function DashBody({ activeFilter, readingObjective }) {
     : 0;
 
   return (
-    <div className='mx-[32px] sm:mx-[64px] md:mx-[128px] grid grid-cols-1 min-[700px]:grid-cols-2 lg:grid-cols-4 gap-[24px] mb-[32px]'>
+    <div className='mx-[32px] sm:mx-[64px] lg:mx-[128px] grid grid-cols-1 min-[700px]:grid-cols-2 lg:grid-cols-4 gap-[24px] mb-[32px]'>
       {/* Progression Bars */}
       <div className='col-span-1 min-[700px]:col-span-2'>
         <p className='text-small font-light text-black-75'>

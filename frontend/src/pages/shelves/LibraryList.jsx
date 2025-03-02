@@ -104,7 +104,7 @@ function LibraryList() {
   };
 
   return (
-    <div className='mx-[32px] sm:mx-[64px] md:mx-[128px]'>
+    <div className='mx-[32px] sm:mx-[64px] lg:mx-[128px]'>
       {/* Page header */}
       <div className='flex flex-col justify-start items-start [@media(min-width:970px)]:flex-row [@media(min-width:970px)]:justify-between [@media(min-width:970px)]:items-center gap-0 md:gap-2 mt-[32px] md:mt-[48px] mb-5'>
         {/* Page Title */}

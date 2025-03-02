@@ -26,7 +26,7 @@ function Wishlist() {
   }, [dispatch, currentUser]);
 
   return (
-    <div className='mx-[32px] sm:mx-[64px] md:mx-[128px]'>
+    <div className='mx-[32px] sm:mx-[64px] lg:mx-[128px]'>
       <div className='items-center gap-8 mt-[32px] md:mt-[48px] mb-5'>
         <h3 className='text-h4 xs:text-h3 min-[1450px]:text-h2 text-black-100 font-merriweather'>
           Wishlist

@@ -328,7 +328,7 @@ const BookCard = ({ book, variant, libraryBooks = [], wishlistBooks = [] }) => {
             </div>
 
             {/* Book Details */}
-            <div className='flex flex-col justify-between w-full'>
+            <div className='flex flex-col justify-center gap-2 w-full'>
               {/* Title */}
               <p className='text-h5 text-black-100'>{book.title}</p>
 
