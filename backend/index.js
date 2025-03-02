@@ -119,8 +119,11 @@ async function main() {
 
 main();
 
-/* app.listen(port, () => {
-  console.log(`Ma Bibli listening on port ${port}`);
-}); */
-
 module.exports = app;
+
+// Start the server only if this file is run directly (development)
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(`Ma Bibli listening on port ${port}`);
+  });
+}

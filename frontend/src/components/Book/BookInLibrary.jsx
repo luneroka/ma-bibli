@@ -14,7 +14,7 @@ import {
   HeartIcon,
   PencilIcon,
   TrashIcon,
-  XCircleIcon,
+  ExclamationCircleIcon,
 } from '@heroicons/react/16/solid';
 import { getCoverUrl } from '../../utils/helper';
 
@@ -177,7 +177,7 @@ function BookInLibrary({ book }) {
                 className='group flex cursor-pointer bg-white-100 text-black-75 text-xs px-1 py-1.5 hover:bg-black-10 hover:text-black w-[125px] active:bg-black-75 active:text-white-100'
               >
                 <div className='flex gap-1 items-center justify-center text-xs'>
-                  <XCircleIcon className='size-4 fill-alert-red-border' />
+                  <ExclamationCircleIcon className='size-4 fill-yellow-500' />
                   Pas encore lu !
                 </div>
               </button>
