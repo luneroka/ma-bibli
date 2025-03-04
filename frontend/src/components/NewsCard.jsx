@@ -25,7 +25,7 @@ function NewsCard({ article }) {
               `}
               sizes='(max-width: 768px) 180px, (max-width: 1024px) 210px, (max-width: 1650px) 255px, 500px'
               alt={article.title || 'News article'}
-              className='w-full h-[120px] md:h-[140px] lg:h-[160px] xl:h-[170px] object-contain cursor-pointer hover:scale-105 transition-all duration-200'
+              className='w-full h-[120px] md:h-[140px] lg:h-[160px] xl:h-[170px] object-contain object-top cursor-pointer hover:scale-105 transition-all duration-200'
               loading='lazy'
             />
           </a>
