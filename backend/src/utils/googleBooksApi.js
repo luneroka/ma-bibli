@@ -4,17 +4,16 @@ const { fetchJson } = require('./helper');
 
 const searchBooksFromGoogle = async (searchTerm) => {
   const maxResults = 40;
+  const langRestrict = 'fr';
   const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(
     searchTerm
-  )}&maxResults=${maxResults}&key=${apiKey}`;
+  )}&maxResults=${maxResults}&langRestrict=${langRestrict}&key=${apiKey}`;
 
   const data = await fetchJson(url);
 
   // Filter out books with missing images or pageCount ≤ 0
   if (data.items) {
-    data.items = data.items.filter(
-      (book) => book.volumeInfo?.title
-    );
+    data.items = data.items.filter((book) => book.volumeInfo?.title);
   } else {
     data.items = [];
   }
@@ -23,9 +22,10 @@ const searchBooksFromGoogle = async (searchTerm) => {
 
 const searchAuthorFromGoogle = async (searchTerm) => {
   const maxResults = 40;
+  const langRestrict = 'fr';
   const url = `https://www.googleapis.com/books/v1/volumes?q=inauthor:${encodeURIComponent(
     searchTerm
-  )}&maxResults=${maxResults}&key=${apiKey}`;
+  )}&maxResults=${maxResults}&langRestrict=${langRestrict}&key=${apiKey}`;
 
   const data = await fetchJson(url);
   if (data.items) {
