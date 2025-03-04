@@ -8,8 +8,14 @@ function NewsCard({ article }) {
           <a href={article.url} target='_blank'>
             <img
               src={article.urlToImage}
+              srcSet={`${article.urlToImage} 500w, ${article.urlToImage.replace(
+                'w_500',
+                'w_1000'
+              )} 1000w`}
+              sizes='(max-width: 600px) 500px, 1000px'
               alt='News Cover'
               className='h-[170px] cursor-pointer hover:scale-105 transition-all duration-200'
+              loading='lazy'
             />
           </a>
         </div>
