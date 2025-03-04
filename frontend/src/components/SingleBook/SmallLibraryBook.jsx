@@ -27,7 +27,7 @@ import {
   getCoverUrl,
 } from '../../utils/helper';
 
-function SingleLibraryBook({ book }) {
+function SmallLibraryBook({ book }) {
   const { currentUser } = useAuth();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -145,9 +145,9 @@ function SingleLibraryBook({ book }) {
         className='flex flex-col justify-between'
         onClick={handleBookClick}
       >
-        <div className='flex gap-[24px]'>
+        <div className='flex gap-[16px]'>
           {/* Book Cover with spinner */}
-          <div className='w-[220px] h-[330px] relative flex-shrink-0 items-center justify-center'>
+          <div className='flex w-[121px] h-[170px] relative flex-shrink-0 items-center justify-center'>
             {!imageLoaded && (
               <FaSpinner className='animate-spin text-xl text-black-50' />
             )}
@@ -155,21 +155,20 @@ function SingleLibraryBook({ book }) {
               src={coverUrl}
               alt='Couverture non disponible'
               onLoad={() => setImageLoaded(true)}
-              className={`w-full h-full ${
-                !imageLoaded ? 'hidden' : ''
-              }`}
+              className={`w-full h-full ${!imageLoaded ? 'hidden' : ''}`}
+              style={{ width: '121px', height: '170px' }}
             />
           </div>
 
           {/* Book Details */}
           <div className='flex flex-col justify-center gap-2 w-full'>
             {/* Title */}
-            <p className='text-h5 text-black-100'>{book.title}</p>
+            <p className='text-h6 text-black-100'>{book.title}</p>
 
             {/* Authors */}
             {book.authors && (
-              <p className='italic text-black-100 overflow-hidden'>
-                {book.authors.slice(0, 3).map((author, index) => (
+              <p className='text-small-body italic text-black-100 overflow-hidden'>
+                {book.authors.slice(0, 2).map((author, index) => (
                   <span
                     key={author}
                     className='cursor-pointer hover:text-secondary-btn hover:underline'
@@ -186,30 +185,30 @@ function SingleLibraryBook({ book }) {
             )}
 
             {/* Publisher */}
-            <p className='text-small-body text-black-100'>
+            <p className='text-small text-black-100'>
               Éditeur : <span className='text-black-85'>{book.publisher}</span>
             </p>
 
             {/* Published Date */}
-            <p className='text-small-body text-black-100'>
+            <p className='text-small text-black-100'>
               Publication :{' '}
               <span className='text-black-85'>
                 {extractFullDate(book.publishedDate)}
               </span>
             </p>
-
-            {/* Description */}
-            <p className='w-full max-w-full md:max-w-[600px] h-auto md:h-[180px] overflow-hidden text-small-body text-black-85 text-justify'>
-              {plainTextDescription && plainTextDescription.length > 580
-                ? `${plainTextDescription.slice(0, 580)}...`
-                : plainTextDescription || 'Pas de description...'}
-            </p>
           </div>
         </div>
 
+        {/* Description */}
+        <p className='w-full max-w-full md:max-w-[600px] h-auto overflow-hidden text-small text-black-85 text-justify mt-4'>
+          {plainTextDescription && plainTextDescription.length > 580
+            ? `${plainTextDescription.slice(0, 580)}...`
+            : plainTextDescription || 'Pas de description...'}
+        </p>
+
         {/* Action Buttons */}
         {currentUser ? (
-          <div className='flex gap-[24px] mt-6'>
+          <div className='flex gap-[16px] mt-4'>
             {/* wishlist List Button */}
             {isInWishlist ? (
               <button
@@ -217,9 +216,9 @@ function SingleLibraryBook({ book }) {
                   e.stopPropagation();
                   handleRemoveFromWishlist(book.isbn);
                 }}
-                className='cursor-pointer bg-secondary-btn text-black-75 text-small px-1 py-2.5 w-[220px]'
+                className='cursor-pointer bg-secondary-btn text-black-75 px-1 py-1.5 w-[121px]'
               >
-                <div className='flex gap-1 items-center justify-center'>
+                <div className='flex gap-1 items-center justify-center text-xs'>
                   <FaBookmark className='text-body' />
                   Wishlist
                 </div>
@@ -230,9 +229,9 @@ function SingleLibraryBook({ book }) {
                   e.stopPropagation();
                   handleAddToWishlist(book);
                 }}
-                className='cursor-pointer bg-primary-btn text-black-75 text-small px-1 py-2.5 w-[220px] hover:bg-secondary-btn active:bg-black-75 active:text-white-100'
+                className='cursor-pointer bg-primary-btn text-black-75 px-1 py-1.5 w-[121px] hover:bg-secondary-btn active:bg-black-75 active:text-white-100'
               >
-                <div className='flex gap-1 items-center justify-center'>
+                <div className='flex gap-1 items-center justify-center text-xs'>
                   <FaRegBookmark className='text-body' />
                   Wishlist
                 </div>
@@ -243,11 +242,8 @@ function SingleLibraryBook({ book }) {
             {isInLibrary ? (
               isRead ? (
                 <>
-                  <button
-                    className='bg-secondary-btn text-black-75 text-small px-1 py-2.5 w-[170px]'
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <div className='flex gap-1 items-center justify-center'>
+                  <button className='bg-secondary-btn text-black-75 px-1 py-1.5 w-[125px]'>
+                    <div className='flex gap-1 items-center justify-center text-xs'>
                       <FaCheckCircle className='text-body' />
                       J'ai lu !
                     </div>
@@ -257,13 +253,13 @@ function SingleLibraryBook({ book }) {
                     state={{ book }}
                     onClick={(e) => e.stopPropagation()}
                   >
-                    <button className='cursor-pointer bg-black-10 text-black-75 text-small px-1 py-2.5 w-[50px] h-full hover:bg-secondary-btn'>
-                      <div className='flex items-center justify-center'>
+                    <button className='cursor-pointer bg-black-10 text-black-75 text-small px-1 py-1.5 w-[50px] h-full hover:bg-secondary-btn'>
+                      <div className='flex items-center justify-center text-xs'>
                         <FaPencilAlt className='text-body' />
                       </div>
                     </button>
                   </Link>
-                  <button
+                  {/*                   <button
                     onClick={(e) => {
                       e.stopPropagation();
                       handleFavorite(book.isbn);
@@ -273,7 +269,7 @@ function SingleLibraryBook({ book }) {
                     }`}
                   >
                     <FaHeart className='p-0.5' />
-                  </button>
+                  </button> */}
                 </>
               ) : (
                 <>
@@ -282,9 +278,9 @@ function SingleLibraryBook({ book }) {
                       e.stopPropagation();
                       handleRemoveFromLibrary(book.isbn);
                     }}
-                    className='cursor-pointer bg-secondary-btn text-black-75 text-small px-1 py-2.5 w-[170px]'
+                    className='cursor-pointer bg-secondary-btn text-black-75 px-1 py-1.5 w-[125px]'
                   >
-                    <div className='flex gap-1 items-center justify-center'>
+                    <div className='flex gap-1 items-center justify-center text-xs'>
                       <FaCheckCircle className='text-body' />
                       Bibli
                     </div>
@@ -294,8 +290,8 @@ function SingleLibraryBook({ book }) {
                     state={{ book }}
                     onClick={(e) => e.stopPropagation()}
                   >
-                    <button className='cursor-pointer bg-black-10 text-black-75 text-small px-1 py-2.5 w-[50px] h-full hover:bg-secondary-btn'>
-                      <div className='flex items-center justify-center'>
+                    <button className='cursor-pointer bg-black-10 text-black-75 text-small px-1 py-1.5 w-[50px] h-full hover:bg-secondary-btn'>
+                      <div className='flex items-center justify-center text-xs'>
                         <FaPencilAlt className='text-body' />
                       </div>
                     </button>
@@ -308,9 +304,9 @@ function SingleLibraryBook({ book }) {
                   e.stopPropagation();
                   handleAddToLibrary(book);
                 }}
-                className='cursor-pointer bg-primary-btn text-black-75 text-small px-1 py-2.5 w-[220px] hover:bg-secondary-btn active:bg-black-75 active:text-white-100'
+                className='cursor-pointer bg-primary-btn text-black-75 px-1 py-1.5 w-[125px] hover:bg-secondary-btn active:bg-black-75 active:text-white-100'
               >
-                <div className='flex gap-1 items-center justify-center'>
+                <div className='flex gap-1 items-center justify-center text-xs'>
                   <IoIosAddCircleOutline className='text-body' />
                   Bibli
                 </div>
@@ -319,17 +315,17 @@ function SingleLibraryBook({ book }) {
           </div>
         ) : (
           <div className='flex gap-[16px] mt-2'>
-            <Link to='/login'>
-              <button
-                onClick={(e) => e.stopPropagation()}
-                className='cursor-pointer bg-primary-btn text-black-75 text-xs px-1 py-1.5 w-[220px] hover:bg-secondary-btn active:bg-black-75 active:text-white-100'
-              >
-                <div className='flex gap-1 items-center justify-center'>
+            <button
+              onClick={(e) => e.stopPropagation()}
+              className='cursor-pointer bg-primary-btn text-black-75 text-xs px-1 py-1.5 w-[125px] hover:bg-secondary-btn active:bg-black-75 active:text-white-100'
+            >
+              <Link to='/login'>
+                <div className='flex gap-1 items-center justify-center text-xs'>
                   <IoIosLogIn className='text-body' />
                   Se connecter
                 </div>
-              </button>
-            </Link>
+              </Link>
+            </button>
           </div>
         )}
       </div>
@@ -337,4 +333,4 @@ function SingleLibraryBook({ book }) {
   );
 }
 
-export default SingleLibraryBook;
+export default SmallLibraryBook;

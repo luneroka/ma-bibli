@@ -143,7 +143,7 @@ function SingleGoogleBook({ book, libraryBooks = [], wishlistBooks = [] }) {
       >
         <div className='flex gap-[24px]'>
           {/* Book Cover with spinner */}
-          <div className='hidden sm:block w-[220px] h-[330px] relative flex-shrink-0 items-center justify-center'>
+          <div className='w-[220px] h-[330px] relative flex-shrink-0 items-center justify-center'>
             {!imageLoaded && (
               <FaSpinner className='animate-spin text-xl text-black-50' />
             )}
@@ -151,7 +151,7 @@ function SingleGoogleBook({ book, libraryBooks = [], wishlistBooks = [] }) {
               src={coverUrl}
               alt='Couverture non disponible'
               onLoad={() => setImageLoaded(true)}
-              className={`hidden sm:block w-full h-full ${
+              className={`w-full h-full ${
                 !imageLoaded ? 'hidden' : ''
               }`}
             />

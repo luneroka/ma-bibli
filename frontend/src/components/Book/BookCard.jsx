@@ -222,7 +222,10 @@ const BookCard = ({ book, libraryBooks = [], wishlistBooks = [] }) => {
             {/* wishlist List Button */}
             {isInWishlist ? (
               <button
-                onClick={() => handleRemoveFromWishlist(book.isbn)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleRemoveFromWishlist(book.isbn);
+                }}
                 className='cursor-pointer bg-secondary-btn text-black-75 px-1 py-1.5 w-[121px]'
               >
                 <div className='flex gap-1 items-center justify-center text-xs'>
@@ -232,7 +235,10 @@ const BookCard = ({ book, libraryBooks = [], wishlistBooks = [] }) => {
               </button>
             ) : (
               <button
-                onClick={() => handleAddToWishlist(book)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleAddToWishlist(book);
+                }}
                 className='cursor-pointer bg-primary-btn text-black-75 px-1 py-1.5 w-[121px] hover:bg-secondary-btn active:bg-black-75 active:text-white-100'
               >
                 <div className='flex gap-1 items-center justify-center text-xs'>
@@ -253,7 +259,10 @@ const BookCard = ({ book, libraryBooks = [], wishlistBooks = [] }) => {
                 </button>
               ) : (
                 <button
-                  onClick={() => handleRemoveFromLibrary(book.isbn)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleRemoveFromLibrary(book.isbn);
+                  }}
                   className='cursor-pointer bg-secondary-btn text-black-75 px-1 py-1.5 w-[125px]'
                 >
                   <div className='flex gap-1 items-center justify-center text-xs'>
@@ -264,7 +273,10 @@ const BookCard = ({ book, libraryBooks = [], wishlistBooks = [] }) => {
               )
             ) : (
               <button
-                onClick={() => handleAddToLibrary(book)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleAddToLibrary(book);
+                }}
                 className='cursor-pointer bg-primary-btn text-black-75 px-1 py-1.5 w-[125px] hover:bg-secondary-btn active:bg-black-75 active:text-white-100'
               >
                 <div className='flex gap-1 items-center justify-center text-xs'>
@@ -277,7 +289,7 @@ const BookCard = ({ book, libraryBooks = [], wishlistBooks = [] }) => {
         ) : (
           <div className='flex gap-[16px] mt-2'>
             <button
-              onClick={() => handleAddToLibrary(book)}
+              onClick={(e) => e.stopPropagation()}
               className='cursor-pointer bg-primary-btn text-black-75 text-xs px-1 py-1.5 w-[125px] hover:bg-secondary-btn active:bg-black-75 active:text-white-100'
             >
               <Link to='/login'>
