@@ -2,6 +2,12 @@
 
 **Ma Bibli** is a full-stack web application for managing your personal book collection. Create, organize, and track your reading habits with an intuitive interface.
 
+## Screenshots
+
+![Ma Bibli - Home Page](https://github.com/luneroka/ma-bibli/blob/main/frontend/src/assets/mabibli-homepage.png)
+![Ma Bibli - User Book Shelves](https://github.com/luneroka/ma-bibli/blob/main/frontend/src/assets/mabibli-bookshelves.png)
+![Ma Bibli - User Dashboard](https://github.com/luneroka/ma-bibli/blob/main/frontend/src/assets/mabibli-dashboard.png)
+
 ## 📚 Features
 
 - **Book Management**: Add, edit and remove books in your personal library
