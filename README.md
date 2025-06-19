@@ -39,6 +39,14 @@
 - Cloudinary for image storage
 - JWT for API authentication
 
+## 🚀 Deployment
+
+The application is deployed using [Vercel](https://vercel.com/), ensuring fast and reliable hosting with automatic CI/CD for every push to the main branch.
+
+- **Frontend**: Hosted on Vercel
+- **Backend**: Hosted on Vercel Serverless Functions
+- **Environment Variables**: Managed securely via Vercel's environment variable system
+
 ## 📝 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
