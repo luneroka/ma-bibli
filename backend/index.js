@@ -105,7 +105,21 @@ app.get('/', (req, res) => {
 
 async function main() {
   try {
-    await mongoose.connect(process.env.DB_URL, {
+    // Build MongoDB URI from environment variables (for Docker Compose)
+    const mongoUser = process.env.MONGO_INITDB_ROOT_USERNAME;
+    const mongoPass = process.env.MONGO_INITDB_ROOT_PASSWORD;
+    const mongoDb = process.env.MONGO_INITDB_DATABASE;
+    const mongoHost = process.env.MONGO_HOST;
+    const mongoPort = process.env.MONGO_PORT;
+
+    let mongoUri;
+    if (mongoUser && mongoPass) {
+      mongoUri = `mongodb://${mongoUser}:${mongoPass}@${mongoHost}:${mongoPort}/${mongoDb}?authSource=admin`;
+    } else {
+      mongoUri = `mongodb://${mongoHost}:${mongoPort}/${mongoDb}`;
+    }
+
+    await mongoose.connect(process.env.DB_URL || mongoUri, {
       serverSelectionTimeoutMS: 100000,
       connectTimeoutMS: 100000,
       socketTimeoutMS: 100000,

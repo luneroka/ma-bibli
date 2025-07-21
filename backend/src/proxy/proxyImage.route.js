@@ -27,11 +27,17 @@ router.get('/', async (req, res) => {
   const decodedUrl = decodeURIComponent(imageUrl);
   const isGoogleBooksUrl = decodedUrl.includes('books.google.com');
 
+  // Force HTTPS for Google Books URLs
+  let finalUrl = decodedUrl;
+  if (isGoogleBooksUrl && finalUrl.startsWith('http://')) {
+    finalUrl = finalUrl.replace('http://', 'https://');
+  }
+
   try {
     // Configure request with proper headers
     const options = {
       method: 'get',
-      url: decodedUrl,
+      url: finalUrl,
       responseType: 'arraybuffer',
       timeout: isGoogleBooksUrl ? 12000 : 8000, // Increase timeout for Google Books
       headers: {
@@ -63,7 +69,7 @@ router.get('/', async (req, res) => {
     // Send image data
     return res.send(Buffer.from(response.data));
   } catch (error) {
-    console.error(`Image proxy error for ${decodedUrl}: ${error.message}`);
+    console.error(`Image proxy error for ${decodedUrl}:`, error);
 
     // Set CORS headers for error responses as well
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -76,6 +82,13 @@ router.get('/', async (req, res) => {
         method: 'get',
         url: fallbackImageUrl,
         responseType: 'arraybuffer',
+        timeout: 5000,
+        headers: {
+          'User-Agent':
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+          Accept: 'image/webp,image/jpeg,image/png,*/*',
+        },
+        validateStatus: (status) => true,
       });
 
       res.setHeader('Content-Type', 'image/jpeg');
