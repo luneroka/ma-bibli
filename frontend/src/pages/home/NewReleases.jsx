@@ -41,8 +41,8 @@ const NewReleases = ({ newest, libraryBooks = [], wishlistBooks = [] }) => {
         className='mySwiper'
       >
         <div className='flex gap-[145px]'>
-          {newest.map((book) => (
-            <SwiperSlide key={book.isbn}>
+          {newest.map((book, idx) => (
+            <SwiperSlide key={book.isbn || book.id || idx}>
               <BookCard
                 book={book}
                 libraryBooks={libraryBooks}

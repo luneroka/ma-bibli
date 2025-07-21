@@ -25,3 +25,7 @@ serviceAccountKey.json
 *.sln
 *.sw?
 .vercel
+.devcontainer/
+Dockerfile
+docker-compose.yml
+KNOWN_ISSUES.md
