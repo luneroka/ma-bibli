@@ -2,12 +2,12 @@ const express = require('express');
 const {
   searchBooks,
   searchAuthor,
-  searchNewest,
+  searchPreferred,
 } = require('./search.controller');
 const router = express.Router();
 
 router.get('/books/:searchTerm', searchBooks);
 router.get('/author/:searchTerm', searchAuthor);
-router.get('/newest', searchNewest);
+router.get('/preferred', searchPreferred);
 
 module.exports = router;

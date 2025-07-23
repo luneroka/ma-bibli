@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import BookCard from '../../components/Book/BookCard';
 import { useSelector } from 'react-redux';
 
@@ -6,7 +6,10 @@ function SearchResults({ searchResults = { items: [] } }) {
   const libraryBooks = useSelector((state) => state.library.libraryBooks);
   const wishlistBooks = useSelector((state) => state.wishlist.wishlistBooks);
 
-  const uniqueBooks = searchResults.items.filter(
+  // Always use the transformed items array
+  const booksArray = Array.isArray(searchResults.items) ? searchResults.items : [];
+
+  const uniqueBooks = booksArray.filter(
     (book, index, self) => index === self.findIndex((b) => b.isbn === book.isbn)
   );
 
@@ -38,5 +41,12 @@ function SearchResults({ searchResults = { items: [] } }) {
     </>
   );
 }
+
+SearchResults.propTypes = {
+  searchResults: PropTypes.shape({
+    items: PropTypes.array,
+    data: PropTypes.array,
+  }),
+};
 
 export default SearchResults;

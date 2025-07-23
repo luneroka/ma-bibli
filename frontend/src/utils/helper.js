@@ -96,11 +96,6 @@ export const getCoverUrl = (cover) => {
     return `${getApiPath(cover)}?t=${Date.now()}`;
   }
 
-  // If coming from our proxy, use getApiPath
-  if (cover.startsWith('/api/proxy-image')) {
-    return getApiPath(cover);
-  }
-
   // Fallback for any other type.
   return cover;
 };

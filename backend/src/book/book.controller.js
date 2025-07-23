@@ -1,5 +1,5 @@
-const { fetchBookFromGoogle } = require('../utils/googleBooksApi');
-const { transformGoogleBook } = require('../services/bookService');
+const { fetchBookFromIsbndb } = require('../utils/booksApi');
+const { transformIsbndbBook } = require('../services/bookService');
 const { generateRandomId } = require('../utils/helper');
 const cloudinary = require('cloudinary').v2;
 
@@ -22,15 +22,16 @@ const getAllBooks = async (Model, req, res) => {
 const getSingleBook = async (req, res) => {
   try {
     const { isbn } = req.params;
-    const bookData = await fetchBookFromGoogle(isbn);
-    if (!bookData?.items || bookData.items.length === 0) {
+    const bookData = await fetchBookFromIsbndb(isbn);
+   
+    if (!bookData?.book) {
       return res.status(404).json({ message: 'Book not found' });
     }
-    const book = transformGoogleBook(bookData.items[0]);
+    
+    const book = transformIsbndbBook(bookData.book);
     res.status(200).json(book);
   } catch (error) {
-    console.error('Could not find the requested book', error);
-    res.status(500).json({ message: 'Could not find the requested book' });
+    res.status(500).json({ message: 'Could not find the requested book', error: error.message });
   }
 };
 
@@ -43,15 +44,16 @@ const addBook = async (Model, req, res) => {
     }
 
     // Fetch and normalize book data.
-    const bookData = await fetchBookFromGoogle(isbn);
-    if (!bookData?.items || bookData.items.length === 0) {
-      console.error('Book not found in Google Books API.');
+    const bookData = await fetchBookFromIsbndb(isbn);
+    // ISBNdb returns { book: { ... } } for single book endpoint
+    if (!bookData?.book) {
+      console.error('Book not found in ISBNdb API.');
       return res
         .status(404)
-        .json({ message: 'Book not found in Google Books API' });
+        .json({ message: 'Book not found in ISBNdb API' });
     }
 
-    const bookObj = transformGoogleBook(bookData.items[0]);
+    const bookObj = transformIsbndbBook(bookData.book);
     if (!bookObj || !bookObj.isbn) {
       return res.status(400).json({ message: 'Invalid book data returned.' });
     }

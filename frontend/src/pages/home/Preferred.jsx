@@ -1,17 +1,20 @@
-import React from 'react';
 import BookCard from '../../components/Book/BookCard';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Pagination, Navigation } from 'swiper/modules';
+import PropTypes from 'prop-types';
 
-const NewReleases = ({ newest, libraryBooks = [], wishlistBooks = [] }) => {
+const Preferred = ({ preferred, libraryBooks = [], wishlistBooks = [] }) => {
+  // Use the correct property from the API payload
+  const books = Array.isArray(preferred?.data) ? preferred.data : [];
+
   return (
     <>
       <div className='flex items-center gap-8 mb-[16px] md:mb-[32px]'>
         <h2 className='text-h4 xs:text-h3 min-[1450px]:text-h2 text-black-100 font-merriweather'>
-          Nouveautés
+          Ces livres pourraient vous plaire
         </h2>
       </div>
 
@@ -41,8 +44,8 @@ const NewReleases = ({ newest, libraryBooks = [], wishlistBooks = [] }) => {
         className='mySwiper'
       >
         <div className='flex gap-[145px]'>
-          {newest.map((book, idx) => (
-            <SwiperSlide key={book.isbn || book.id || idx}>
+          {books.map((book, idx) => (
+            <SwiperSlide key={book.isbn13 || book.id || idx}>
               <BookCard
                 book={book}
                 libraryBooks={libraryBooks}
@@ -56,4 +59,13 @@ const NewReleases = ({ newest, libraryBooks = [], wishlistBooks = [] }) => {
   );
 };
 
-export default NewReleases;
+Preferred.propTypes = {
+  preferred: PropTypes.shape({
+    items: PropTypes.array,
+    data: PropTypes.array, // Add validation for 'data'
+  }),
+  libraryBooks: PropTypes.array,
+  wishlistBooks: PropTypes.array,
+};
+
+export default Preferred;

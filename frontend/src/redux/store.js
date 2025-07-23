@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import searchReducer from './features/search/searchSlice';
-import newestReducer from './features/newest/newestSlice';
+import preferredReducer from './features/preferred/preferredSlice';
 import newsReducer from './features/news/newsSlice';
 import singleBookReducer from './features/single-book/singleBookSlice';
 import libraryReducer from './features/library/librarySlice';
@@ -10,7 +10,7 @@ import haveReadReducer from './features/have-read/haveReadSlice';
 
 const appReducer = combineReducers({
   search: searchReducer,
-  newest: newestReducer,
+  preferred: preferredReducer,
   news: newsReducer,
   singleBook: singleBookReducer,
   library: libraryReducer,
