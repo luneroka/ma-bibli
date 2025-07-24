@@ -24,7 +24,7 @@ import {
 } from '../../utils/helper';
 import PropTypes from 'prop-types';
 
-function SmallGoogleBook({ book, libraryBooks = [], wishlistBooks = [] }) {
+function SmallApiBook({ book, libraryBooks = [], wishlistBooks = [] }) {
   const { currentUser } = useAuth();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -313,7 +313,7 @@ function SmallGoogleBook({ book, libraryBooks = [], wishlistBooks = [] }) {
   );
 }
 
-SmallGoogleBook.propTypes = {
+SmallApiBook.propTypes = {
   book: PropTypes.shape({
     isbn: PropTypes.string.isRequired,
     title: PropTypes.string,
@@ -336,4 +336,4 @@ SmallGoogleBook.propTypes = {
   ),
 };
 
-export default SmallGoogleBook;
+export default SmallApiBook;

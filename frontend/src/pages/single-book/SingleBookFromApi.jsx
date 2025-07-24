@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import SingleGoogleBook from '../../components/SingleBook/SingleGoogleBook';
-import SmallGoogleBook from '../../components/SingleBook/SmallGoogleBook';
+import SingleApiBook from '../../components/SingleBook/SingleApiBook';
+import SmallApiBook from '../../components/SingleBook/SmallApiBook';
 
-function SingleBookFromGoogle({ book }) {
+function SingleBookFromApi({ book }) {
   const wishlistBooks = useSelector((state) => state.wishlist.wishlistBooks);
 
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 752);
@@ -24,13 +24,13 @@ function SingleBookFromGoogle({ book }) {
   return (
     <>
       {isSmallScreen ? (
-        <SmallGoogleBook
+        <SmallApiBook
           book={book}
           wishlistBooks={wishlistBooks}
           isInLibrary={false}
         />
       ) : (
-        <SingleGoogleBook
+        <SingleApiBook
           book={book}
           wishlistBooks={wishlistBooks}
           isInLibrary={false}
@@ -40,8 +40,8 @@ function SingleBookFromGoogle({ book }) {
   );
 }
 
-SingleBookFromGoogle.propTypes = {
+SingleBookFromApi.propTypes = {
   book: PropTypes.object.isRequired,
 };
 
-export default SingleBookFromGoogle;
+export default SingleBookFromApi;
