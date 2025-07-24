@@ -1,10 +1,10 @@
-import React from 'react';
 import MetricCard from '../../components/Dash/MetricCard';
 import GraphCard from '../../components/Dash/GraphCard';
 import ListCard from '../../components/Dash/ListCard';
 import { useSelector } from 'react-redux';
 import PrograssBars from '../../components/Dash/PrograssBars';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 function DashBody({ activeFilter, readingObjective }) {
   const libraryBooks = useSelector((state) => state.library.libraryBooks) || [];
@@ -68,7 +68,7 @@ function DashBody({ activeFilter, readingObjective }) {
           {new Date(readingObjective.timeframe).toLocaleDateString('fr-FR')} au
           31/12/{new Date().getFullYear()}
           <span className='ml-2 text-primary-btn hover:text-secondary-btn active:text-black-75 text-xs'>
-            <Link to='/mon-compte'>modifier l'objectif</Link>
+            <Link to='/mon-compte'>modifier l&apos;objectif</Link>
           </span>
         </p>
         <PrograssBars
@@ -92,5 +92,13 @@ function DashBody({ activeFilter, readingObjective }) {
     </div>
   );
 }
+
+DashBody.propTypes = {
+  activeFilter: PropTypes.string.isRequired,
+  readingObjective: PropTypes.shape({
+    objective: PropTypes.number,
+    timeframe: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+  }).isRequired,
+};
 
 export default DashBody;

@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
@@ -59,6 +60,16 @@ const DropdownMenu = ({ navigation = defaultNavigation, closeDropdown }) => {
       </ul>
     </div>
   );
+};
+
+DropdownMenu.propTypes = {
+  navigation: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      href: PropTypes.string.isRequired,
+    })
+  ),
+  closeDropdown: PropTypes.func.isRequired,
 };
 
 export default DropdownMenu;

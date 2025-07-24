@@ -25,12 +25,6 @@ function SingleBookPage() {
     }
   }, [dispatch, isbn]);
 
-  // Debug logging to inspect ISBNs
-  if (book) {
-    console.log('[SingleBookPage] book.isbn:', book.isbn, 'typeof:', typeof book.isbn);
-    console.log('[SingleBookPage] libraryBooks ISBNs:', libraryBooks.map(b => b.isbn), 'types:', libraryBooks.map(b => typeof b.isbn));
-  }
-
   const isInLibrary = book
     ? libraryBooks.some((libraryBook) => libraryBook.isbn === book.isbn)
     : false;

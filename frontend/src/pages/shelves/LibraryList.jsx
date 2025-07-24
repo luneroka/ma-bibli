@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import BookInLibrary from '../../components/Book/BookInLibrary';
 import { useAuth } from '../../context/AuthContext';
@@ -130,7 +130,7 @@ function LibraryList() {
                 : 'cursor-pointer'
             }
           >
-            J'ai
+            J&apos;ai
           </span>
           <p>|</p>
           <span
@@ -141,7 +141,7 @@ function LibraryList() {
                 : 'cursor-pointer'
             }
           >
-            J'ai lu
+            J&apos;ai lu
           </span>
         </div>
 

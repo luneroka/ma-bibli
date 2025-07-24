@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { FaEye, FaEyeSlash, FaSpinner } from 'react-icons/fa';
 import ConfirmModal from '../../components/ConfirmModal';
@@ -201,7 +201,7 @@ function UserAccount() {
             {/* Update Profile Form */}
             <form onSubmit={handleUpdateProfile}>
               <label className='text-small-body font-bold text-black-75 mb-1'>
-                Changer le nom d'utilisateur
+                Changer le nom d&apos;utilisateur
               </label>
               <div className='flex flex-col mb-8'>
                 <input

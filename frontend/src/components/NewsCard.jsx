@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 
 function NewsCard({ article }) {
   // Generate appropriate image URLs for different sizes
@@ -57,5 +57,17 @@ function NewsCard({ article }) {
     </>
   );
 }
+
+NewsCard.propTypes = {
+  article: PropTypes.shape({
+    url: PropTypes.string,
+    urlToImage: PropTypes.string,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    source: PropTypes.shape({
+      name: PropTypes.string,
+    }),
+  }).isRequired,
+};
 
 export default NewsCard;

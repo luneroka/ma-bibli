@@ -1,6 +1,6 @@
-import React from 'react';
 import ListItem from './ListItem';
 import { FaHeart } from 'react-icons/fa';
+import PropTypes from 'prop-types';
 
 function ListCard({ variant, libraryBooks = [] }) {
   if (variant === 'recent') {
@@ -39,5 +39,10 @@ function ListCard({ variant, libraryBooks = [] }) {
     );
   }
 }
+
+ListCard.propTypes = {
+  variant: PropTypes.string.isRequired,
+  libraryBooks: PropTypes.array
+};
 
 export default ListCard;

@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import DoughnutGraph from './DoughnutGraph';
 
 function GraphCard({ libraryBooks = [] }) {
@@ -16,5 +16,8 @@ function GraphCard({ libraryBooks = [] }) {
     </div>
   );
 }
+GraphCard.propTypes = {
+  libraryBooks: PropTypes.array
+};
 
 export default GraphCard;

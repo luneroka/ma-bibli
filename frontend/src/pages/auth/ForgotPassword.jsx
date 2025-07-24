@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../../context/AuthContext';
 import { useLocation } from 'react-router';
@@ -73,7 +73,7 @@ function ForgotPassword() {
             </span>{' '}
             ou{' '}
             <span className='text-secondary-btn underline hover:text-primary-btn active:text-black-75'>
-              <Link to='/register'>S'inscrire</Link>
+              <Link to='/register'>S&apos;inscrire</Link>
             </span>
           </div>
         </div>

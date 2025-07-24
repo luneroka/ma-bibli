@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import {
   getMostRepeatedValue,
   getMostRepeatedAuthor,
@@ -71,5 +71,10 @@ function MetricCard({ variant, libraryBooks = [] }) {
     );
   }
 }
+
+MetricCard.propTypes = {
+  variant: PropTypes.string.isRequired,
+  libraryBooks: PropTypes.array
+};
 
 export default MetricCard;

@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 
 function PrograssBars({ progress, bgColour = 'var(--color-secondary-btn)' }) {
   const parentStyle = {
@@ -36,5 +36,10 @@ function PrograssBars({ progress, bgColour = 'var(--color-secondary-btn)' }) {
     </div>
   );
 }
+
+PrograssBars.propTypes = {
+  progress: PropTypes.number.isRequired,
+  bgColour: PropTypes.string,
+};
 
 export default PrograssBars;
