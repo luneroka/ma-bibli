@@ -62,7 +62,9 @@ const searchPreferredFromIsbndb = async (params = {}) => {
 
   // ISBNdb index search endpoint for subject/category
   const categorySlug = encodeURIComponent(category.replace(/\s+/g, '_'));
-  const url = `https://api2.isbndb.com/search/books?subject=${categorySlug}`;
+  const page = 10;
+  const pageSize = 1000
+  const url = `https://api2.isbndb.com/search/books?subject=${categorySlug}&page=${page}&pageSize=${pageSize}`;
 
   const data = await fetchJson(url, {
     headers: { 'Authorization': apiKey }
@@ -75,6 +77,11 @@ const searchPreferredFromIsbndb = async (params = {}) => {
 
   // Return the same structure, but with filtered books (no limit)
   const filteredData = { ...data, books: filteredBooks };
+
+  // Remove the unfiltered data property if it exists
+  if (filteredData.data) {
+    delete filteredData.data;
+  }
 
   cache.set(cacheKey, filteredData);
   return filteredData;

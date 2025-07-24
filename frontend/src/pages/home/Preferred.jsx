@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 const Preferred = ({ preferred, libraryBooks = [], wishlistBooks = [] }) => {
   // Use the correct property from the API payload
-  const books = Array.isArray(preferred?.data) ? preferred.data : [];
+  const books = Array.isArray(preferred?.items) ? preferred.items : [];
 
   return (
     <>
@@ -45,7 +45,7 @@ const Preferred = ({ preferred, libraryBooks = [], wishlistBooks = [] }) => {
       >
         <div className='flex gap-[145px]'>
           {books.map((book, idx) => (
-            <SwiperSlide key={book.isbn13 || book.id || idx}>
+            <SwiperSlide key={book.isbn || book.id || idx}>
               <BookCard
                 book={book}
                 libraryBooks={libraryBooks}

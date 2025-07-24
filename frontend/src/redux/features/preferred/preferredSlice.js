@@ -29,11 +29,11 @@ const preferredSlice = createSlice({
           .fulfilled,
         (state, action) => {
           state.loading = false;
-          // Store the data array directly, matching the API response
-          if (Array.isArray(action.payload?.data)) {
-            state.preferred.data = action.payload.data;
+          // Store the items array directly, matching the API response
+          if (Array.isArray(action.payload?.items)) {
+            state.preferred.items = action.payload.items;
           } else {
-            state.preferred.data = [];
+            state.preferred.items = [];
           }
         }
       )

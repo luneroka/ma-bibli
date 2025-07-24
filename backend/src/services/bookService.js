@@ -18,7 +18,7 @@ const transformIsbndbBook = (isbndbBook) => {
 
   // Map book category
   const category = book.subjects && book.subjects.length > 0
-    ? mapBookCategory(book.subjects[0])
+    ? mapBookCategory(book.subjects[1])
     : 'Autres';
 
   return {
