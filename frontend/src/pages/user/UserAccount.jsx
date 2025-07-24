@@ -244,6 +244,7 @@ function UserAccount() {
                     value={localObjective}
                     onChange={(e) => setLocalObjective(e.target.value)}
                     className={inputClass}
+                    required
                   />
                 </div>
                 <div>
@@ -255,6 +256,7 @@ function UserAccount() {
                     value={localTimeframeObjective}
                     onChange={(e) => setLocalTimeframeObjective(e.target.value)}
                     className={inputClass}
+                    required
                   />
                 </div>
               </div>
