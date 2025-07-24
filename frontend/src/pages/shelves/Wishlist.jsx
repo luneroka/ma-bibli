@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import BookInWishlist from '../../components/Book/BookInWishlist';
 import { getWishlistBooksAsync } from '../../redux/features/wishlist/wishlistAsyncActions';
 import { useDispatch, useSelector } from 'react-redux';

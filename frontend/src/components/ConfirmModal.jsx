@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 
 function ConfirmModal({ visible, onConfirm, message = 'Êtes-vous sûr ?' }) {
   if (!visible) return null;
@@ -25,5 +25,11 @@ function ConfirmModal({ visible, onConfirm, message = 'Êtes-vous sûr ?' }) {
     </div>
   );
 }
+
+ConfirmModal.propTypes = {
+  visible: PropTypes.bool.isRequired,
+  onConfirm: PropTypes.func.isRequired,
+  message: PropTypes.string
+};
 
 export default ConfirmModal;

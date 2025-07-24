@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FaHeart, FaSpinner } from 'react-icons/fa';
 import { removeFromLibraryAsync } from '../../redux/features/library/libraryAsyncActions';
@@ -17,6 +17,7 @@ import {
   ExclamationCircleIcon,
 } from '@heroicons/react/16/solid';
 import { getCoverUrl } from '../../utils/helper';
+import PropTypes from 'prop-types';
 
 function BookInLibrary({ book }) {
   const { currentUser } = useAuth();
@@ -110,7 +111,7 @@ function BookInLibrary({ book }) {
               >
                 <div className='flex gap-1 items-center justify-center text-xs'>
                   <CheckCircleIcon className='size-4 fill-secondary-btn' />
-                  J'ai lu !
+                  J&apos;ai lu !
                 </div>
               </button>
             </MenuItem>
@@ -199,5 +200,14 @@ function BookInLibrary({ book }) {
     </div>
   );
 }
+
+BookInLibrary.propTypes = {
+  book: PropTypes.shape({
+    isbn: PropTypes.string.isRequired,
+    cover: PropTypes.string,
+    isFavorite: PropTypes.bool,
+    haveRead: PropTypes.bool,
+  }).isRequired,
+};
 
 export default BookInLibrary;

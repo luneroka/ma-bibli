@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import NavbarSearch from '../../components/Navbar/NavbarSearch';
 import SingleBookFromLibrary from './SingleBookFromLibrary';
-import SingleBookFromGoogle from './SingleBookFromGoogle';
+import SingleBookFromApi from './SingleBookFromApi';
 import FromSameAuthor from './FromSameAuthor';
 import Footer from '../../components/Footer';
 import { getSingleBookAsync } from '../../redux/features/single-book/singleBookAsyncActions';
@@ -46,7 +46,7 @@ function SingleBookPage() {
             {isInLibrary ? (
               <SingleBookFromLibrary book={book} />
             ) : (
-              <SingleBookFromGoogle book={book} />
+              <SingleBookFromApi book={book} />
             )}
             <FromSameAuthor />
           </>

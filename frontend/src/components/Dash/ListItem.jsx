@@ -1,5 +1,5 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 function ListItem({ book }) {
   const authorsFormatted = book.authors.slice(0, 2).join(', ');
@@ -23,6 +23,12 @@ function ListItem({ book }) {
   );
 }
 
-export default ListItem;
+ListItem.propTypes = {
+  book: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    isbn: PropTypes.string.isRequired,
+    authors: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }).isRequired,
+};
 
-`Harry Potter et l'Enfant maudit - Parties un `;
+export default ListItem;

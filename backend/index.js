@@ -74,10 +74,6 @@ app.use(
   })
 );
 
-// Proxy server for cover images
-const proxyImageRouter = require('./src/proxy/proxyImage.route');
-app.use('/api/proxy-image', proxyImageRouter);
-
 // News routes
 const newsRoutes = require('./src/news/news.route');
 app.use('/api/news', newsRoutes);

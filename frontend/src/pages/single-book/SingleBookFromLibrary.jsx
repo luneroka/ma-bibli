@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import SingleLibraryBook from '../../components/SingleBook/SingleLibraryBook';
 import SmallLibraryBook from '../../components/SingleBook/SmallLibraryBook';
+import PropTypes from 'prop-types';
 
 function SingleBookFromLibrary({ book }) {
   const libraryBooks = useSelector((state) => state.library.libraryBooks);
@@ -47,5 +48,11 @@ function SingleBookFromLibrary({ book }) {
     </>
   );
 }
+
+SingleBookFromLibrary.propTypes = {
+  book: PropTypes.shape({
+    isbn: PropTypes.string,
+  }).isRequired,
+};
 
 export default SingleBookFromLibrary;

@@ -1,5 +1,5 @@
-const { fetchBookFromGoogle } = require('../utils/googleBooksApi');
-const { transformGoogleBook } = require('../services/bookService');
+const { fetchBookFromIsbndb } = require('../utils/booksApi');
+const { transformIsbndbBook } = require('../services/bookService');
 const { generateRandomId } = require('../utils/helper');
 const cloudinary = require('cloudinary').v2;
 
@@ -22,15 +22,32 @@ const getAllBooks = async (Model, req, res) => {
 const getSingleBook = async (req, res) => {
   try {
     const { isbn } = req.params;
-    const bookData = await fetchBookFromGoogle(isbn);
-    if (!bookData?.items || bookData.items.length === 0) {
+    // Try to find the book in the LibraryBook collection
+    const LibraryBook = require('../library/library.model');
+    const WishlistBook = require('../wishlist/wishlist.model');
+    let foundBook = await LibraryBook.findOne({ isbn }).lean();
+    if (foundBook) {
+      return res.status(200).json(foundBook);
+    }
+    // If not found in LibraryBook, check WishlistBook
+    foundBook = await WishlistBook.findOne({ isbn }).lean();
+    if (foundBook) {
+      return res.status(200).json(foundBook);
+    }
+    // If not found locally, try to fetch from ISBNdb
+    try {
+      const bookData = await fetchBookFromIsbndb(isbn);
+      if (!bookData?.book) {
+        return res.status(404).json({ message: 'Book not found' });
+      }
+      const book = transformIsbndbBook(bookData.book);
+      return res.status(200).json(book);
+    } catch (apiError) {
+      // If ISBNdb fails (e.g., invalid ISBN), return 404 instead of 500
       return res.status(404).json({ message: 'Book not found' });
     }
-    const book = transformGoogleBook(bookData.items[0]);
-    res.status(200).json(book);
   } catch (error) {
-    console.error('Could not find the requested book', error);
-    res.status(500).json({ message: 'Could not find the requested book' });
+    res.status(500).json({ message: 'Could not find the requested book', error: error.message });
   }
 };
 
@@ -43,15 +60,16 @@ const addBook = async (Model, req, res) => {
     }
 
     // Fetch and normalize book data.
-    const bookData = await fetchBookFromGoogle(isbn);
-    if (!bookData?.items || bookData.items.length === 0) {
-      console.error('Book not found in Google Books API.');
+    const bookData = await fetchBookFromIsbndb(isbn);
+    // ISBNdb returns { book: { ... } } for single book endpoint
+    if (!bookData?.book) {
+      console.error('Book not found in ISBNdb API.');
       return res
         .status(404)
-        .json({ message: 'Book not found in Google Books API' });
+        .json({ message: 'Book not found in ISBNdb API' });
     }
 
-    const bookObj = transformGoogleBook(bookData.items[0]);
+    const bookObj = transformIsbndbBook(bookData.book);
     if (!bookObj || !bookObj.isbn) {
       return res.status(400).json({ message: 'Invalid book data returned.' });
     }

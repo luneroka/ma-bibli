@@ -1,4 +1,3 @@
-import React from 'react';
 import NavbarUser from '../../components/Navbar/NavbarUser';
 import UserAccount from './UserAccount';
 import Footer from '../../components/Footer';

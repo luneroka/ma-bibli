@@ -1,4 +1,5 @@
-import React, { createContext, useState } from 'react';
+import { createContext, useState } from 'react';
+import PropTypes from 'prop-types';
 
 export const ReadingObjectiveContext = createContext({
   readingObjective: { objective: 0, timeframe: '' },
@@ -24,3 +25,7 @@ export const ReadingObjectiveProvider = ({ children }) => {
     </ReadingObjectiveContext.Provider>
   );
 };
+
+ReadingObjectiveProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+}

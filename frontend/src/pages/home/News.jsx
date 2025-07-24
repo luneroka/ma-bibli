@@ -1,4 +1,3 @@
-import React from 'react';
 import NewsCard from '../../components/NewsCard';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -6,6 +5,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Pagination, Navigation } from 'swiper/modules';
 import { generateRandomId } from '../../utils/helper.js';
+import PropTypes from 'prop-types';
 
 const News = ({ news }) => {
   return (
@@ -51,6 +51,10 @@ const News = ({ news }) => {
       </Swiper>
     </>
   );
+};
+
+News.propTypes = {
+  news: PropTypes.array.isRequired,
 };
 
 export default News;

@@ -20,6 +20,7 @@ import { getLibraryBooksAsync } from '../redux/features/library/libraryAsyncActi
 import { getWishlistBooksAsync } from '../redux/features/wishlist/wishlistAsyncActions';
 import { getFavoriteBooksAsync } from '../redux/features/favorites/favoritesAsyncActions';
 import { useNavigate } from 'react-router';
+import PropTypes from 'prop-types';
 
 const AuthContext = createContext();
 export const useAuth = () => {
@@ -148,4 +149,8 @@ export const AuthProvider = ({ children }) => {
       {!loading && children}
     </AuthContext.Provider>
   );
+};
+
+AuthProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };

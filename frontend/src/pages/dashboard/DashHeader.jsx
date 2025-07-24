@@ -1,5 +1,5 @@
-import React from 'react';
 import { FaPen } from 'react-icons/fa';
+import PropTypes from 'prop-types';
 
 function DashHeader({ activeFilter, setActiveFilter }) {
   const handleFilterClick = (filterValue) => {
@@ -60,5 +60,10 @@ function DashHeader({ activeFilter, setActiveFilter }) {
     </div>
   );
 }
+
+DashHeader.propTypes = {
+  activeFilter: PropTypes.string.isRequired,
+  setActiveFilter: PropTypes.func.isRequired,
+};
 
 export default DashHeader;

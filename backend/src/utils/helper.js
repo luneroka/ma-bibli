@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 
-const fetchJson = async (url) => {
-  const response = await fetch(url);
+const fetchJson = async (url, options = {}) => {
+  const response = await fetch(url, options);
   if (!response.ok) {
     throw new Error(`Fetch error on ${url}: ${response.statusText}`);
   }

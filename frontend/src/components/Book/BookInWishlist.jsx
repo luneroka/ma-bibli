@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { IoIosRemoveCircle } from 'react-icons/io';
@@ -7,6 +7,7 @@ import { IoIosAddCircleOutline } from 'react-icons/io';
 import { FaCheckCircle, FaSpinner } from 'react-icons/fa';
 import { addToLibraryAsync } from '../../redux/features/library/libraryAsyncActions';
 import { useAuth } from '../../context/AuthContext';
+import PropTypes from 'prop-types';
 
 function BookInWishlist({ book, libraryBooks = [] }) {
   const { currentUser } = useAuth();
@@ -93,5 +94,18 @@ function BookInWishlist({ book, libraryBooks = [] }) {
     </div>
   );
 }
+BookInWishlist.propTypes = {
+  book: PropTypes.shape({
+    isbn: PropTypes.string.isRequired,
+    cover: PropTypes.string,
+    // add other book properties as needed
+  }).isRequired,
+  libraryBooks: PropTypes.arrayOf(
+    PropTypes.shape({
+      isbn: PropTypes.string.isRequired,
+      // add other libraryBook properties as needed
+    })
+  ),
+};
 
 export default BookInWishlist;

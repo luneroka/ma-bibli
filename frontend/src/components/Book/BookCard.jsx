@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   FaRegBookmark,
   FaBookmark,
   FaCheckCircle,
-  FaHeart,
   FaSpinner,
-  FaPencilAlt,
 } from 'react-icons/fa';
 import { IoIosAddCircleOutline, IoIosLogIn } from 'react-icons/io';
 import {
@@ -18,12 +16,10 @@ import {
   addToWishlistAsync,
   removeFromWishlistAsync,
 } from '../../redux/features/wishlist/wishlistAsyncActions';
-import { toggleFavoriteAsync } from '../../redux/features/favorites/favoritesAsyncActions';
 import { useAuth } from '../../context/AuthContext';
 import {
   formatNumber,
   extractYear,
-  extractFullDate,
   getCoverUrl,
 } from '../../utils/helper';
 
@@ -31,11 +27,19 @@ const BookCard = ({ book, libraryBooks = [], wishlistBooks = [] }) => {
   const { currentUser } = useAuth();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const favorites = useSelector((state) => state.favorites.favorites) || [];
-  const isFavorite = favorites?.some((fav) => fav.isbn === book.isbn);
-  const isRead =
-    libraryBooks.find((libraryBook) => libraryBook.isbn === book.isbn)
-      ?.haveRead || false;
+  // Normalize book fields for both raw API and transformed objects
+  const normalized = {
+    isbn: book.isbn || book.isbn13 || book.isbn10 || book.id,
+    title: book.title_long || book.title,
+    authors: book.authors,
+    publisher: book.publisher,
+    image: book.image || book.cover || book.image_original,
+    date_published: book.date_published || book.publishedDate,
+    pages: book.pages || book.pageCount,
+    synopsis: book.synopsis || book.description,
+  };
+  const bookIsbn = normalized.isbn;
+  const isRead = libraryBooks.find((libraryBook) => libraryBook.isbn === bookIsbn)?.haveRead || false;
 
   // State to track image loading
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -86,27 +90,12 @@ const BookCard = ({ book, libraryBooks = [], wishlistBooks = [] }) => {
     });
   };
 
-  const handleFavorite = async (isbn) => {
-    if (!currentUser) return;
-    try {
-      const token = await currentUser.getIdToken();
-      dispatch(toggleFavoriteAsync({ token, isbn }));
-    } catch (error) {
-      console.error('Error fetching token for toggling favorite:', error);
-    }
-  };
-
   const isInLibrary = libraryBooks.some(
-    (libraryBook) => libraryBook.isbn === book.isbn
+    (libraryBook) => libraryBook.isbn === bookIsbn
   );
   const isInWishlist = wishlistBooks.some(
-    (wishlistBook) => wishlistBook.isbn === book.isbn
+    (wishlistBook) => wishlistBook.isbn === bookIsbn
   );
-
-  // Convert HTML to plain text for detailed description
-  const plainTextDescription = book.description
-    ? book.description.replace(/<\/?[^>]+(>|$)/g, '')
-    : 'Pas de description...';
 
   // Add state to track screen size
   const [isXsScreen, setIsXsScreen] = useState(window.innerWidth < 640);
@@ -128,9 +117,12 @@ const BookCard = ({ book, libraryBooks = [], wishlistBooks = [] }) => {
     // Prevent default only if it's a navigation action and not on xs screens
     if (!isXsScreen && !e.target.closest('button')) {
       e.preventDefault();
-      navigate(`/livres/${book.isbn}`);
+      navigate(`/livres/${bookIsbn}`);
     }
   };
+
+  // Use getCoverUrl to handle all cover URLs (including ISBNdb)
+  const coverUrl = getCoverUrl(normalized.image);
 
   return (
     <>
@@ -150,16 +142,16 @@ const BookCard = ({ book, libraryBooks = [], wishlistBooks = [] }) => {
             >
               {isXsScreen ? (
                 <img
-                  src={book.cover || '../../../public/product-not-found.png'}
+                  src={coverUrl}
                   alt='Couverture non disponible'
                   onLoad={() => setImageLoaded(true)}
                   className={`w-full h-full ${!imageLoaded ? 'hidden' : ''}`}
                   style={{ width: '121px', height: '170px' }}
                 />
               ) : (
-                <Link to={`/livres/${book.isbn}`}>
+              <Link to={`/livres/${bookIsbn}`}>
                   <img
-                    src={book.cover || '../../../public/product-not-found.png'}
+                    src={coverUrl}
                     alt='Couverture non disponible'
                     onLoad={() => setImageLoaded(true)}
                     className={`w-full h-full cursor-pointer hover:scale-105 transition-all duration-200 ${
@@ -175,18 +167,18 @@ const BookCard = ({ book, libraryBooks = [], wishlistBooks = [] }) => {
           {/* Book Details */}
           <div className='flex flex-col justify-center w-[220px] h-[170px]'>
             {/* Title */}
-            <Link to={`/livres/${book.isbn}`}>
+            <Link to={`/livres/${bookIsbn}`}>
               <p className='text-small-body text-black-75 hover:text-black font-bold leading-4.5 overflow-hidden mb-2 text-pretty'>
-                {book.title.length > 40
-                  ? `${book.title.slice(0, 40)}...`
-                  : book.title}
+                {normalized.title && normalized.title.length > 40
+                  ? `${normalized.title.slice(0, 40)}...`
+                  : normalized.title}
               </p>
             </Link>
 
             {/* Authors */}
             <div>
-              {book.authors &&
-                book.authors.slice(0, 2).map((author) => (
+              {normalized.authors &&
+                normalized.authors.slice(0, 2).map((author) => (
                   <p
                     key={author}
                     className='text-small text-black-75 cursor-pointer hover:text-secondary-btn hover:underline overflow-hidden'
@@ -199,19 +191,19 @@ const BookCard = ({ book, libraryBooks = [], wishlistBooks = [] }) => {
 
             {/* Publisher */}
             <div className='text-small text-black-50'>
-              {book.publisher && book.publisher.length > 15
-                ? `${book.publisher.slice(0, 30)}...`
-                : book.publisher}
+              {normalized.publisher && normalized.publisher.length > 15
+                ? `${normalized.publisher.slice(0, 30)}...`
+                : normalized.publisher}
             </div>
 
             {/* Published Date */}
             <p className='text-small text-black-50'>
-              Publication : {extractYear(book.publishedDate)}
+              Publication : {extractYear(normalized.date_published)}
             </p>
 
             {/* Page Count */}
             <p className='text-small text-black-50'>
-              Pages : {formatNumber(book.pageCount)}
+              Pages : {formatNumber(normalized.pages)}
             </p>
           </div>
         </div>
@@ -224,7 +216,7 @@ const BookCard = ({ book, libraryBooks = [], wishlistBooks = [] }) => {
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  handleRemoveFromWishlist(book.isbn);
+                  handleRemoveFromWishlist(bookIsbn);
                 }}
                 className='cursor-pointer bg-secondary-btn text-black-75 px-1 py-1.5 w-[121px]'
               >
@@ -254,15 +246,15 @@ const BookCard = ({ book, libraryBooks = [], wishlistBooks = [] }) => {
                 <button className='bg-secondary-btn text-black-75 px-1 py-1.5 w-[125px]'>
                   <div className='flex gap-1 items-center justify-center text-xs'>
                     <FaCheckCircle className='text-body' />
-                    J'ai lu !
+                    J&apos;ai lu !
                   </div>
                 </button>
               ) : (
                 <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleRemoveFromLibrary(book.isbn);
-                  }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleRemoveFromLibrary(bookIsbn);
+                }}
                   className='cursor-pointer bg-secondary-btn text-black-75 px-1 py-1.5 w-[125px]'
                 >
                   <div className='flex gap-1 items-center justify-center text-xs'>
@@ -304,6 +296,14 @@ const BookCard = ({ book, libraryBooks = [], wishlistBooks = [] }) => {
       </div>
     </>
   );
+};
+
+import PropTypes from 'prop-types';
+
+BookCard.propTypes = {
+  book: PropTypes.object.isRequired,
+  libraryBooks: PropTypes.array,
+  wishlistBooks: PropTypes.array,
 };
 
 export default BookCard;

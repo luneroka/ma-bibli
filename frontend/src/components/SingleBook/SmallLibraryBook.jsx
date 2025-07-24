@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   FaRegBookmark,
   FaBookmark,
   FaCheckCircle,
-  FaHeart,
   FaSpinner,
   FaPencilAlt,
 } from 'react-icons/fa';
@@ -18,11 +17,8 @@ import {
   addToWishlistAsync,
   removeFromWishlistAsync,
 } from '../../redux/features/wishlist/wishlistAsyncActions';
-import { toggleFavoriteAsync } from '../../redux/features/favorites/favoritesAsyncActions';
 import { useAuth } from '../../context/AuthContext';
 import {
-  formatNumber,
-  extractYear,
   extractFullDate,
   getCoverUrl,
 } from '../../utils/helper';
@@ -36,10 +32,8 @@ function SmallLibraryBook({ book }) {
   const libraryBooks = useSelector((state) => state.library.libraryBooks) || [];
   const wishlistBooks =
     useSelector((state) => state.wishlist.wishlistBooks) || [];
-  const favorites = useSelector((state) => state.favorites.favorites) || [];
 
   // Derived states
-  const isFavorite = favorites?.some((fav) => fav.isbn === book.isbn);
   const isInLibrary = libraryBooks.some(
     (libraryBook) => libraryBook.isbn === book.isbn
   );
@@ -120,16 +114,6 @@ function SmallLibraryBook({ book }) {
       dispatch(removeFromWishlistAsync({ token, isbn }));
     } catch (error) {
       console.error('Error fetching token for wishlist delete:', error);
-    }
-  };
-
-  const handleFavorite = async (isbn) => {
-    if (!currentUser) return;
-    try {
-      const token = await currentUser.getIdToken();
-      dispatch(toggleFavoriteAsync({ token, isbn }));
-    } catch (error) {
-      console.error('Error fetching token for toggling favorite:', error);
     }
   };
 
@@ -245,7 +229,7 @@ function SmallLibraryBook({ book }) {
                   <button className='bg-secondary-btn text-black-75 px-1 py-1.5 w-[125px]'>
                     <div className='flex gap-1 items-center justify-center text-xs'>
                       <FaCheckCircle className='text-body' />
-                      J'ai lu !
+                      J&apos;ai lu !
                     </div>
                   </button>
                   <Link
@@ -259,17 +243,6 @@ function SmallLibraryBook({ book }) {
                       </div>
                     </button>
                   </Link>
-                  {/*                   <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleFavorite(book.isbn);
-                    }}
-                    className={`text-h4 rounded-full cursor-pointer hover:scale-150 transition-all duration-200 ${
-                      isFavorite ? 'text-primary-btn' : 'text-black-75'
-                    }`}
-                  >
-                    <FaHeart className='p-0.5' />
-                  </button> */}
                 </>
               ) : (
                 <>
@@ -332,5 +305,11 @@ function SmallLibraryBook({ book }) {
     </>
   );
 }
+
+import PropTypes from 'prop-types';
+
+SmallLibraryBook.propTypes = {
+  book: PropTypes.object.isRequired,
+};
 
 export default SmallLibraryBook;

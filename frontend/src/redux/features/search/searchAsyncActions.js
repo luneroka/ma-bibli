@@ -1,5 +1,4 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getApiPath } from '../../../utils/apiConfig';
 
 // SEARCH BOOKS
 export const createSearchBooksAsync = (type, apiEndpoint) =>
