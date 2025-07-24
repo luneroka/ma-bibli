@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { createSearchAuthorAsync } from '../../redux/features/search/searchAsyncActions';
@@ -113,7 +113,7 @@ function FromSameAuthor() {
             </Swiper>
           ) : (
             <div className='text-center py-8 text-black-50'>
-              Pas d'autres livres de cet auteur
+              Pas d&apos;autres livres de cet auteur
             </div>
           )}
         </>

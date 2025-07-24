@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   FaRegBookmark,
   FaBookmark,
   FaCheckCircle,
-  FaHeart,
   FaSpinner,
   FaPencilAlt,
 } from 'react-icons/fa';
@@ -18,23 +17,19 @@ import {
   addToWishlistAsync,
   removeFromWishlistAsync,
 } from '../../redux/features/wishlist/wishlistAsyncActions';
-import { toggleFavoriteAsync } from '../../redux/features/favorites/favoritesAsyncActions';
 import { useAuth } from '../../context/AuthContext';
 import {
-  formatNumber,
-  extractYear,
   extractFullDate,
   getCoverUrl,
 } from '../../utils/helper';
+import PropTypes from 'prop-types';
 
 function SmallGoogleBook({ book, libraryBooks = [], wishlistBooks = [] }) {
   const { currentUser } = useAuth();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const favorites = useSelector((state) => state.favorites.favorites) || [];
 
   // Derived states
-  const isFavorite = favorites?.some((fav) => fav.isbn === book.isbn);
   const isInLibrary = libraryBooks.some(
     (libraryBook) => libraryBook.isbn === book.isbn
   );
@@ -116,16 +111,6 @@ function SmallGoogleBook({ book, libraryBooks = [], wishlistBooks = [] }) {
       dispatch(removeFromWishlistAsync({ token, isbn }));
     } catch (error) {
       console.error('Error fetching token for wishlist delete:', error);
-    }
-  };
-
-  const handleFavorite = async (isbn) => {
-    if (!currentUser) return;
-    try {
-      const token = await currentUser.getIdToken();
-      dispatch(toggleFavoriteAsync({ token, isbn }));
-    } catch (error) {
-      console.error('Error fetching token for toggling favorite:', error);
     }
   };
 
@@ -240,7 +225,7 @@ function SmallGoogleBook({ book, libraryBooks = [], wishlistBooks = [] }) {
                   <button className='bg-secondary-btn text-black-75 px-1 py-1.5 w-[125px]'>
                     <div className='flex gap-1 items-center justify-center text-xs'>
                       <FaCheckCircle className='text-body' />
-                      J'ai lu !
+                      J&apos;ai lu !
                     </div>
                   </button>
                   <Link
@@ -327,5 +312,28 @@ function SmallGoogleBook({ book, libraryBooks = [], wishlistBooks = [] }) {
     </>
   );
 }
+
+SmallGoogleBook.propTypes = {
+  book: PropTypes.shape({
+    isbn: PropTypes.string.isRequired,
+    title: PropTypes.string,
+    authors: PropTypes.arrayOf(PropTypes.string),
+    publisher: PropTypes.string,
+    publishedDate: PropTypes.string,
+    cover: PropTypes.string,
+    description: PropTypes.string,
+  }).isRequired,
+  libraryBooks: PropTypes.arrayOf(
+    PropTypes.shape({
+      isbn: PropTypes.string.isRequired,
+      haveRead: PropTypes.bool,
+    })
+  ),
+  wishlistBooks: PropTypes.arrayOf(
+    PropTypes.shape({
+      isbn: PropTypes.string.isRequired,
+    })
+  ),
+};
 
 export default SmallGoogleBook;

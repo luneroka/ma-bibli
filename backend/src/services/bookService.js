@@ -27,7 +27,7 @@ const transformIsbndbBook = (isbndbBook) => {
     authors: book.authors || [],
     publisher: book.publisher || 'Non renseigné',
     publishedDate: book.date_published || book.publish_date || 'N/A',
-    description: book.overview || book.synopsys || 'Pas de description.',
+    description: book.overview || book.synopsis || 'Pas de description.',
     pageCount: book.pages || 0,
     category: category || 'Autres',
     cover: coverUrl,

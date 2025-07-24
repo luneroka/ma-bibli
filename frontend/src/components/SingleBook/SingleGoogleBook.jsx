@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import {
@@ -21,11 +21,10 @@ import {
 import { toggleFavoriteAsync } from '../../redux/features/favorites/favoritesAsyncActions';
 import { useAuth } from '../../context/AuthContext';
 import {
-  formatNumber,
-  extractYear,
   extractFullDate,
   getCoverUrl,
 } from '../../utils/helper';
+import PropTypes from 'prop-types';
 
 function SingleGoogleBook({ book, libraryBooks = [], wishlistBooks = [] }) {
   const { currentUser } = useAuth();
@@ -245,7 +244,7 @@ function SingleGoogleBook({ book, libraryBooks = [], wishlistBooks = [] }) {
                   >
                     <div className='flex gap-1 items-center justify-center'>
                       <FaCheckCircle className='text-body' />
-                      J'ai lu !
+                      J&apos;ai lu !
                     </div>
                   </button>
                   <Link
@@ -332,5 +331,19 @@ function SingleGoogleBook({ book, libraryBooks = [], wishlistBooks = [] }) {
     </>
   );
 }
+
+SingleGoogleBook.propTypes = {
+  book: PropTypes.shape({
+    isbn: PropTypes.string.isRequired,
+    title: PropTypes.string,
+    authors: PropTypes.arrayOf(PropTypes.string),
+    publisher: PropTypes.string,
+    publishedDate: PropTypes.string,
+    description: PropTypes.string,
+    cover: PropTypes.string,
+  }).isRequired,
+  libraryBooks: PropTypes.array,
+  wishlistBooks: PropTypes.array,
+};
 
 export default SingleGoogleBook;

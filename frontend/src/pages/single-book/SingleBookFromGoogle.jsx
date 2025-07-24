@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import SingleGoogleBook from '../../components/SingleBook/SingleGoogleBook';
 import SmallGoogleBook from '../../components/SingleBook/SmallGoogleBook';
 
@@ -38,5 +39,9 @@ function SingleBookFromGoogle({ book }) {
     </>
   );
 }
+
+SingleBookFromGoogle.propTypes = {
+  book: PropTypes.object.isRequired,
+};
 
 export default SingleBookFromGoogle;
