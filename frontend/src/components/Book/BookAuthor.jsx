@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { formatNumber, extractYear, getCoverUrl } from '../../utils/helper';
+import PropTypes from 'prop-types';
 
 function BookAuthor({ book }) {
   const navigate = useNavigate();
@@ -98,5 +99,16 @@ function BookAuthor({ book }) {
     </>
   );
 }
+BookAuthor.propTypes = {
+  book: PropTypes.shape({
+    isbn: PropTypes.string,
+    cover: PropTypes.string,
+    title: PropTypes.string,
+    authors: PropTypes.arrayOf(PropTypes.string),
+    publisher: PropTypes.string,
+    publishedDate: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    pageCount: PropTypes.number,
+  }).isRequired,
+};
 
 export default BookAuthor;

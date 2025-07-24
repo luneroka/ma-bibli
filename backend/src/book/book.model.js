@@ -67,4 +67,6 @@ const bookSchema = new mongoose.Schema(
 // Create a compound index on isbn and userId
 bookSchema.index({ isbn: 1, userId: 1 }, { unique: true });
 
-module.exports = bookSchema;
+const Book = mongoose.model('Book', bookSchema);
+module.exports = Book;
+module.exports.bookSchema = bookSchema;

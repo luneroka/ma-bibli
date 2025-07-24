@@ -1,6 +1,6 @@
-import React from 'react';
 import { Chart, ArcElement, Tooltip, Legend, Title } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
+import PropTypes from 'prop-types';
 
 Chart.register(ArcElement, Tooltip, Legend, Title);
 Chart.defaults.plugins.tooltip.backgroundColor = 'var(--color-white)';
@@ -66,5 +66,12 @@ function DoughnutGraph({ libraryBooks = [] }) {
     </div>
   );
 }
+DoughnutGraph.propTypes = {
+  libraryBooks: PropTypes.arrayOf(
+    PropTypes.shape({
+      category: PropTypes.string,
+    })
+  ),
+};
 
 export default DoughnutGraph;

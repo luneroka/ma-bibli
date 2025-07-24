@@ -22,14 +22,30 @@ const getAllBooks = async (Model, req, res) => {
 const getSingleBook = async (req, res) => {
   try {
     const { isbn } = req.params;
-    const bookData = await fetchBookFromIsbndb(isbn);
-   
-    if (!bookData?.book) {
+    // Try to find the book in the LibraryBook collection
+    const LibraryBook = require('../library/library.model');
+    const WishlistBook = require('../wishlist/wishlist.model');
+    let foundBook = await LibraryBook.findOne({ isbn }).lean();
+    if (foundBook) {
+      return res.status(200).json(foundBook);
+    }
+    // If not found in LibraryBook, check WishlistBook
+    foundBook = await WishlistBook.findOne({ isbn }).lean();
+    if (foundBook) {
+      return res.status(200).json(foundBook);
+    }
+    // If not found locally, try to fetch from ISBNdb
+    try {
+      const bookData = await fetchBookFromIsbndb(isbn);
+      if (!bookData?.book) {
+        return res.status(404).json({ message: 'Book not found' });
+      }
+      const book = transformIsbndbBook(bookData.book);
+      return res.status(200).json(book);
+    } catch (apiError) {
+      // If ISBNdb fails (e.g., invalid ISBN), return 404 instead of 500
       return res.status(404).json({ message: 'Book not found' });
     }
-    
-    const book = transformIsbndbBook(bookData.book);
-    res.status(200).json(book);
   } catch (error) {
     res.status(500).json({ message: 'Could not find the requested book', error: error.message });
   }
