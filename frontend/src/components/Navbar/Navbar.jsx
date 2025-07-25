@@ -109,7 +109,6 @@ const Navbar = () => {
             </button>
 
             <button
-              onClick={handleSearch}
               className='cursor-pointer flex font-merriweather text-white bg-primary-btn h-8 w-12 text-h4 hover:bg-secondary-btn active:bg-black-75 justify-center items-center'
             >
               <CiBarcode />
