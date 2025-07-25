@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { createSearchBooksAsync } from '../../redux/features/search/searchAsyncActions';
 import { useAuth } from '../../context/AuthContext';
 import DropdownMenu from './DropdownMenu';
+import BarcodeScanner from './BarcodeScanner';
 import { getApiPath } from '../../utils/apiConfig';
 
 const NavbarSearch = () => {
@@ -18,6 +19,8 @@ const NavbarSearch = () => {
   const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isScannerOpen, setIsScannerOpen] = useState(false);
+  const [barcodeSearchPending, setBarcodeSearchPending] = useState(false);
   const dropdownRef = useRef(null);
   const { currentUser } = useAuth();
 
@@ -44,9 +47,22 @@ const NavbarSearch = () => {
     }
   };
 
-    const toggleSearch = () => {
+  const toggleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
   }
+
+  const handleBarcodeDetected = (code) => {
+    setSearchTerm(code);
+    setIsScannerOpen(false);
+    setBarcodeSearchPending(true);
+  };
+
+  useEffect(() => {
+    if (barcodeSearchPending && searchTerm) {
+      handleSearch();
+      setBarcodeSearchPending(false);
+    }
+  }, [barcodeSearchPending, searchTerm]);
 
   const [isMobile, setIsMobile] = useState(window.innerWidth < 752);
 
@@ -119,6 +135,7 @@ const NavbarSearch = () => {
           </button>
 
           <button
+            onClick={() => setIsScannerOpen(true)}
             className='cursor-pointer flex font-merriweather text-white bg-primary-btn h-8 w-12 text-h4 hover:bg-secondary-btn active:bg-black-75 justify-center items-center'
           >
             <CiBarcode />
@@ -181,6 +198,13 @@ const NavbarSearch = () => {
           </div>
         </div>
       </nav>
+      )}
+
+      {isScannerOpen && (
+        <BarcodeScanner
+          onDetected={handleBarcodeDetected}
+          onClose={() => setIsScannerOpen(false)}
+        />
       )}
     </header>
   );

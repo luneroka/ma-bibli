@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaListAlt, FaBookOpen, FaUser } from 'react-icons/fa';
 import { IoSearchOutline, IoCloseOutline } from 'react-icons/io5';
 import { CiBarcode } from "react-icons/ci";
+import BarcodeScanner from './BarcodeScanner';
 import avatarImg from '../../assets/avatar.png';
 import { createSearchBooksAsync } from '../../redux/features/search/searchAsyncActions';
 import { useAuth } from '../../context/AuthContext';
@@ -15,20 +16,24 @@ const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isScannerOpen, setIsScannerOpen] = useState(false);
+  const [barcodeSearchPending, setBarcodeSearchPending] = useState(false);
   const dropdownRef = useRef(null);
   const { currentUser } = useAuth();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSearch = async () => {
-    if (searchTerm) {
+  const handleSearch = async (term) => {
+    const searchValue = term || searchTerm;
+    if (searchValue) {
       await dispatch(
         createSearchBooksAsync(
           'searchBooks',
           getApiPath('/api/search/books')
-        )(searchTerm)
+        )(searchValue)
       );
-      navigate('/recherche', { state: { searchTerm } });
+      navigate('/recherche', { state: { searchTerm: searchValue } });
+      setBarcodeSearchPending(false);
     }
   };
 
@@ -54,8 +59,27 @@ const Navbar = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // When a barcode is detected, set searchTerm, close scanner, then trigger search
+  const handleBarcodeDetected = (code) => {
+    setSearchTerm(code);
+    setIsScannerOpen(false);
+    setBarcodeSearchPending(true);
+  };
+
+  useEffect(() => {
+    if (barcodeSearchPending && searchTerm) {
+      handleSearch(searchTerm);
+    }
+  }, [barcodeSearchPending, searchTerm]);
+
   return (
     <header className='w-full sticky top-0 z-50 bg-main-blue h-[64px] xs:h-[70px] items-center'>
+      {isScannerOpen && (
+        <BarcodeScanner
+          onDetected={handleBarcodeDetected}
+          onClose={() => setIsScannerOpen(false)}
+        />
+      )}
       {isSearchOpen ? (
         <nav className='flex gap-2 items-center px-[32px] sm:px-[64px] md:px-[128px] py-[17px]'>
           <div className='w-full'>
@@ -109,6 +133,7 @@ const Navbar = () => {
             </button>
 
             <button
+              onClick={() => setIsScannerOpen(true)}
               className='cursor-pointer flex font-merriweather text-white bg-primary-btn h-8 w-12 text-h4 hover:bg-secondary-btn active:bg-black-75 justify-center items-center'
             >
               <CiBarcode />
