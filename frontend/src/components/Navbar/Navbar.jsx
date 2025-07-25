@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaListAlt, FaBookOpen, FaUser } from 'react-icons/fa';
 import { IoSearchOutline, IoCloseOutline } from 'react-icons/io5';
-import { CiBarcode } from "react-icons/ci";
+import { CiBarcode } from 'react-icons/ci';
 import BarcodeScanner from './BarcodeScanner';
 import avatarImg from '../../assets/avatar.png';
 import { createSearchBooksAsync } from '../../redux/features/search/searchAsyncActions';
@@ -17,13 +17,13 @@ const Navbar = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [isScannerOpen, setIsScannerOpen] = useState(false);
-  const [barcodeSearchPending, setBarcodeSearchPending] = useState(false);
   const dropdownRef = useRef(null);
   const { currentUser } = useAuth();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSearch = async (term) => {
+  // Search from input
+  const handleInputSearch = async (term) => {
     const searchValue = term || searchTerm;
     if (searchValue) {
       await dispatch(
@@ -33,20 +33,34 @@ const Navbar = () => {
         )(searchValue)
       );
       navigate('/recherche', { state: { searchTerm: searchValue } });
-      setBarcodeSearchPending(false);
+    }
+  };
+
+  // Search from barcode scanner
+  const handleBarcodeSearch = async (isbn) => {
+    if (isbn) {
+      try {
+        const res = await fetch(getApiPath(`/api/books/${isbn}`));
+        const book = await res.json();
+        navigate(`/livres/${isbn}`, { state: { book } });
+      } catch (err) {
+        navigate('/recherche', {
+          state: { searchTerm: isbn, error: 'Livre non trouvé.' },
+        });
+      }
     }
   };
 
   // Submit search form with 'Enter' key
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
-      handleSearch();
+      handleInputSearch();
     }
   };
 
   const toggleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
-  }
+  };
 
   const [isMobile, setIsMobile] = useState(window.innerWidth < 752);
 
@@ -59,18 +73,12 @@ const Navbar = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // When a barcode is detected, set searchTerm, close scanner, then trigger search
+  // When a barcode is detected, set searchTerm, close scanner, then trigger barcode search
   const handleBarcodeDetected = (code) => {
     setSearchTerm(code);
     setIsScannerOpen(false);
-    setBarcodeSearchPending(true);
+    handleBarcodeSearch(code);
   };
-
-  useEffect(() => {
-    if (barcodeSearchPending && searchTerm) {
-      handleSearch(searchTerm);
-    }
-  }, [barcodeSearchPending, searchTerm]);
 
   return (
     <header className='w-full sticky top-0 z-50 bg-main-blue h-[64px] xs:h-[70px] items-center'>
@@ -94,7 +102,7 @@ const Navbar = () => {
           </div>
 
           <button
-            onClick={handleSearch}
+            onClick={handleInputSearch}
             className='cursor-pointer flex font-merriweather text-white bg-primary-btn h-8 w-12 text-h5 hover:bg-secondary-btn active:bg-black-75 justify-center items-center'
           >
             <IoSearchOutline />
@@ -112,7 +120,7 @@ const Navbar = () => {
           {/* Left side */}
           <div className='flex gap-4'>
             {/* Search Form: only render input on sm and up */}
-            { !isMobile && (
+            {!isMobile && (
               <div className='sm:w-[350px] md:w-[480px]'>
                 <input
                   type='text'
@@ -126,7 +134,7 @@ const Navbar = () => {
             )}
 
             <button
-              onClick={isMobile ? toggleSearch : handleSearch}
+              onClick={isMobile ? toggleSearch : handleInputSearch}
               className='cursor-pointer flex font-merriweather text-white bg-primary-btn h-8 w-12 text-h5 hover:bg-secondary-btn active:bg-black-75 justify-center items-center'
             >
               <IoSearchOutline />

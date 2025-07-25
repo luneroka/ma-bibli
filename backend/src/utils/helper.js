@@ -10,75 +10,31 @@ const fetchJson = async (url, options = {}) => {
 
 function mapBookCategory(category) {
   if (!category || typeof category !== 'string') return 'Autres';
-  const categoryMapping = {
-    'ANTIQUES & COLLECTIBLES': 'Art & Design',
-    ARCHITECTURE: 'Art & Design',
-    ART: 'Art & Design',
-    PHOTOGRAPHY: 'Art & Design',
-    DESIGN: 'Art & Design',
-
-    'LITERARY COLLECTIONS': 'Littérature',
-    'LITERARY CRITICISM': 'Littérature',
-    POETRY: 'Littérature',
-    FICTION: 'Littérature',
-    DRAMA: 'Littérature',
-
-    'BIOGRAPHY & AUTOBIOGRAPHY': 'Biographie & Mémoires',
-    'TRUE CRIME': 'Biographie & Mémoires',
-
-    'BUSINESS & ECONOMICS': 'Affaires & Finance',
-    'POLITICAL SCIENCE': 'Affaires & Finance',
-    LAW: 'Affaires & Finance',
-
-    COMPUTERS: 'Science & Technologie',
-    'TECHNOLOGY & ENGINEERING': 'Science & Technologie',
-    SCIENCE: 'Science & Technologie',
-    MATHEMATICS: 'Science & Technologie',
-
-    'BODY, MIND & SPIRIT': 'Développement Personnel & Bien-être',
-    'SELF-HELP': 'Développement Personnel & Bien-être',
-    'HEALTH & FITNESS': 'Développement Personnel & Bien-être',
-    PSYCHOLOGY: 'Développement Personnel & Bien-être',
-
-    'FAMILY & RELATIONSHIPS': 'Mode de Vie',
-    'HOUSE & HOME': 'Mode de Vie',
-    GARDENING: 'Mode de Vie',
-    COOKING: 'Mode de Vie',
-    PETS: 'Mode de Vie',
-
-    'GAMES & ACTIVITIES': 'Divertissement',
-    HUMOR: 'Divertissement',
-    'SPORTS & RECREATION': 'Divertissement',
-    'PERFORMING ARTS': 'Divertissement',
-    MUSIC: 'Divertissement',
-
-    'COMICS & GRAPHIC NOVELS': 'BD & Manga',
-
-    EDUCATION: 'Éducation & Référence',
-    'STUDY AIDS': 'Éducation & Référence',
-    REFERENCE: 'Éducation & Référence',
-    'LANGUAGE ARTS & DISCIPLINES': 'Éducation & Référence',
-    'LANGUAGE STUDY': 'Éducation & Référence',
-
-    PHILOSOPHY: 'Sciences Sociales & Culturelles',
-    RELIGION: 'Sciences Sociales & Culturelles',
-    'SOCIAL SCIENCE': 'Sciences Sociales & Culturelles',
-    HISTORY: 'Sciences Sociales & Culturelles',
-    TRAVEL: 'Sciences Sociales & Culturelles',
-
-    'JUVENILE FICTION': 'Jeunesse & Young Adult',
-    'JUVENILE NONFICTION': 'Jeunesse & Young Adult',
-    'YOUNG ADULT FICTION': 'Jeunesse & Young Adult',
-    'YOUNG ADULT NONFICTION': 'Jeunesse & Young Adult',
-
-    MEDICAL: 'Sujets Spécialisés',
-    NATURE: 'Sujets Spécialisés',
-    TRANSPORTATION: 'Sujets Spécialisés',
-    'CRAFTS & HOBBIES': 'Sujets Spécialisés',
-    BIBLES: 'Sujets Spécialisés',
+  const categoryKeywords = {
+    'Art & Design': ['art', 'design', 'architecture', 'photography', 'antiques', 'collectibles', 'painting', 'sculpture', 'fashion', 'graphic design'],
+    'Littérature': ['fiction', 'poetry', 'drama', 'literary', 'criticism', 'novel', 'short stories', 'narrative', 'classics'],
+    'Biographie & Mémoires': ['biography', 'autobiography', 'true crime', 'memoir', 'life story', 'diary'],
+    'Affaires & Finance': ['business', 'economics', 'finance', 'law', 'political', 'management', 'money', 'investing', 'entrepreneurship', 'startup', 'leadership', 'marketing', 'strategy'],
+    'Science & Technologie': ['science', 'technology', 'engineering', 'computers', 'mathematics', 'math', 'biology', 'physics', 'chemistry', 'data science', 'AI', 'robotics', 'astronomy'],
+    'Développement Personnel & Bien-être': ['body', 'mind', 'spirit', 'self-help', 'health', 'fitness', 'psychology', 'wellness', 'motivation', 'productivity', 'happiness', 'meditation', 'mental health'],
+    'Mode de Vie': ['family', 'relationships', 'house', 'home', 'gardening', 'cooking', 'pets', 'lifestyle', 'interior design', 'parenting', 'recipes', 'diy'],
+    'Divertissement': ['games', 'activities', 'humor', 'sports', 'recreation', 'performing arts', 'music', 'entertainment', 'cinema', 'movies', 'tv shows', 'board games'],
+    'BD & Manga': ['comics', 'graphic novels', 'manga', 'bd', 'anime', 'superhero', 'comic book'],
+    'Éducation & Référence': ['education', 'study aids', 'reference', 'language arts', 'language study', 'school', 'curriculum', 'academic', 'encyclopedia', 'dictionaries'],
+    'Sciences Sociales & Culturelles': ['philosophy', 'religion', 'social science', 'history', 'travel', 'culture', 'anthropology', 'sociology', 'mythology', 'geography'],
+    'Jeunesse & Young Adult': ['juvenile', 'young adult', 'children', "children's books", 'kids', 'teen', 'picture books', 'tween', 'middle grade', 'YA'],
+    'Sujets Spécialisés': ['medical', 'nature', 'transportation', 'crafts', 'hobbies', 'bibles', 'special', 'aviation', 'automotive', 'sewing', 'knitting', 'military', 'manuals'],
   };
 
-  return categoryMapping[category.toUpperCase()] || 'Autres';
+  const normalized = category.toLowerCase();
+  for (const target in categoryKeywords) {
+    for (const keyword of categoryKeywords[target]) {
+      if (normalized.includes(keyword)) {
+        return target;
+      }
+    }
+  }
+  return 'Autres';
 }
 
 // Simple function to generate a random ID.
