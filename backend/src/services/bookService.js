@@ -17,9 +17,16 @@ const transformIsbndbBook = (isbndbBook) => {
   let coverUrl = book.image || '/product-not-found.png';
 
   // Map book category
-  const category = book.subjects && book.subjects.length > 0
-    ? mapBookCategory(book.subjects[1])
-    : 'Autres';
+  let category = 'Autres';
+  if (book.subjects && book.subjects.length > 0) {
+    for (const subject of book.subjects) {
+      const mapped = mapBookCategory(subject);
+      if (mapped && mapped !== 'Autres') {
+        category = mapped;
+        break;
+      }
+    }
+  }
 
   return {
     isbn,

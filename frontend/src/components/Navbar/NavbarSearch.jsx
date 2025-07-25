@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaListAlt, FaBookOpen, FaUser } from 'react-icons/fa';
 import { IoSearchOutline, IoCloseOutline, IoHome } from 'react-icons/io5';
-import { CiBarcode } from "react-icons/ci";
+import { CiBarcode } from 'react-icons/ci';
 import avatarImg from '../../assets/avatar.png';
 import { useDispatch } from 'react-redux';
 import { createSearchBooksAsync } from '../../redux/features/search/searchAsyncActions';
@@ -20,7 +20,6 @@ const NavbarSearch = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isScannerOpen, setIsScannerOpen] = useState(false);
-  const [barcodeSearchPending, setBarcodeSearchPending] = useState(false);
   const dropdownRef = useRef(null);
   const { currentUser } = useAuth();
 
@@ -30,39 +29,50 @@ const NavbarSearch = () => {
     }
   }, [location.state?.searchTerm]);
 
-  const handleSearch = async () => {
-    await dispatch(
-      createSearchBooksAsync(
-        'searchBooks',
-        getApiPath('/api/search/books')
-      )(searchTerm)
-    );
-    navigate('/recherche', { state: { searchTerm } });
+  // Search from input
+  const handleInputSearch = async () => {
+    if (searchTerm) {
+      await dispatch(
+        createSearchBooksAsync(
+          'searchBooks',
+          getApiPath('/api/search/books')
+        )(searchTerm)
+      );
+      navigate('/recherche', { state: { searchTerm } });
+    }
+  };
+
+  // Search from barcode scanner
+  const handleBarcodeSearch = async (isbn) => {
+    if (isbn) {
+      try {
+        const res = await fetch(getApiPath(`/api/books/${isbn}`));
+        const book = await res.json();
+        navigate(`/livres/${isbn}`, { state: { book } });
+      } catch (err) {
+        navigate('/recherche', {
+          state: { searchTerm: isbn, error: 'Livre non trouvé.' },
+        });
+      }
+    }
   };
 
   // Submit search form with 'Enter' key
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
-      handleSearch();
+      handleInputSearch();
     }
   };
 
   const toggleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
-  }
+  };
 
   const handleBarcodeDetected = (code) => {
     setSearchTerm(code);
     setIsScannerOpen(false);
-    setBarcodeSearchPending(true);
+    handleBarcodeSearch(code);
   };
-
-  useEffect(() => {
-    if (barcodeSearchPending && searchTerm) {
-      handleSearch();
-      setBarcodeSearchPending(false);
-    }
-  }, [barcodeSearchPending, searchTerm]);
 
   const [isMobile, setIsMobile] = useState(window.innerWidth < 752);
 
@@ -91,7 +101,7 @@ const NavbarSearch = () => {
           </div>
 
           <button
-            onClick={handleSearch}
+            onClick={handleInputSearch}
             className='cursor-pointer flex font-merriweather text-white bg-primary-btn h-8 w-12 text-h5 hover:bg-secondary-btn active:bg-black-75 justify-center items-center'
           >
             <IoSearchOutline />
@@ -106,98 +116,98 @@ const NavbarSearch = () => {
         </nav>
       ) : (
         <nav className='flex justify-between items-center px-[32px] sm:px-[64px] lg:px-[128px] py-[17px]'>
-        {/* Left side */}
-        <Link to='/'>
-          <IoHome className='cursor-pointer size-7 text-white hover:text-primary-btn' />
-        </Link>
-
-        {/* Middle */}
-        <div className='flex items-center gap-4'>
-          {/* Search Form: only render input on sm and up */}
-          { !isMobile && (
-            <div className='sm:w-[300px]'>
-              <input
-                type='text'
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                onKeyDown={handleKeyDown}
-                placeholder='Rechercher un livre...'
-                className='bg-white w-full h-7 xs:h-8 pl-4 xs:pl-6 pr-4 text-small md:text-body focus:outline-none focus:ring-2 focus:ring-primary-btn placeholder:text-small'
-              />
-            </div>
-          )}
-
-          <button
-            onClick={isMobile ? toggleSearch : handleSearch}
-            className='cursor-pointer flex font-merriweather text-white bg-primary-btn h-8 w-12 text-h5 hover:bg-secondary-btn active:bg-black-75 justify-center items-center'
-          >
-            <IoSearchOutline />
-          </button>
-
-          <button
-            onClick={() => setIsScannerOpen(true)}
-            className='cursor-pointer flex font-merriweather text-white bg-primary-btn h-8 w-12 text-h4 hover:bg-secondary-btn active:bg-black-75 justify-center items-center'
-          >
-            <CiBarcode />
-          </button>
-        </div>
-
-        {/* Right side */}
-        <div className='flex items-center gap-4'>
-          {/* Wishlist Icon */}
-          <Link to='/wishlist'>
-            <FaListAlt className='size-6 text-white hover:text-primary-btn' />
+          {/* Left side */}
+          <Link to='/'>
+            <IoHome className='cursor-pointer size-7 text-white hover:text-primary-btn' />
           </Link>
 
-          {/* Library Icon */}
-          <Link to='/bibli'>
-            <FaBookOpen className='size-6 text-white hover:text-primary-btn' />
-          </Link>
-
-          {/* Display Name */}
-          {currentUser && currentUser.displayName ? (
-            <div className='text-white font-merriweather hidden min-[880px]:block'>
-              {currentUser.displayName}
-            </div>
-          ) : (
-            ''
-          )}
-
-          {/* User Icon and dropdown */}
-          <div className='relative flex items-center' ref={dropdownRef}>
-            {currentUser ? (
-              <>
-                <button
-                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                  className='cursor-pointer'
-                >
-                  <img
-                    src={
-                      currentUser.photoURL ? currentUser.photoURL : avatarImg
-                    }
-                    alt=''
-                    className={`size-6 xs:size-8 rounded-full ${
-                      currentUser
-                        ? 'ring-2 ring-white hover:ring-primary-btn'
-                        : ''
-                    }`}
-                  />
-                </button>
-
-                {isDropdownOpen && (
-                  <DropdownMenu
-                    closeDropdown={() => setIsDropdownOpen(false)}
-                  />
-                )}
-              </>
-            ) : (
-              <Link to='/login'>
-                <FaUser className='w-6 h-6 text-white hover:text-primary-btn' />
-              </Link>
+          {/* Middle */}
+          <div className='flex items-center gap-4'>
+            {/* Search Form: only render input on sm and up */}
+            {!isMobile && (
+              <div className='sm:w-[300px]'>
+                <input
+                  type='text'
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  placeholder='Rechercher un livre...'
+                  className='bg-white w-full h-7 xs:h-8 pl-4 xs:pl-6 pr-4 text-small md:text-body focus:outline-none focus:ring-2 focus:ring-primary-btn placeholder:text-small'
+                />
+              </div>
             )}
+
+            <button
+              onClick={isMobile ? toggleSearch : handleInputSearch}
+              className='cursor-pointer flex font-merriweather text-white bg-primary-btn h-8 w-12 text-h5 hover:bg-secondary-btn active:bg-black-75 justify-center items-center'
+            >
+              <IoSearchOutline />
+            </button>
+
+            <button
+              onClick={() => setIsScannerOpen(true)}
+              className='cursor-pointer flex font-merriweather text-white bg-primary-btn h-8 w-12 text-h4 hover:bg-secondary-btn active:bg-black-75 justify-center items-center'
+            >
+              <CiBarcode />
+            </button>
           </div>
-        </div>
-      </nav>
+
+          {/* Right side */}
+          <div className='flex items-center gap-4'>
+            {/* Wishlist Icon */}
+            <Link to='/wishlist'>
+              <FaListAlt className='size-6 text-white hover:text-primary-btn' />
+            </Link>
+
+            {/* Library Icon */}
+            <Link to='/bibli'>
+              <FaBookOpen className='size-6 text-white hover:text-primary-btn' />
+            </Link>
+
+            {/* Display Name */}
+            {currentUser && currentUser.displayName ? (
+              <div className='text-white font-merriweather hidden min-[880px]:block'>
+                {currentUser.displayName}
+              </div>
+            ) : (
+              ''
+            )}
+
+            {/* User Icon and dropdown */}
+            <div className='relative flex items-center' ref={dropdownRef}>
+              {currentUser ? (
+                <>
+                  <button
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    className='cursor-pointer'
+                  >
+                    <img
+                      src={
+                        currentUser.photoURL ? currentUser.photoURL : avatarImg
+                      }
+                      alt=''
+                      className={`size-6 xs:size-8 rounded-full ${
+                        currentUser
+                          ? 'ring-2 ring-white hover:ring-primary-btn'
+                          : ''
+                      }`}
+                    />
+                  </button>
+
+                  {isDropdownOpen && (
+                    <DropdownMenu
+                      closeDropdown={() => setIsDropdownOpen(false)}
+                    />
+                  )}
+                </>
+              ) : (
+                <Link to='/login'>
+                  <FaUser className='w-6 h-6 text-white hover:text-primary-btn' />
+                </Link>
+              )}
+            </div>
+          </div>
+        </nav>
       )}
 
       {isScannerOpen && (

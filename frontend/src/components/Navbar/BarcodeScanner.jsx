@@ -8,7 +8,9 @@ function BarcodeScanner({ onDetected, onClose }) {
 
   useEffect(() => {
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-      alert('Camera access is not supported in this browser. Please use a modern browser like Safari, Chrome, or Firefox.');
+      alert(
+        'Camera access is not supported in this browser. Please use a modern browser like Safari, Chrome, or Firefox.'
+      );
       onClose();
       return;
     }
@@ -19,20 +21,27 @@ function BarcodeScanner({ onDetected, onClose }) {
     // Use larger or default constraints for iOS
     const constraints = {
       video: {
-        facingMode: { ideal: 'environment' }
-      }
+        facingMode: { ideal: 'environment' },
+      },
     };
 
     codeReaderRef.current = new BrowserMultiFormatReader();
     let controls;
     codeReaderRef.current
-      .decodeFromVideoDevice(null, videoRef.current, (result, err) => {
-        if (result) {
-          onDetected(result.getText());
-          onClose();
-        }
-      }, constraints)
-      .then(c => { controls = c; })
+      .decodeFromVideoDevice(
+        null,
+        videoRef.current,
+        (result, err) => {
+          if (result) {
+            onDetected(result.getText());
+            onClose();
+          }
+        },
+        constraints
+      )
+      .then((c) => {
+        controls = c;
+      })
       .catch(() => {
         alert('Camera permission denied or not available.');
         onClose();
