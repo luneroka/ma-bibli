@@ -44,11 +44,11 @@
   --text-metrics-number: 1.44rem;
   --text-metrics-type: 1.111rem;
   --text-chart-title: 1.111rem;
-  --breakpoint-xs: 35rem;
-  --breakpoint-sm: 47rem;
-  --breakpoint-md: 75rem;
-  --breakpoint-lg: 80rem;
-  --breakpoint-xl: 120rem;
+  --breakpoint-xs: 35rem; /* 560px */
+  --breakpoint-sm: 47rem; /* 752px */
+  --breakpoint-md: 75rem; /* 1200px */
+  --breakpoint-lg: 80rem; /* 1280px */
+  --breakpoint-xl: 120rem; /* 1920px */
 }
 
 html,

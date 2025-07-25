@@ -18,7 +18,7 @@ function NavbarUser() {
         <div className='flex items-center gap-4'>
           {/* Home Icon */}
           <Link to='/'>
-            <IoHome className='cursor-pointer w-6 h-6 text-white hover:text-primary-btn' />
+            <IoHome className='cursor-pointer size-7 text-white hover:text-primary-btn' />
           </Link>
         </div>
 
@@ -64,7 +64,7 @@ function NavbarUser() {
               </>
             ) : (
               <Link to='/login'>
-                <FaUser className='w-6 h-6 text-white hover:text-primary-btn' />
+                <FaUser className='size-6 text-white hover:text-primary-btn' />
               </Link>
             )}
           </div>
