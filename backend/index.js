@@ -74,6 +74,10 @@ app.use(
   })
 );
 
+// Reading Objective route
+const readingObjectiveRoutes = require('.src/readingObjective/readingObjective.route');
+app.use('/api/reading-objective', readingObjectiveRoutes);
+
 // News routes
 const newsRoutes = require('./src/news/news.route');
 app.use('/api/news', newsRoutes);
