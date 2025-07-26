@@ -87,6 +87,12 @@ const NavbarSearch = () => {
 
   return (
     <header className='w-full sticky top-0 z-50 bg-main-blue h-[70px] items-center'>
+      {isScannerOpen && (
+        <BarcodeScanner
+          onDetected={handleBarcodeDetected}
+          onClose={() => setIsScannerOpen(false)}
+        />
+      )}
       {isSearchOpen ? (
         <nav className='flex gap-2 items-center px-[32px] sm:px-[64px] md:px-[128px] py-[17px]'>
           <div className='w-full'>
@@ -208,13 +214,6 @@ const NavbarSearch = () => {
             </div>
           </div>
         </nav>
-      )}
-
-      {isScannerOpen && (
-        <BarcodeScanner
-          onDetected={handleBarcodeDetected}
-          onClose={() => setIsScannerOpen(false)}
-        />
       )}
     </header>
   );

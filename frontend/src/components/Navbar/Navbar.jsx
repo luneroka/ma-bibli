@@ -23,16 +23,15 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   // Search from input
-  const handleInputSearch = async (term) => {
-    const searchValue = term || searchTerm;
-    if (searchValue) {
+  const handleInputSearch = async () => {
+    if (searchTerm) {
       await dispatch(
         createSearchBooksAsync(
           'searchBooks',
           getApiPath('/api/search/books')
-        )(searchValue)
+        )(searchTerm)
       );
-      navigate('/recherche', { state: { searchTerm: searchValue } });
+      navigate('/recherche', { state: { searchTerm } });
     }
   };
 
@@ -62,6 +61,13 @@ const Navbar = () => {
     setIsSearchOpen(!isSearchOpen);
   };
 
+  // When a barcode is detected, set searchTerm, close scanner, then trigger barcode search
+  const handleBarcodeDetected = (code) => {
+    setSearchTerm(code);
+    setIsScannerOpen(false);
+    handleBarcodeSearch(code);
+  };
+
   const [isMobile, setIsMobile] = useState(window.innerWidth < 752);
 
   // Update isMobile on window resize
@@ -72,13 +78,6 @@ const Navbar = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-
-  // When a barcode is detected, set searchTerm, close scanner, then trigger barcode search
-  const handleBarcodeDetected = (code) => {
-    setSearchTerm(code);
-    setIsScannerOpen(false);
-    handleBarcodeSearch(code);
-  };
 
   return (
     <header className='w-full sticky top-0 z-50 bg-main-blue h-[64px] xs:h-[70px] items-center'>
