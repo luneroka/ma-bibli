@@ -1,7 +1,7 @@
 export const categoryOptions = [
   'Jeunesse & Young Adult',
   'Littérature',
-  'Fantaisie & SF',
+  'Fantasy & SF',
   'Policier',
   'BD & Manga',
   'Business',
