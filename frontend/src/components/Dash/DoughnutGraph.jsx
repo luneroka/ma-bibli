@@ -56,12 +56,13 @@ function DoughnutGraph({ libraryBooks = [] }) {
 
   // Chart options: disable aspect ratio for full control of container dimensions
   const options = {
-    maintainAspectRatio: false,
+    maintainAspectRatio: true,
+    aspectRatio: 1.5,
     responsive: true,
   };
 
   return (
-    <div className='w-full h-85 flex justify-center items-center'>
+    <div className='w-full h-full min-[600px]:h-85 flex justify-center items-center'>
       <Doughnut data={data} options={options} />
     </div>
   );

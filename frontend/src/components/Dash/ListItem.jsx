@@ -6,14 +6,14 @@ function ListItem({ book }) {
 
   return (
     <div className='text-start flex flex-col m-0'>
-      <div className='pl-2 text-black-100 text-small-body font-light'>
+      <div className='pl-2 text-black-100 text-small min-[700px]:text-small-body font-light'>
         <Link to={`/livres/${book.isbn}`}>
           {book.title.length > 42
             ? `${book.title.slice(0, 42)}...`
             : book.title}
         </Link>
       </div>
-      <div className='flex pl-2 text-black-75 text-small font-light'>
+      <div className='flex pl-2 text-black-75 text-xs min-[700px]:text-small font-light'>
         {authorsFormatted.length > 40
           ? `${authorsFormatted.slice(0, 40)}...`
           : authorsFormatted}
