@@ -38,22 +38,23 @@ function DashBody({ activeFilter, readingObjective }) {
       ? Math.round((haveReadBooks.length / libraryBooks.length) * 100)
       : 0;
 
-  const filteredHaveReadBooks = readingObjective.timeframe
+  const filteredHaveReadBooks = readingObjective.objectiveStartDate
     ? haveReadBooks.filter(
         (book) =>
-          new Date(book.dateHaveRead) >= new Date(readingObjective.timeframe)
+          new Date(book.dateHaveRead) >=
+          new Date(readingObjective.objectiveStartDate)
       )
     : haveReadBooks;
 
   const hasObjective =
     readingObjective &&
-    typeof readingObjective.objective === 'number' &&
-    readingObjective.objective > 0 &&
-    readingObjective.timeframe;
+    typeof readingObjective.readingObjective === 'number' &&
+    readingObjective.readingObjective > 0 &&
+    readingObjective.objectiveStartDate;
 
   const userProgress = hasObjective
     ? Math.round(
-        (filteredHaveReadBooks.length / readingObjective.objective) * 100
+        (filteredHaveReadBooks.length / readingObjective.readingObjective) * 100
       )
     : 0;
 
@@ -73,8 +74,10 @@ function DashBody({ activeFilter, readingObjective }) {
         {hasObjective ? (
           <>
             <p className='text-xs min-[700px]:text-small font-light text-black-75'>
-              OBJECTIF ANNUEL : {readingObjective.objective} livres du{' '}
-              {new Date(readingObjective.timeframe).toLocaleDateString('fr-FR')}{' '}
+              OBJECTIF ANNUEL : {readingObjective.readingObjective} livres du{' '}
+              {new Date(readingObjective.objectiveStartDate).toLocaleDateString(
+                'fr-FR'
+              )}{' '}
               au 31/12/{new Date().getFullYear()}
               <span className='ml-2 text-primary-btn hover:text-secondary-btn active:text-black-75 text-xs'>
                 <Link to='/mon-compte'>modifier l&apos;objectif</Link>
@@ -119,11 +122,11 @@ function DashBody({ activeFilter, readingObjective }) {
 DashBody.propTypes = {
   activeFilter: PropTypes.string.isRequired,
   readingObjective: PropTypes.shape({
-    objective: PropTypes.number,
-    timeframe: PropTypes.oneOfType([
+    objectiveStartDate: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.instanceOf(Date),
     ]),
+    readingObjective: PropTypes.number,
   }).isRequired,
 };
 

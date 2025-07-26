@@ -33,26 +33,30 @@ function UserAccount() {
 
   // Initialize localObjective(s)
   const [localObjective, setLocalObjective] = useState(
-    readingObjective.objective ? readingObjective.objective.toString() : ''
+    readingObjective.readingObjective !== undefined
+      ? readingObjective.readingObjective.toString()
+      : ''
   );
   const [localTimeframeObjective, setLocalTimeframeObjective] = useState(
-    readingObjective.timeframe || ''
+    readingObjective.objectiveStartDate || ''
   );
 
   // Keep objectives in sync if the context changes
   useEffect(() => {
     setLocalObjective(
-      readingObjective.objective ? readingObjective.objective.toString() : ''
+      readingObjective.readingObjective !== undefined
+        ? readingObjective.readingObjective.toString()
+        : ''
     );
-    setLocalTimeframeObjective(readingObjective.timeframe || '');
+    setLocalTimeframeObjective(readingObjective.objectiveStartDate || '');
   }, [readingObjective]);
 
   const handleObjectiveSubmit = (e) => {
     e.preventDefault();
     const objectiveValue = Number(localObjective);
     setReadingObjective({
-      objective: objectiveValue,
-      timeframe: localTimeframeObjective,
+      readingObjective: objectiveValue,
+      objectiveStartDate: localTimeframeObjective,
     });
     setPersonalizeMessage({
       text: "L'objectif a été mis à jour avec succès !",
@@ -245,6 +249,7 @@ function UserAccount() {
                     onChange={(e) => setLocalObjective(e.target.value)}
                     className={inputClass}
                     required
+                    min={1}
                   />
                 </div>
                 <div>
