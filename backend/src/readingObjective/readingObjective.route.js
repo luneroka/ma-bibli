@@ -8,6 +8,6 @@ router.use(firebaseAuthMiddleware);
 
 router.get('/', (req, res) => getReadingObjective(req, res));
 
-router.post('/set-reading-objective', (req, res) => setReadingObjective(req, res));
+router.put('/', (req, res) => setReadingObjective(req, res));
 
 module.exports = router;
