@@ -3,10 +3,12 @@ import DoughnutGraph from './DoughnutGraph';
 
 function GraphCard({ libraryBooks = [] }) {
   return (
-    <div className='h-[500px] bg-white-bg shadow-lg'>
-      <div className='bg-white-bg text-center text-chart-title p-4'>
+    <div className='h-full bg-white-bg shadow-lg'>
+      <div className='bg-white-bg text-center text-body min-[700px]:text-chart-title p-4'>
         {/* Card Title */}
-        <div className='mb-8 text-black-100'>Répartition par genre</div>
+        <div className='mb-4 min-[700px]:mb-8 text-black-100'>
+          Répartition des genres dans la bibli
+        </div>
 
         {/* Graph */}
         <div className='flex justify-center'>
@@ -17,7 +19,7 @@ function GraphCard({ libraryBooks = [] }) {
   );
 }
 GraphCard.propTypes = {
-  libraryBooks: PropTypes.array
+  libraryBooks: PropTypes.array,
 };
 
 export default GraphCard;

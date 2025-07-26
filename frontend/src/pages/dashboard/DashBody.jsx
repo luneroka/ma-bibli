@@ -61,7 +61,7 @@ function DashBody({ activeFilter, readingObjective }) {
     <div className='mx-[32px] sm:mx-[64px] lg:mx-[128px] grid grid-cols-1 min-[700px]:grid-cols-2 lg:grid-cols-4 gap-[24px] mb-[32px]'>
       {/* Progression Bars */}
       <div className='col-span-1 min-[700px]:col-span-2'>
-        <p className='text-small font-light text-black-75'>
+        <p className='text-xs min-[700px]:text-small font-light text-black-75'>
           LIVRES LUS / LIVRES POSSÉDÉS
         </p>
         <PrograssBars
@@ -72,10 +72,10 @@ function DashBody({ activeFilter, readingObjective }) {
       <div className='col-span-1 min-[700px]:col-span-2'>
         {hasObjective ? (
           <>
-            <p className='text-small font-light text-black-75'>
+            <p className='text-xs min-[700px]:text-small font-light text-black-75'>
               OBJECTIF ANNUEL : {readingObjective.objective} livres du{' '}
-              {new Date(readingObjective.timeframe).toLocaleDateString('fr-FR')} au
-              31/12/{new Date().getFullYear()}
+              {new Date(readingObjective.timeframe).toLocaleDateString('fr-FR')}{' '}
+              au 31/12/{new Date().getFullYear()}
               <span className='ml-2 text-primary-btn hover:text-secondary-btn active:text-black-75 text-xs'>
                 <Link to='/mon-compte'>modifier l&apos;objectif</Link>
               </span>
@@ -93,21 +93,20 @@ function DashBody({ activeFilter, readingObjective }) {
                 <Link to='/mon-compte'>définir un objectif</Link>
               </span>
             </p>
-            <PrograssBars
-              className='h-[16px] flex items-center'
-              progress={0}
-            />
+            <PrograssBars className='h-[16px] flex items-center' progress={0} />
           </>
         )}
       </div>
 
       {/* Metrics Cards and other components */}
-      <MetricCard variant='books' libraryBooks={filteredBooks} />
-      <MetricCard variant='pageCount' libraryBooks={filteredBooks} />
-      <MetricCard variant='topGenre' libraryBooks={filteredBooks} />
-      <MetricCard variant='topAuthor' libraryBooks={filteredBooks} />
+      <div className='col-span-1 min-[700px]:col-span-2 lg:col-span-4 grid grid-cols-2 lg:grid-cols-4 gap-4'>
+        <MetricCard variant='books' libraryBooks={filteredBooks} />
+        <MetricCard variant='pageCount' libraryBooks={filteredBooks} />
+        <MetricCard variant='topGenre' libraryBooks={filteredBooks} />
+        <MetricCard variant='topAuthor' libraryBooks={filteredBooks} />
+      </div>
 
-      <div className='col-span-1 min-[700px]:col-span-2'>
+      <div className='min-[700px]:col-span-2'>
         <GraphCard libraryBooks={filteredBooks} />
       </div>
 
@@ -121,7 +120,10 @@ DashBody.propTypes = {
   activeFilter: PropTypes.string.isRequired,
   readingObjective: PropTypes.shape({
     objective: PropTypes.number,
-    timeframe: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+    timeframe: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date),
+    ]),
   }).isRequired,
 };
 

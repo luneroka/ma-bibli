@@ -9,7 +9,7 @@ function ListCard({ variant, libraryBooks = [] }) {
       .sort((a, b) => new Date(b.dateHaveRead) - new Date(a.dateHaveRead))
       .slice(0, 5);
     return (
-      <div className='h-[500px] bg-white-bg text-center text-chart-title p-4 overflow-hidden shadow-lg'>
+      <div className='h-full bg-white-bg text-center text-body min-[700px]:text-chart-title p-4 overflow-hidden shadow-lg'>
         <div className='mb-8 text-black-100'>Lus récemment</div>
         <div>
           {sortedBooks.map((book) => (
@@ -23,7 +23,7 @@ function ListCard({ variant, libraryBooks = [] }) {
       .filter((book) => book.isFavorite === true)
       .slice(0, 5);
     return (
-      <div className='h-[500px] bg-white-bg text-chart-title p-4 overflow-hidden shadow-lg'>
+      <div className='h-full bg-white-bg text-body min-[700px]:text-chart-title p-4 overflow-hidden shadow-lg'>
         <div className='flex gap-2 mb-8 justify-self-center text-black-100'>
           Coups de coeur{' '}
           <span className='text-primary-btn self-center'>
@@ -42,7 +42,7 @@ function ListCard({ variant, libraryBooks = [] }) {
 
 ListCard.propTypes = {
   variant: PropTypes.string.isRequired,
-  libraryBooks: PropTypes.array
+  libraryBooks: PropTypes.array,
 };
 
 export default ListCard;
