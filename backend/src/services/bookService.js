@@ -17,16 +17,7 @@ const transformIsbndbBook = (isbndbBook) => {
   let coverUrl = book.image || '/product-not-found.png';
 
   // Map book category
-  let category = 'Autres';
-  if (book.subjects && book.subjects.length > 0) {
-    for (const subject of book.subjects) {
-      const mapped = mapBookCategory(subject);
-      if (mapped && mapped !== 'Autres') {
-        category = mapped;
-        break;
-      }
-    }
-  }
+  const category = mapBookCategory(Array.isArray(book.subjects) ? book.subjects : []);
 
   return {
     isbn,
@@ -36,7 +27,7 @@ const transformIsbndbBook = (isbndbBook) => {
     publishedDate: book.date_published || book.publish_date || 'N/A',
     description: book.overview || book.synopsis || 'Pas de description.',
     pageCount: book.pages || 0,
-    category: category || 'Autres',
+    category,
     cover: coverUrl,
   };
 };
