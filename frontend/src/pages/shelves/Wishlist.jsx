@@ -32,7 +32,7 @@ function Wishlist() {
           Wishlist
         </h3>
       </div>
-      <div className='flex flex-wrap gap-4 mt-[16px] xs:mt-[32px]'>
+      <div className='flex flex-wrap gap-8 mt-[16px] xs:mt-[32px]'>
         {wishlistBooks.length > 0 &&
           wishlistBooks.map((book, index) => {
             return (

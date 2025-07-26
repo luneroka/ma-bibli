@@ -98,6 +98,12 @@ function LibraryList() {
   // Group books into an object like { "Science-Fiction": [book, ...], "Littérature": [book, ...] }
   const grouped = groupByGenre(filteredBooks());
 
+  // Compute available categories for the current filter
+  const filteredBooksArr = filteredBooks();
+  const availableCategories = Array.from(
+    new Set(filteredBooksArr.map((book) => book.category || 'Autres'))
+  ).sort((a, b) => a.localeCompare(b));
+
   // Filter have and have read
   const handleFilterClick = (filterValue) => {
     setActiveFilter(filterValue);
@@ -198,7 +204,7 @@ function LibraryList() {
                 </Listbox.Option>
 
                 {/* Category options */}
-                {categories.map((cat) => (
+                {availableCategories.map((cat) => (
                   <Listbox.Option
                     key={cat}
                     value={cat}
@@ -234,47 +240,62 @@ function LibraryList() {
         </Listbox>
       </div>
 
-      {/* Render "Shelves" */}
-      {Object.entries(grouped).map(([genre, books]) => {
-        // If user selected a specific category, skip rendering shelves of other genres.
-        if (selectedCategory && selectedCategory !== genre) {
-          return null;
-        }
+      {/* Render "Shelves" or grid depending on filter */}
+      {selectedCategory ? (
+        <div className='flex flex-wrap gap-8 mt-8 mb-6 xs:mb-8 sm:mb-10'>
+          {(grouped[selectedCategory] || [])
+            .slice()
+            .reverse()
+            .map((bookItem) => (
+              <BookInLibrary key={bookItem.isbn} book={bookItem} />
+            ))}
+        </div>
+      ) : (
+        Object.entries(grouped).map(([genre, books]) => {
+          return (
+            <div key={genre} className='mb-6 xs:mb-8 sm:mb-10'>
+              {/* Shelf heading */}
+              <h4 className='text-h6 xs:text-h5 min-[1450px]:text-h4 text-black-100 font-merriweather mb-2'>
+                {genre}
+              </h4>
 
-        return (
-          <div key={genre} className='mb-6 xs:mb-8 sm:mb-10'>
-            {/* Shelf heading */}
-            <h4 className='text-h6 xs:text-h5 min-[1450px]:text-h4 text-black-100 font-merriweather mb-2'>
-              {genre}
-            </h4>
-
-            <Swiper
-              slidesPerView={2}
-              spaceBetween={0}
-              navigation={true}
-              breakpoints={{
-                700: {
-                  slidesPerView: 3,
-                },
-                970: {
-                  slidesPerView: 5,
-                },
-                1350: {
-                  slidesPerView: 8,
-                },
-              }}
-              modules={[Pagination, Navigation]}
-              className='mySwiper'
-            >
-              {books.map((bookItem) => (
-                <SwiperSlide key={bookItem.isbn}>
-                  <BookInLibrary book={bookItem} />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-        );
-      })}
+              <Swiper
+                slidesPerView={2}
+                spaceBetween={0}
+                navigation={true}
+                breakpoints={{
+                  525: {
+                    slidesPerView: 3,
+                  },
+                  700: {
+                    slidesPerView: 4,
+                  },
+                  900: {
+                    slidesPerView: 5,
+                  },
+                  1050: {
+                    slidesPerView: 6,
+                  },
+                  1450: {
+                    slidesPerView: 8,
+                  },
+                }}
+                modules={[Pagination, Navigation]}
+                className='mySwiper'
+              >
+                {books
+                  .slice()
+                  .reverse()
+                  .map((bookItem) => (
+                    <SwiperSlide key={bookItem.isbn}>
+                      <BookInLibrary book={bookItem} />
+                    </SwiperSlide>
+                  ))}
+              </Swiper>
+            </div>
+          );
+        })
+      )}
     </div>
   );
 }

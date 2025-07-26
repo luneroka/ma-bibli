@@ -10,10 +10,10 @@ const fetchJson = async (url, options = {}) => {
 
 const categoryKeywords = {
   'Jeunesse & Young Adult': ['juvenile', 'young adult', 'children', "children's books", 'kids', 'teen', 'picture books', 'tween', 'middle grade', 'YA'],
-  'Littérature': ['fiction', 'paranormal', 'poetry', 'drama', 'literary', 'criticism', 'novel', 'short stories', 'narrative', 'classics'],
-  'Fantaisie & SF': ['fantasy', 'science fiction', 'fiction fantasy', 'fantasy fiction', 'fiction / fantasy'],
+  'Fantasy & SF': ['fantasy', 'science fiction', 'fiction fantasy', 'fantasy fiction', 'fiction / fantasy'],
   'Policier': ['detective', 'mystery', 'detective novel', 'detective stories', 'detective fiction', 'thrillers', 'suspense', 'crime & mystery'],
   'BD & Manga': ['comics', 'graphic novels', 'manga', 'bd', 'anime', 'superhero', 'comic book'],
+  'Littérature': ['fiction', 'paranormal', 'poetry', 'drama', 'literary', 'criticism', 'novel', 'short stories', 'narrative', 'classics'],
   'Business': ['business', 'economics', 'finance', 'law', 'political', 'management', 'money', 'investing', 'entrepreneurship', 'startup', 'leadership', 'marketing', 'strategy'],
   'Développement Personnel': ['body', 'mind', 'spirit', 'self-help', 'health', 'fitness', 'psychology', 'wellness', 'motivation', 'productivity', 'happiness', 'meditation', 'mental health'],
   'Non-fiction': [
