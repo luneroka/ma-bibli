@@ -41,7 +41,7 @@ function SingleBookPage() {
             </span>
           </div>
         ) : bookError ? (
-          <div className='text-center py-16 text-lg text-red-500'>
+          <div className='text-black-100 justify-start text-body font-merriweather'>
             {bookError === 'Not found' ||
             bookError === 'Book not found' ||
             bookError === 'Failed to fetch the book' ||
