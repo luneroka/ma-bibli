@@ -202,11 +202,6 @@ function Register() {
               Se connecter avec Google
             </button>
           </div>
-
-          {/* Copyrights */}
-          <p className='text-xs text-center mt-6 text-black-50'>
-            &copy;2025 Ma Bibli. Tous droits réservés.
-          </p>
         </div>
       </div>
     </div>
