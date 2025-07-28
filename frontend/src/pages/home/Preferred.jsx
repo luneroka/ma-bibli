@@ -5,10 +5,11 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Pagination, Navigation } from 'swiper/modules';
 import PropTypes from 'prop-types';
+import { FaSpinner } from 'react-icons/fa';
 
 const Preferred = ({ preferred, libraryBooks = [], wishlistBooks = [] }) => {
-  // Use the correct property from the API payload
   const books = Array.isArray(preferred?.items) ? preferred.items : [];
+  const isLoading = preferred == null;
 
   return (
     <>
@@ -18,43 +19,52 @@ const Preferred = ({ preferred, libraryBooks = [], wishlistBooks = [] }) => {
         </h2>
       </div>
 
-      <Swiper
-        slidesPerView={1}
-        spaceBetween={30}
-        navigation={true}
-        breakpoints={{
-          640: {
-            slidesPerView: 1,
-            spaceBetween: 20,
-          },
-          750: {
-            slidesPerView: 2,
-            spaceBetween: 40,
-          },
-          1050: {
-            slidesPerView: 3,
-            spaceBetween: 50,
-          },
-          1450: {
-            slidesPerView: 4,
-            spaceBetween: 50,
-          },
-        }}
-        modules={[Pagination, Navigation]}
-        className='mySwiper'
-      >
-        <div className='flex gap-[145px]'>
-          {books.map((book, idx) => (
-            <SwiperSlide key={book.isbn || book.id || idx}>
-              <BookCard
-                book={book}
-                libraryBooks={libraryBooks}
-                wishlistBooks={wishlistBooks}
-              />
-            </SwiperSlide>
-          ))}
+      {isLoading ? (
+        <div className='flex items-center justify-center py-16'>
+          <FaSpinner className='animate-spin text-3xl text-black-50' />
+          <span className='ml-4 text-lg text-black-50'>
+            Chargement des recommandations…
+          </span>
         </div>
-      </Swiper>
+      ) : (
+        <Swiper
+          slidesPerView={1}
+          spaceBetween={30}
+          navigation={true}
+          breakpoints={{
+            640: {
+              slidesPerView: 1,
+              spaceBetween: 20,
+            },
+            750: {
+              slidesPerView: 2,
+              spaceBetween: 40,
+            },
+            1050: {
+              slidesPerView: 3,
+              spaceBetween: 50,
+            },
+            1450: {
+              slidesPerView: 4,
+              spaceBetween: 50,
+            },
+          }}
+          modules={[Pagination, Navigation]}
+          className='mySwiper'
+        >
+          <div className='flex gap-[145px]'>
+            {books.map((book, idx) => (
+              <SwiperSlide key={book.isbn || book.id || idx}>
+                <BookCard
+                  book={book}
+                  libraryBooks={libraryBooks}
+                  wishlistBooks={wishlistBooks}
+                />
+              </SwiperSlide>
+            ))}
+          </div>
+        </Swiper>
+      )}
     </>
   );
 };
