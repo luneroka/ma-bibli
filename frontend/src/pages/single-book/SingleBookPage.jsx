@@ -36,10 +36,18 @@ function SingleBookPage() {
         {status === 'loading' ? (
           <div className='flex items-center justify-center py-16'>
             <FaSpinner className='animate-spin text-3xl text-black-50' />
+            <span className='ml-4 text-lg text-black-50'>
+              Chargement des informations du livre…
+            </span>
           </div>
         ) : bookError ? (
           <div className='text-center py-16 text-lg text-red-500'>
-            {bookError || 'Error loading book details'}
+            {bookError === 'Not found' ||
+            bookError === 'Book not found' ||
+            bookError === 'Failed to fetch the book' ||
+            (typeof bookError === 'object' && bookError.status === 404)
+              ? 'Livre introuvable.'
+              : bookError || 'Erreur lors du chargement des détails du livre.'}
           </div>
         ) : book ? (
           <>
@@ -51,8 +59,10 @@ function SingleBookPage() {
             <FromSameAuthor />
           </>
         ) : (
-          <div className='text-center py-16 text-lg'>
-            No book data available
+          <div className='text-center py-16 text-lg text-black-50'>
+            Aucune donnée disponible pour ce livre.
+            <br />
+            Veuillez vérifier l&apos;ISBN ou réessayer plus tard.
           </div>
         )}
       </main>
