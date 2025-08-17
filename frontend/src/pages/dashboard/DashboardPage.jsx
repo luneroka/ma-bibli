@@ -1,6 +1,5 @@
 import { useContext, useState } from 'react';
 import NavbarSearch from '../../components/Navbar/NavbarSearch';
-import Footer from '../../components/Footer';
 import DashHeader from './DashHeader';
 import DashBody from './DashBody';
 import { ReadingObjectiveContext } from '../../context/ReadingObjectiveContext';
@@ -22,7 +21,6 @@ function DashboardPage() {
           readingObjective={readingObjective}
         />
       </main>
-      <Footer />
     </>
   );
 }
