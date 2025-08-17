@@ -1,3 +1,7 @@
+/**
+ * @deprecated This component is deprecated.
+ */
+
 import BookCard from '../../components/Book/BookCard';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
