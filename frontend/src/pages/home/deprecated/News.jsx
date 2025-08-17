@@ -1,3 +1,7 @@
+/**
+ * @deprecated This component is deprecated.
+ */
+
 import NewsCard from '../../components/NewsCard';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';

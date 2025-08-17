@@ -6,7 +6,6 @@ import { store } from './redux/store.js';
 import { AuthProvider } from './context/AuthContext';
 
 import App from './App.jsx';
-import HomePage from './pages/home/HomePage.jsx';
 import Login from './pages/auth/Login.jsx';
 import Register from './pages/auth/Register.jsx';
 import SingleBookPage from './pages/single-book/SingleBookPage.jsx';
@@ -23,6 +22,7 @@ import AuthConfirmation from './pages/auth/AuthConfirmation.jsx';
 import { ReadingObjectiveProvider } from './context/ReadingObjectiveContext.jsx';
 import BookEditForm from './pages/shelves/BookEditForm.jsx';
 import BookCreateForm from './pages/shelves/BookCreateForm.jsx';
+import NewHomePage from './pages/home/NewHomePage.jsx';
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
@@ -32,7 +32,7 @@ createRoot(document.getElementById('root')).render(
           <Routes>
             {/* HOME ROUTES */}
             <Route path='/' element={<App />}>
-              <Route index element={<HomePage />} />
+              <Route index element={<NewHomePage />} />
             </Route>
 
             {/* AUTH LAYOUT ROUTES */}

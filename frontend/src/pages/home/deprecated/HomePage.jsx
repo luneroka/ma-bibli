@@ -1,3 +1,8 @@
+/**
+ * @deprecated This component is deprecated. Use NewHomePage instead.
+ * @see NewHomePage
+ */
+
 import { useEffect } from 'react';
 import Preferred from './Preferred';
 import News from './News';
@@ -20,7 +25,10 @@ const HomePage = () => {
 
   useEffect(() => {
     dispatch(
-      createSearchPreferredAsync('preferred', getApiPath('/api/search/preferred'))()
+      createSearchPreferredAsync(
+        'preferred',
+        getApiPath('/api/search/preferred')
+      )()
     );
     dispatch(createGetNewsAsync('news', getApiPath('/api/news'))());
 
