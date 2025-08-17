@@ -5,7 +5,6 @@ import NavbarSearch from '../../components/Navbar/NavbarSearch';
 import SingleBookFromLibrary from './SingleBookFromLibrary';
 import SingleBookFromApi from './SingleBookFromApi';
 import FromSameAuthor from './FromSameAuthor';
-import Footer from '../../components/Footer';
 import { getSingleBookAsync } from '../../redux/features/single-book/singleBookAsyncActions';
 import { FaSpinner } from 'react-icons/fa';
 
@@ -66,7 +65,6 @@ function SingleBookPage() {
           </div>
         )}
       </main>
-      <Footer />
     </>
   );
 }

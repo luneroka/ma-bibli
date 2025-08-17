@@ -1,9 +1,9 @@
 const themes = {
   default: {
-    '--color-main-blue': '#3e4c74',
-    '--color-primary-btn': '#f76c5e',
-    '--color-secondary-btn': '#5b8fa1',
-    '--color-white-bg': '#f9f9f9',
+    '--color-main-blue': '#5D6D7E',
+    '--color-primary-btn': '#E67E22',
+    '--color-secondary-btn': '#85C1E9',
+    '--color-white-bg': '#F8F9F9',
     '--color-body-bg': '#f9f9f9',
     '--color-dash-bg': '#e5e5e5',
     '--color-white-100': 'rgba(255, 255, 255, 1)',
@@ -123,11 +123,11 @@ const themes = {
     '--color-alert-yellow-bg': 'rgb(255, 243, 205)',
     '--color-alert-yellow-border': 'rgb(255, 238, 186)',
   },
-  vintageTouch: {
-    '--color-main-blue': '#5D6D7E',
-    '--color-primary-btn': '#E67E22',
-    '--color-secondary-btn': '#85C1E9',
-    '--color-white-bg': '#F8F9F9',
+  maBibli: {
+    '--color-main-blue': '#3e4c74',
+    '--color-primary-btn': '#f76c5e',
+    '--color-secondary-btn': '#5b8fa1',
+    '--color-white-bg': '#f9f9f9',
     '--color-body-bg': '#f9f9f9',
     '--color-dash-bg': '#e5e5e5',
     '--color-white-100': 'rgba(255, 255, 255, 1)',

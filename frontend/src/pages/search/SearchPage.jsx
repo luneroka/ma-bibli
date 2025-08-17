@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import SearchResults from './SearchResults';
-import Footer from '../../components/Footer';
 import NavbarSearch from '../../components/Navbar/NavbarSearch';
 import {
   createSearchBooksAsync,
@@ -62,7 +61,6 @@ function SearchPage() {
           />
         )}
       </main>
-      <Footer />
     </>
   );
 }

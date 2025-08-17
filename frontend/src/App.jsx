@@ -5,7 +5,6 @@ import { getLibraryBooksAsync } from './redux/features/library/libraryAsyncActio
 import { getWishlistBooksAsync } from './redux/features/wishlist/wishlistAsyncActions';
 import './styles/App.css';
 import Navbar from './components/Navbar/Navbar';
-import Footer from './components/Footer';
 import themes from './assets/themes';
 
 const applyTheme = (themeKey) => {
@@ -35,7 +34,6 @@ function App() {
       <main className='flex-1 min-h-0 max-w-full mx-auto font-lato'>
         <Outlet />
       </main>
-      <Footer />
     </>
   );
 }
