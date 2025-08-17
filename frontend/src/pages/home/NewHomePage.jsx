@@ -1,9 +1,10 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 
-import screenshotLibrary from '../../assets/screenshot-library.png';
-import screenshotDashboard from '../../assets/screenshot-dashboard.png';
-import screenshotSingleBook from '../../assets/screenshot-singleBook.png';
+import presentationIndex from '../../assets/presentation-index.png';
+import presentationSingleBook from '../../assets/presentation-singlebook.png';
+import presentationLibrary from '../../assets/presentation-library.png';
+import presentationDashboard from '../../assets/presentation-dashboard.png';
 
 const NewHomePage = () => {
   return (
@@ -85,37 +86,44 @@ const NewHomePage = () => {
               spaceBetween={50}
               pagination={{
                 clickable: true,
-                dynamicBullets: true,
               }}
               modules={[Pagination]}
               style={{
                 paddingBottom: '64px',
-                '--swiper-pagination-bullet-size': '12px',
+                '--swiper-pagination-bullet-size': '16px',
+                '--swiper-pagination-bullet-inactive-size': '16px',
                 '--swiper-pagination-bullet-horizontal-gap': '8px',
                 '--swiper-pagination-color': '#e67e23',
                 '--swiper-pagination-bullet-inactive-color': '#999',
-                '--swiper-pagination-bullet-inactive-opacity': '0.5',
+                '--swiper-pagination-bullet-inactive-opacity': '0.75',
                 zIndex: 30,
               }}
             >
               <SwiperSlide>
                 <img
-                  src={screenshotLibrary}
-                  alt='Ma Bibli Library Screenshot'
+                  src={presentationIndex}
+                  alt='Ma Bibli Index Presentation'
                   className='w-full h-full object-cover rounded-lg'
                 />
               </SwiperSlide>
               <SwiperSlide>
                 <img
-                  src={screenshotSingleBook}
-                  alt='Ma Bibli Single Book Screenshot'
+                  src={presentationSingleBook}
+                  alt='Ma Bibli Single Book Presentation'
                   className='w-full h-full object-cover rounded-lg'
                 />
               </SwiperSlide>
               <SwiperSlide>
                 <img
-                  src={screenshotDashboard}
-                  alt='Ma Bibli Dashboard Detail Screenshot'
+                  src={presentationLibrary}
+                  alt='Ma Bibli Library Presentation'
+                  className='w-full h-full object-cover rounded-lg'
+                />
+              </SwiperSlide>
+              <SwiperSlide>
+                <img
+                  src={presentationDashboard}
+                  alt='Ma Bibli Dashboard Presentation'
                   className='w-full h-full object-cover rounded-lg'
                 />
               </SwiperSlide>

@@ -5,7 +5,7 @@
 ## Screenshots
 
 ![Ma Bibli - Home Page](https://github.com/luneroka/ma-bibli/blob/main/frontend/src/assets/screenshot-homepage.png)
-![Ma Bibli - User Book Shelves](https://github.com/luneroka/ma-bibli/blob/main/frontend/src/assets/screenshot-library.png)
+![Ma Bibli - Book Page](https://github.com/luneroka/ma-bibli/blob/main/frontend/src/assets/screenshot-singlebook.png)
 ![Ma Bibli - User Dashboard](https://github.com/luneroka/ma-bibli/blob/main/frontend/src/assets/screenshot-dashboard.png)
 
 ## 📚 Features
