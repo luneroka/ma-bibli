@@ -34,11 +34,11 @@ function ThemeSwitcher() {
         onChange={handleThemeChange}
         className='focus:outline-none w-full'
       >
-        <option value='default'>Ma Bibli (défaut)</option>
+        <option value='default'>Vintage (default)</option>
+        <option value='maBibli'>Ma Bibli</option>
         <option value='urbanIndus'>Urban Indus</option>
         <option value='spookyHalloween'>Spooky Halloween</option>
         <option value='coastalCalm'>Coastal Calm</option>
-        <option value='vintageTouch'>Vintage Touch</option>
         <option value='tropicalPunch'>Tropical Punch</option>
         <option value='oceanBreeze'>Ocean Breeze</option>
         <option value='sunsetVibes'>Sunset Vibes</option>
