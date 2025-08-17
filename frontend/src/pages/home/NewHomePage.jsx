@@ -93,7 +93,7 @@ const NewHomePage = () => {
                 '--swiper-pagination-bullet-size': '16px',
                 '--swiper-pagination-bullet-inactive-size': '16px',
                 '--swiper-pagination-bullet-horizontal-gap': '8px',
-                '--swiper-pagination-color': '#e67e23',
+                '--swiper-pagination-color': 'var(--color-primary-btn)',
                 '--swiper-pagination-bullet-inactive-color': '#999',
                 '--swiper-pagination-bullet-inactive-opacity': '0.75',
                 zIndex: 30,
