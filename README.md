@@ -4,9 +4,9 @@
 
 ## Screenshots
 
-![Ma Bibli - Home Page](https://github.com/luneroka/ma-bibli/blob/main/frontend/src/assets/mabibli-homepage.png)
-![Ma Bibli - User Book Shelves](https://github.com/luneroka/ma-bibli/blob/main/frontend/src/assets/mabibli-bookshelves.png)
-![Ma Bibli - User Dashboard](https://github.com/luneroka/ma-bibli/blob/main/frontend/src/assets/mabibli-dashboard.png)
+![Ma Bibli - Home Page](https://github.com/luneroka/ma-bibli/blob/main/frontend/src/assets/screenshot-homepage.png)
+![Ma Bibli - User Book Shelves](https://github.com/luneroka/ma-bibli/blob/main/frontend/src/assets/screenshot-library.png)
+![Ma Bibli - User Dashboard](https://github.com/luneroka/ma-bibli/blob/main/frontend/src/assets/screenshot-dashboard.png)
 
 ## 📚 Features
 
@@ -46,6 +46,10 @@ The application is deployed using [Vercel](https://vercel.com/), ensuring fast a
 - **Frontend**: Hosted on Vercel
 - **Backend**: Hosted on Vercel Serverless Functions
 - **Environment Variables**: Managed securely via Vercel's environment variable system
+
+## 🙏 Credits
+
+Home Page inspired by [insetbooks](https://insetbooks.com/).
 
 ## 📝 License
 
