@@ -170,6 +170,10 @@ function Login() {
               Se connecter avec Google
             </button>
           </div>
+
+          <p className='text-xs text-black-25 text-center mt-8'>
+            &copy; 2025 Ma Bibli. Tous droits réservés.
+          </p>
         </div>
       </div>
     </div>
