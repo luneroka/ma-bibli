@@ -5,6 +5,56 @@ import PropTypes from 'prop-types';
 function BarcodeScanner({ onDetected, onClose }) {
   const videoRef = useRef(null);
   const codeReaderRef = useRef(null);
+  const fileInputRef = useRef(null);
+  const canvasRef = useRef(null);
+
+  // Detect iPhone device
+  const isIPhone = /iPhone/.test(navigator.userAgent);
+
+  // Photo scanning function for iPhone
+  const handlePhotoUpload = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    try {
+      const img = new Image();
+      img.onload = async () => {
+        try {
+          const canvas = canvasRef.current;
+          const ctx = canvas.getContext('2d');
+          canvas.width = img.width;
+          canvas.height = img.height;
+          ctx.drawImage(img, 0, 0);
+
+          const imageReader = new BrowserMultiFormatReader();
+          const result = await imageReader.decodeFromCanvas(canvas);
+
+          if (result) {
+            onDetected(result.getText());
+            onClose();
+          } else {
+            alert("Aucun code-barres trouvé dans l'image. Veuillez réessayer.");
+          }
+        } catch (err) {
+          console.error('Error scanning image:', err);
+          alert(
+            "Impossible de scanner le code-barres depuis l'image. Essayez une photo plus nette."
+          );
+        }
+      };
+
+      img.onerror = () => {
+        alert("Impossible de charger l'image. Veuillez réessayer.");
+      };
+
+      img.src = URL.createObjectURL(file);
+    } catch (err) {
+      console.error('Error processing photo:', err);
+      alert('Erreur lors du traitement de la photo. Veuillez réessayer.');
+    }
+
+    event.target.value = '';
+  };
 
   useEffect(() => {
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
@@ -31,7 +81,7 @@ function BarcodeScanner({ onDetected, onClose }) {
       .decodeFromVideoDevice(
         null,
         videoRef.current,
-        (result, err) => {
+        (result) => {
           if (result) {
             onDetected(result.getText());
             onClose();
@@ -69,12 +119,38 @@ function BarcodeScanner({ onDetected, onClose }) {
           playsInline
           style={{ objectFit: 'cover' }}
         />
+
+        {/* iPhone photo scanning option */}
+        {isIPhone && (
+          <button
+            onClick={() => fileInputRef.current?.click()}
+            className='cursor-pointer mt-2 px-4 py-2 bg-secondary-btn text-white shadow hover:bg-primary-btn text-small'
+          >
+            📷 Scanner Photo
+          </button>
+        )}
+
         <button
           onClick={onClose}
           className='cursor-pointer mt-2 px-4 py-2 bg-primary-btn text-white shadow hover:bg-secondary-btn'
         >
           Fermer
         </button>
+
+        {/* Hidden file input for iPhone photo capture */}
+        {isIPhone && (
+          <>
+            <input
+              ref={fileInputRef}
+              type='file'
+              accept='image/*'
+              capture='environment'
+              onChange={handlePhotoUpload}
+              className='hidden'
+            />
+            <canvas ref={canvasRef} className='hidden' />
+          </>
+        )}
       </div>
     </div>
   );
