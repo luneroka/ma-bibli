@@ -1,4 +1,4 @@
-# ![Ma Bibli Logo](./frontend/src/assets/page-icon.png) Ma Bibli - Personal Book Library App
+# <img src="./frontend/public/ma-bibli-icon.svg" alt="Ma Bibli Logo" width="32" height="32"> Ma Bibli - Personal Book Library App
 
 **Ma Bibli** is a full-stack web application for managing your personal book collection. Create, organize, and track your reading habits with an intuitive interface.
 
