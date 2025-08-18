@@ -5,6 +5,7 @@ import presentationIndex from '../../assets/presentation-index.png';
 import presentationSingleBook from '../../assets/presentation-singlebook.png';
 import presentationLibrary from '../../assets/presentation-library.png';
 import presentationDashboard from '../../assets/presentation-dashboard.png';
+import presentationProfile from '../../assets/presentation-profile.png';
 
 const NewHomePage = () => {
   return (
@@ -124,6 +125,13 @@ const NewHomePage = () => {
                 <img
                   src={presentationDashboard}
                   alt='Ma Bibli Dashboard Presentation'
+                  className='w-full h-full object-cover rounded-lg'
+                />
+              </SwiperSlide>
+              <SwiperSlide>
+                <img
+                  src={presentationProfile}
+                  alt='Ma Bibli Profile Presentation'
                   className='w-full h-full object-cover rounded-lg'
                 />
               </SwiperSlide>
