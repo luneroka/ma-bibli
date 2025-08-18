@@ -1,10 +1,10 @@
 import { useState, useRef } from 'react';
-import { IoHome } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import { FaUser } from 'react-icons/fa';
 import avatarImg from '../../assets/avatar.png';
 import { useAuth } from '../../context/AuthContext';
 import DropdownMenu from './DropdownMenu';
+import MaBibliLogo from '../MaBibliLogo';
 
 function NavbarUser() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -18,7 +18,8 @@ function NavbarUser() {
         <div className='flex items-center gap-4'>
           {/* Home Icon */}
           <Link to='/'>
-            <IoHome className='cursor-pointer size-7 text-white hover:text-primary-btn' />
+            {/* <IoHome className='cursor-pointer size-7 text-white hover:text-primary-btn' /> */}
+            <MaBibliLogo width={28} height={28} />
           </Link>
         </div>
 

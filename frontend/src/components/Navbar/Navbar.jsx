@@ -42,7 +42,7 @@ const Navbar = () => {
         const res = await fetch(getApiPath(`/api/books/${isbn}`));
         const book = await res.json();
         navigate(`/livres/${isbn}`, { state: { book } });
-      } catch (err) {
+      } catch {
         navigate('/recherche', {
           state: { searchTerm: isbn, error: 'Livre non trouvé.' },
         });

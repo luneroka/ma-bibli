@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { IoHome } from 'react-icons/io5';
+import MaBibliLogo from '../MaBibliLogo';
 
 function NavbarAuth() {
   return (
@@ -9,7 +9,8 @@ function NavbarAuth() {
         <div className='flex items-center gap-4'>
           {/* Search Input */}
           <Link to='/'>
-            <IoHome className='cursor-pointer w-6 h-6 text-white hover:text-primary-btn' />
+            {/* <IoHome className='cursor-pointer w-6 h-6 text-white hover:text-primary-btn' /> */}
+            <MaBibliLogo width={28} height={28} />
           </Link>
         </div>
       </nav>
