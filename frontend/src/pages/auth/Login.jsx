@@ -3,6 +3,7 @@ import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { FaGoogle, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../../context/AuthContext';
+import MaBibliIcon from '../../components/MaBibliIcon';
 
 function Login() {
   const [message, setMessage] = useState('');
@@ -55,7 +56,8 @@ function Login() {
     <div className='flex flex-col flex-1 min-h-0 min-w-[300px] xs:min-w-[500px] max-w-full mx-auto font-lato'>
       <div className='flex-grow flex items-center justify-center my-[16px] sm:my-[32px] md:my-[48px]'>
         <div className='bg-white-bg p-8 shadow-md w-full max-w-md'>
-          <h2 className='text-h5 text-black-100 mb-8 font-merriweather'>
+          <h2 className='text-h5 text-black-100 mb-8 font-merriweather flex items-center gap-4'>
+            <MaBibliIcon width={28} height={28} />
             Mon coin lecture
           </h2>
 

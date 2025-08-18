@@ -68,7 +68,7 @@ function Register() {
       <div className='flex-grow flex items-center justify-center my-[16px] sm:my-[32px] md:my-[48px]'>
         <div className='bg-white-bg p-8 shadow-md w-full max-w-md'>
           <h2 className='text-h5 text-black-100 mb-8 font-merriweather flex items-center gap-4'>
-            <MaBibliIcon width={40} height={40} />
+            <MaBibliIcon width={28} height={28} />
             Créer mon coin lecture
           </h2>
 
