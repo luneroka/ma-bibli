@@ -11,12 +11,7 @@ function Login() {
   const { loginUser, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const {
-    register,
-    handleSubmit,
-    getValues,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, getValues } = useForm();
 
   // Get the redirection target from location.state or default to '/'
   const redirectTo = location.state?.from || '/';
@@ -29,7 +24,7 @@ function Login() {
     try {
       await loginUser(data.email, data.password);
       navigate(redirectTo);
-    } catch (error) {
+    } catch {
       setMessage({
         text: 'Veuillez fournir un email et un mot de passe valides.',
         type: 'failure',
@@ -41,7 +36,7 @@ function Login() {
     try {
       await signInWithGoogle();
       navigate(redirectTo);
-    } catch (error) {
+    } catch {
       alert('La connexion avec Google a échoué.');
     }
   };
@@ -69,9 +64,9 @@ function Login() {
                   className={`text-small mb-4 p-2 ${
                     message.type === 'success'
                       ? 'text-alert-green-txt bg-alert-green-bg border-alert-green-border'
-                      : (message.type = 'failure'
-                          ? 'text-alert-red-txt bg-alert-red-bg border-alert-red-border'
-                          : 'text-alert-yellow-txt bg-alert-yellow-bg border-alert-yellow-border')
+                      : message.type === 'failure'
+                      ? 'text-alert-red-txt bg-alert-red-bg border-alert-red-border'
+                      : 'text-alert-yellow-txt bg-alert-yellow-bg border-alert-yellow-border'
                   }`}
                 >
                   {message.text}
