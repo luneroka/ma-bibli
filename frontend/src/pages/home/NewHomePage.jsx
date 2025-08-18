@@ -77,7 +77,7 @@ const NewHomePage = () => {
 
         {/* Main Content */}
         <h1 className='font-merriweather text-h6 relative z-20'>
-          Ma Bibli, votre bibliothèque interactive
+          Ma Bibli, ta bibliothèque interactive
         </h1>
         <div className='w-full max-w-2xl max-h-[600px] mx-auto shadow-2xl rounded-lg pb-8 relative z-20 hidden sm:block'>
           <div className='relative z-30'>
