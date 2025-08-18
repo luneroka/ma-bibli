@@ -1,21 +1,16 @@
 import { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaGoogle, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../../context/AuthContext';
 import PasswordChecklist from 'react-password-checklist';
+import MaBibliIcon from '../../components/MaBibliIcon';
 
 function Register() {
   const [message, setMessage] = useState('');
   const { registerUser, signInWithGoogle } = useAuth();
-  const { state } = useLocation();
-  const { type } = state || {};
   const navigate = useNavigate();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit } = useForm();
 
   // Local state for password visibility and values
   const [passwordVisibility, setPasswordVisibility] = useState(false);
@@ -72,7 +67,8 @@ function Register() {
     <div className='flex flex-col flex-1 min-h-0 min-w-[300px] xs:min-w-[500px] max-w-full mx-auto font-lato'>
       <div className='flex-grow flex items-center justify-center my-[16px] sm:my-[32px] md:my-[48px]'>
         <div className='bg-white-bg p-8 shadow-md w-full max-w-md'>
-          <h2 className='text-h5 text-black-100 mb-8 font-merriweather'>
+          <h2 className='text-h5 text-black-100 mb-8 font-merriweather flex items-center gap-4'>
+            <MaBibliIcon width={28} height={28} />
             Créer mon coin lecture
           </h2>
 
@@ -84,9 +80,9 @@ function Register() {
                   className={`text-small mb-4 p-2 ${
                     message.type === 'success'
                       ? 'text-alert-green-txt bg-alert-green-bg border-alert-green-border'
-                      : (message.type = 'failure'
-                          ? 'text-alert-red-txt bg-alert-red-bg border-alert-red-border'
-                          : 'text-alert-yellow-txt bg-alert-yellow-bg border-alert-yellow-border')
+                      : message.type === 'failure'
+                      ? 'text-alert-red-txt bg-alert-red-bg border-alert-red-border'
+                      : 'text-alert-yellow-txt bg-alert-yellow-bg border-alert-yellow-border'
                   }`}
                 >
                   {message.text}
@@ -148,7 +144,11 @@ function Register() {
                     onClick={() => toggleConfirmationPasswordVisibility()}
                     className='cursor-pointer absolute right-3 inset-y-0 my-auto text-black-50'
                   >
-                    {passwordVisibility ? <FaEyeSlash /> : <FaEye />}
+                    {confirmationPasswordVisibility ? (
+                      <FaEyeSlash />
+                    ) : (
+                      <FaEye />
+                    )}
                   </button>
                 </div>
               </div>

@@ -3,6 +3,7 @@ import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { FaGoogle, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../../context/AuthContext';
+import MaBibliIcon from '../../components/MaBibliIcon';
 
 function Login() {
   const [message, setMessage] = useState('');
@@ -10,12 +11,7 @@ function Login() {
   const { loginUser, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const {
-    register,
-    handleSubmit,
-    getValues,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, getValues } = useForm();
 
   // Get the redirection target from location.state or default to '/'
   const redirectTo = location.state?.from || '/';
@@ -28,7 +24,7 @@ function Login() {
     try {
       await loginUser(data.email, data.password);
       navigate(redirectTo);
-    } catch (error) {
+    } catch {
       setMessage({
         text: 'Veuillez fournir un email et un mot de passe valides.',
         type: 'failure',
@@ -40,7 +36,7 @@ function Login() {
     try {
       await signInWithGoogle();
       navigate(redirectTo);
-    } catch (error) {
+    } catch {
       alert('La connexion avec Google a échoué.');
     }
   };
@@ -55,7 +51,8 @@ function Login() {
     <div className='flex flex-col flex-1 min-h-0 min-w-[300px] xs:min-w-[500px] max-w-full mx-auto font-lato'>
       <div className='flex-grow flex items-center justify-center my-[16px] sm:my-[32px] md:my-[48px]'>
         <div className='bg-white-bg p-8 shadow-md w-full max-w-md'>
-          <h2 className='text-h5 text-black-100 mb-8 font-merriweather'>
+          <h2 className='text-h5 text-black-100 mb-8 font-merriweather flex items-center gap-4'>
+            <MaBibliIcon width={28} height={28} />
             Mon coin lecture
           </h2>
 
@@ -67,9 +64,9 @@ function Login() {
                   className={`text-small mb-4 p-2 ${
                     message.type === 'success'
                       ? 'text-alert-green-txt bg-alert-green-bg border-alert-green-border'
-                      : (message.type = 'failure'
-                          ? 'text-alert-red-txt bg-alert-red-bg border-alert-red-border'
-                          : 'text-alert-yellow-txt bg-alert-yellow-bg border-alert-yellow-border')
+                      : message.type === 'failure'
+                      ? 'text-alert-red-txt bg-alert-red-bg border-alert-red-border'
+                      : 'text-alert-yellow-txt bg-alert-yellow-bg border-alert-yellow-border'
                   }`}
                 >
                   {message.text}

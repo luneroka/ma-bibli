@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaListAlt, FaBookOpen, FaUser } from 'react-icons/fa';
-import { IoSearchOutline, IoCloseOutline, IoHome } from 'react-icons/io5';
+import { IoSearchOutline, IoCloseOutline } from 'react-icons/io5';
 import { CiBarcode } from 'react-icons/ci';
 import avatarImg from '../../assets/avatar.png';
 import { useDispatch } from 'react-redux';
@@ -10,6 +10,7 @@ import { useAuth } from '../../context/AuthContext';
 import DropdownMenu from './DropdownMenu';
 import BarcodeScanner from './BarcodeScanner';
 import { getApiPath } from '../../utils/apiConfig';
+import MaBibliLogo from '../MaBibliLogo';
 
 const NavbarSearch = () => {
   const location = useLocation();
@@ -49,7 +50,7 @@ const NavbarSearch = () => {
         const res = await fetch(getApiPath(`/api/books/${isbn}`));
         const book = await res.json();
         navigate(`/livres/${isbn}`, { state: { book } });
-      } catch (err) {
+      } catch {
         navigate('/recherche', {
           state: { searchTerm: isbn, error: 'Livre non trouvé.' },
         });
@@ -124,7 +125,8 @@ const NavbarSearch = () => {
         <nav className='flex justify-between items-center px-[32px] sm:px-[64px] lg:px-[128px] py-[17px]'>
           {/* Left side */}
           <Link to='/'>
-            <IoHome className='cursor-pointer size-7 text-white hover:text-primary-btn' />
+            {/* <IoHome className='cursor-pointer size-7 text-white hover:text-primary-btn' /> */}
+            <MaBibliLogo width={28} height={28} />
           </Link>
 
           {/* Middle */}
